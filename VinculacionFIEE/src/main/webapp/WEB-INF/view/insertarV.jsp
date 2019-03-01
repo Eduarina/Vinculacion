@@ -42,8 +42,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Lista de Administradores
-                            <small>Usuarios de Vinculación</small>
+                            Registrar Administrador
+                            <small>Usuario de Vinculación</small>
                         </h1>
                         <ol class="breadcrumb">
                             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -52,52 +52,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </section>
 
                     <!-- Main content -->
-                    <section class="content">
+                    <section class="content container-fluid">
+
+                        <!--------------------------
+                        | Your Page Content Here |
+                        -------------------------->
                         <div class="row">
-                            <div class="col-xs-12">
+                            <div class="col-md-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <a href="insertarUsuarioV" class="btn btn-primary">Agregar</a>
+                                        <h3 class="box-title">Nuevo Usuario</h3>
                                     </div>
                                     <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <table id="example1" class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Id</th>
-                                                    <th>Nombre</th>
-                                                    <th>Usuario</th>
-                                                    <th>Contraseña</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            <c:forEach items="${usuarios}" var="dato">
-                                                <tr>
-                                                    <td> <c:out value="${dato.idvinculacion}"/></td>
-                                                    <td> <c:out value="${dato.nombre}"/></td>
-                                                    <td> <c:out value="${dato.usuario}"/></td>
-                                                    <td> <c:out value="${dato.password}"/></td>
-                                                    <td>
-                                                        <a href="editarUsuarioV?id=${dato.idvinculacion}" class="btn btn-warning">Editar</a>
-                                                        <a href="borrarUsuarioV?id=${dato.idvinculacion}" class="btn btn-danger">Eliminar</a>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
+                                    <!-- form start -->
+                                    <form role="form" method="POST">
+                                        <div class="box-body">
+                                            <div class="form-group col-md-6">
+                                                <label for="nombre">Nombre del Usuario</label>
+                                                <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Usuario..." onkeyup="javascript:this.value = this.value.toUpperCase();">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="usuario">Usuario</label>
+                                                <input id="usuario" name="usuario" type="text" class="form-control" placeholder="Usuario...">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="password">Contraseña</label>
+                                                <input id="password" name="password" type="text" class="form-control" placeholder="Contraseña...">
+                                            </div>
+                                        </div>
+                                        <div class="box-footer">
+                                            <button type="submit" class="btn btn-success">Aceptar</button>
+                                            <a href="usuariosV" class="btn btn-default">Cancelar</a>
+                                        </div>
+                                    </form>
                                 </div>
-                                <!-- /.box-body -->
                             </div>
-                            <!-- /.box -->
                         </div>
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </section>
-                <!-- /.content -->
-            </div>
-            <!-- /.content-wrapper -->
+
+                    </section>
+                    <!-- /.content -->
+                </div>
+                <!-- /.content-wrapper -->
 
             <jsp:include page="includes/footer.jsp"></jsp:include>
 

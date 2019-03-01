@@ -37,61 +37,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <jsp:include page="includes/lateral.jsp"></jsp:include>
 
-                <!-- Content Wrapper. Contains page content -->
-                <div class="content-wrapper">
-                    <!-- Content Header (Page header) -->
-                    <section class="content-header">
-                        <h1>
-                            Registrar Administrador
-                            <small>Usuario de Vinculación</small>
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                            <li class="active">Inicio</li>
-                        </ol>
-                    </section>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        Inicio
+                        <small>Contenido</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li class="active">Inicio</li>
+                    </ol>
+                </section>
 
-                    <!-- Main content -->
-                    <section class="content container-fluid">
+                <!-- Main content -->
+                <section class="content container-fluid">
 
-                        <!--------------------------
-                        | Your Page Content Here |
-                        -------------------------->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="box box-primary">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Nuevo Usuario</h3>
-                                    </div>
-                                    <!-- /.box-header -->
-                                    <!-- form start -->
-                                    <form role="form" method="POST">
-                                        <div class="box-body">
-                                            <div class="form-group col-md-6">
-                                                <label for="nombre">Nombre del Usuario</label>
-                                                <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Usuario..." onkeyup="javascript:this.value = this.value.toUpperCase();">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="usuario">Usuario</label>
-                                                <input id="usuario" name="usuario" type="text" class="form-control" placeholder="Usuario...">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="password">Contraseña</label>
-                                                <input id="password" name="password" type="text" class="form-control" placeholder="Contraseña...">
-                                            </div>
-                                        </div>
-                                        <div class="box-footer">
-                                            <button type="submit" class="btn btn-primary">Aceptar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                    <!--------------------------
+                    | Your Page Content Here |
+                    -------------------------->
 
-                    </section>
-                    <!-- /.content -->
-                </div>
-                <!-- /.content-wrapper -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
 
             <jsp:include page="includes/footer.jsp"></jsp:include>
 

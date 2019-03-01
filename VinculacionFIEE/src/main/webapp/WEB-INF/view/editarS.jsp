@@ -42,8 +42,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Editar Administrador
-                            <small>Usuario de Vinculación</small>
+                            Editar Servicio Social
+                            <small>Usuario de Servicio</small>
                         </h1>
                         <ol class="breadcrumb">
                             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -68,31 +68,50 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <form role="form" method="POST">
                                         <div class="box-body">
                                             <div class="form-group col-md-6">
-                                                <label for="nombre">Nombre del Usuario</label>
-                                                <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Usuario..." value="${lista[0].nombre}" onkeyup="javascript:this.value = this.value.toUpperCase();">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="usuario">Usuario</label>
-                                                <input id="usuario" name="usuario" type="text" class="form-control" placeholder="Usuario..." value="${lista[0].usuario}">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="password">Contraseña</label>
-                                                <input id="password" name="password" type="text" class="form-control" placeholder="Contraseña..." value="${lista[0].password}">
-                                            </div>
+                                                <label for="nombre">Nombre del Alumno</label>
+                                                <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Alumno..." value="${lista[0].nombre}" onkeyup="javascript:this.value = this.value.toUpperCase();">
                                         </div>
-                                        <div class="box-footer">
-                                            <button type="submit" class="btn btn-success">Aceptar</button>
-                                            <a href="usuariosV" class="btn btn-default">Cancelar</a>
+                                        <div class="form-group col-md-6">
+                                            <label for="usuario">Usuario</label>
+                                            <input id="usuario" name="usuario" type="text" class="form-control" placeholder="Usuario..." value="${lista[0].usuario}">
                                         </div>
-                                    </form>
-                                </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="password">Contraseña</label>
+                                            <input id="password" name="password" type="text" class="form-control" placeholder="Contraseña..." value="${lista[0].password}">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="correo">Correo</label>
+                                            <input id="correo" name="correo" type="email" class="form-control" placeholder="usuario@gmail.com..." value="${lista[0].correo}">
+                                            <!--<input id="emailAddress" type="email" size="64" maxLength="64" required
+                                                placeholder="username@beststartupever.com" pattern=".+@beststartupever.com">-->
+                                            <!-- /.input group -->
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="matricula">Matricula</label>
+                                            <input id="matricula" name="matricula" type="text" class="form-control" placeholder="S13001317..." value="${lista[0].matricula}">
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label for="creditos">Creditos</label>
+                                            <input id="creditos" name="creditos" type="number" class="form-control" min="1" max="400" value="${lista[0].creditos}">
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label for="semestre">Semestre</label>
+                                            <input id="semestre" name="semestre" type="number" class="form-control" min="1" max="12" value="${lista[0].semestre}">
+                                        </div>
+                                    </div>
+                                    <div class="box-footer">
+                                        <button type="submit" class="btn btn-success">Aceptar</button>
+                                        <a href="usuariosS" class="btn btn-default">Cancelar</a>
+                                    </div>
+                                </form>
                             </div>
                         </div>
+                    </div>
 
-                    </section>
-                    <!-- /.content -->
-                </div>
-                <!-- /.content-wrapper -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
 
             <jsp:include page="includes/footer.jsp"></jsp:include>
 

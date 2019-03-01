@@ -42,8 +42,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Lista de Administradores
-                            <small>Usuarios de Vinculación</small>
+                            Lista de Servicios Sociales
+                            <small>Usuarios de Servicio</small>
                         </h1>
                         <ol class="breadcrumb">
                             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -57,7 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-xs-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <a href="insertarUsuarioV" class="btn btn-primary">Agregar</a>
+                                        <a href="insertarUsuarioS" class="btn btn-primary">Agregar</a>
                                     </div>
                                     <!-- /.box-header -->
                                     <div class="box-body">
@@ -68,19 +68,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <th>Nombre</th>
                                                     <th>Usuario</th>
                                                     <th>Contraseña</th>
+                                                    <th>Correo</th>
+                                                    <th>Matricula</th>
+                                                    <th>Creditos</th>
+                                                    <th>Semestre</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             <c:forEach items="${usuarios}" var="dato">
                                                 <tr>
-                                                    <td> <c:out value="${dato.idvinculacion}"/></td>
+                                                    <td> <c:out value="${dato.idservicio}"/></td>
                                                     <td> <c:out value="${dato.nombre}"/></td>
                                                     <td> <c:out value="${dato.usuario}"/></td>
                                                     <td> <c:out value="${dato.password}"/></td>
+                                                    <td> <c:out value="${dato.correo}"/></td>
+                                                    <td> <c:out value="${dato.matricula}"/></td>
+                                                    <td> <c:out value="${dato.creditos}"/></td>
+                                                    <td> <c:out value="${dato.semestre}"/></td>
                                                     <td>
-                                                        <a href="editarUsuarioV?id=${dato.idvinculacion}" class="btn btn-warning">Editar</a>
-                                                        <a href="borrarUsuarioV?id=${dato.idvinculacion}" class="btn btn-danger">Eliminar</a>
+                                                        <a href="editarUsuarioS?id=${dato.idservicio}" class="btn btn-warning">Editar</a>
+                                                        <a href="borrarUsuarioS?id=${dato.idservicio}" class="btn btn-danger">Eliminar</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

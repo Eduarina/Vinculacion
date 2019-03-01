@@ -42,8 +42,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Editar Administrador
-                            <small>Usuario de Vinculación</small>
+                            Editar Encargado de Proyecto
+                            <small>Usuario de Proyecto</small>
                         </h1>
                         <ol class="breadcrumb">
                             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -68,8 +68,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <form role="form" method="POST">
                                         <div class="box-body">
                                             <div class="form-group col-md-6">
-                                                <label for="nombre">Nombre del Usuario</label>
-                                                <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Usuario..." value="${lista[0].nombre}" onkeyup="javascript:this.value = this.value.toUpperCase();">
+                                                <label for="nombre">Nombre del Encargado</label>
+                                                <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Encargado..." value="${lista[0].nombre}" onkeyup="javascript:this.value = this.value.toUpperCase();">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="usuario">Usuario</label>
@@ -79,10 +79,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <label for="password">Contraseña</label>
                                                 <input id="password" name="password" type="text" class="form-control" placeholder="Contraseña..." value="${lista[0].password}">
                                             </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="correo">Correo</label>
+                                                <input id="correo" name="correo" type="email" class="form-control" placeholder="usuario@gmail.com..." value="${lista[0].correo}">
+                                                <!--<input id="emailAddress" type="email" size="64" maxLength="64" required
+                                                    placeholder="username@beststartupever.com" pattern=".+@beststartupever.com">-->
+                                                <!-- /.input group -->
+                                            </div>
                                         </div>
                                         <div class="box-footer">
                                             <button type="submit" class="btn btn-success">Aceptar</button>
-                                            <a href="usuariosV" class="btn btn-default">Cancelar</a>
+                                            <a href="usuariosE" class="btn btn-default">Cancelar</a>
                                         </div>
                                     </form>
                                 </div>

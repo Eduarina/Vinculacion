@@ -40,7 +40,7 @@ public class vinculacionController {
     {
         ModelAndView mav = new ModelAndView();
         mav.addObject(new Vinculacion());
-        mav.setViewName("index");
+        mav.setViewName("insertarV");
         return mav;
     }
     

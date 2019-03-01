@@ -42,8 +42,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Lista de Administradores
-                            <small>Usuarios de Vinculación</small>
+                            Lista de Maestros
+                            <small>Usuarios de Proyecto</small>
                         </h1>
                         <ol class="breadcrumb">
                             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -57,7 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-xs-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <a href="insertarUsuarioV" class="btn btn-primary">Agregar</a>
+                                        <a href="insertarUsuarioM" class="btn btn-primary">Agregar</a>
                                     </div>
                                     <!-- /.box-header -->
                                     <div class="box-body">
@@ -68,19 +68,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <th>Nombre</th>
                                                     <th>Usuario</th>
                                                     <th>Contraseña</th>
+                                                    <th>Correo</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             <c:forEach items="${usuarios}" var="dato">
                                                 <tr>
-                                                    <td> <c:out value="${dato.idvinculacion}"/></td>
+                                                    <td> <c:out value="${dato.idmaestro}"/></td>
                                                     <td> <c:out value="${dato.nombre}"/></td>
                                                     <td> <c:out value="${dato.usuario}"/></td>
                                                     <td> <c:out value="${dato.password}"/></td>
+                                                    <td> <c:out value="${dato.correo}"/></td>
                                                     <td>
-                                                        <a href="editarUsuarioV?id=${dato.idvinculacion}" class="btn btn-warning">Editar</a>
-                                                        <a href="borrarUsuarioV?id=${dato.idvinculacion}" class="btn btn-danger">Eliminar</a>
+                                                        <a href="editarUsuarioM?id=${dato.idmaestro}" class="btn btn-warning">Editar</a>
+                                                        <a href="borrarUsuarioM?id=${dato.idmaestro}" class="btn btn-danger">Eliminar</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

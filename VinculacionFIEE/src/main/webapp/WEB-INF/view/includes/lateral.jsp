@@ -38,7 +38,19 @@
             <li class="header">Menú</li>
             <!-- Optionally, you can add icons to the links -->
             <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Inicio</span></a></li>
-            <li><a href="#"><i class="fa fa-link"></i> <span>Usuarios</span></a></li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-users"></i> <span>Usuarios</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="usuariosV">Vinculacion</a></li>
+                    <li><a href="usuariosE">Encargados</a></li>
+                    <li><a href="usuariosS">Servicios</a></li>
+                    <li><a href="usuariosM">Maestros</a></li>
+                </ul>
+            </li>
             <li class="treeview">
                 <a href="#"><i class="fa fa-link"></i> <span>Registros</span>
                     <span class="pull-right-container">
@@ -46,8 +58,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#">Bitácora</a></li>
-                    <li><a href="#">Reporte Mensual</a></li>
+                    <li><a href="bitacoras">Bitácora</a></li>
+                    <li><a href="reportes">Reporte Mensual</a></li>
                 </ul>
             </li>
         </ul>
