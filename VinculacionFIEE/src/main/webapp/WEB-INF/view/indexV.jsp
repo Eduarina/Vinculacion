@@ -42,8 +42,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Lista de Alumnos
-                            <small>Prueba</small>
+                            Lista de Administradores
+                            <small>Usuarios de Vinculación</small>
                         </h1>
                         <ol class="breadcrumb">
                             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -66,15 +66,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <tr>
                                                     <th>Id</th>
                                                     <th>Nombre</th>
+                                                    <th>Usuario</th>
+                                                    <th>Contraseña</th>
+                                                    <th>Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            <c:forEach items="${alumnos}" var="dato">
+                                            <c:forEach items="${usuarios}" var="dato">
                                                 <tr>
-                                                    <td> <c:out value="${dato.id}"/></td>
+                                                    <td> <c:out value="${dato.idvinculacion}"/></td>
                                                     <td> <c:out value="${dato.nombre}"/></td>
+                                                    <td> <c:out value="${dato.usuario}"/></td>
+                                                    <td> <c:out value="${dato.password}"/></td>
+                                                    <td>
+                                                        <a href="editarUsuarioV?id=${dato.idvinculacion}" class="btn btn-warning">Editar</a>
+                                                        <a href="borrarUsuarioV?id=${dato.idvinculacion}" class="btn btn-danger">Eliminar</a>
+                                                    </td>
                                                 </tr>
-
                                             </c:forEach>
                                         </tbody>
                                     </table>
@@ -90,12 +98,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
-            
+
             <jsp:include page="includes/footer.jsp"></jsp:include>
 
 
         </div>
-
 
     </body>
 </html>

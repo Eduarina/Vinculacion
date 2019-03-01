@@ -34,7 +34,9 @@
 <!--<script src="${urlPublic}/plugins/input-mask/jquery.inputmask.extensions.js"></script>-->
 <!-- bootstrap datepicker -->
 <script src="${urlPublic}/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-
+<!-- DataTables -->
+<script src="${urlPublic}/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="${urlPublic}/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
     $(function () {
         //Date picker
@@ -43,6 +45,15 @@
         })
         //Money Euro
         $('[data-mask]').inputmask()
+        $('#example1').DataTable()
+        $('#example2').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
     })
     function disableMyText() {
         if (document.getElementById("checkbox").checked == true) {

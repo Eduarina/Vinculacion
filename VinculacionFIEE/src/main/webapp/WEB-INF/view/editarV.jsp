@@ -42,8 +42,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Lista de Alumnos
-                            <small>Prueba</small>
+                            Editar Administrador
+                            <small>Usuario de Vinculación</small>
                         </h1>
                         <ol class="breadcrumb">
                             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -52,50 +52,51 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </section>
 
                     <!-- Main content -->
-                    <section class="content">
+                    <section class="content container-fluid">
+
+                        <!--------------------------
+                        | Your Page Content Here |
+                        -------------------------->
                         <div class="row">
-                            <div class="col-xs-12">
+                            <div class="col-md-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Usuarios</h3>
+                                        <h3 class="box-title">Usuario</h3>
                                     </div>
                                     <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <table id="example1" class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Id</th>
-                                                    <th>Nombre</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            <c:forEach items="${alumnos}" var="dato">
-                                                <tr>
-                                                    <td> <c:out value="${dato.id}"/></td>
-                                                    <td> <c:out value="${dato.nombre}"/></td>
-                                                </tr>
-
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
+                                    <!-- form start -->
+                                    <form role="form" method="POST">
+                                        <div class="box-body">
+                                            <div class="form-group col-md-6">
+                                                <label for="nombre">Nombre del Usuario</label>
+                                                <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Usuario..." value="${lista[0].nombre}" onkeyup="javascript:this.value = this.value.toUpperCase();">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="usuario">Usuario</label>
+                                                <input id="usuario" name="usuario" type="text" class="form-control" placeholder="Usuario..." value="${lista[0].usuario}">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="password">Contraseña</label>
+                                                <input id="password" name="password" type="text" class="form-control" placeholder="Contraseña..." value="${lista[0].password}">
+                                            </div>
+                                        </div>
+                                        <div class="box-footer">
+                                            <button type="submit" class="btn btn-primary">Aceptar</button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <!-- /.box-body -->
                             </div>
-                            <!-- /.box -->
                         </div>
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </section>
-                <!-- /.content -->
-            </div>
-            <!-- /.content-wrapper -->
-            
+
+                    </section>
+                    <!-- /.content -->
+                </div>
+                <!-- /.content-wrapper -->
+
             <jsp:include page="includes/footer.jsp"></jsp:include>
 
 
         </div>
-
 
     </body>
 </html>
