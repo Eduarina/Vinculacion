@@ -16,8 +16,8 @@ import org.springframework.validation.Validator;
 public class VinculacionValidator implements Validator{
 
     @Override
-    public boolean supports(Class<?> clazz) {
-        return Vinculacion.class.isAssignableFrom(clazz);
+    public boolean supports(Class<?> target) {
+        return Vinculacion.class.isAssignableFrom(target);
     }
 
     @Override

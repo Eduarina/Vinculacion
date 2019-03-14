@@ -67,25 +67,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </div>
                                     <!-- /.box-header -->
                                     <!-- form start -->
-                                <form:form method="post" modelAttribute="vinculacion">
+                                <form:form method="post" action="insertarUsuarioV" modelAttribute="vinculacion">
                                     <form:errors path="*" element="div" cssClass="alert alert-danger"/>
                                         <div class="box-body">
                                             <div class="form-group col-md-6">
                                                 <form:label path="nombre">Nombre del Usuario</form:label>
-                                                <form:input path="nombre" type="text" class="form-control" placeholder="Nombre del Usuario..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                <form:input path="nombre" type="text" cssClass="form-control" placeholder="Nombre del Usuario..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                <form:errors path="nombre" />
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <form:label path="usuario">Usuario</form:label>
-                                                <form:input path="usuario" type="text" class="form-control" placeholder="Usuario..."/>
+                                                <form:input path="usuario" type="text" cssClass="form-control" placeholder="Usuario..."/>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <form:label path="password">Contraseña</form:label>
-                                                <form:input path="password" type="text" class="form-control" placeholder="Contraseña..."/>
+                                                <form:input path="password" type="text" cssClass="form-control" placeholder="Contraseña..."/>
                                             </div>
                                         </div>
                                         <div class="box-footer">
-                                            <input type="submit" value="Enviar" class="form-control"/>
-                                            <button type="submit" class="btn btn-success">Aceptar</button>
+                                            <form:button type="submit" class="btn btn-success">Aceptar</form:button>
                                             <a href="usuariosV" class="btn btn-default">Cancelar</a>
                                         </div>
                                     </form:form>

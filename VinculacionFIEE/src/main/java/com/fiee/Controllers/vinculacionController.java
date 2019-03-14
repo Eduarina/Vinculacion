@@ -43,7 +43,7 @@ public class vinculacionController {
         return mav;
     }
     
-    @RequestMapping(value = "/insertarUsuarioV", method = RequestMethod.GET)
+    @RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.GET)
     public ModelAndView insertar()
     {
         ModelAndView mav = new ModelAndView();
@@ -52,16 +52,16 @@ public class vinculacionController {
         return mav;
     }
     
-    @RequestMapping(value = "/insertarUsuarioV", method = RequestMethod.POST)
+    @RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
     public ModelAndView insertar
         (
-        @ModelAttribute("vinculacion") Vinculacion v, BindingResult result, SessionStatus status
+            @ModelAttribute("vinculacion") Vinculacion v, BindingResult result, SessionStatus status
         )
     {
         this.vinculacionValidator.validate(v, result);
         if(result.hasErrors()){
             ModelAndView mav = new ModelAndView();
-            mav.addObject("vinculacion", new Vinculacion());
+            mav.addObject("vinculacion", new Vinculacion(v.getNombre(),v.getUsuario(),v.getPassword()));
             mav.setViewName("vinculacion/insertarV");
             return mav;
         }else{
