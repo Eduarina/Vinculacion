@@ -2,6 +2,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <spring:url value="/resources" var="urlPublic"/>
 <!DOCTYPE html>
 <!--
@@ -9,7 +11,7 @@ This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
-    <jsp:include page="includes/head.jsp"></jsp:include>
+    <jsp:include page="../includes/head.jsp"></jsp:include>
         <!--
         BODY TAG OPTIONS:
         =================
@@ -33,17 +35,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <body class="hold-transition skin-green-light sidebar-mini">
             <div class="wrapper">
 
-            <jsp:include page="includes/menu.jsp"></jsp:include>
+            <jsp:include page="../includes/menu.jsp"></jsp:include>
 
-            <jsp:include page="includes/lateral.jsp"></jsp:include>
+            <jsp:include page="../includes/lateral.jsp"></jsp:include>
 
                 <!-- Content Wrapper. Contains page content -->
                 <div class="content-wrapper">
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Editar Encargado de Proyecto
-                            <small>Usuario de Proyecto</small>
+                            Registrar Administrador
+                            <small>Usuario de Vinculación</small>
                         </h1>
                         <ol class="breadcrumb">
                             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -61,37 +63,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-md-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Usuario</h3>
+                                        <h3 class="box-title">Nuevo Usuario</h3>
                                     </div>
                                     <!-- /.box-header -->
                                     <!-- form start -->
-                                    <form role="form" method="POST">
+                                <form:form method="post" modelAttribute="vinculacion">
+                                    <form:errors path="*" element="div" cssClass="alert alert-danger"/>
                                         <div class="box-body">
                                             <div class="form-group col-md-6">
-                                                <label for="nombre">Nombre del Encargado</label>
-                                                <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Encargado..." value="${lista[0].nombre}" onkeyup="javascript:this.value = this.value.toUpperCase();">
+                                                <form:label path="nombre">Nombre del Usuario</form:label>
+                                                <form:input path="nombre" type="text" class="form-control" placeholder="Nombre del Usuario..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="usuario">Usuario</label>
-                                                <input id="usuario" name="usuario" type="text" class="form-control" placeholder="Usuario..." value="${lista[0].usuario}">
+                                                <form:label path="usuario">Usuario</form:label>
+                                                <form:input path="usuario" type="text" class="form-control" placeholder="Usuario..."/>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="password">Contraseña</label>
-                                                <input id="password" name="password" type="text" class="form-control" placeholder="Contraseña..." value="${lista[0].password}">
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="correo">Correo</label>
-                                                <input id="correo" name="correo" type="email" class="form-control" placeholder="usuario@gmail.com..." value="${lista[0].correo}">
-                                                <!--<input id="emailAddress" type="email" size="64" maxLength="64" required
-                                                    placeholder="username@beststartupever.com" pattern=".+@beststartupever.com">-->
-                                                <!-- /.input group -->
+                                                <form:label path="password">Contraseña</form:label>
+                                                <form:input path="password" type="text" class="form-control" placeholder="Contraseña..."/>
                                             </div>
                                         </div>
                                         <div class="box-footer">
+                                            <input type="submit" value="Enviar" class="form-control"/>
                                             <button type="submit" class="btn btn-success">Aceptar</button>
-                                            <a href="usuariosE" class="btn btn-default">Cancelar</a>
+                                            <a href="usuariosV" class="btn btn-default">Cancelar</a>
                                         </div>
-                                    </form>
+                                    </form:form>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +98,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
                 <!-- /.content-wrapper -->
 
-            <jsp:include page="includes/footer.jsp"></jsp:include>
+            <jsp:include page="../includes/footer.jsp"></jsp:include>
 
 
         </div>

@@ -36,7 +36,7 @@ public class bitacoraController {
         String sql = "select * from bitacora";
         lista = this.jdbcTemplate.queryForList(sql);
         mav.addObject("bitacoras", lista);    
-        mav.setViewName("indexB");  // Este es el nombre del archivo vista .jsp
+        mav.setViewName("bitacora/indexB");  // Este es el nombre del archivo vista .jsp
         return mav;
     }
     
@@ -45,7 +45,7 @@ public class bitacoraController {
     {
         ModelAndView mav = new ModelAndView();
         mav.addObject(new Bitacora());    
-        mav.setViewName("insertarB");  // Este es el nombre del archivo vista .jsp
+        mav.setViewName("bitacora/insertarB");  // Este es el nombre del archivo vista .jsp
         return mav;
     }
     
@@ -65,7 +65,7 @@ public class bitacoraController {
         String sql = "select * from bitacora where idbitacora="+id;
         lista = this.jdbcTemplate.queryForList(sql);
         mav.addObject("lista", lista);
-        mav.setViewName("editarB");
+        mav.setViewName("bitacora/editarB");
         return mav;
     }
     @RequestMapping(value = "/editarB", method = RequestMethod.POST)

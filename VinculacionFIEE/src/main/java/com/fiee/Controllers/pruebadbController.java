@@ -27,16 +27,16 @@ public class pruebadbController {
 		try {
 			if (dataSource.getConnection() != null) {
 
-				return new ModelAndView("prueba", "msg", "Database Connection Successfully Established.");
+				return new ModelAndView("pruebas/prueba", "msg", "Database Connection Successfully Established.");
 
 			} else {
 
-				return new ModelAndView("prueba", "msg", "Failed to connect database.");
+				return new ModelAndView("pruebas/prueba", "msg", "Failed to connect database.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 
-			return new ModelAndView("prueba", "msg", "Failed to connect database.");
+			return new ModelAndView("pruebas/prueba", "msg", "Failed to connect database.");
 		}
 	}
 }

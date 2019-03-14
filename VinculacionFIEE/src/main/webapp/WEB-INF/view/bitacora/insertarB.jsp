@@ -9,7 +9,7 @@ This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
-    <jsp:include page="includes/head.jsp"></jsp:include>
+    <jsp:include page="../includes/head.jsp"></jsp:include>
         <!--
         BODY TAG OPTIONS:
         =================
@@ -33,16 +33,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <body class="hold-transition skin-green-light sidebar-mini">
             <div class="wrapper">
 
-            <jsp:include page="includes/menu.jsp"></jsp:include>
+            <jsp:include page="../includes/menu.jsp"></jsp:include>
 
-            <jsp:include page="includes/lateral.jsp"></jsp:include>
+            <jsp:include page="../includes/lateral.jsp"></jsp:include>
 
                 <!-- Content Wrapper. Contains page content -->
                 <div class="content-wrapper">
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Editar Bitácora
+                            Registrar Bitácora
                             <small></small>
                         </h1>
                         <ol class="breadcrumb">
@@ -69,23 +69,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <div class="box-body">
                                             <div class="form-group col-md-6">
                                                 <label for="alumno">Nombre del Alumno</label>
-                                                <input id="alumno" name="alumno" type="text" class="form-control" value="${lista[0].alumno}" placeholder="Nombre del Alumno..." onkeyup="javascript:this.value = this.value.toUpperCase();">
+                                                <input id="alumno" name="alumno" type="text" class="form-control" placeholder="Nombre del Alumno..." onkeyup="javascript:this.value = this.value.toUpperCase();">
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <label for="matricula">Matricula</label>
-                                                <input id="matricula" name="matricula" type="text" value="${lista[0].matricula}" class="form-control" placeholder="S13001317...">
+                                                <input id="matricula" name="matricula" type="text" class="form-control" placeholder="S13001317...">
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <label for="carrera">Carrera</label>
-                                                <input id="carrera" name="carrera" type="text" value="${lista[0].carrera}" class="form-control" placeholder="Carrera...">
+                                                <input id="carrera" name="carrera" type="text" class="form-control" placeholder="Carrera...">
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <label for="dependencia">Dependencia</label>
-                                                <input id="dependencia" name="dependencia" type="text" value="${lista[0].dependencia}" class="form-control" placeholder="Dependencia...">
+                                                <input id="dependencia" name="dependencia" type="text" class="form-control" placeholder="Dependencia...">
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <label for="ubicacion">Ubicación</label>
-                                                <input id="ubicacion" name="ubicacion" type="text" value="${lista[0].ubicacion}" class="form-control" placeholder="Dependencia...">
+                                                <input id="ubicacion" name="ubicacion" type="text" class="form-control" placeholder="Dependencia...">
                                             </div>
                                             <!--Date--> 
                                             <div class="form-group col-md-2">
@@ -95,7 +95,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </div>
-                                                    <input id="fechaini" name="datepicker" type="text" value="${lista[0].fechaini}" class="form-control pull-right-container">
+                                                    <input id="fechaini" name="datepicker" type="text" class="form-control pull-right-container">
                                                 </div>
                                                 <!--/.input group--> 
                                             </div>
@@ -107,33 +107,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </div>
-                                                    <input id="fechafin" name="datepicker" type="text" value="${lista[0].fechafin}" class="form-control pull-right-container">
+                                                    <input id="fechafin" name="datepicker" type="text" class="form-control pull-right-container">
                                                 </div>
                                                 <!--/.input group--> 
                                             </div>
                                             <div class="form-group col-md-2">
                                                 <label for="nobitacora">Bitácora</label>
-                                                <input id="nobitacora" name="nobitacora" type="number" value="${lista[0].nobitacora}" class="form-control" min="1" max="12">
+                                                <input id="nobitacora" name="nobitacora" type="number" class="form-control" min="1" max="12">
                                             </div>
                                             <!-- textarea -->
                                             <div class="form-group col-md-6">
                                                 <label for="actividades">Actividades Generales</label>
-                                                <textarea id="actividades" name="actividades" class="form-control" rows="3" placeholder="Actividades Generales..." onkeyup="javascript:this.value = this.value.toUpperCase();">${lista[0].actividades}</textarea>
+                                                <textarea id="actividades" name="actividades" class="form-control" rows="3" placeholder="Actividades Generales..." onkeyup="javascript:this.value = this.value.toUpperCase();"></textarea>
                                             </div>
                                             <!-- textarea -->
                                             <div class="form-group col-md-6">
                                                 <label for="descripcion">Descripción de Actividades</label>
-                                                <textarea id="descripcion" name="descripcion" class="form-control" rows="3" placeholder="Descripción de Actividades..." onkeyup="javascript:this.value = this.value.toUpperCase();">${lista[0].descripcion}</textarea>
+                                                <textarea id="descripcion" name="descripcion" class="form-control" rows="3" placeholder="Descripción de Actividades..." onkeyup="javascript:this.value = this.value.toUpperCase();"></textarea>
                                             </div>
                                             <!-- textarea -->
                                             <div class="form-group col-md-6">
                                                 <label for="problemas">Problemas Encontrados</label>
-                                                <textarea id="problemas" name="problemas" class="form-control" rows="3" placeholder="Problemas Encontrados..." onkeyup="javascript:this.value = this.value.toUpperCase();">${lista[0].problemas}</textarea>
+                                                <textarea id="problemas" name="problemas" class="form-control" rows="3" placeholder="Problemas Encontrados..." onkeyup="javascript:this.value = this.value.toUpperCase();"></textarea>
                                             </div>
                                             <!-- textarea -->
                                             <div class="form-group col-md-6">
                                                 <label for="soluciones">Soluciones Empleadas</label>
-                                                <textarea id="soluciones" name="soluciones" class="form-control" rows="3" placeholder="Soluciones Empleadas..." onkeyup="javascript:this.value = this.value.toUpperCase();">${lista[0].soluciones}</textarea>
+                                                <textarea id="soluciones" name="soluciones" class="form-control" rows="3" placeholder="Soluciones Empleadas..." onkeyup="javascript:this.value = this.value.toUpperCase();"></textarea>
                                             </div>
                                         </div>
                                         <div class="box-footer">
@@ -150,7 +150,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
                 <!-- /.content-wrapper -->
 
-            <jsp:include page="includes/footer.jsp"></jsp:include>
+            <jsp:include page="../includes/footer.jsp"></jsp:include>
 
 
         </div>

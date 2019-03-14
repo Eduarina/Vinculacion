@@ -24,7 +24,7 @@ public class VistasPruebaDB {
     public ModelAndView indexDB()
     {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("PruebaDB");  // Este es el nombre del archivo vista .jsp
+        mav.setViewName("pruebas/PruebaDB");  // Este es el nombre del archivo vista .jsp
         return mav;
     }
     
@@ -35,7 +35,7 @@ public class VistasPruebaDB {
         String sql = "select * from proyecto";
         List datosAlumnos = this.jdbcTemplate.queryForList(sql);
         mav.addObject("alumnos",datosAlumnos);    
-        mav.setViewName("AlumnosDB");  // Este es el nombre del archivo vista .jsp
+        mav.setViewName("pruebas/AlumnosDB");  // Este es el nombre del archivo vista .jsp
         return mav;
     }
     
@@ -44,7 +44,7 @@ public class VistasPruebaDB {
     {
         ModelAndView mav = new ModelAndView();
         mav.addObject(new Proyecto());
-        mav.setViewName("insertarprueba");
+        mav.setViewName("pruebas/insertarprueba");
         return mav;
     }
     

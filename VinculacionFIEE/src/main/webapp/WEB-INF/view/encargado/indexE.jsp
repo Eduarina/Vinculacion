@@ -9,7 +9,7 @@ This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
-    <jsp:include page="includes/head.jsp"></jsp:include>
+    <jsp:include page="../includes/head.jsp"></jsp:include>
         <!--
         BODY TAG OPTIONS:
         =================
@@ -33,17 +33,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <body class="hold-transition skin-green-light sidebar-mini">
             <div class="wrapper">
 
-            <jsp:include page="includes/menu.jsp"></jsp:include>
+            <jsp:include page="../includes/menu.jsp"></jsp:include>
 
-            <jsp:include page="includes/lateral.jsp"></jsp:include>
+            <jsp:include page="../includes/lateral.jsp"></jsp:include>
 
                 <!-- Content Wrapper. Contains page content -->
                 <div class="content-wrapper">
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Lista de Bitácoras
-                            <small></small>
+                            Lista de Encargados de Proyecto
+                            <small>Usuarios de Proyecto</small>
                         </h1>
                         <ol class="breadcrumb">
                             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -57,7 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-xs-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <a href="insertarB" class="btn btn-primary">Agregar</a>
+                                        <a href="insertarUsuarioE" class="btn btn-primary">Agregar</a>
                                     </div>
                                     <!-- /.box-header -->
                                     <div class="box-body">
@@ -65,40 +65,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <thead>
                                                 <tr>
                                                     <th>Id</th>
-                                                    <th>Alumno</th>
-                                                    <th>Matricula</th>
-                                                    <th>Carrera</th>
-                                                    <th>Dependencia</th>
-                                                    <th>Ubicacion</th>
-                                                    <th>Fecha Inicio</th>
-                                                    <th>Fecha Final</th>
-                                                    <th>Bitacora</th>
-                                                    <th>Actividades</th>
-                                                    <th>Descripcion</th>
-                                                    <th>Problemas</th>
-                                                    <th>Soluciones</th>
+                                                    <th>Nombre</th>
+                                                    <th>Usuario</th>
+                                                    <th>Contraseña</th>
+                                                    <th>Correo</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            <c:forEach items="${bitacoras}" var="dato">
+                                            <c:forEach items="${usuarios}" var="dato">
                                                 <tr>
-                                                    <td> <c:out value="${dato.idbitacora}"/></td>
-                                                    <td> <c:out value="${dato.alumno}"/></td>
-                                                    <td> <c:out value="${dato.matricula}"/></td>
-                                                    <td> <c:out value="${dato.carrera}"/></td>
-                                                    <td> <c:out value="${dato.dependencia}"/></td>
-                                                    <td> <c:out value="${dato.ubicacion}"/></td>
-                                                    <td> <c:out value="${dato.fechaini}"/></td>
-                                                    <td> <c:out value="${dato.fechafin}"/></td>
-                                                    <td> <c:out value="${dato.nobitacora}"/></td>
-                                                    <td> <c:out value="${dato.actividades}"/></td>
-                                                    <td> <c:out value="${dato.descripcion}"/></td>
-                                                    <td> <c:out value="${dato.problemas}"/></td>
-                                                    <td> <c:out value="${dato.soluciones}"/></td>
+                                                    <td> <c:out value="${dato.idencargado}"/></td>
+                                                    <td> <c:out value="${dato.nombre}"/></td>
+                                                    <td> <c:out value="${dato.usuario}"/></td>
+                                                    <td> <c:out value="${dato.password}"/></td>
+                                                    <td> <c:out value="${dato.correo}"/></td>
                                                     <td>
-                                                        <a href="editarB?id=${dato.idbitacora}" class="btn btn-warning">Editar</a>
-                                                        <a href="borrarB?id=${dato.idbitacora}" class="btn btn-danger">Eliminar</a>
+                                                        <a href="editarUsuarioE?id=${dato.idencargado}" class="btn btn-warning">Editar</a>
+                                                        <a href="borrarUsuarioE?id=${dato.idencargado}" class="btn btn-danger">Eliminar</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -117,7 +101,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
             <!-- /.content-wrapper -->
 
-            <jsp:include page="includes/footer.jsp"></jsp:include>
+            <jsp:include page="../includes/footer.jsp"></jsp:include>
 
 
         </div>

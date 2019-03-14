@@ -35,7 +35,7 @@ public class maestroController {
         String sql = "select * from maestro";
         lista = this.jdbcTemplate.queryForList(sql);
         mav.addObject("usuarios", lista);    
-        mav.setViewName("indexM");  // Este es el nombre del archivo vista .jsp
+        mav.setViewName("maestro/indexM");  // Este es el nombre del archivo vista .jsp
         return mav;
     }
     
@@ -44,7 +44,7 @@ public class maestroController {
     {
         ModelAndView mav = new ModelAndView();
         mav.addObject(new Maestro());
-        mav.setViewName("insertarM");
+        mav.setViewName("maestro/insertarM");
         return mav;
     }
     
@@ -64,7 +64,7 @@ public class maestroController {
         String sql = "select * from maestro where idmaestro="+id;
         lista = this.jdbcTemplate.queryForList(sql);
         mav.addObject("lista", lista);
-        mav.setViewName("editarM");
+        mav.setViewName("maestro/editarM");
         return mav;
     }
     @RequestMapping(value = "/editarUsuarioM", method = RequestMethod.POST)

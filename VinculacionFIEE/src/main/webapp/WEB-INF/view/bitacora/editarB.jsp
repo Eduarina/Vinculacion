@@ -9,7 +9,7 @@ This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
-    <jsp:include page="includes/head.jsp"></jsp:include>
+    <jsp:include page="../includes/head.jsp"></jsp:include>
         <!--
         BODY TAG OPTIONS:
         =================
@@ -33,16 +33,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <body class="hold-transition skin-green-light sidebar-mini">
             <div class="wrapper">
 
-            <jsp:include page="includes/menu.jsp"></jsp:include>
+            <jsp:include page="../includes/menu.jsp"></jsp:include>
 
-            <jsp:include page="includes/lateral.jsp"></jsp:include>
+            <jsp:include page="../includes/lateral.jsp"></jsp:include>
 
                 <!-- Content Wrapper. Contains page content -->
                 <div class="content-wrapper">
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Registrar Reporte Mensual
+                            Editar Bitácora
                             <small></small>
                         </h1>
                         <ol class="breadcrumb">
@@ -61,100 +61,84 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-md-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Reporte #</h3>
+                                        <h3 class="box-title">Bitácora #</h3>
                                     </div>
                                     <!-- /.box-header -->
                                     <!-- form start -->
                                     <form role="form" method="POST">
                                         <div class="box-body">
                                             <div class="form-group col-md-6">
-                                                <label for="nombre">Nombre del Alumno</label>
-                                                <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Alumno..." onkeyup="javascript:this.value = this.value.toUpperCase();">
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="carrera">Carrera</label>
-                                                <input id="carrera" name="carrera" type="text" class="form-control" placeholder="Carrera...">
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="correo">Correo</label>
-                                                <input id="correo" name="correo" type="email" class="form-control" placeholder="usuario@gmail.com...">
-                                                <!--<input id="emailAddress" type="email" size="64" maxLength="64" required
-                                                    placeholder="username@beststartupever.com" pattern=".+@beststartupever.com">-->
-                                                <!-- /.input group -->
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="telefono">Teléfono</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-phone"></i>
-                                                    </div>
-                                                    <input id="telefono" name="telefono" type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="celular">Celular</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-phone"></i>
-                                                    </div>
-                                                    <input id="celular" name="celular" type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
-                                                </div>
+                                                <label for="alumno">Nombre del Alumno</label>
+                                                <input id="alumno" name="alumno" type="text" class="form-control" value="${lista[0].alumno}" placeholder="Nombre del Alumno..." onkeyup="javascript:this.value = this.value.toUpperCase();">
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <label for="matricula">Matricula</label>
-                                                <input id="matricula" name="matricula" type="text" class="form-control" placeholder="S13001317...">
+                                                <input id="matricula" name="matricula" type="text" value="${lista[0].matricula}" class="form-control" placeholder="S13001317...">
                                             </div>
-                                            <div class="form-group col-md-2">
-                                                <label for="noreporte">Reporte</label>
-                                                <input id="noreporte" name="noreporte" type="number" class="form-control" min="1" max="6">
+                                            <div class="form-group col-md-3">
+                                                <label for="carrera">Carrera</label>
+                                                <input id="carrera" name="carrera" type="text" value="${lista[0].carrera}" class="form-control" placeholder="Carrera...">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="dependencia">Dependencia</label>
+                                                <input id="dependencia" name="dependencia" type="text" value="${lista[0].dependencia}" class="form-control" placeholder="Dependencia...">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="ubicacion">Ubicación</label>
+                                                <input id="ubicacion" name="ubicacion" type="text" value="${lista[0].ubicacion}" class="form-control" placeholder="Dependencia...">
                                             </div>
                                             <!--Date--> 
                                             <div class="form-group col-md-2">
-                                                <label for="fecha">Fecha</label>
+                                                <label for="fechaini">Fecha de Inicio</label>
 
                                                 <div class="input-group date">
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
                                                     </div>
-                                                    <input id="fecha" name="datepicker" type="text" class="form-control pull-right-container">
+                                                    <input id="fechaini" name="datepicker" type="text" value="${lista[0].fechaini}" class="form-control pull-right-container">
+                                                </div>
+                                                <!--/.input group--> 
+                                            </div>
+                                            <!--Date--> 
+                                            <div class="form-group col-md-2">
+                                                <label for="fechafin">Fecha de Fin</label>
+
+                                                <div class="input-group date">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input id="fechafin" name="datepicker" type="text" value="${lista[0].fechafin}" class="form-control pull-right-container">
                                                 </div>
                                                 <!--/.input group--> 
                                             </div>
                                             <div class="form-group col-md-2">
-                                                <label for="dependencia">Dependencia</label>
-                                                <input id="dependencia" name="dependencia" type="text" class="form-control" min="1" max="12">
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="telefonod">Teléfono de la Dependencia</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-phone"></i>
-                                                    </div>
-                                                    <input id="telefonod" name="telefonod" type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label for="proyecto">Nombre del Proyecto</label>
-                                                <input id="proyecto" name="proyecto" type="text" class="form-control" min="1" max="12">
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label for="horario">Horario</label>
-                                                <input id="horario" name="horario" type="text" class="form-control" min="1" max="12">
+                                                <label for="nobitacora">Bitácora</label>
+                                                <input id="nobitacora" name="nobitacora" type="number" value="${lista[0].nobitacora}" class="form-control" min="1" max="12">
                                             </div>
                                             <!-- textarea -->
                                             <div class="form-group col-md-6">
                                                 <label for="actividades">Actividades Generales</label>
-                                                <textarea id="actividades" name="actividades" class="form-control" rows="3" placeholder="Actividades Generales..." onkeyup="javascript:this.value = this.value.toUpperCase();"></textarea>
+                                                <textarea id="actividades" name="actividades" class="form-control" rows="3" placeholder="Actividades Generales..." onkeyup="javascript:this.value = this.value.toUpperCase();">${lista[0].actividades}</textarea>
                                             </div>
                                             <!-- textarea -->
                                             <div class="form-group col-md-6">
                                                 <label for="descripcion">Descripción de Actividades</label>
-                                                <textarea id="descripcion" name="descripcion" class="form-control" rows="3" placeholder="Descripción de Actividades..." onkeyup="javascript:this.value = this.value.toUpperCase();"></textarea>
+                                                <textarea id="descripcion" name="descripcion" class="form-control" rows="3" placeholder="Descripción de Actividades..." onkeyup="javascript:this.value = this.value.toUpperCase();">${lista[0].descripcion}</textarea>
+                                            </div>
+                                            <!-- textarea -->
+                                            <div class="form-group col-md-6">
+                                                <label for="problemas">Problemas Encontrados</label>
+                                                <textarea id="problemas" name="problemas" class="form-control" rows="3" placeholder="Problemas Encontrados..." onkeyup="javascript:this.value = this.value.toUpperCase();">${lista[0].problemas}</textarea>
+                                            </div>
+                                            <!-- textarea -->
+                                            <div class="form-group col-md-6">
+                                                <label for="soluciones">Soluciones Empleadas</label>
+                                                <textarea id="soluciones" name="soluciones" class="form-control" rows="3" placeholder="Soluciones Empleadas..." onkeyup="javascript:this.value = this.value.toUpperCase();">${lista[0].soluciones}</textarea>
                                             </div>
                                         </div>
                                         <div class="box-footer">
                                             <button type="submit" class="btn btn-success">Aceptar</button>
-                                            <a href="reportes" class="btn btn-default">Cancelar</a>
+                                            <a href="bitacoras" class="btn btn-default">Cancelar</a>
                                         </div>
                                     </form>
                                 </div>
@@ -166,7 +150,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
                 <!-- /.content-wrapper -->
 
-            <jsp:include page="includes/footer.jsp"></jsp:include>
+            <jsp:include page="../includes/footer.jsp"></jsp:include>
 
 
         </div>

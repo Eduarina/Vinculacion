@@ -9,7 +9,7 @@ This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
-    <jsp:include page="includes/head.jsp"></jsp:include>
+    <jsp:include page="../includes/head.jsp"></jsp:include>
         <!--
         BODY TAG OPTIONS:
         =================
@@ -33,17 +33,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <body class="hold-transition skin-green-light sidebar-mini">
             <div class="wrapper">
 
-            <jsp:include page="includes/menu.jsp"></jsp:include>
+            <jsp:include page="../includes/menu.jsp"></jsp:include>
 
-            <jsp:include page="includes/lateral.jsp"></jsp:include>
+            <jsp:include page="../includes/lateral.jsp"></jsp:include>
 
                 <!-- Content Wrapper. Contains page content -->
                 <div class="content-wrapper">
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Editar Maestro
-                            <small>Usuario de Proyecto</small>
+                            Registrar Servicio Social
+                            <small>Usuario de Servicio</small>
                         </h1>
                         <ol class="breadcrumb">
                             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -61,35 +61,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-md-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Usuario</h3>
+                                        <h3 class="box-title">Nuevo Usuario</h3>
                                     </div>
                                     <!-- /.box-header -->
                                     <!-- form start -->
                                     <form role="form" method="POST">
                                         <div class="box-body">
                                             <div class="form-group col-md-6">
-                                                <label for="nombre">Nombre del Maestro</label>
-                                                <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Maestro..." value="${lista[0].nombre}" onkeyup="javascript:this.value = this.value.toUpperCase();">
+                                                <label for="nombre">Nombre del Alumno</label>
+                                                <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Alumno..." onkeyup="javascript:this.value = this.value.toUpperCase();">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="usuario">Usuario</label>
-                                                <input id="usuario" name="usuario" type="text" class="form-control" placeholder="Usuario..." value="${lista[0].usuario}">
+                                                <input id="usuario" name="usuario" type="text" class="form-control" placeholder="Usuario...">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="password">Contraseña</label>
-                                                <input id="password" name="password" type="text" class="form-control" placeholder="Contraseña..." value="${lista[0].password}">
+                                                <input id="password" name="password" type="text" class="form-control" placeholder="Contraseña...">
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <label for="correo">Correo</label>
-                                                <input id="correo" name="correo" type="email" class="form-control" placeholder="usuario@gmail.com..." value="${lista[0].correo}">
+                                                <input id="correo" name="correo" type="email" class="form-control" placeholder="usuario@gmail.com...">
                                                 <!--<input id="emailAddress" type="email" size="64" maxLength="64" required
                                                     placeholder="username@beststartupever.com" pattern=".+@beststartupever.com">-->
                                                 <!-- /.input group -->
                                             </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="matricula">Matricula</label>
+                                                <input id="matricula" name="matricula" type="text" class="form-control" placeholder="Contraseña...">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="creditos">Creditos</label>
+                                                <input id="creditos" name="creditos" type="number" class="form-control" min="1" max="400">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="semestre">Semestre</label>
+                                                <input id="semestre" name="semestre" type="number" class="form-control" min="1" max="12">
+                                            </div>
                                         </div>
                                         <div class="box-footer">
                                             <button type="submit" class="btn btn-success">Aceptar</button>
-                                            <a href="usuariosM" class="btn btn-default">Cancelar</a>
+                                            <a href="usuariosS" class="btn btn-default">Cancelar</a>
                                         </div>
                                     </form>
                                 </div>
@@ -101,7 +113,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
                 <!-- /.content-wrapper -->
 
-            <jsp:include page="includes/footer.jsp"></jsp:include>
+            <jsp:include page="../includes/footer.jsp"></jsp:include>
 
 
         </div>

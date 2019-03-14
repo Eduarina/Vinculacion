@@ -36,7 +36,7 @@ public class reporteController {
         String sql = "select * from reporte";
         lista = this.jdbcTemplate.queryForList(sql);
         mav.addObject("reportes", lista);    
-        mav.setViewName("indexR");  // Este es el nombre del archivo vista .jsp
+        mav.setViewName("reporte/indexR");  // Este es el nombre del archivo vista .jsp
         return mav;
     }
     
@@ -45,7 +45,7 @@ public class reporteController {
     {
         ModelAndView mav = new ModelAndView();
         mav.addObject(new Reporte());    
-        mav.setViewName("insertarR");  // Este es el nombre del archivo vista .jsp
+        mav.setViewName("reporte/insertarR");  // Este es el nombre del archivo vista .jsp
         return mav;
     }
     
@@ -65,7 +65,7 @@ public class reporteController {
         String sql = "select * from reporte where idreporte="+id;
         lista = this.jdbcTemplate.queryForList(sql);
         mav.addObject("lista", lista);
-        mav.setViewName("editarR");
+        mav.setViewName("reporte/editarR");
         return mav;
     }
     @RequestMapping(value = "/editarR", method = RequestMethod.POST)

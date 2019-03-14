@@ -35,7 +35,7 @@ public class encargadoController {
         String sql = "select * from encargado";
         lista = this.jdbcTemplate.queryForList(sql);
         mav.addObject("usuarios", lista);    
-        mav.setViewName("indexE");  // Este es el nombre del archivo vista .jsp
+        mav.setViewName("encargado/indexE");  // Este es el nombre del archivo vista .jsp
         return mav;
     }
     
@@ -44,7 +44,7 @@ public class encargadoController {
     {
         ModelAndView mav = new ModelAndView();
         mav.addObject(new Encargado());
-        mav.setViewName("insertarE");
+        mav.setViewName("encargado/insertarE");
         return mav;
     }
     
@@ -64,7 +64,7 @@ public class encargadoController {
         String sql = "select * from encargado where idencargado="+id;
         lista = this.jdbcTemplate.queryForList(sql);
         mav.addObject("lista", lista);
-        mav.setViewName("editarE");
+        mav.setViewName("encargado/editarE");
         return mav;
     }
     @RequestMapping(value = "/editarUsuarioE", method = RequestMethod.POST)
