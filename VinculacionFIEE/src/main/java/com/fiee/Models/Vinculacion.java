@@ -15,6 +15,11 @@ public class Vinculacion {
     private String usuario;
     private String password;
 
+    public Vinculacion(String nombre, String usuario) {
+        this.nombre = nombre;
+        this.usuario = usuario;
+    }
+
     public Vinculacion() {
     }
 

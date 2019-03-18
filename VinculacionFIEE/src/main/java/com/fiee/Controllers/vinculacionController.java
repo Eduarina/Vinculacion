@@ -86,8 +86,8 @@ public class vinculacionController {
     @RequestMapping(value = "/editarUsuarioV", method = RequestMethod.POST)
     public ModelAndView editar( Vinculacion v)
     {
-        String sql = "update vinculacion set nombre=?, usuario=?, password=? where idvinculacion="+id;
-        this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(), v.getPassword());
+        String sql = "update vinculacion set nombre=?, usuario=? where idvinculacion="+id;
+        this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario());
         return new ModelAndView("redirect:/usuariosV");
     }
     @RequestMapping(value = "/borrarUsuarioV")

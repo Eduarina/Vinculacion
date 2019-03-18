@@ -70,8 +70,8 @@ public class maestroController {
     @RequestMapping(value = "/editarUsuarioM", method = RequestMethod.POST)
     public ModelAndView editar( Maestro v)
     {
-        String sql = "update maestro set nombre=?, usuario=?, password=?, correo=? where idmaestro="+id;
-        this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(), v.getPassword(),v.getCorreo());
+        String sql = "update maestro set nombre=?, usuario=?, correo=? where idmaestro="+id;
+        this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(),v.getCorreo());
         return new ModelAndView("redirect:/usuariosM");
     }
     @RequestMapping(value = "/borrarUsuarioM")

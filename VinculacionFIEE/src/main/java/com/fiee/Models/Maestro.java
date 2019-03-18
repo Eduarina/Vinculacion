@@ -19,6 +19,12 @@ public class Maestro {
     public Maestro() {
     }
 
+    public Maestro(String nombre, String usuario, String correo) {
+        this.nombre = nombre;
+        this.usuario = usuario;
+        this.correo = correo;
+    }
+
     public Maestro(String nombre, String usuario, String password, String correo) {
         this.nombre = nombre;
         this.usuario = usuario;

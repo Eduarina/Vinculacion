@@ -77,7 +77,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="password">Contraseña</label>
-                                                <input id="password" name="password" type="text" class="form-control" placeholder="Contraseña...">
+                                                <input id="password" name="password" type="password" class="form-control" placeholder="Contraseña...">
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <label for="correo">Correo</label>

@@ -67,7 +67,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <th>Id</th>
                                                     <th>Nombre</th>
                                                     <th>Usuario</th>
-                                                    <th>Contraseña</th>
                                                     <th>Correo</th>
                                                     <th>Acciones</th>
                                                 </tr>
@@ -78,7 +77,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <td> <c:out value="${dato.idencargado}"/></td>
                                                     <td> <c:out value="${dato.nombre}"/></td>
                                                     <td> <c:out value="${dato.usuario}"/></td>
-                                                    <td> <c:out value="${dato.password}"/></td>
                                                     <td> <c:out value="${dato.correo}"/></td>
                                                     <td>
                                                         <a href="editarUsuarioE?id=${dato.idencargado}" class="btn btn-warning">Editar</a>

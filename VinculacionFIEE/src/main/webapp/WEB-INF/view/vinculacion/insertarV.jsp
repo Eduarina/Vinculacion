@@ -81,7 +81,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <form:label path="password">Contraseña</form:label>
-                                                <form:input path="password" type="text" cssClass="form-control" placeholder="Contraseña..."/>
+                                                <form:input path="password" type="password" cssClass="form-control" placeholder="Contraseña..."/>
                                             </div>
                                         </div>
                                         <div class="box-footer">

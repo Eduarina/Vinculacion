@@ -69,14 +69,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <th>Matricula</th>
                                                     <th>Carrera</th>
                                                     <th>Dependencia</th>
-                                                    <th>Ubicacion</th>
                                                     <th>Fecha Inicio</th>
-                                                    <th>Fecha Final</th>
                                                     <th>Bitacora</th>
-                                                    <th>Actividades</th>
-                                                    <th>Descripcion</th>
-                                                    <th>Problemas</th>
-                                                    <th>Soluciones</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -88,13 +82,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <td> <c:out value="${dato.matricula}"/></td>
                                                     <td> <c:out value="${dato.carrera}"/></td>
                                                     <td> <c:out value="${dato.dependencia}"/></td>
-                                                    <td> <c:out value="${dato.ubicacion}"/></td>
                                                     <td> <c:out value="${dato.fechaini}"/></td>
-                                                    <td> <c:out value="${dato.fechafin}"/></td>
                                                     <td> <c:out value="${dato.nobitacora}"/></td>
-                                                    <td> <c:out value="${dato.actividades}"/></td>
-                                                    <td> <c:out value="${dato.descripcion}"/></td>
-                                                    <td> <c:out value="${dato.problemas}"/></td>
                                                     <td> <c:out value="${dato.soluciones}"/></td>
                                                     <td>
                                                         <a href="editarB?id=${dato.idbitacora}" class="btn btn-warning">Editar</a>

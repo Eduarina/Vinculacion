@@ -75,10 +75,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <label for="usuario">Usuario</label>
                                                 <input id="usuario" name="usuario" type="text" class="form-control" placeholder="Usuario..." value="${lista[0].usuario}">
                                             </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="password">Contraseña</label>
-                                                <input id="password" name="password" type="text" class="form-control" placeholder="Contraseña..." value="${lista[0].password}">
-                                            </div>
                                             <div class="form-group col-md-3">
                                                 <label for="correo">Correo</label>
                                                 <input id="correo" name="correo" type="email" class="form-control" placeholder="usuario@gmail.com..." value="${lista[0].correo}">

@@ -19,6 +19,12 @@ public class Encargado {
     public Encargado() {
     }
 
+    public Encargado(String nombre, String usuario, String correo) {
+        this.nombre = nombre;
+        this.usuario = usuario;
+        this.correo = correo;
+    }
+
     public Encargado(String nombre, String usuario, String password, String correo) {
         this.nombre = nombre;
         this.usuario = usuario;

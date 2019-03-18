@@ -22,6 +22,15 @@ public class Servicio {
     public Servicio() {
     }
 
+    public Servicio(String nombre, String usuario, String correo, String matricula, int creditos, int semestre) {
+        this.nombre = nombre;
+        this.usuario = usuario;
+        this.correo = correo;
+        this.matricula = matricula;
+        this.creditos = creditos;
+        this.semestre = semestre;
+    }
+
     public Servicio(String nombre, String usuario, String password, String correo, String matricula, int creditos, int semestre) {
         this.nombre = nombre;
         this.usuario = usuario;
