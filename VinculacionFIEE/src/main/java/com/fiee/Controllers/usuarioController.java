@@ -10,6 +10,7 @@ import com.fiee.Models.UsuarioValidator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -91,5 +93,35 @@ public class usuarioController {
         tipo.put("4", "Servicio");
         tipo.put("5", "Encargado");
         return tipo;
+    }
+    
+    //@RequestMapping(value = "/editarUsuarioV", method = RequestMethod.GET)
+    @GetMapping(value = "/editar")
+    public ModelAndView editar(@RequestParam("id") int idusuario)
+    {
+        ModelAndView mav = new ModelAndView();
+        //id=Integer.parseInt(request.getParameter("id"));
+        String sql = "select * from usuario where idusuario="+idusuario;
+        lista = this.jdbcTemplate.queryForList(sql);
+        mav.addObject("datos", new Usuario());
+        mav.setViewName("usuario/editarU");
+        return mav;
+    }
+    
+    //@RequestMapping(value = "/editarUsuarioV", method = RequestMethod.POST)
+    @PostMapping(value = "/editar")
+    public ModelAndView editar( Usuario u)
+    {
+        String sql = "update usuario set nombre=?, user=? where idusuario="+id;
+        this.jdbcTemplate.update(sql, u.getNombre(), u.getUser());
+        return new ModelAndView("redirect:/usuarios/lista");
+    }
+    @RequestMapping(value = "/borrar")
+    public ModelAndView borrar( HttpServletRequest request)
+    {
+        id=Integer.parseInt(request.getParameter("id"));
+        String sql = "delete from usuario where idusuario="+id;
+        this.jdbcTemplate.update(sql);
+        return new ModelAndView("redirect:/usuarios/lista");
     }
 }
