@@ -45,10 +45,10 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="usuariosV">Vinculacion</a></li>
-                    <li><a href="usuariosE">Encargados</a></li>
-                    <li><a href="usuariosS">Servicios</a></li>
-                    <li><a href="usuariosM">Maestros</a></li>
+                    <li><a href="/VinculacionFIEE/vinculacion/lista">Vinculacion</a></li>
+                    <li><a href="/VinculacionFIEE/usuariosE">Encargados</a></li>
+                    <li><a href="/VinculacionFIEE/usuariosS">Servicios</a></li>
+                    <li><a href="/VinculacionFIEE/usuariosM">Maestros</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -58,8 +58,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="bitacoras">Bitácora</a></li>
-                    <li><a href="reportes">Reporte Mensual</a></li>
+                    <li><a href="/VinculacionFIEE/bitacoras">Bitácora</a></li>
+                    <li><a href="/VinculacionFIEE/reportes">Reporte Mensual</a></li>
                 </ul>
             </li>
         </ul>

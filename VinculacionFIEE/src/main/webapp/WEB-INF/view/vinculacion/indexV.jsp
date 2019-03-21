@@ -57,7 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-xs-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <a href="insertarUsuarioV" class="btn btn-primary">Agregar</a>
+                                        <a href="insertar" class="btn btn-primary">Agregar</a>
                                     </div>
                                     <!-- /.box-header -->
                                     <div class="box-body">
@@ -77,8 +77,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <td> <c:out value="${dato.nombre}"/></td>
                                                     <td> <c:out value="${dato.usuario}"/></td>
                                                     <td>
-                                                        <a href="editarUsuarioV?id=${dato.idvinculacion}" class="btn btn-warning">Editar</a>
-                                                        <a href="borrarUsuarioV?id=${dato.idvinculacion}" class="btn btn-danger">Eliminar</a>
+                                                        <a href="editar?id=${dato.idvinculacion}" class="btn btn-warning">Editar</a>
+                                                        <a href="borrar?id=${dato.idvinculacion}" class="btn btn-danger">Eliminar</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

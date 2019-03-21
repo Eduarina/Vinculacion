@@ -3,7 +3,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-
 <spring:url value="/resources" var="urlPublic"/>
 <!DOCTYPE html>
 <!--
@@ -44,13 +43,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Registrar Administrador
-                            <small>Usuario de Vinculación</small>
+                            Usuarios
+                            <small>Lista de Usuarios</small>
                         </h1>
-                        <ol class="breadcrumb">
-                            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                            <li class="active">Inicio</li>
-                        </ol>
+                        <!--                    <ol class="breadcrumb">
+                                                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                                                <li class="active">Inicio</li>
+                                            </ol>-->
                     </section>
 
                     <!-- Main content -->
@@ -60,43 +59,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         | Your Page Content Here |
                         -------------------------->
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-xs-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Nuevo Usuario</h3>
+                                        <a href="insertar" class="btn btn-primary">Agregar</a>
                                     </div>
                                     <!-- /.box-header -->
-                                    <!-- form start -->
-                                <form:form method="post" action="insertar" modelAttribute="vinculacion">
-                                    <form:errors path="*" element="div" cssClass="alert alert-danger"/>
-                                        <div class="box-body">
-                                            <div class="form-group col-md-6">
-                                                <form:label path="nombre">Nombre del Usuario</form:label>
-                                                <form:input path="nombre" type="text" cssClass="form-control" placeholder="Nombre del Usuario..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
-                                                <form:errors path="nombre" />
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <form:label path="usuario">Usuario</form:label>
-                                                <form:input path="usuario" type="text" cssClass="form-control" placeholder="Usuario..."/>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <form:label path="password">Contraseña</form:label>
-                                                <form:input path="password" type="password" cssClass="form-control" placeholder="Contraseña..."/>
-                                            </div>
-                                        </div>
-                                        <div class="box-footer">
-                                            <form:button type="submit" class="btn btn-success">Aceptar</form:button>
-                                            <a href="lista" class="btn btn-default">Cancelar</a>
-                                        </div>
-                                    </form:form>
+                                    <div class="box-body">
+                                        <table id="example1" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Id</th>
+                                                    <th>Nombre</th>
+                                                    <th>Usuario</th>
+                                                    <th>Tipo</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <c:forEach items="${datos}" var="dato">
+                                                <tr>
+                                                    <td> <c:out value="${dato.idusuario}"/></td>
+                                                    <td> <c:out value="${dato.nombre}"/></td>
+                                                    <td> <c:out value="${dato.user}"/></td>
+                                                    <td> <c:out value="${dato.tipo}"/></td>
+                                                    <td>
+                                                        <a href="editar?id=${dato.idusuario}" class="btn btn-warning">Editar</a>
+                                                        <a href="borrar?id=${dato.idusuario}" class="btn btn-danger">Eliminar</a>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
                                 </div>
+                                <!-- /.box-body -->
                             </div>
+                            <!-- /.box -->
                         </div>
-
-                    </section>
-                    <!-- /.content -->
-                </div>
-                <!-- /.content-wrapper -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
 
             <jsp:include page="../includes/footer.jsp"></jsp:include>
 
