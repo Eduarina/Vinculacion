@@ -23,23 +23,16 @@ public class UsuarioValidator implements Validator{
     public void validate(Object target, Errors errors) {
         Usuario usuario = (Usuario) target;
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nombre", 
-                "required.nombre", "El campo nombre es obligatorio.");
+                "required.nombre", "El campo nombre es obligatorio");
         
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "user", 
-                "required.user", "El campo usuario es obligatorio.");
+                "required.user", "El campo usuario es obligatorio");
         
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", 
-                "required.password", "El campo contraseña es obligatorio.");
-        
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password2", 
-                "required.password2", "El campo confirmar contraseña es obligatorio.");
+                "required.password", "El campo contraseña es obligatorio");
         
         if(usuario.getTipo()==0){
-            errors.rejectValue("tipo", "required.tipo", "Seleccione un tipo.");
-        }
-        
-        if(!usuario.getPassword().equals(usuario.getPassword2())){
-            errors.rejectValue("password", "required.password", "Las contraseñas no son iguales.");
+            errors.rejectValue("tipo", "required.tipo", "Seleccione un tipo");
         }
     }
 }

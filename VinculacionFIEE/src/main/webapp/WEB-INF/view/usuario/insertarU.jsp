@@ -70,7 +70,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <form:form action="insertar" method="POST" modelAttribute="datos">
                                     <form:errors path="*" element="div" cssClass="alert alert-danger alert-dismissible"/>
 
-                                    <%--  <spring:bind path="*">
+                                    <spring:bind path="*">
                                         <c:forEach items="${status.errorMessages}" var="error">
                                             <div class="alert alert-danger alert-dismissible">
                                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -87,50 +87,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 ${error}
                                             </div>
                                         </c:forEach>      
-</spring:bind> --%>
+                                    </spring:bind>
                                     <div class="box-body">
                                         <div class="form-group col-md-6">
                                             <form:label path="nombre">Nombre</form:label>
-                                            
-                                            <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                            <c:set var="errorband"><form:errors path="nombre"/></c:set>
-                                            <c:if test="${empty errorband}">
-                                                <form:input path="nombre" type="text" cssClass="form-control" placeholder="Nombre..."  onkeyup="javascript:this.value = this.value.toUpperCase();"/>
-                                            </c:if>
-                                            <c:if test="${not empty errorband}">
-                                                <form:input path="nombre" type="text" cssClass="form-control" placeholder="Nombre..."  style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
-                                            </c:if>
+                                            <form:input path="nombre" type="text" cssClass="form-control" placeholder="Nombre..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            <form:errors path="nombre" cssClass="alert alert-danger col-md-6" />
                                         </div>
                                         <div class="form-group col-md-6">
                                             <form:label path="user">Usuario</form:label>
-                                            
-                                            <c:set var="errorband"><form:errors path="user"/></c:set>
-                                            <c:if test="${empty errorband}">
-                                                <form:input path="user" type="text" cssClass="form-control" placeholder="Usuario..."/>
-                                            </c:if>
-                                            <c:if test="${not empty errorband}">
-                                                <form:input path="user" type="text" cssClass="form-control" style="border-color:red;" placeholder="Usuario..."/>
-                                            </c:if>
+                                            <form:input path="user" type="text" cssClass="form-control" placeholder="Usuario..."/>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <form:label path="password">Contraseña</form:label>
-                                            <c:set var="errorband"><form:errors path="password"/></c:set>
-                                            <c:if test="${empty errorband}">
-                                                <form:input path="user" type="text" cssClass="form-control" placeholder="Usuario..."/>
-                                            </c:if>
-                                            <c:if test="${not empty errorband}">
-                                                <form:input path="user" type="text" cssClass="form-control" style="border-color:red;" placeholder="Usuario..."/>
-                                            </c:if>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <form:label path="password2">Confirmar contraseña</form:label>
-                                            <c:set var="errorband"><form:errors path="password2"/></c:set>
-                                            <c:if test="${empty errorband}">
-                                                <form:input path="password2" type="password" cssClass="form-control" placeholder="Confirmar contraseña..."/>
-                                            </c:if>
-                                            <c:if test="${not empty errorband}">
-                                                <form:input path="password2" type="password" cssClass="form-control" style="border-color:red;" placeholder="Confirmar contraseña..."/>
-                                            </c:if>
+                                            <form:input path="password" type="password" cssClass="form-control" placeholder="Contraseña..."/>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <form:label path="tipo">Tipo</form:label>

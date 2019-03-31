@@ -14,7 +14,6 @@ public class Usuario {
     private String nombre;
     private String user;
     private String password;
-    private String password2;
     private int tipo;
 
     public Usuario() {
@@ -27,12 +26,11 @@ public class Usuario {
         this.tipo = tipo;
     }
 
-    public Usuario(int idusuario, String nombre, String user, String password, String password2, int tipo) {
+    public Usuario(int idusuario, String nombre, String user, String password, int tipo) {
         this.idusuario = idusuario;
         this.nombre = nombre;
         this.user = user;
         this.password = password;
-        this.password2 = password2;
         this.tipo = tipo;
     }
 
@@ -68,14 +66,6 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getPassword2() {
-        return password2;
-    }
-
-    public void setPassword2(String password2) {
-        this.password2 = password2;
-    }
-
     public int getTipo() {
         return tipo;
     }
@@ -83,5 +73,5 @@ public class Usuario {
     public void setTipo(int tipo) {
         this.tipo = tipo;
     }
-
+    
 }
