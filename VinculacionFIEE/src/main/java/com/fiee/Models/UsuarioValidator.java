@@ -30,9 +30,15 @@ public class UsuarioValidator implements Validator{
         
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", 
                 "required.password", "El campo contraseña es obligatorio");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password2", 
+                "required.password2", "El campo confirmar contraseña es obligatorio.");
         
         if(usuario.getTipo()==0){
             errors.rejectValue("tipo", "required.tipo", "Seleccione un tipo");
+        }
+        
+        if(!usuario.getPassword().equals(usuario.getPassword2())){
+            errors.rejectValue("password", "required.password", "Las contraseñas no son iguales.");
         }
     }
 }
