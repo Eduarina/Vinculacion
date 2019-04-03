@@ -28,10 +28,12 @@ public class Usuario {
         this.tipo = tipo;
     }
 
-    public Usuario(String nombre, String user) {
+    public Usuario(String nombre, String user, int tipo) {
         this.nombre = nombre;
         this.user = user;
+        this.tipo = tipo;
     }
+
 
     public Usuario(int idusuario, String nombre, String user, String password, String password2, int tipo) {
         this.idusuario = idusuario;

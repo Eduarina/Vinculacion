@@ -10,6 +10,7 @@ import com.fiee.Models.UsuarioValidator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -80,10 +82,55 @@ public class usuarioController {
         }
 
     }
+
+    //@RequestMapping(value = "/editarUsuarioV", method = RequestMethod.GET)
+    @GetMapping(value = "/editar")
+    public ModelAndView editar(@RequestParam("id") int idusuario) {
+        ModelAndView mav = new ModelAndView();
+        //id=Integer.parseInt(request.getParameter("id"));
+        String sql = "select nombre from usuario where idusuario=" + idusuario;
+        Object[] parameters = new Object[]{};
+        String nombre = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        sql = "select user from usuario where idusuario=" + idusuario;
+        String usuario = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        sql = "select tipo from usuario where idusuario=" + idusuario;
+        int tipo = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+        sql = "select password from usuario where idusuario=" + idusuario;
+        String password = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        mav.addObject("datos", new Usuario(idusuario, nombre, usuario, password, password, tipo));
+        mav.setViewName("usuario/editarU");
+        return mav;
+    }
+
+    //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
+    @PostMapping(value = "/editar")
+    public ModelAndView editar(
+            @ModelAttribute("datos") @Valid Usuario u, BindingResult result
+    ) {
+        this.usuarioValidator.validate(u, result);
+        if (result.hasErrors()) {
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("datos", u);
+            mav.setViewName("usuario/editarU");
+            return mav;
+        } else {
+            String sql = "update usuario set nombre=?, user=?, tipo=? where idusuario=" + u.getIdusuario();
+            this.jdbcTemplate.update(sql, u.getNombre(), u.getUser(), u.getTipo());
+            return new ModelAndView("redirect:/usuarios/lista");
+        }
+
+    }
+
+    @RequestMapping(value = "/borrar")
+    public ModelAndView borrar(@RequestParam("id") int idusuario) {
+        String sql = "delete from usuario where idusuario=" + idusuario;
+        this.jdbcTemplate.update(sql);
+        return new ModelAndView("redirect:/usuarios/lista");
+    }
     
     //poblar select para tipo en insertar
     @ModelAttribute("tipo")
-    public Map<String, String> listadoTipo(){
+    public Map<String, String> listadoTipo() {
         Map<String, String> tipo = new LinkedHashMap<>();
         tipo.put("1", "Administrador");
         tipo.put("2", "Vinculacion");
@@ -92,4 +139,5 @@ public class usuarioController {
         tipo.put("5", "Encargado");
         return tipo;
     }
+
 }
