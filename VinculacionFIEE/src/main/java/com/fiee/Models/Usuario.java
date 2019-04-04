@@ -44,6 +44,12 @@ public class Usuario {
         this.tipo = tipo;
     }
 
+    public Usuario(String user, String password) {
+        this.user = user;
+        this.password = password;
+    }
+
+
     public int getIdusuario() {
         return idusuario;
     }

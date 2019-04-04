@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -127,7 +128,18 @@ public class usuarioController {
         this.jdbcTemplate.update(sql);
         return new ModelAndView("redirect:/usuarios/lista");
     }
+
+//    @GetMapping("/info")
+//    public String userInfo(@SessionAttribute("usuario") Usuario user) {
+//
+//        System.out.println("Usuario: " + user.getUser());
+//        System.out.println("Nombre: " + user.getNombre());
+//        System.out.println("Tipo: " + user.getTipo());
+//
+//        return "perfil";
+//    }
     
+
     //poblar select para tipo en insertar
     @ModelAttribute("tipo")
     public Map<String, String> listadoTipo() {
