@@ -30,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Emrys
  */
 @Controller
+@RequestMapping(value = "/login")
 public class loginController {
 
     private JdbcTemplate jdbcTemplate;
@@ -46,7 +47,7 @@ public class loginController {
     public ModelAndView login() {
         ModelAndView mav = new ModelAndView();
         mav.addObject("usuario", new Usuario());
-        mav.setViewName("login");  // Este es el nombre del archivo vista .jsp
+        mav.setViewName("login/login");  // Este es el nombre del archivo vista .jsp
         return mav;
     }
 
@@ -74,7 +75,7 @@ public class loginController {
         if (dato == null) {
             ModelAndView mav = new ModelAndView();
             mav.addObject("datos", new Usuario(u.getUser(), u.getPassword()));
-            mav.setViewName("login");
+            mav.setViewName("login/login");
             model.addAttribute("message", "Login failed. Try again.");
             return mav;
         } else {
@@ -84,7 +85,7 @@ public class loginController {
             session.setAttribute("tipo", dato.getTipo());
             session.setAttribute("nombre", dato.getNombre());
             ModelAndView mav = new ModelAndView();
-            mav.setViewName("sucess");
+            mav.setViewName("login/sucess");
             return mav;
         }
 
@@ -103,8 +104,15 @@ public class loginController {
     @RequestMapping(value = "/perfil")
     public ModelAndView perfil() {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("perfil");  // Este es el nombre del archivo vista .jsp
+        mav.setViewName("login/perfil");  // Este es el nombre del archivo vista .jsp
         return mav;
+    }
+    
+    @RequestMapping(value = "/logout")
+    public ModelAndView logout(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return new ModelAndView("redirect:/login/login");
     }
 
     public Usuario selectuser(String user, String password) {

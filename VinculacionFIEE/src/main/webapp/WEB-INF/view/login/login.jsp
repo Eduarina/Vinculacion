@@ -11,7 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
     <body class="hold-transition login-page">
-        <jsp:include page="includes/head.jsp"></jsp:include>
+        <jsp:include page="../includes/head.jsp"></jsp:include>
         <div class="login-box">
             <div class="login-logo">
                 <a href="../VinculacionFIEE/"><b>Vinculación</b>FIEE</a>

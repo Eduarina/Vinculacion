@@ -69,7 +69,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <!-- form start -->
                                 <form:form action="insertar" method="POST" modelAttribute="datos">
                                     <form:errors path="*" element="div" cssClass="alert alert-danger alert-dismissible"/>
-
+                                    <c:if test="${not empty message}">
+                                        <div class="alert alert-danger alert-dismissible">${message}</div>
+                                    </c:if>
+                                    
                                     <%--<spring:bind path="*">
                                         <c:forEach items="${status.errorMessages}" var="error">
                                             <div class="alert alert-danger alert-dismissible">

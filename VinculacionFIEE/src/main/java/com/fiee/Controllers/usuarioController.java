@@ -7,13 +7,18 @@ package com.fiee.Controllers;
 
 import com.fiee.Models.Usuario;
 import com.fiee.Models.UsuarioValidator;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -68,7 +73,7 @@ public class usuarioController {
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
     @PostMapping(value = "/insertar")
     public ModelAndView insertar(
-            @ModelAttribute("datos") @Valid Usuario u, BindingResult result
+            @ModelAttribute("datos") @Valid Usuario u, BindingResult result, Model model
     ) {
         this.usuarioValidator.validate(u, result);
         if (result.hasErrors()) {
@@ -77,16 +82,51 @@ public class usuarioController {
             mav.setViewName("usuario/insertarU");
             return mav;
         } else {
-            String sql = "insert into usuario(nombre, user, password, tipo) values (?,?,?,?)";
-            this.jdbcTemplate.update(sql, u.getNombre(), u.getUser(), u.getPassword(), u.getTipo());
-            return new ModelAndView("redirect:/usuarios/lista");
-        }
+            Usuario dato = this.checkuser(u.getUser());
+            if (dato == null) {
+                String sql = "insert into usuario(nombre, user, password, tipo) values (?,?,?,?)";
+                this.jdbcTemplate.update(sql, u.getNombre(), u.getUser(), u.getPassword(), u.getTipo());
+                sql = "select idusuario from usuario where user='" + u.getUser() + "'";
+                Object[] parameters = new Object[]{};
+                String id = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                if (id != null) {
+                    switch (u.getTipo()) {
+                        case 1:
+                            break;
+                        case 2:
+                            sql = "insert into vinculacion(idusuario) values (?)";
+                            this.jdbcTemplate.update(sql, id);
+                            break;
+                        case 3:
+                            sql = "insert into maestro(idusuario) values (?)";
+                            this.jdbcTemplate.update(sql, id);
+                            break;
+                        case 4:
+                            sql = "insert into servicio(idusuario) values (?)";
+                            this.jdbcTemplate.update(sql, id);
+                            break;
+                        case 5:
+                            sql = "insert into encargado(idusuario) values (?)";
+                            this.jdbcTemplate.update(sql, id);
+                            break;
+                    }
+                }
+                return new ModelAndView("redirect:/usuarios/lista");
+            } else {
+                ModelAndView mav = new ModelAndView();
+                mav.addObject("datos", u);
+                mav.setViewName("usuario/insertarU");
+                model.addAttribute("message", "Este usuario ya existe.");
+                return mav;
+            }
 
+        }
     }
 
     //@RequestMapping(value = "/editarUsuarioV", method = RequestMethod.GET)
     @GetMapping(value = "/editar")
-    public ModelAndView editar(@RequestParam("id") int idusuario) {
+    public ModelAndView editar(@RequestParam("id") int idusuario
+    ) {
         ModelAndView mav = new ModelAndView();
         //id=Integer.parseInt(request.getParameter("id"));
         String sql = "select nombre from usuario where idusuario=" + idusuario;
@@ -106,7 +146,8 @@ public class usuarioController {
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
     @PostMapping(value = "/editar")
     public ModelAndView editar(
-            @ModelAttribute("datos") @Valid Usuario u, BindingResult result
+            @ModelAttribute("datos")
+            @Valid Usuario u, BindingResult result
     ) {
         this.usuarioValidator.validate(u, result);
         if (result.hasErrors()) {
@@ -123,7 +164,8 @@ public class usuarioController {
     }
 
     @RequestMapping(value = "/borrar")
-    public ModelAndView borrar(@RequestParam("id") int idusuario) {
+    public ModelAndView borrar(@RequestParam("id") int idusuario
+    ) {
         String sql = "delete from usuario where idusuario=" + idusuario;
         this.jdbcTemplate.update(sql);
         return new ModelAndView("redirect:/usuarios/lista");
@@ -138,8 +180,6 @@ public class usuarioController {
 //
 //        return "perfil";
 //    }
-    
-
     //poblar select para tipo en insertar
     @ModelAttribute("tipo")
     public Map<String, String> listadoTipo() {
@@ -152,4 +192,24 @@ public class usuarioController {
         return tipo;
     }
 
+    public Usuario checkuser(String user) {
+        final Usuario users = new Usuario();
+        String sql = "select * from usuario where user='" + user + "'";
+        return (Usuario) this.jdbcTemplate.query(sql, new ResultSetExtractor<Usuario>() {
+            public Usuario extractData(ResultSet rs) throws SQLException, DataAccessException {
+                if (!rs.isBeforeFirst()) {
+                    return null;
+                }
+                if (rs.next()) {
+                    users.setIdusuario(rs.getInt("idusuario"));
+                    users.setNombre(rs.getString("nombre"));
+                    users.setUser(rs.getString("user"));
+                    users.setPassword(rs.getString("password"));
+                    users.setPassword2(rs.getString("password"));
+                    users.setTipo(rs.getInt("tipo"));
+                }
+                return users;
+            }
+        });
+    }
 }
