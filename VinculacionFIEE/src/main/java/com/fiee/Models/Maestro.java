@@ -11,33 +11,12 @@ package com.fiee.Models;
  */
 public class Maestro {
     private int idmaestro;
-    private String nombre;
-    private String usuario;
-    private String password;
     private String correo;
+    private String carrera;
+    private int estatus;
+    private int idusuario;
 
     public Maestro() {
-    }
-
-    public Maestro(String nombre, String usuario, String correo) {
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.correo = correo;
-    }
-
-    public Maestro(String nombre, String usuario, String password, String correo) {
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.password = password;
-        this.correo = correo;
-    }
-
-    public Maestro(int idmaestro, String nombre, String usuario, String password, String correo) {
-        this.idmaestro = idmaestro;
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.password = password;
-        this.correo = correo;
     }
 
     public int getIdmaestro() {
@@ -48,30 +27,6 @@ public class Maestro {
         this.idmaestro = idmaestro;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getCorreo() {
         return correo;
     }
@@ -79,5 +34,44 @@ public class Maestro {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+
+    public String getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
+    }
+
+    public int getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(int estatus) {
+        this.estatus = estatus;
+    }
+
+    public int getIdusuario() {
+        return idusuario;
+    }
+
+    public void setIdusuario(int idusuario) {
+        this.idusuario = idusuario;
+    }
+
+    public Maestro(int idmaestro, String correo, String carrera, int estatus, int idusuario) {
+        this.idmaestro = idmaestro;
+        this.correo = correo;
+        this.carrera = carrera;
+        this.estatus = estatus;
+        this.idusuario = idusuario;
+    }
+
+    public Maestro(String correo, String carrera, int estatus) {
+        this.correo = correo;
+        this.carrera = carrera;
+        this.estatus = estatus;
+    }
+
     
 }

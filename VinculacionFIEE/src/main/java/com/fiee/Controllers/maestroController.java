@@ -52,7 +52,7 @@ public class maestroController {
     public ModelAndView insertar( Maestro v)
     {
         String sql = "insert into maestro(nombre, usuario, password,correo) values (?,?,?,?)";
-        this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(), v.getPassword(), v.getCorreo());
+        //this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(), v.getPassword(), v.getCorreo());
         return new ModelAndView("redirect:/usuariosM");
     }
     
@@ -71,7 +71,7 @@ public class maestroController {
     public ModelAndView editar( Maestro v)
     {
         String sql = "update maestro set nombre=?, usuario=?, correo=? where idmaestro="+id;
-        this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(),v.getCorreo());
+        //this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(),v.getCorreo());
         return new ModelAndView("redirect:/usuariosM");
     }
     @RequestMapping(value = "/borrarUsuarioM")

@@ -5,6 +5,7 @@
  */
 package com.fiee.Controllers;
 
+import com.fiee.Models.Maestro;
 import com.fiee.Models.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,7 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class loginController {
 
     private JdbcTemplate jdbcTemplate;
-    int id;
+    int id, tipo;
     List lista;
 
     public loginController() //Constructor de la clase
@@ -101,13 +102,39 @@ public class loginController {
 //    }
     //@GetMapping(value = "/info")
 
-    @RequestMapping(value = "/perfil")
-    public ModelAndView perfil() {
+    @GetMapping(value = "/perfil")
+    public ModelAndView perfil(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String sql;
         ModelAndView mav = new ModelAndView();
+        id = (int) session.getAttribute("id");
+        tipo = (int) session.getAttribute("tipo");
+        switch (tipo) {
+            case 1:
+                break;
+            case 2:
+                sql = "select * from vinculacion";
+                lista = this.jdbcTemplate.queryForList(sql);
+                break;
+            case 3:
+                //id=Integer.parseInt(request.getParameter("id"));
+                sql = "select * from maestro";
+                lista = this.jdbcTemplate.queryForList(sql);
+                break;
+            case 4:
+                sql = "select * from servicio";
+                lista = this.jdbcTemplate.queryForList(sql);
+                break;
+            case 5:
+                sql = "select * from encargado";
+                lista = this.jdbcTemplate.queryForList(sql);
+                break;
+        }
+        mav.addObject("datos", lista);
         mav.setViewName("login/perfil");  // Este es el nombre del archivo vista .jsp
         return mav;
     }
-    
+
     @RequestMapping(value = "/logout")
     public ModelAndView logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -135,4 +162,5 @@ public class loginController {
             }
         });
     }
+
 }
