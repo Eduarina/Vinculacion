@@ -67,12 +67,12 @@ public class vinculacionController {
         this.vinculacionValidator.validate(v, result);
         if(result.hasErrors()){
             ModelAndView mav = new ModelAndView();
-            mav.addObject("vinculacion", new Vinculacion(v.getNombre(),v.getUsuario(),v.getPassword()));
+            //mav.addObject("vinculacion", new Vinculacion(v.getNombre(),v.getUsuario(),v.getPassword()));
             mav.setViewName("vinculacion/insertarV");
             return mav;
         }else{
             String sql = "insert into vinculacion(nombre, usuario, password) values (?,?,?)";
-            this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(), v.getPassword());
+            //this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(), v.getPassword());
             return new ModelAndView("redirect:/vinculacion/listaV");
         }
         
@@ -96,7 +96,7 @@ public class vinculacionController {
     public ModelAndView editar( Vinculacion v)
     {
         String sql = "update vinculacion set nombre=?, usuario=? where idvinculacion="+id;
-        this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario());
+        //this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario());
         return new ModelAndView("redirect:/vinculacion/listaV");
     }
     @RequestMapping(value = "/borrar")

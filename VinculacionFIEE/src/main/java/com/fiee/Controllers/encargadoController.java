@@ -52,7 +52,7 @@ public class encargadoController {
     public ModelAndView insertar( Encargado v)
     {
         String sql = "insert into encargado(nombre, usuario, password,correo) values (?,?,?,?)";
-        this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(), v.getPassword(), v.getCorreo());
+        //this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(), v.getPassword(), v.getCorreo());
         return new ModelAndView("redirect:/usuariosE");
     }
     
@@ -71,7 +71,7 @@ public class encargadoController {
     public ModelAndView editar( Encargado v)
     {
         String sql = "update encargado set nombre=?, usuario=?, correo=? where idencargado="+id;
-        this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(),v.getCorreo());
+        //this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(),v.getCorreo());
         return new ModelAndView("redirect:/usuariosE");
     }
     @RequestMapping(value = "/borrarUsuarioE")

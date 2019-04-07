@@ -10,34 +10,43 @@ package com.fiee.Models;
  * @author Anemc
  */
 public class Encargado {
+
     private int idencargado;
-    private String nombre;
-    private String usuario;
-    private String password;
     private String correo;
+    private String dependencia;
+    private String direccion;
+    private String telefono;
+    private int estatus;
+    private int idusuario;
 
     public Encargado() {
     }
 
-    public Encargado(String nombre, String usuario, String correo) {
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.correo = correo;
-    }
-
-    public Encargado(String nombre, String usuario, String password, String correo) {
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.password = password;
-        this.correo = correo;
-    }
-
-    public Encargado(int idencargado, String nombre, String usuario, String password, String correo) {
+    public Encargado(int idencargado, String correo, String dependencia, String direccion, String telefono) {
         this.idencargado = idencargado;
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.password = password;
         this.correo = correo;
+        this.dependencia = dependencia;
+        this.direccion = direccion;
+        this.telefono = telefono;
+    }
+
+    public Encargado(String correo, String dependencia, String direccion, String telefono, int estatus, int idusuario) {
+        this.correo = correo;
+        this.dependencia = dependencia;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.estatus = estatus;
+        this.idusuario = idusuario;
+    }
+
+    public Encargado(int idencargado, String correo, String dependencia, String direccion, String telefono, int estatus, int idusuario) {
+        this.idencargado = idencargado;
+        this.correo = correo;
+        this.dependencia = dependencia;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.estatus = estatus;
+        this.idusuario = idusuario;
     }
 
     public int getIdencargado() {
@@ -48,30 +57,6 @@ public class Encargado {
         this.idencargado = idencargado;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getCorreo() {
         return correo;
     }
@@ -79,5 +64,45 @@ public class Encargado {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
+
+    public String getDependencia() {
+        return dependencia;
+    }
+
+    public void setDependencia(String dependencia) {
+        this.dependencia = dependencia;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public int getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(int estatus) {
+        this.estatus = estatus;
+    }
+
+    public int getIdusuario() {
+        return idusuario;
+    }
+
+    public void setIdusuario(int idusuario) {
+        this.idusuario = idusuario;
+    }
+
 }

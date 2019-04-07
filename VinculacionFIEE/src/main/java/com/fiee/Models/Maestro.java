@@ -73,5 +73,10 @@ public class Maestro {
         this.estatus = estatus;
     }
 
-    
+    public Maestro(int idmaestro, String correo, String carrera) {
+        this.idmaestro = idmaestro;
+        this.correo = correo;
+        this.carrera = carrera;
+    }
+
 }

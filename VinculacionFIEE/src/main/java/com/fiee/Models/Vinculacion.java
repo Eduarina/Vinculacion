@@ -11,22 +11,39 @@ package com.fiee.Models;
  */
 public class Vinculacion {
     private int idvinculacion;
-    private String nombre;
-    private String usuario;
-    private String password;
-
-    public Vinculacion(String nombre, String usuario) {
-        this.nombre = nombre;
-        this.usuario = usuario;
-    }
+    private String correo;
+    private String carrera;
+    private int idusuario;
 
     public Vinculacion() {
     }
 
-    public Vinculacion(String nombre, String usuario, String password) {
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.password = password;
+    public Vinculacion(String correo, String carrera) {
+        this.correo = correo;
+        this.carrera = carrera;
+    }
+
+    public Vinculacion(int idvinculacion, String correo, String carrera) {
+        this.idvinculacion = idvinculacion;
+        this.correo = correo;
+        this.carrera = carrera;
+    }
+
+    public Vinculacion(String correo, String carrera, int idusuario) {
+        this.correo = correo;
+        this.carrera = carrera;
+        this.idusuario = idusuario;
+    }
+
+    public Vinculacion(int idusuario) {
+        this.idusuario = idusuario;
+    }
+
+    public Vinculacion(int idvinculacion, String correo, String carrera, int idusuario) {
+        this.idvinculacion = idvinculacion;
+        this.correo = correo;
+        this.carrera = carrera;
+        this.idusuario = idusuario;
     }
 
     public int getIdvinculacion() {
@@ -37,35 +54,28 @@ public class Vinculacion {
         this.idvinculacion = idvinculacion;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getCarrera() {
+        return carrera;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
     }
 
-    public String getPassword() {
-        return password;
+    public int getIdusuario() {
+        return idusuario;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setIdusuario(int idusuario) {
+        this.idusuario = idusuario;
     }
-
-    public Vinculacion(int idvinculacion, String nombre, String usuario, String password) {
-        this.idvinculacion = idvinculacion;
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.password = password;
-    }
-
+    
 }

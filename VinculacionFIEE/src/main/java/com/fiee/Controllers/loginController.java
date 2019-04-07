@@ -5,8 +5,15 @@
  */
 package com.fiee.Controllers;
 
+import com.fiee.Models.Encargado;
+import com.fiee.Models.EncargadoValidator;
 import com.fiee.Models.Maestro;
+import com.fiee.Models.MaestroValidator;
+import com.fiee.Models.Servicio;
+import com.fiee.Models.ServicioValidator;
 import com.fiee.Models.Usuario;
+import com.fiee.Models.Vinculacion;
+import com.fiee.Models.VinculacionValidator;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -23,6 +30,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,11 +45,19 @@ public class loginController {
     private JdbcTemplate jdbcTemplate;
     int id, tipo;
     List lista;
+    private VinculacionValidator vinculacionValidator;
+    private MaestroValidator maestroValidator;
+    private ServicioValidator servicioValidator;
+    private EncargadoValidator encargadoValidator;
 
     public loginController() //Constructor de la clase
     {
         conectionClass con = new conectionClass();
         this.jdbcTemplate = new JdbcTemplate(con.conectar());
+        this.vinculacionValidator = new VinculacionValidator();
+        this.maestroValidator = new MaestroValidator();
+        this.servicioValidator = new ServicioValidator();
+        this.encargadoValidator = new EncargadoValidator();
     }
 
     @GetMapping(value = "/login")
@@ -140,6 +156,148 @@ public class loginController {
         HttpSession session = request.getSession();
         session.invalidate();
         return new ModelAndView("redirect:/login/login");
+    }
+
+    //@RequestMapping(value = "/editarUsuarioV", method = RequestMethod.GET)
+    @GetMapping(value = "/editar")
+    public ModelAndView editar(@RequestParam("id") int iduser, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String sql;
+        ModelAndView mav = new ModelAndView();
+        Object[] parameters = new Object[]{};
+        tipo = (int) session.getAttribute("tipo");
+        switch (tipo) {
+            case 1:
+                break;
+            case 2:
+                sql = "select correo from vinculacion where idvinculacion =" + iduser;
+                String correo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                sql = "select carrera from vinculacion where idvinculacion =" + iduser;
+                String carrera = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                mav.addObject("datos", new Vinculacion(iduser, correo, carrera));
+                break;
+            case 3:
+                sql = "select correo from maestro where idmaestro =" + iduser;
+                correo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                sql = "select carrera from maestro where idmaestro =" + iduser;
+                carrera = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                mav.addObject("datos", new Maestro(iduser, correo, carrera));
+                break;
+            case 4:
+                sql = "select correo from servicio where idservicio =" + iduser;
+                correo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                sql = "select carrera from servicio where idservicio =" + iduser;
+                carrera = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                sql = "select matricula from servicio where idservicio =" + iduser;
+                String matricula = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                sql = "select creditos from servicio where idservicio =" + iduser;
+                int creditos = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                sql = "select telefono from servicio where idservicio =" + iduser;
+                String telefono = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                sql = "select celular from servicio where idservicio =" + iduser;
+                String celular = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                sql = "select cv from servicio where idservicio =" + iduser;
+                String cv = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                sql = "select semestre from servicio where idservicio =" + iduser;
+                int semestre = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                sql = "select horario from servicio where idservicio =" + iduser;
+                String horario = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                mav.addObject("datos", new Servicio(iduser, matricula, creditos, correo, telefono, celular, cv, carrera, semestre, horario));
+                break;
+            case 5:
+                sql = "select correo from encargado where idencargado =" + iduser;
+                correo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                sql = "select dependencia from encargado where idencargado =" + iduser;
+                String dependencia = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                sql = "select direccion from encargado where idencargado =" + iduser;
+                String direccion = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                sql = "select telefono from encargado where idencargado =" + iduser;
+                telefono = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                mav.addObject("datos", new Encargado(iduser, correo, dependencia, direccion, telefono));
+                break;
+        }
+        mav.setViewName("login/editarP");
+        return mav;
+    }
+//
+    //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
+    @PostMapping(value = "/editar2")
+    public ModelAndView editar2(
+            @ModelAttribute("datos")
+            @Valid Vinculacion u, BindingResult result
+    ) {
+        this.vinculacionValidator.validate(u, result);
+        if (result.hasErrors()) {
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("datos", u);
+            mav.setViewName("login/editarP");
+            return mav;
+        } else {
+            String sql = "update vinculacion set correo=?, carrera=? where idvinculacion=" + u.getIdvinculacion();
+            this.jdbcTemplate.update(sql, u.getCorreo(), u.getCarrera());
+            return new ModelAndView("redirect:/login/perfil");
+        }
+
+    }
+    
+    //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
+    @PostMapping(value = "/editar3")
+    public ModelAndView editar3(
+            @ModelAttribute("datos")
+            @Valid Maestro u, BindingResult result
+    ) {
+        this.maestroValidator.validate(u, result);
+        if (result.hasErrors()) {
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("datos", u);
+            mav.setViewName("login/editarP");
+            return mav;
+        } else {
+            String sql = "update maestro set correo=?, carrera=? where idmaestro=" + u.getIdmaestro();
+            this.jdbcTemplate.update(sql, u.getCorreo(), u.getCarrera());
+            return new ModelAndView("redirect:/login/perfil");
+        }
+
+    }
+    
+    //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
+    @PostMapping(value = "/editar4")
+    public ModelAndView editar4(
+            @ModelAttribute("datos")
+            @Valid Servicio u, BindingResult result
+    ) {
+        this.servicioValidator.validate(u, result);
+        if (result.hasErrors()) {
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("datos", u);
+            mav.setViewName("login/editarP");
+            return mav;
+        } else {
+            String sql = "update servicio set matricula=?, creditos=?, correo=?, telefono=?, celular=?, cv=?, carrera=?, semestre=?, horario=? where idservicio=" + u.getIdservicio();
+            this.jdbcTemplate.update(sql, u.getMatricula(), u.getCreditos(), u.getCorreo(), u.getTelefono(), u.getCelular(), u.getCv(), u.getCarrera(), u.getSemestre(), u.getHorario());
+            return new ModelAndView("redirect:/login/perfil");
+        }
+
+    }
+    
+    //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
+    @PostMapping(value = "/editar5")
+    public ModelAndView editar5(
+            @ModelAttribute("datos")
+            @Valid Encargado u, BindingResult result
+    ) {
+        this.encargadoValidator.validate(u, result);
+        if (result.hasErrors()) {
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("datos", u);
+            mav.setViewName("login/editarP");
+            return mav;
+        } else {
+            String sql = "update encargado set correo=?, dependencia=?, direccion=?, telefono=? where idencargado=" + u.getIdencargado();
+            this.jdbcTemplate.update(sql, u.getCorreo(), u.getDependencia(), u.getDireccion(), u.getTelefono());
+            return new ModelAndView("redirect:/login/perfil");
+        }
+
     }
 
     public Usuario selectuser(String user, String password) {

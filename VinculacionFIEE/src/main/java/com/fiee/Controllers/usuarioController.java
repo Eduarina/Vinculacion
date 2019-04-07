@@ -98,16 +98,16 @@ public class usuarioController {
                             this.jdbcTemplate.update(sql, id);
                             break;
                         case 3:
-                            sql = "insert into maestro(idusuario) values (?)";
-                            this.jdbcTemplate.update(sql, id);
+                            sql = "insert into maestro(idusuario, estatus) values (?,?)";
+                            this.jdbcTemplate.update(sql, id, 1);
                             break;
                         case 4:
-                            sql = "insert into servicio(idusuario) values (?)";
-                            this.jdbcTemplate.update(sql, id);
+                            sql = "insert into servicio(idusuario, estatus) values (?,?)";
+                            this.jdbcTemplate.update(sql, id, 1);
                             break;
                         case 5:
-                            sql = "insert into encargado(idusuario) values (?)";
-                            this.jdbcTemplate.update(sql, id);
+                            sql = "insert into encargado(idusuario, estatus) values (?,?)";
+                            this.jdbcTemplate.update(sql, id, 1);
                             break;
                     }
                 }

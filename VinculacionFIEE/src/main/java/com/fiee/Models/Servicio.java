@@ -11,45 +11,61 @@ package com.fiee.Models;
  */
 public class Servicio {
     private int idservicio;
-    private String nombre;
-    private String usuario;
-    private String password;
-    private String correo;
     private String matricula;
     private int creditos;
+    private String correo;
+    private String telefono;
+    private String celular;
+    private String cv;
+    private String carrera;
     private int semestre;
+    private int estatus;
+    private String horario;
+    private int idusuario;
 
     public Servicio() {
     }
 
-    public Servicio(String nombre, String usuario, String correo, String matricula, int creditos, int semestre) {
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.correo = correo;
-        this.matricula = matricula;
-        this.creditos = creditos;
-        this.semestre = semestre;
-    }
-
-    public Servicio(String nombre, String usuario, String password, String correo, String matricula, int creditos, int semestre) {
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.password = password;
-        this.correo = correo;
-        this.matricula = matricula;
-        this.creditos = creditos;
-        this.semestre = semestre;
-    }
-
-    public Servicio(int idservicio, String nombre, String usuario, String password, String correo, String matricula, int creditos, int semestre) {
+    public Servicio(int idservicio, String matricula, int creditos, String correo, String telefono, String celular, String cv, String carrera, int semestre, int estatus, String horario, int idusuario) {
         this.idservicio = idservicio;
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.password = password;
-        this.correo = correo;
         this.matricula = matricula;
         this.creditos = creditos;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.celular = celular;
+        this.cv = cv;
+        this.carrera = carrera;
         this.semestre = semestre;
+        this.estatus = estatus;
+        this.horario = horario;
+        this.idusuario = idusuario;
+    }
+
+    public Servicio(String matricula, int creditos, String correo, String telefono, String celular, String cv, String carrera, int semestre, int estatus, String horario, int idusuario) {
+        this.matricula = matricula;
+        this.creditos = creditos;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.celular = celular;
+        this.cv = cv;
+        this.carrera = carrera;
+        this.semestre = semestre;
+        this.estatus = estatus;
+        this.horario = horario;
+        this.idusuario = idusuario;
+    }
+
+    public Servicio(int idservicio, String matricula, int creditos, String correo, String telefono, String celular, String cv, String carrera, int semestre, String horario) {
+        this.idservicio = idservicio;
+        this.matricula = matricula;
+        this.creditos = creditos;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.celular = celular;
+        this.cv = cv;
+        this.carrera = carrera;
+        this.semestre = semestre;
+        this.horario = horario;
     }
 
     public int getIdservicio() {
@@ -58,38 +74,6 @@ public class Servicio {
 
     public void setIdservicio(int idservicio) {
         this.idservicio = idservicio;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
     }
 
     public String getMatricula() {
@@ -108,6 +92,46 @@ public class Servicio {
         this.creditos = creditos;
     }
 
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public String getCv() {
+        return cv;
+    }
+
+    public void setCv(String cv) {
+        this.cv = cv;
+    }
+
+    public String getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
+    }
+
     public int getSemestre() {
         return semestre;
     }
@@ -115,5 +139,30 @@ public class Servicio {
     public void setSemestre(int semestre) {
         this.semestre = semestre;
     }
+
+    public int getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(int estatus) {
+        this.estatus = estatus;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    public int getIdusuario() {
+        return idusuario;
+    }
+
+    public void setIdusuario(int idusuario) {
+        this.idusuario = idusuario;
+    }
+    
     
 }

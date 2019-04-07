@@ -52,7 +52,7 @@ public class servicioController {
     public ModelAndView insertar( Servicio v)
     {
         String sql = "insert into servicio(nombre, usuario, password,correo,matricula,creditos,semestre) values (?,?,?,?,?,?,?)";
-        this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(), v.getPassword(), v.getCorreo(),v.getMatricula(),v.getCreditos(),v.getSemestre());
+        //this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(), v.getPassword(), v.getCorreo(),v.getMatricula(),v.getCreditos(),v.getSemestre());
         return new ModelAndView("redirect:/usuariosS");
     }
     
@@ -71,7 +71,7 @@ public class servicioController {
     public ModelAndView editar( Servicio v)
     {
         String sql = "update servicio set nombre=?, usuario=?, correo=?, matricula=?, creditos=?, semestre=? where idservicio="+id;
-        this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(), v.getCorreo(),v.getMatricula(),v.getCreditos(),v.getSemestre());
+        //this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(), v.getCorreo(),v.getMatricula(),v.getCreditos(),v.getSemestre());
         return new ModelAndView("redirect:/usuariosS");
     }
     @RequestMapping(value = "/borrarUsuarioS")
