@@ -119,7 +119,6 @@ public class usuarioController {
                 model.addAttribute("message", "Este usuario ya existe.");
                 return mav;
             }
-
         }
     }
 

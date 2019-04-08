@@ -72,7 +72,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <c:if test="${not empty message}">
                                         <div class="alert alert-danger alert-dismissible">${message}</div>
                                     </c:if>
-                                    
+
                                     <%--<spring:bind path="*">
                                         <c:forEach items="${status.errorMessages}" var="error">
                                             <div class="alert alert-danger alert-dismissible">
@@ -138,15 +138,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <c:set var="errorband"><form:errors path="password2"/></c:set>
                                             <c:if test="${empty errorband}">
                                                 <form:select path="tipo" cssClass="form-control">
-                                                <form:option value="0">Seleccion...</form:option>
-                                                <form:options items="${tipo}"/>
-                                            </form:select>
+                                                    <form:option value="0">Seleccion...</form:option>
+                                                    <form:options items="${tipo}"/>
+                                                </form:select>
                                             </c:if>
                                             <c:if test="${not empty errorband}">
                                                 <form:select path="tipo" cssClass="form-control" style="border-color:red;">
-                                                <form:option value="0">Seleccion...</form:option>
-                                                <form:options items="${tipo}"/>
-                                            </form:select>
+                                                    <form:option value="0">Seleccion...</form:option>
+                                                    <form:options items="${tipo}"/>
+                                                </form:select>
                                             </c:if>
                                         </div>
                                     </div>
