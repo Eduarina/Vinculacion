@@ -93,7 +93,7 @@ public class loginController {
             ModelAndView mav = new ModelAndView();
             mav.addObject("datos", new Usuario(u.getUser(), u.getPassword()));
             mav.setViewName("login/login");
-            model.addAttribute("message", "Login failed. Try again.");
+            model.addAttribute("message", "Usuario o contraseña son incorrectos. Intente de nuevo..");
             return mav;
         } else {
             HttpSession session = request.getSession();

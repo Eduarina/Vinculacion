@@ -155,10 +155,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Créditos</label><br>
-                                    <c:if test="${empty dato.creditos}">
+                                    <c:if test="${dato.creditos eq 0}">
                                         Dato por registrar
                                     </c:if>
-                                    <c:if test="${not empty dato.creditos}">
+                                    <c:if test="${dato.creditos ne 0}">
                                         ${dato.creditos}
                                     </c:if>
                                 </div>
@@ -189,13 +189,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         ${dato.celular}
                                     </c:if>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
                                     <label>Curriculum Vitae o Habilidades</label><br>
                                     <c:if test="${empty dato.cv}">
                                         Dato por registrar
                                     </c:if>
                                     <c:if test="${not empty dato.cv}">
-                                        ${dato.cv}
+                                        <p>${dato.cv}</p>
                                     </c:if>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -209,10 +209,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Semestre</label><br>
-                                    <c:if test="${empty dato.semestre}">
+                                    <c:if test="${dato.semestre eq 0}">
                                         Dato por registrar
                                     </c:if>
-                                    <c:if test="${not empty dato.semestre}">
+                                    <c:if test="${dato.semestre ne 0}">
                                         ${dato.semestre}
                                     </c:if>
                                 </div>

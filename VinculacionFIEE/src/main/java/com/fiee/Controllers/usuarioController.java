@@ -102,8 +102,8 @@ public class usuarioController {
                             this.jdbcTemplate.update(sql, id, 1);
                             break;
                         case 4:
-                            sql = "insert into servicio(idusuario, estatus) values (?,?)";
-                            this.jdbcTemplate.update(sql, id, 1);
+                            sql = "insert into servicio(idusuario, estatus, creditos, semestre) values (?, ?, ?, ?)";
+                            this.jdbcTemplate.update(sql, id, 1, 0, 0);
                             break;
                         case 5:
                             sql = "insert into encargado(idusuario, estatus) values (?,?)";

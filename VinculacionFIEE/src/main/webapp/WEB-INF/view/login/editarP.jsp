@@ -223,17 +223,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                                    <form:label path="cv">Curriculum vitae o Habilidades</form:label>
-                                                    <c:set var="errorband"><form:errors path="cv"/></c:set>
-                                                    <c:if test="${empty errorband}">
-                                                        <form:textarea path="cv" type="text" rows="3" cssClass="form-control" placeholder="Menciona tus habilidades y conocimientos..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
-                                                    </c:if>
-                                                    <c:if test="${not empty errorband}">
-                                                        <form:textarea path="cv" type="text" rows="3" cssClass="form-control" placeholder="Menciona tus habilidades y conocimientos..."  style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
-                                                    </c:if>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
                                                     <form:label path="carrera">Programa Educativo</form:label>
                                                     <c:set var="errorband"><form:errors path="carrera"/></c:set>
                                                     <c:if test="${empty errorband}">
@@ -241,6 +230,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     </c:if>
                                                     <c:if test="${not empty errorband}">
                                                         <form:input path="carrera" type="text" cssClass="form-control" placeholder="Programa Educativo..."  style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                    </c:if>
+                                                </div>
+                                                    <div class="form-group col-md-12">
+                                                    <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
+                                                    <form:label path="cv">Curriculum vitae o Habilidades</form:label>
+                                                    <c:set var="errorband"><form:errors path="cv"/></c:set>
+                                                    <c:if test="${empty errorband}">
+                                                        <form:textarea path="cv" type="text" rows="3" cssClass="form-control" placeholder="Menciona tus habilidades y conocimientos..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                    </c:if>
+                                                    <c:if test="${not empty errorband}">
+                                                        <form:textarea path="cv" type="text" rows="3" cssClass="form-control" placeholder="Menciona tus habilidades y conocimientos..."  style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
                                                     </c:if>
                                                 </div>
                                                 <div class="form-group col-md-6">
@@ -259,10 +259,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <form:label path="horario">Horario de la clase</form:label>
                                                     <c:set var="errorband"><form:errors path="horario"/></c:set>
                                                     <c:if test="${empty errorband}">
-                                                        <form:input path="horario" type="text" cssClass="form-control" />
+                                                        <!-- time Picker -->
+                                                        <div class="bootstrap-timepicker">
+                                                            <div class="form-group">
+                                                                <div class="input-group">
+                                                                    <input id="horario" name="horario" value="${datos.horario}" type="text" class="form-control timepicker">
+
+                                                                    <div class="input-group-addon">
+                                                                        <i class="fa fa-clock-o"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- /.input group -->
+                                                            </div>
+                                                            <!-- /.form group -->
+                                                        </div>
                                                     </c:if>
                                                     <c:if test="${not empty errorband}">
-                                                        <form:input path="horario" type="text" cssClass="form-control timepicker" style="border-color:red;"/>
+                                                        <div class="bootstrap-timepicker">
+                                                            <div class="form-group">
+                                                                <div class="input-group">
+                                                                    <input id="horario" name="horario" value="${datos.horario}" type="text" style="border-color:red;" class="form-control timepicker">
+
+                                                                    <div class="input-group-addon">
+                                                                        <i class="fa fa-clock-o"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- /.input group -->
+                                                            </div>
+                                                            <!-- /.form group -->
+                                                        </div>
                                                     </c:if>
                                                 </div>
                                             </div>

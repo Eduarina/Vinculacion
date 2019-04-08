@@ -37,6 +37,8 @@
 <!-- DataTables -->
 <script src="${urlPublic}/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="${urlPublic}/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- bootstrap time picker -->
+<script src="${urlPublic}/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <script>
     $(function () {
         //Date picker
@@ -54,6 +56,10 @@
             'info': true,
             'autoWidth': false
         })
+        //Timepicker
+        $('.timepicker').timepicker({
+            showInputs: false
+        })
     })
     function disableMyText() {
         if (document.getElementById("checkbox").checked == true) {
@@ -64,6 +70,8 @@
             document.getElementById("tipo").disabled = true;
         }
     }
+
+
 </script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
