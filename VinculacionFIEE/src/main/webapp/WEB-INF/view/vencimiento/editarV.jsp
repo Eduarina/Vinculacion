@@ -44,8 +44,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Usuarios
-                            <small>Editar Usuario</small>
+                            Vencimiento
+                            <small>Editar Fecha de Vencimiento</small>
                         </h1>
                         <!--                    <ol class="breadcrumb">
                                                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -63,7 +63,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-md-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Editar Usuario</h3>
+                                        <h3 class="box-title">Editar Fecha</h3>
                                     </div>
                                     <!-- /.box-header -->
                                     <!-- form start -->
@@ -88,44 +88,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         </c:forEach>      
 </spring:bind> --%>
                                     <div class="box-body">
-                                        <form:hidden path="idusuario"/>
-                                        <form:hidden path="password"/>
-                                        <form:hidden path="password2"/>
+                                        <form:hidden path="idvencimiento"/>
+                                        <div class="form-group col-md-6">
+                                            <form:label path="descripcion">Documento</form:label><br>
+                                            <form:input path="descripcion" type="text" cssClass="form-control" placeholder="documento..." disabled="true"/>
+                                        </div>
                                         <div class="form-group col-md-6">
                                             <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                            <form:label path="nombre">Nombre</form:label>
-                                            <c:set var="errorband"><form:errors path="nombre"/></c:set>
+                                            <form:label path="datepicker">Fecha</form:label>
+                                            <c:set var="errorband"><form:errors path="datepicker"/></c:set>
                                             <c:if test="${empty errorband}">
-                                                <form:input path="nombre" autocomplete="off" type="text" cssClass="form-control" placeholder="Nombre..."  onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                <!--Date--> 
+                                                <div class="input-group date">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input id="datepicker" value="${datos.datepicker}" autocomplete="off" name="datepicker" type="text" class="form-control pull-right-container">
+                                                </div>
+                                                <!--/.input group--> 
                                             </c:if>
                                             <c:if test="${not empty errorband}">
-                                                <form:input path="nombre" autocomplete="off" type="text" cssClass="form-control" placeholder="Nombre..."  style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
-                                            </c:if>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <form:label path="user">Usuario</form:label>
-                                            <c:set var="errorband"><form:errors path="user"/></c:set>
-                                            <c:if test="${empty errorband}">
-                                                <form:input path="user" autocomplete="off" type="text" cssClass="form-control" placeholder="Usuario..."/>
-                                            </c:if>
-                                            <c:if test="${not empty errorband}">
-                                                <form:input path="user" autocomplete="off" type="text" cssClass="form-control" style="border-color:red;" placeholder="Usuario..."/>
-                                            </c:if>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <form:label path="tipo">Tipo</form:label>
-                                            <c:set var="errorband"><form:errors path="password2"/></c:set>
-                                            <c:if test="${empty errorband}">
-                                                <form:select path="tipo" cssClass="form-control">
-                                                    <form:option value="0">Seleccion...</form:option>
-                                                    <form:options items="${tipo}"/>
-                                                </form:select>
-                                            </c:if>
-                                            <c:if test="${not empty errorband}">
-                                                <form:select path="tipo" cssClass="form-control" style="border-color:red;">
-                                                    <form:option value="0">Seleccion...</form:option>
-                                                    <form:options items="${tipo}"/>
-                                                </form:select>
+                                                <!--Date--> 
+                                                <div class="input-group date">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <input id="datepicker" value="${datos.datepicker}" autocomplete="off" name="datepicker" type="text" class="form-control pull-right-container">
+                                                </div>
+                                                <!--/.input group--> 
                                             </c:if>
                                         </div>
                                     </div>
@@ -134,9 +124,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <a href="lista" class="btn btn-default">Cancelar</a>
                                     </div>
                                 </form:form>
+
                             </div>
                         </div>
-                    </div>
                 </section>
                 <!-- /.content -->
             </div>
@@ -148,4 +138,4 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
 
     </body>
-</html> 
+</html

@@ -2,6 +2,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <spring:url value="/resources" var="urlPublic"/>
 <!DOCTYPE html>
 <!--
@@ -45,10 +46,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             Editar Bitácora
                             <small></small>
                         </h1>
-                        <ol class="breadcrumb">
+                        <!--<ol class="breadcrumb">
                             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                             <li class="active">Inicio</li>
-                        </ol>
+                        </ol>-->
                     </section>
 
                     <!-- Main content -->
@@ -61,94 +62,101 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-md-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Bitácora #</h3>
-                                    </div>
-                                    <!-- /.box-header -->
-                                    <!-- form start -->
-                                    <form role="form" method="POST">
-                                        <div class="box-body">
-                                            <div class="form-group col-md-6">
-                                                <label for="alumno">Nombre del Alumno</label>
-                                                <input id="alumno" name="alumno" type="text" class="form-control" value="${lista[0].alumno}" placeholder="Nombre del Alumno..." onkeyup="javascript:this.value = this.value.toUpperCase();">
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="matricula">Matricula</label>
-                                                <input id="matricula" name="matricula" type="text" value="${lista[0].matricula}" class="form-control" placeholder="S13001317...">
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="carrera">Carrera</label>
-                                                <input id="carrera" name="carrera" type="text" value="${lista[0].carrera}" class="form-control" placeholder="Carrera...">
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="dependencia">Dependencia</label>
-                                                <input id="dependencia" name="dependencia" type="text" value="${lista[0].dependencia}" class="form-control" placeholder="Dependencia...">
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="ubicacion">Ubicación</label>
-                                                <input id="ubicacion" name="ubicacion" type="text" value="${lista[0].ubicacion}" class="form-control" placeholder="Dependencia...">
-                                            </div>
-                                            <!--Date--> 
-                                            <div class="form-group col-md-2">
-                                                <label for="fechaini">Fecha de Inicio</label>
-
-                                                <div class="input-group date">
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </div>
-                                                    <input id="fechaini" name="datepicker" type="text" value="${lista[0].fechaini}" class="form-control pull-right-container">
-                                                </div>
-                                                <!--/.input group--> 
-                                            </div>
-                                            <!--Date--> 
-                                            <div class="form-group col-md-2">
-                                                <label for="fechafin">Fecha de Fin</label>
-
-                                                <div class="input-group date">
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </div>
-                                                    <input id="fechafin" name="datepicker" type="text" value="${lista[0].fechafin}" class="form-control pull-right-container">
-                                                </div>
-                                                <!--/.input group--> 
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label for="nobitacora">Bitácora</label>
-                                                <input id="nobitacora" name="nobitacora" type="number" value="${lista[0].nobitacora}" class="form-control" min="1" max="12">
-                                            </div>
-                                            <!-- textarea -->
-                                            <div class="form-group col-md-6">
-                                                <label for="actividades">Actividades Generales</label>
-                                                <textarea id="actividades" name="actividades" class="form-control" rows="3" placeholder="Actividades Generales..." onkeyup="javascript:this.value = this.value.toUpperCase();">${lista[0].actividades}</textarea>
-                                            </div>
-                                            <!-- textarea -->
-                                            <div class="form-group col-md-6">
-                                                <label for="descripcion">Descripción de Actividades</label>
-                                                <textarea id="descripcion" name="descripcion" class="form-control" rows="3" placeholder="Descripción de Actividades..." onkeyup="javascript:this.value = this.value.toUpperCase();">${lista[0].descripcion}</textarea>
-                                            </div>
-                                            <!-- textarea -->
-                                            <div class="form-group col-md-6">
-                                                <label for="problemas">Problemas Encontrados</label>
-                                                <textarea id="problemas" name="problemas" class="form-control" rows="3" placeholder="Problemas Encontrados..." onkeyup="javascript:this.value = this.value.toUpperCase();">${lista[0].problemas}</textarea>
-                                            </div>
-                                            <!-- textarea -->
-                                            <div class="form-group col-md-6">
-                                                <label for="soluciones">Soluciones Empleadas</label>
-                                                <textarea id="soluciones" name="soluciones" class="form-control" rows="3" placeholder="Soluciones Empleadas..." onkeyup="javascript:this.value = this.value.toUpperCase();">${lista[0].soluciones}</textarea>
-                                            </div>
-                                        </div>
-                                        <div class="box-footer">
-                                            <button type="submit" class="btn btn-success">Aceptar</button>
-                                            <a href="bitacoras" class="btn btn-default">Cancelar</a>
-                                        </div>
-                                    </form>
+                                        <h3 class="box-title">Bitácora ${bitacora[0].numero}</h3>
                                 </div>
+                                <!-- /.box-header -->
+                                <!-- form start -->
+                                <form:form action="editar" method="POST" modelAttribute="datos">
+                                    <form:errors path="*" element="div" cssClass="alert alert-danger alert-dismissible"/>
+
+                                    <form:hidden path="idbitacora"/>
+                                    <div class="box-body">
+                                        <div class="form-group col-md-6">
+                                            <label for="nombre">Nombre del Alumno</label>
+                                            <input id="nombre" name="nombre" type="text" class="form-control" value="${usuario[0].nombre}" disabled="true" placeholder="Nombre del Alumno..." onkeyup="javascript:this.value = this.value.toUpperCase();">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="matricula">Matricula</label>
+                                            <input id="matricula" name="matricula" type="text" value="${servicio[0].matricula}" disabled="true" class="form-control" placeholder="S13001317...">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="carrera">Programa Educativo</label>
+                                            <input id="carrera" name="carrera" type="text" value="${servicio[0].carrera}" disabled="true" class="form-control" placeholder="Carrera...">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <form:label path="dependencia">Dependencia</form:label>
+                                            <form:input path="dependencia" type="text" cssClass="form-control" placeholder="Dependencia..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <form:label path="direccion">Ubicación</form:label>
+                                            <form:input path="direccion" type="text" cssClass="form-control" placeholder="Ubicación..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                        </div>
+                                        <!--Date--> 
+                                        <div class="form-group col-md-2">
+                                            <label for="datepicker">Fecha de Bitácora</label>
+
+                                            <div class="input-group date">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input id="datepicker" name="datepicker" type="text" value="${bitacora[0].fecha}" class="form-control pull-right-container">
+                                            </div>
+                                            <!--/.input group--> 
+                                        </div>
+                                        <!--Date--> 
+                                        <div class="form-group col-md-2">
+                                            <label path="datepicker2">Fecha de Vencimiento</label>
+
+                                            <div class="input-group date">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input id="datepicker2" name="datepicker2" type="text" value="${bitacora[0].fechalim}" class="form-control pull-right-container" disabled="true">
+                                            </div>
+                                            <!--/.input group--> 
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <form:label path="numero">Bitácora</form:label>
+                                            <form:input path="numero" type="text" disabled="true" value="${bitacora[0].numero}" cssClass="form-control"/>
+                                        </div>
+                                        <!-- textarea -->
+                                        <div class="form-group col-md-6">
+                                            <form:label path="actividades">Actividades Generales</form:label>
+                                            <form:textarea path="actividades" cssClass="form-control" rows="3" placeholder="Actividades Generales..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                        </div>
+                                        <!-- textarea -->
+                                        <div class="form-group col-md-6">
+                                            <form:label path="descripcion">Descripción de Actividades</form:label>
+                                            <form:textarea path="descripcion" cssClass="form-control" rows="3" placeholder="Descripción de Actividades..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                        </div>
+                                        <!-- textarea -->
+                                        <div class="form-group col-md-6">
+                                            <form:label path="problemas">Problemas Encontrados</form:label>
+                                            <form:textarea path="problemas" cssClass="form-control" rows="3" placeholder="Problemas Encontrados..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                        </div>
+                                        <!-- textarea -->
+                                        <div class="form-group col-md-6">
+                                            <form:label path="soluciones">Soluciones Empleadas</form:label>
+                                            <form:textarea path="soluciones" cssClass="form-control" rows="3" placeholder="Soluciones Empleadas..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <form:label path="observaciones">Observaciones</form:label>
+                                            <form:textarea path="observaciones" cssClass="form-control" rows="3" placeholder="Observaciones sobre la bitácora..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                        </div>
+                                    </div>
+                                    <div class="box-footer">
+                                        <button type="submit" class="btn btn-success">Aceptar</button>
+                                        <a href="lista" class="btn btn-default">Cancelar</a>
+                                    </div>
+                                </form:form>
                             </div>
                         </div>
+                    </div>
 
-                    </section>
-                    <!-- /.content -->
-                </div>
-                <!-- /.content-wrapper -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
 
             <jsp:include page="../includes/footer.jsp"></jsp:include>
 

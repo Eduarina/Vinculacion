@@ -42,13 +42,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Registrar Bitácora
-                            <small></small>
+                            Bitácoras
+                            <small>Editar Bitácora</small>
                         </h1>
-                        <ol class="breadcrumb">
+                        <!--<ol class="breadcrumb">
                             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                             <li class="active">Inicio</li>
-                        </ol>
+                        </ol>-->
                     </section>
 
                     <!-- Main content -->
@@ -65,7 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </div>
                                     <!-- /.box-header -->
                                     <!-- form start -->
-                                    <form role="form" method="POST">
+                                    <form action="insertar" role="form" method="POST">
                                         <div class="box-body">
                                             <div class="form-group col-md-6">
                                                 <label for="alumno">Nombre del Alumno</label>
@@ -102,7 +102,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <!--Date--> 
                                             <div class="form-group col-md-2">
                                                 <label for="fechafin">Fecha de Fin</label>
-
                                                 <div class="input-group date">
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
@@ -138,7 +137,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         </div>
                                         <div class="box-footer">
                                             <button type="submit" class="btn btn-success">Aceptar</button>
-                                            <a href="bitacoras" class="btn btn-default">Cancelar</a>
+                                            <a href="lista" class="btn btn-default">Cancelar</a>
                                         </div>
                                     </form>
                                 </div>

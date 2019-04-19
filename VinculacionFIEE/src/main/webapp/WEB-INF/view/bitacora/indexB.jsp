@@ -42,13 +42,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Lista de Bitácoras
-                            <small></small>
+                            Bitácoras
+                            <small>Lista de Bitácoras</small>
                         </h1>
-                        <ol class="breadcrumb">
+                        <!--<ol class="breadcrumb">
                             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                             <li class="active">Inicio</li>
-                        </ol>
+                        </ol>-->
                     </section>
 
                     <!-- Main content -->
@@ -57,7 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-xs-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <a href="insertarB" class="btn btn-primary">Agregar</a>
+                                        <a href="generar" class="btn btn-primary">Generar Bitácora</a>
                                     </div>
                                     <!-- /.box-header -->
                                     <div class="box-body">
@@ -67,10 +67,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <th>Id</th>
                                                     <th>Alumno</th>
                                                     <th>Matricula</th>
-                                                    <th>Carrera</th>
+                                                    <th>Programa Educativo</th>
                                                     <th>Dependencia</th>
-                                                    <th>Fecha Inicio</th>
-                                                    <th>Bitacora</th>
+                                                    <th>Fecha</th>
+                                                    <th>Bitácora #</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -78,16 +78,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <c:forEach items="${bitacoras}" var="dato">
                                                 <tr>
                                                     <td> <c:out value="${dato.idbitacora}"/></td>
-                                                    <td> <c:out value="${dato.alumno}"/></td>
-                                                    <td> <c:out value="${dato.matricula}"/></td>
-                                                    <td> <c:out value="${dato.carrera}"/></td>
+                                                    <td> 
+                                                        <c:forEach items="${usuarios}" var="usuario">
+                                                            <c:if test="${dato.idservicio eq usuario.idusuario}">
+                                                                <c:out value="${usuario.nombre}"/>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td> 
+                                                        <c:forEach items="${servicios}" var="usuario">
+                                                            <c:if test="${dato.idservicio eq usuario.idusuario}">
+                                                                <c:out value="${usuario.matricula}"/>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td> 
+                                                        <c:forEach items="${servicios}" var="usuario">
+                                                            <c:if test="${dato.idservicio eq usuario.idusuario}">
+                                                                <c:out value="${usuario.carrera}"/>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </td>
                                                     <td> <c:out value="${dato.dependencia}"/></td>
-                                                    <td> <c:out value="${dato.fechaini}"/></td>
-                                                    <td> <c:out value="${dato.nobitacora}"/></td>
-                                                    <td> <c:out value="${dato.soluciones}"/></td>
+                                                    <td> <c:out value="${dato.fecha}"/></td>
+                                                    <td> <c:out value="${dato.numero}"/></td>
                                                     <td>
-                                                        <a href="editarB?id=${dato.idbitacora}" class="btn btn-warning">Editar</a>
-                                                        <a href="borrarB?id=${dato.idbitacora}" class="btn btn-danger">Eliminar</a>
+                                                        <a href="editar?id=${dato.idbitacora}" class="btn btn-warning">Editar</a>
+                                                        <a href="borrar?id=${dato.idbitacora}" class="btn btn-danger">Eliminar</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

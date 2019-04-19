@@ -22,11 +22,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <form:form action="login" method="post" modelAttribute="usuario">
                     <div class="form-group has-feedback">
-                        <form:input path="user" type="text" required="required" class="form-control" placeholder="Usuario..." />
+                        <form:input path="user" type="text" autocomplete="off" required="required" class="form-control" placeholder="Usuario..." />
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
-                        <form:input path="password" type="password" required="required" class="form-control" placeholder="Contraseña..."/>
+                        <form:input path="password" type="password" autocomplete="off" required="required" class="form-control" placeholder="Contraseña..."/>
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
                     <div>

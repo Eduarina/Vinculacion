@@ -36,9 +36,16 @@ public class UsuarioValidator implements Validator{
         if(usuario.getTipo()==0){
             errors.rejectValue("tipo", "required.tipo", "Seleccione un tipo");
         }
-        
+        if(usuario.getUser().length()<6){
+            errors.rejectValue("user", "required.user", "El usuario debe contener al menos 6 caracteres.");
+        }
+        if(usuario.getPassword().length()<6){
+            errors.rejectValue("password", "required.password", "La contraseña debe contener al menos 6 caracteres.");
+            errors.rejectValue("password2", "required.password2", "");
+        }
         if(!usuario.getPassword().equals(usuario.getPassword2())){
             errors.rejectValue("password", "required.password", "Las contraseñas no son iguales.");
+            errors.rejectValue("password2", "required.password2", "");
         }
     }
 }

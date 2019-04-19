@@ -52,10 +52,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <c:if test="${sessionScope.tipo eq 5}">Encargado</c:if>
                             </small>
                         </h1>
-                        <ol class="breadcrumb">
+                        <!--<ol class="breadcrumb">
                             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                             <li class="active">Perfil</li>
-                        </ol>
+                        </ol>-->
                     </section>
 
                     <!-- Main content -->
@@ -246,7 +246,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <div class="form-group col-md-6">
                                                     <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
                                                     <form:label path="semestre">Semestre</form:label>
-                                                    <c:set var="errorband"><form:errors path="matricula"/></c:set>
+                                                    <c:set var="errorband"><form:errors path="semestre"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <form:input path="semestre" type="number" min="1" max="13" cssClass="form-control" />
                                                     </c:if>
@@ -307,30 +307,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <form:label path="correo">Correo</form:label>
                                                     <c:set var="errorband"><form:errors path="correo"/></c:set>
                                                     <c:if test="${empty errorband}">
-                                                        <form:input path="correo" type="email" cssClass="form-control" placeholder="Correo..."/>
+                                                        <form:input path="correo" type="email" cssClass="form-control" autocomplete="off" placeholder="Correo..."/>
                                                     </c:if>
                                                     <c:if test="${not empty errorband}">
-                                                        <form:input path="correo" type="email" cssClass="form-control" placeholder="Correo..."  style="border-color:red;"/>
+                                                        <form:input path="correo" type="email" cssClass="form-control" autocomplete="off" placeholder="Correo..."  style="border-color:red;"/>
                                                     </c:if>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <form:label path="dependencia">Nombre de la Dependencia</form:label>
                                                     <c:set var="errorband"><form:errors path="dependencia"/></c:set>
                                                     <c:if test="${empty errorband}">
-                                                        <form:input path="dependencia" type="text" cssClass="form-control" placeholder="Nombre de la Dependencia..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                        <form:input path="dependencia" type="text" cssClass="form-control" autocomplete="off" placeholder="Nombre de la Dependencia..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
                                                     </c:if>
                                                     <c:if test="${not empty errorband}">
-                                                        <form:input path="dependencia" type="text" cssClass="form-control" style="border-color:red;" placeholder="Nombre de la Dependencia..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                        <form:input path="dependencia" type="text" cssClass="form-control" style="border-color:red;" autocomplete="off" placeholder="Nombre de la Dependencia..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
                                                     </c:if>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <form:label path="direccion">Dirección de la Dependencia</form:label>
                                                     <c:set var="errorband"><form:errors path="direccion"/></c:set>
                                                     <c:if test="${empty errorband}">
-                                                        <form:input path="direccion" type="text" cssClass="form-control" placeholder="Dirección de la Dependencia..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                        <form:input path="direccion" type="text" cssClass="form-control" autocomplete="off" placeholder="Dirección de la Dependencia..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
                                                     </c:if>
                                                     <c:if test="${not empty errorband}">
-                                                        <form:input path="direccion" type="text" cssClass="form-control" style="border-color:red;" placeholder="Dirección de la Dependencia..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                        <form:input path="direccion" type="text" cssClass="form-control" style="border-color:red;" autocomplete="off" placeholder="Dirección de la Dependencia..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
                                                     </c:if>
                                                 </div>
                                                 <div class="form-group col-md-6">

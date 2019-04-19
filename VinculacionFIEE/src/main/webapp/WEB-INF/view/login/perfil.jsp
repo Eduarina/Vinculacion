@@ -90,270 +90,262 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                             </c:when>
                             <c:when test="${sessionScope.tipo eq 2}">
-                                <c:forEach items="${datos}" var="dato">
-                                    <div class="form-group col-md-6">
-                                        <label>Idvinculacion</label><br>
-                                        <c:if test="${empty dato.idvinculacion}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty dato.idvinculacion}">
-                                            ${dato.idvinculacion}
-                                        </c:if>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label>Correo</label><br>
-                                        <c:if test="${empty dato.correo}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty dato.correo}">
-                                            ${dato.correo}
-                                        </c:if>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label>Programa Educativo</label><br>
-                                        <c:if test="${empty dato.carrera}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty dato.carrera}">
-                                            ${dato.carrera}
-                                        </c:if>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label>Idusuario</label><br>
-                                        <c:if test="${empty dato.idusuario}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty dato.idusuario}">
-                                            ${dato.idusuario}
-                                        </c:if>
-                                    </div>
-                                </div>
-                                <div class="box-footer">
-                                    <a href="editar?id=${dato.idvinculacion}" class="btn btn-warning">Editar datos</a>
-                                </div>
-                            </c:forEach>
-                        </c:when>
-                        <c:when test="${sessionScope.tipo eq 4}">
-                            <c:forEach items="${datos}" var="dato">
                                 <div class="form-group col-md-6">
-                                    <label>Idservicio</label><br>
-                                    <c:if test="${empty dato.idservicio}">
+                                    <label>Idvinculacion</label><br>
+                                    <c:if test="${empty datos[0].idvinculacion}">
                                         Dato por registrar
                                     </c:if>
-                                    <c:if test="${not empty dato.idservicio}">
-                                        ${dato.idservicio}
-                                    </c:if>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Matricula</label><br>
-                                    <c:if test="${empty dato.matricula}">
-                                        Dato por registrar
-                                    </c:if>
-                                    <c:if test="${not empty dato.matricula}">
-                                        ${dato.matricula}
-                                    </c:if>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Créditos</label><br>
-                                    <c:if test="${dato.creditos eq 0}">
-                                        Dato por registrar
-                                    </c:if>
-                                    <c:if test="${dato.creditos ne 0}">
-                                        ${dato.creditos}
+                                    <c:if test="${not empty datos[0].idvinculacion}">
+                                        ${datos[0].idvinculacion}
                                     </c:if>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Correo</label><br>
-                                    <c:if test="${empty dato.correo}">
+                                    <c:if test="${empty datos[0].correo}">
                                         Dato por registrar
                                     </c:if>
-                                    <c:if test="${not empty dato.correo}">
-                                        ${dato.correo}
-                                    </c:if>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Telefóno</label><br>
-                                    <c:if test="${empty dato.telefono}">
-                                        Dato por registrar
-                                    </c:if>
-                                    <c:if test="${not empty dato.telefono}">
-                                        ${dato.telefono}
-                                    </c:if>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Celular</label><br>
-                                    <c:if test="${empty dato.celular}">
-                                        Dato por registrar
-                                    </c:if>
-                                    <c:if test="${not empty dato.celular}">
-                                        ${dato.celular}
-                                    </c:if>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label>Curriculum Vitae o Habilidades</label><br>
-                                    <c:if test="${empty dato.cv}">
-                                        Dato por registrar
-                                    </c:if>
-                                    <c:if test="${not empty dato.cv}">
-                                        <p>${dato.cv}</p>
+                                    <c:if test="${not empty datos[0].correo}">
+                                        ${datos[0].correo}
                                     </c:if>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Programa Educativo</label><br>
-                                    <c:if test="${empty dato.carrera}">
+                                    <c:if test="${empty datos[0].carrera}">
                                         Dato por registrar
                                     </c:if>
-                                    <c:if test="${not empty dato.carrera}">
-                                        ${dato.carrera}
-                                    </c:if>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Semestre</label><br>
-                                    <c:if test="${dato.semestre eq 0}">
-                                        Dato por registrar
-                                    </c:if>
-                                    <c:if test="${dato.semestre ne 0}">
-                                        ${dato.semestre}
-                                    </c:if>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Estatus</label><br>
-                                    <c:if test="${empty dato.estatus}">
-                                        Dato por registrar
-                                    </c:if>
-                                    <c:if test="${not empty dato.estatus}">
-                                        ${dato.estatus}
-                                    </c:if>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Horario</label><br>
-                                    <c:if test="${empty dato.horario}">
-                                        Dato por registrar
-                                    </c:if>
-                                    <c:if test="${not empty dato.horario}">
-                                        ${dato.horario}
+                                    <c:if test="${not empty datos[0].carrera}">
+                                        ${datos[0].carrera}
                                     </c:if>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Idusuario</label><br>
-                                    <c:if test="${empty dato.idusuario}">
+                                    <c:if test="${empty datos[0].idusuario}">
                                         Dato por registrar
                                     </c:if>
-                                    <c:if test="${not empty dato.idusuario}">
-                                        ${dato.idusuario}
+                                    <c:if test="${not empty datos[0].idusuario}">
+                                        ${datos[0].idusuario}
                                     </c:if>
                                 </div>
-                        </div>
-                        <div class="box-footer">
-                            <a href="editar?id=${dato.idservicio}" class="btn btn-warning">Editar datos</a>
-                        </div>
-                    </c:forEach>
-                </c:when>
-                <c:when test="${sessionScope.tipo eq 3}">
-                    <c:forEach items="${datos}" var="dato">
-                        <div class="form-group col-md-6">
-                            <label>Idmaestro</label><br>
-                            <c:if test="${empty dato.idmaestro}">
-                                Dato por registrar
-                            </c:if>
-                            <c:if test="${not empty dato.idmaestro}">
-                                ${dato.idmaestro}
-                            </c:if>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Correo</label><br>
-                            <c:if test="${empty dato.correo}">
-                                Dato por registrar
-                            </c:if>
-                            <c:if test="${not empty dato.correo}">
-                                ${dato.correo}
-                            </c:if>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Programa Educativo</label><br>
-                            <c:if test="${empty dato.carrera}">
-                                Dato por registrar
-                            </c:if>
-                            <c:if test="${not empty dato.carrera}">
-                                ${dato.carrera}
-                            </c:if>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Idusuario</label><br>
-                            <c:if test="${empty dato.idusuario}">
-                                Dato por registrar
-                            </c:if>
-                            <c:if test="${not empty dato.idusuario}">
-                                ${dato.idusuario}
-                            </c:if>
-                        </div>
+                            </div>
+                            <div class="box-footer">
+                                <a href="editar" class="btn btn-warning">Editar datos</a>
+                            </div>
+                        </c:when>
+                        <c:when test="${sessionScope.tipo eq 4}">
+                            <div class="form-group col-md-6">
+                                <label>Idservicio</label><br>
+                                <c:if test="${empty datos[0].idservicio}">
+                                    Dato por registrar
+                                </c:if>
+                                <c:if test="${not empty datos[0].idservicio}">
+                                    ${datos[0].idservicio}
+                                </c:if>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Matricula</label><br>
+                                <c:if test="${empty datos[0].matricula}">
+                                    Dato por registrar
+                                </c:if>
+                                <c:if test="${not empty datos[0].matricula}">
+                                    ${datos[0].matricula}
+                                </c:if>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Créditos</label><br>
+                                <c:if test="${datos[0].creditos eq 0}">
+                                    Dato por registrar
+                                </c:if>
+                                <c:if test="${datos[0].creditos ne 0}">
+                                    ${datos[0].creditos}
+                                </c:if>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Correo</label><br>
+                                <c:if test="${empty datos[0].correo}">
+                                    Dato por registrar
+                                </c:if>
+                                <c:if test="${not empty datos[0].correo}">
+                                    ${datos[0].correo}
+                                </c:if>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Telefóno</label><br>
+                                <c:if test="${empty datos[0].telefono}">
+                                    Dato por registrar
+                                </c:if>
+                                <c:if test="${not empty datos[0].telefono}">
+                                    ${datos[0].telefono}
+                                </c:if>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Celular</label><br>
+                                <c:if test="${empty datos[0].celular}">
+                                    Dato por registrar
+                                </c:if>
+                                <c:if test="${not empty datos[0].celular}">
+                                    ${datos[0].celular}
+                                </c:if>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Curriculum Vitae o Habilidades</label><br>
+                                <c:if test="${empty datos[0].cv}">
+                                    Dato por registrar
+                                </c:if>
+                                <c:if test="${not empty datos[0].cv}">
+                                    <p>${datos[0].cv}</p>
+                                </c:if>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Programa Educativo</label><br>
+                                <c:if test="${empty datos[0].carrera}">
+                                    Dato por registrar
+                                </c:if>
+                                <c:if test="${not empty datos[0].carrera}">
+                                    ${datos[0].carrera}
+                                </c:if>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Semestre</label><br>
+                                <c:if test="${datos[0].semestre eq 0}">
+                                    Dato por registrar
+                                </c:if>
+                                <c:if test="${datos[0].semestre ne 0}">
+                                    ${datos[0].semestre}
+                                </c:if>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Estatus</label><br>
+                                <c:if test="${empty datos[0].estatus}">
+                                    Dato por registrar
+                                </c:if>
+                                <c:if test="${not empty datos[0].estatus}">
+                                    ${datos[0].estatus}
+                                </c:if>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Horario</label><br>
+                                <c:if test="${empty datos[0].horario}">
+                                    Dato por registrar
+                                </c:if>
+                                <c:if test="${not empty datos[0].horario}">
+                                    ${datos[0].horario}
+                                </c:if>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Idusuario</label><br>
+                                <c:if test="${empty datos[0].idusuario}">
+                                    Dato por registrar
+                                </c:if>
+                                <c:if test="${not empty datos[0].idusuario}">
+                                    ${datos[0].idusuario}
+                                </c:if>
+                            </div>
                     </div>
                     <div class="box-footer">
-                        <a href="editar?id=${dato.idmaestro}" class="btn btn-warning">Editar datos</a>
+                        <a href="editar" class="btn btn-warning">Editar datos</a>
                     </div>
-                </c:forEach>
-            </c:when>
-            <c:when test="${sessionScope.tipo eq 5}">
-                <c:forEach items="${datos}" var="dato">
+                </c:when>
+                <c:when test="${sessionScope.tipo eq 3}">
                     <div class="form-group col-md-6">
-                        <label>Idencargado</label><br>
-                        <c:if test="${empty dato.idencargado}">
+                        <label>Idmaestro</label><br>
+                        <c:if test="${empty datos[0].idmaestro}">
                             Dato por registrar
                         </c:if>
-                        <c:if test="${not empty dato.idencargado}">
-                            ${dato.idencargado}
+                        <c:if test="${not empty datos[0].idmaestro}">
+                            ${datos[0].idmaestro}
                         </c:if>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Correo</label><br>
-                        <c:if test="${empty dato.correo}">
+                        <c:if test="${empty datos[0].correo}">
                             Dato por registrar
                         </c:if>
-                        <c:if test="${not empty dato.correo}">
-                            ${dato.correo}
+                        <c:if test="${not empty datos[0].correo}">
+                            ${datos[0].correo}
                         </c:if>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Dependencia</label><br>
-                        <c:if test="${empty dato.dependencia}">
+                        <label>Programa Educativo</label><br>
+                        <c:if test="${empty datos[0].carrera}">
                             Dato por registrar
                         </c:if>
-                        <c:if test="${not empty dato.dependencia}">
-                            ${dato.dependencia}
-                        </c:if>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Dirección</label><br>
-                        <c:if test="${empty dato.direccion}">
-                            Dato por registrar
-                        </c:if>
-                        <c:if test="${not empty dato.direccion}">
-                            ${dato.direccion}
-                        </c:if>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Teléfono</label><br>
-                        <c:if test="${empty dato.telefono}">
-                            Dato por registrar
-                        </c:if>
-                        <c:if test="${not empty dato.telefono}">
-                            ${dato.telefono}
+                        <c:if test="${not empty datos[0].carrera}">
+                            ${datos[0].carrera}
                         </c:if>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Idusuario</label><br>
-                        <c:if test="${empty dato.idusuario}">
+                        <c:if test="${empty datos[0].idusuario}">
                             Dato por registrar
                         </c:if>
-                        <c:if test="${not empty dato.idusuario}">
-                            ${dato.idusuario}
+                        <c:if test="${not empty datos[0].idusuario}">
+                            ${datos[0].idusuario}
                         </c:if>
                     </div>
                 </div>
                 <div class="box-footer">
-                    <a href="editar?id=${dato.idencargado}" class="btn btn-warning">Editar datos</a>
+                    <a href="editar" class="btn btn-warning">Editar datos</a>
                 </div>
-            </c:forEach>
+            </c:when>
+            <c:when test="${sessionScope.tipo eq 5}">
+                <div class="form-group col-md-6">
+                    <label>Idencargado</label><br>
+                    <c:if test="${empty datos[0].idencargado}">
+                        Dato por registrar
+                    </c:if>
+                    <c:if test="${not empty datos[0].idencargado}">
+                        ${datos[0].idencargado}
+                    </c:if>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Correo</label><br>
+                    <c:if test="${empty datos[0].correo}">
+                        Dato por registrar
+                    </c:if>
+                    <c:if test="${not empty datos[0].correo}">
+                        ${datos[0].correo}
+                    </c:if>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Dependencia</label><br>
+                    <c:if test="${empty datos[0].dependencia}">
+                        Dato por registrar
+                    </c:if>
+                    <c:if test="${not empty datos[0].dependencia}">
+                        ${datos[0].dependencia}
+                    </c:if>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Dirección</label><br>
+                    <c:if test="${empty datos[0].direccion}">
+                        Dato por registrar
+                    </c:if>
+                    <c:if test="${not empty datos[0].direccion}">
+                        ${datos[0].direccion}
+                    </c:if>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Teléfono</label><br>
+                    <c:if test="${empty datos[0].telefono}">
+                        Dato por registrar
+                    </c:if>
+                    <c:if test="${not empty datos[0].telefono}">
+                        ${datos[0].telefono}
+                    </c:if>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Idusuario</label><br>
+                    <c:if test="${empty datos[0].idusuario}">
+                        Dato por registrar
+                    </c:if>
+                    <c:if test="${not empty datos[0].idusuario}">
+                        ${datos[0].idusuario}
+                    </c:if>
+                </div>
+            </div>
+            <div class="box-footer">
+                <a href="editar" class="btn btn-warning">Editar datos</a>
+            </div>
         </c:when>
     </c:choose>
 

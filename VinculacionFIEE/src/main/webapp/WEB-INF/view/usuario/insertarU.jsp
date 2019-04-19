@@ -97,20 +97,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <form:label path="nombre">Nombre</form:label>
                                             <c:set var="errorband"><form:errors path="nombre"/></c:set>
                                             <c:if test="${empty errorband}">
-                                                <form:input path="nombre" type="text" cssClass="form-control" placeholder="Nombre..."  onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                <form:input path="nombre" autocomplete="off" type="text" cssClass="form-control" placeholder="Nombre..."  onkeyup="javascript:this.value = this.value.toUpperCase();"/>
                                             </c:if>
                                             <c:if test="${not empty errorband}">
-                                                <form:input path="nombre" type="text" cssClass="form-control" placeholder="Nombre..."  style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                <form:input path="nombre" autocomplete="off" type="text" cssClass="form-control" placeholder="Nombre..."  style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
                                             </c:if>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <form:label path="user">Usuario</form:label>
                                             <c:set var="errorband"><form:errors path="user"/></c:set>
                                             <c:if test="${empty errorband}">
-                                                <form:input path="user" type="text" cssClass="form-control" placeholder="Usuario..."/>
+                                                <form:input path="user" autocomplete="off" type="text" cssClass="form-control" placeholder="Usuario..."/>
                                             </c:if>
                                             <c:if test="${not empty errorband}">
-                                                <form:input path="user" type="text" cssClass="form-control" style="border-color:red;" placeholder="Usuario..."/>
+                                                <form:input path="user" autocomplete="off" type="text" cssClass="form-control" style="border-color:red;" placeholder="Usuario..."/>
                                             </c:if>
                                         </div>
                                         <div class="form-group col-md-6">
@@ -135,7 +135,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         </div>
                                         <div class="form-group col-md-6">
                                             <form:label path="tipo">Tipo</form:label>
-                                            <c:set var="errorband"><form:errors path="password2"/></c:set>
+                                            <c:set var="errorband"><form:errors path="tipo"/></c:set>
                                             <c:if test="${empty errorband}">
                                                 <form:select path="tipo" cssClass="form-control">
                                                     <form:option value="0">Seleccion...</form:option>

@@ -45,6 +45,10 @@
         $("input[name$='datepicker']").datepicker({
             autoclose: true
         })
+        //Date picker
+        $("input[name$='datepicker2']").datepicker({
+            autoclose: true
+        })
         //Money Euro
         $('[data-mask]').inputmask()
         $('#example1').DataTable()
