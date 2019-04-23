@@ -61,20 +61,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </div>
                                     <!-- /.box-header -->
                                     <div class="box-body">
-                                        <table id="example1" class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Id</th>
-                                                    <th>Alumno</th>
-                                                    <th>Matricula</th>
-                                                    <th>Programa Educativo</th>
-                                                    <th>Dependencia</th>
-                                                    <th>Fecha</th>
-                                                    <th>Bitácora #</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                    <c:if test="${not empty message}">
+                                        <div class="alert alert-danger alert-dismissible">${message}</div>
+                                    </c:if>
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Alumno</th>
+                                                <th>Matricula</th>
+                                                <th>Fecha</th>
+                                                <th>Fecha Limite</th>
+                                                <th>Bitácora #</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                             <c:forEach items="${bitacoras}" var="dato">
                                                 <tr>
                                                     <td> <c:out value="${dato.idbitacora}"/></td>
@@ -92,15 +94,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                             </c:if>
                                                         </c:forEach>
                                                     </td>
-                                                    <td> 
-                                                        <c:forEach items="${servicios}" var="usuario">
-                                                            <c:if test="${dato.idservicio eq usuario.idusuario}">
-                                                                <c:out value="${usuario.carrera}"/>
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    </td>
-                                                    <td> <c:out value="${dato.dependencia}"/></td>
                                                     <td> <c:out value="${dato.fecha}"/></td>
+                                                    <td> <c:out value="${dato.fechalim}"/></td>
                                                     <td> <c:out value="${dato.numero}"/></td>
                                                     <td>
                                                         <a href="editar?id=${dato.idbitacora}" class="btn btn-warning">Editar</a>
