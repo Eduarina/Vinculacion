@@ -13,6 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -52,22 +53,38 @@ public class usuarioController {
 
     //@RequestMapping(value="/usuariosV") //Este es el nombre con el que se accede desde el navegador
     @GetMapping(value = "/lista")
-    public ModelAndView lista() {
-        ModelAndView mav = new ModelAndView();
-        String sql = "select * from usuario";
-        lista = this.jdbcTemplate.queryForList(sql);
-        mav.addObject("datos", lista);
-        mav.setViewName("usuario/indexU");  // Este es el nombre del archivo vista .jsp
-        return mav;
+    public ModelAndView lista(HttpServletRequest request) {
+        try {
+            HttpSession session = request.getSession();
+            String sql;
+            ModelAndView mav = new ModelAndView();
+            id = (int) session.getAttribute("id");
+            sql = "select * from usuario";
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("datos", lista);
+            mav.setViewName("usuario/indexU");  // Este es el nombre del archivo vista .jsp
+            return mav;
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/login/login");
+        }
+
     }
 
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.GET)
     @GetMapping(value = "/insertar")
-    public ModelAndView insertar() {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("datos", new Usuario());
-        mav.setViewName("usuario/insertarU");
-        return mav;
+    public ModelAndView insertar(HttpServletRequest request) {
+        try {
+            HttpSession session = request.getSession();
+            String sql;
+            ModelAndView mav = new ModelAndView();
+            id = (int) session.getAttribute("id");
+            mav.addObject("datos", new Usuario());
+            mav.setViewName("usuario/insertarU");
+            return mav;
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/login/login");
+        }
+
     }
 
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
@@ -124,22 +141,30 @@ public class usuarioController {
 
     //@RequestMapping(value = "/editarUsuarioV", method = RequestMethod.GET)
     @GetMapping(value = "/editar")
-    public ModelAndView editar(@RequestParam("id") int idusuario
+    public ModelAndView editar(@RequestParam("id") int idusuario, HttpServletRequest request
     ) {
-        ModelAndView mav = new ModelAndView();
-        //id=Integer.parseInt(request.getParameter("id"));
-        String sql = "select nombre from usuario where idusuario=" + idusuario;
-        Object[] parameters = new Object[]{};
-        String nombre = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        sql = "select user from usuario where idusuario=" + idusuario;
-        String usuario = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        sql = "select tipo from usuario where idusuario=" + idusuario;
-        int tipo = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        sql = "select password from usuario where idusuario=" + idusuario;
-        String password = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        mav.addObject("datos", new Usuario(idusuario, nombre, usuario, password, password, tipo));
-        mav.setViewName("usuario/editarU");
-        return mav;
+        try {
+            HttpSession session = request.getSession();
+            String sql;
+            ModelAndView mav = new ModelAndView();
+            id = (int) session.getAttribute("id");
+            //id=Integer.parseInt(request.getParameter("id"));
+            sql = "select nombre from usuario where idusuario=" + idusuario;
+            Object[] parameters = new Object[]{};
+            String nombre = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            sql = "select user from usuario where idusuario=" + idusuario;
+            String usuario = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            sql = "select tipo from usuario where idusuario=" + idusuario;
+            int tipo = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            sql = "select password from usuario where idusuario=" + idusuario;
+            String password = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            mav.addObject("datos", new Usuario(idusuario, nombre, usuario, password, password, tipo));
+            mav.setViewName("usuario/editarU");
+            return mav;
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/login/login");
+        }
+
     }
 
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)

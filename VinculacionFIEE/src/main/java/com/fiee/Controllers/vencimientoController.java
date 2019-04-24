@@ -5,9 +5,12 @@
  */
 package com.fiee.Controllers;
 
+import com.fiee.Models.Usuario;
 import com.fiee.Models.Vencimiento;
 import com.fiee.Models.VencimientoValidator;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -41,29 +44,44 @@ public class vencimientoController {
 
     //@RequestMapping(value="/usuariosV") //Este es el nombre con el que se accede desde el navegador
     @GetMapping(value = "/lista")
-    public ModelAndView lista() {
-        ModelAndView mav = new ModelAndView();
-        String sql = "select * from vencimiento";
-        lista = this.jdbcTemplate.queryForList(sql);
-        mav.addObject("datos", lista);
-        mav.setViewName("vencimiento/indexV");  // Este es el nombre del archivo vista .jsp
-        return mav;
+    public ModelAndView lista(HttpServletRequest request) {
+        try {
+            HttpSession session = request.getSession();
+            String sql;
+            ModelAndView mav = new ModelAndView();
+            id = (int) session.getAttribute("id");
+            sql = "select * from vencimiento";
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("datos", lista);
+            mav.setViewName("vencimiento/indexV");  // Este es el nombre del archivo vista .jsp
+            return mav;
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/login/login");
+        }
     }
 
     //@RequestMapping(value = "/editarUsuarioV", method = RequestMethod.GET)
     @GetMapping(value = "/editar")
-    public ModelAndView editar(@RequestParam("id") int idvencimiento
+    public ModelAndView editar(@RequestParam("id") int idvencimiento, HttpServletRequest request
     ) {
-        ModelAndView mav = new ModelAndView();
-        //id=Integer.parseInt(request.getParameter("id"));
-        String sql = "select descripcion from vencimiento where idvencimiento=" + idvencimiento;
-        Object[] parameters = new Object[]{};
-        String descripcion = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        sql = "select fecha from vencimiento where idvencimiento=" + idvencimiento;
-        String datepicker = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        mav.addObject("datos", new Vencimiento(idvencimiento, descripcion, datepicker));
-        mav.setViewName("vencimiento/editarV");
-        return mav;
+        try {
+            HttpSession session = request.getSession();
+            String sql;
+            ModelAndView mav = new ModelAndView();
+            id = (int) session.getAttribute("id");
+            //id=Integer.parseInt(request.getParameter("id"));
+            sql = "select descripcion from vencimiento where idvencimiento=" + idvencimiento;
+            Object[] parameters = new Object[]{};
+            String descripcion = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            sql = "select fecha from vencimiento where idvencimiento=" + idvencimiento;
+            String datepicker = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            mav.addObject("datos", new Vencimiento(idvencimiento, descripcion, datepicker));
+            mav.setViewName("vencimiento/editarV");
+            return mav;
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/login/login");
+        }
+
     }
 
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)

@@ -37,7 +37,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <jsp:include page="../includes/menu.jsp"></jsp:include>
 
             <jsp:include page="../includes/lateral.jsp"></jsp:include>
-
+            <c:if test="${sessionScope.user == null}">response.sendRedirect("/usuarios/lista");</c:if>
                 <!-- Content Wrapper. Contains page content -->
                 <div class="content-wrapper">
                     <!-- Content Header (Page header) -->
@@ -128,7 +128,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <a href="editar" class="btn btn-warning">Editar datos</a>
+                                <a href="editar" class="btn btn-warning"><i class="fa fa-edit"></i> Editar datos</a>
                             </div>
                         </c:when>
                         <c:when test="${sessionScope.tipo eq 4}">
@@ -242,7 +242,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </div>
                     </div>
                     <div class="box-footer">
-                        <a href="editar" class="btn btn-warning">Editar datos</a>
+                        <a href="editar" class="btn btn-warning"><i class="fa fa-edit"></i> Editar datos</a>
                     </div>
                 </c:when>
                 <c:when test="${sessionScope.tipo eq 3}">
@@ -284,7 +284,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 </div>
                 <div class="box-footer">
-                    <a href="editar" class="btn btn-warning">Editar datos</a>
+                    <a href="editar" class="btn btn-warning"><i class="fa fa-edit"></i> Editar datos</a>
                 </div>
             </c:when>
             <c:when test="${sessionScope.tipo eq 5}">
@@ -344,7 +344,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
             </div>
             <div class="box-footer">
-                <a href="editar" class="btn btn-warning">Editar datos</a>
+                <a href="editar" class="btn btn-warning"><i class="fa fa-edit"></i> Editar datos</a>
             </div>
         </c:when>
     </c:choose>

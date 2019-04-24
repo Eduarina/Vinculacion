@@ -37,46 +37,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <jsp:include page="../includes/menu.jsp"></jsp:include>
 
             <jsp:include page="../includes/lateral.jsp"></jsp:include>
+            <c:if test="${empty sessionScope['user']}">
+                 <c:redirect url="/bitacora/lista" />
+            </c:if>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        Usuarios
+                        <small>Lista de Usuarios</small>
+                    </h1>
+                    <!--                    <ol class="breadcrumb">
+                                            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                                            <li class="active">Inicio</li>
+                                        </ol>-->
+                </section>
 
-                <!-- Content Wrapper. Contains page content -->
-                <div class="content-wrapper">
-                    <!-- Content Header (Page header) -->
-                    <section class="content-header">
-                        <h1>
-                            Usuarios
-                            <small>Lista de Usuarios</small>
-                        </h1>
-                        <!--                    <ol class="breadcrumb">
-                                                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                                                <li class="active">Inicio</li>
-                                            </ol>-->
-                    </section>
+                <!-- Main content -->
+                <section class="content container-fluid">
 
-                    <!-- Main content -->
-                    <section class="content container-fluid">
-
-                        <!--------------------------
-                        | Your Page Content Here |
-                        -------------------------->
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="box box-primary">
-                                    <div class="box-header with-border">
-                                        <a href="insertar" class="btn btn-primary">Agregar</a>
-                                    </div>
-                                    <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <table id="example1" class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Id</th>
-                                                    <th>Nombre</th>
-                                                    <th>Usuario</th>
-                                                    <th>Tipo</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                    <!--------------------------
+                    | Your Page Content Here |
+                    -------------------------->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <a href="insertar" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Agregar Usuario</a>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Nombre</th>
+                                                <th>Usuario</th>
+                                                <th>Tipo</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                             <c:forEach items="${datos}" var="dato">
                                                 <tr>
                                                     <td> <c:out value="${dato.idusuario}"/></td>
@@ -84,8 +86,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <td> <c:out value="${dato.user}"/></td>
                                                     <td> <c:out value="${dato.tipo}"/></td>
                                                     <td>
-                                                        <a href="editar?id=${dato.idusuario}" class="btn btn-warning">Editar</a>
-                                                        <a href="borrar?id=${dato.idusuario}" class="btn btn-danger">Eliminar</a>
+                                                        <a href="editar?id=${dato.idusuario}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
+                                                        <a href="borrar?id=${dato.idusuario}" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

@@ -79,7 +79,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <td> <c:out value="${dato.descripcion}"/></td>
                                                     <td> <c:out value="${dato.fecha}"/></td>
                                                     <td>
-                                                        <a href="editar?id=${dato.idvencimiento}" class="btn btn-warning">Editar</a>
+                                                        <a href="editar?id=${dato.idvencimiento}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

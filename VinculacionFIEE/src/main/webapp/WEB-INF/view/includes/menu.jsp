@@ -147,14 +147,11 @@
                         <!-- Menu Body -->
                         <li class="user-body">
                             <div class="row">
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Followers</a>
+                                <div class="col-xs-6 text-center">
+                                    <a href="#"><i class="fa fa-upload"></i> Documentos</a>
                                 </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Sales</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="/VinculacionFIEE/login/perfil">Perfil</a>
+                                <div class="col-xs-6 text-center">
+                                    <a href="/VinculacionFIEE/login/perfil"><i class="fa fa-user"></i> Perfil</a>
                                 </div>
                             </div>
                             <!-- /.row -->
@@ -165,7 +162,7 @@
                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
                             </div>-->
                             <div class="pull-right">
-                                <a href="/VinculacionFIEE/login/logout" class="btn btn-default btn-flat">Sign out</a>
+                                <a href="/VinculacionFIEE/login/logout" class="btn btn-default btn-flat"><i class="fa fa-sign-out"></i> Cerrar Sesión</a>
                             </div>
                         </li>
                     </ul>

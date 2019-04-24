@@ -30,7 +30,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Iniciar Sesión</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-flat"><i class="fa fa-sign-in"></i> Iniciar Sesión</button>
                         <!-- /.col -->
                     </div>
                     <span style="color: red;">${message}</span>

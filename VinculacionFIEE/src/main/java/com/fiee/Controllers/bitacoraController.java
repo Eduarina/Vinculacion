@@ -52,34 +52,47 @@ public class bitacoraController {
     }
 
     @GetMapping(value = "/lista") //Este es el nombre con el que se accede desde el navegador
-    public ModelAndView lista(Model model) {
-        ModelAndView mav = new ModelAndView();
-        String sql = "select * from bitacora";
-        lista = this.jdbcTemplate.queryForList(sql);
-        mav.addObject("bitacoras", lista);
-        mav.setViewName("bitacora/indexB");  // Este es el nombre del archivo vista .jsp
-        sql = "select * from usuario";
-        List list1 = this.jdbcTemplate.queryForList(sql);
-        model.addAttribute("usuarios", list1);
-        sql = "select * from servicio";
-        List list2 = this.jdbcTemplate.queryForList(sql);
-        model.addAttribute("servicios", list2);
-        return mav;
+    public ModelAndView lista(Model model, HttpServletRequest request) {
+        try {
+            HttpSession session = request.getSession();
+            String sql;
+            ModelAndView mav = new ModelAndView();
+            id = (int) session.getAttribute("id");
+            sql = "select * from bitacora";
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("bitacoras", lista);
+            mav.setViewName("bitacora/indexB");  // Este es el nombre del archivo vista .jsp
+            sql = "select * from usuario";
+            List list1 = this.jdbcTemplate.queryForList(sql);
+            model.addAttribute("usuarios", list1);
+            sql = "select * from servicio";
+            List list2 = this.jdbcTemplate.queryForList(sql);
+            model.addAttribute("servicios", list2);
+            return mav;
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/login/login");
+        }
+
     }
 
     @GetMapping(value = "/generar") //Este es el nombre con el que se accede desde el navegador
     public ModelAndView generar(HttpServletRequest request, Model model) {
-        ModelAndView mav = new ModelAndView();
-        HttpSession session = request.getSession();
-        id = (int) session.getAttribute("id");
-        String sql = "select * from maestro_servicio where idservicio=" + id;
-        lista = this.jdbcTemplate.queryForList(sql);
-        mav.addObject("datos", lista);
-        mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
-        sql = "select * from usuario";
-        List lista1 = this.jdbcTemplate.queryForList(sql);
-        model.addAttribute("usuarios", lista1);
-        return mav;
+        try {
+            ModelAndView mav = new ModelAndView();
+            HttpSession session = request.getSession();
+            id = (int) session.getAttribute("id");
+            String sql = "select * from maestro_servicio where idservicio=" + id;
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("datos", lista);
+            mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
+            sql = "select * from usuario";
+            List lista1 = this.jdbcTemplate.queryForList(sql);
+            model.addAttribute("usuarios", lista1);
+            return mav;
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/login/login");
+        }
+
     }
 
     @PostMapping(value = "/generar") //Este es el nombre con el que se accede desde el navegador
@@ -434,93 +447,98 @@ public class bitacoraController {
         }
     }
 
-    @GetMapping(value = "/insertar") //Este es el nombre con el que se accede desde el navegador
-    public ModelAndView insertar() {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject(new Bitacora());
-        mav.setViewName("bitacora/insertarB");  // Este es el nombre del archivo vista .jsp
-        return mav;
-    }
-
-    @PostMapping(value = "/insertar")
-    public ModelAndView insertar(Bitacora v) {
-        String sql = "insert into bitacora(alumno, matricula, carrera, dependencia, ubicacion, fechaini, fechafin, nobitacora, actividades, descripcion, problemas, soluciones) values (?,?,?,?,?,?,?,?,?,?,?,?)";
-        //this.jdbcTemplate.update(sql, v.getAlumno(), v.getMatricula(), v.getCarrera(), v.getDependencia(), v.getUbicacion(), v.getFechaini(), v.getFechafin(), v.getNobitacora(), v.getActividades(), v.getDescripcion(), v.getProblemas(), v.getSoluciones());
-        return new ModelAndView("redirect:/bitacoras");
-    }
-
+//    @GetMapping(value = "/insertar") //Este es el nombre con el que se accede desde el navegador
+//    public ModelAndView insertar() {
+//        ModelAndView mav = new ModelAndView();
+//        mav.addObject(new Bitacora());
+//        mav.setViewName("bitacora/insertarB");  // Este es el nombre del archivo vista .jsp
+//        return mav;
+//    }
+//
+//    @PostMapping(value = "/insertar")
+//    public ModelAndView insertar(Bitacora v) {
+//        String sql = "insert into bitacora(alumno, matricula, carrera, dependencia, ubicacion, fechaini, fechafin, nobitacora, actividades, descripcion, problemas, soluciones) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+//        //this.jdbcTemplate.update(sql, v.getAlumno(), v.getMatricula(), v.getCarrera(), v.getDependencia(), v.getUbicacion(), v.getFechaini(), v.getFechafin(), v.getNobitacora(), v.getActividades(), v.getDescripcion(), v.getProblemas(), v.getSoluciones());
+//        return new ModelAndView("redirect:/bitacoras");
+//    }
     @RequestMapping(value = "/editar", method = RequestMethod.GET)
     public ModelAndView editar(@RequestParam("id") int idbitacora, Model model, HttpServletRequest request) {
-        ModelAndView mav = new ModelAndView();
-        String sql, fecha;
-        SimpleDateFormat mask = new SimpleDateFormat("MM/dd/yyyy");
-        Object[] parameters = new Object[]{};
-        sql = "select fechalim from bitacora where idbitacora=" + idbitacora;
-        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
         try {
-            Date fecha2 = mask.parse(fecha);
-            Date hoy = new Date();
-            if (hoy.before(fecha2)) {
-                sql = "select fecha from bitacora where idbitacora=" + idbitacora;
-                String datepicker = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select dependencia from bitacora where idbitacora=" + idbitacora;
-                String dependencia = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select direccion from bitacora where idbitacora=" + idbitacora;
-                String direccion = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select numero from bitacora where idbitacora=" + idbitacora;
-                String numero = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select actividades from bitacora where idbitacora=" + idbitacora;
-                String actividades = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select descripcion from bitacora where idbitacora=" + idbitacora;
-                String descripcion = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select problemas from bitacora where idbitacora=" + idbitacora;
-                String problemas = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select soluciones from bitacora where idbitacora=" + idbitacora;
-                String soluciones = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select fechalim from bitacora where idbitacora=" + idbitacora;
-                String datepicker2 = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select observaciones from bitacora where idbitacora=" + idbitacora;
-                String observaciones = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select estado from bitacora where idbitacora=" + idbitacora;
-                int estado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                sql = "select idservicio from bitacora where idbitacora=" + idbitacora;
-                int idservicio = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                sql = "select idmaestro from bitacora where idbitacora=" + idbitacora;
-                int idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                //sql = "select idencargado from bitacora where idbitacora=" + idbitacora;
-                //int idencargado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                mav.addObject("datos", new Bitacora(idbitacora, datepicker, dependencia, direccion, numero, actividades, descripcion, problemas, soluciones, datepicker2, observaciones, estado, idservicio, idmaestro));
-                HttpSession session = request.getSession();
-                id = (int) session.getAttribute("id");
-                tipo = (int) session.getAttribute("tipo");
-                sql = "select * from usuario where idusuario=" + id;
-                List list1 = this.jdbcTemplate.queryForList(sql);
-                model.addAttribute("usuario", list1);
-                sql = "select * from servicio where idusuario=" + id;
-                List list2 = this.jdbcTemplate.queryForList(sql);
-                model.addAttribute("servicio", list2);
-                sql = "select * from bitacora where idbitacora=" + idbitacora;
-                List list3 = this.jdbcTemplate.queryForList(sql);
-                model.addAttribute("bitacora", list3);
-                mav.setViewName("bitacora/editarB");
-            } else {
-                sql = "select * from bitacora";
-                lista = this.jdbcTemplate.queryForList(sql);
-                mav.addObject("bitacoras", lista);
-                mav.setViewName("bitacora/indexB");  // Este es el nombre del archivo vista .jsp
-                sql = "select * from usuario";
-                List list1 = this.jdbcTemplate.queryForList(sql);
-                model.addAttribute("usuarios", list1);
-                sql = "select * from servicio";
-                List list2 = this.jdbcTemplate.queryForList(sql);
-                model.addAttribute("servicios", list2);
-                model.addAttribute("message", "No puede editar una bitácora si ya vencio.");
+            HttpSession session = request.getSession();
+            ModelAndView mav = new ModelAndView();
+            id = (int) session.getAttribute("id");
+            String sql, fecha;
+            SimpleDateFormat mask = new SimpleDateFormat("MM/dd/yyyy");
+            Object[] parameters = new Object[]{};
+            sql = "select fechalim from bitacora where idbitacora=" + idbitacora;
+            fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            try {
+                Date fecha2 = mask.parse(fecha);
+                Date hoy = new Date();
+                if (hoy.before(fecha2)) {
+                    sql = "select fecha from bitacora where idbitacora=" + idbitacora;
+                    String datepicker = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select dependencia from bitacora where idbitacora=" + idbitacora;
+                    String dependencia = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select direccion from bitacora where idbitacora=" + idbitacora;
+                    String direccion = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select numero from bitacora where idbitacora=" + idbitacora;
+                    String numero = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select actividades from bitacora where idbitacora=" + idbitacora;
+                    String actividades = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select descripcion from bitacora where idbitacora=" + idbitacora;
+                    String descripcion = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select problemas from bitacora where idbitacora=" + idbitacora;
+                    String problemas = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select soluciones from bitacora where idbitacora=" + idbitacora;
+                    String soluciones = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select fechalim from bitacora where idbitacora=" + idbitacora;
+                    String datepicker2 = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select observaciones from bitacora where idbitacora=" + idbitacora;
+                    String observaciones = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select estado from bitacora where idbitacora=" + idbitacora;
+                    int estado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                    sql = "select idservicio from bitacora where idbitacora=" + idbitacora;
+                    int idservicio = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                    sql = "select idmaestro from bitacora where idbitacora=" + idbitacora;
+                    int idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                    //sql = "select idencargado from bitacora where idbitacora=" + idbitacora;
+                    //int idencargado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                    mav.addObject("datos", new Bitacora(idbitacora, datepicker, dependencia, direccion, numero, actividades, descripcion, problemas, soluciones, datepicker2, observaciones, estado, idservicio, idmaestro));
+                    id = (int) session.getAttribute("id");
+                    tipo = (int) session.getAttribute("tipo");
+                    sql = "select * from usuario where idusuario=" + id;
+                    List list1 = this.jdbcTemplate.queryForList(sql);
+                    model.addAttribute("usuario", list1);
+                    sql = "select * from servicio where idusuario=" + id;
+                    List list2 = this.jdbcTemplate.queryForList(sql);
+                    model.addAttribute("servicio", list2);
+                    sql = "select * from bitacora where idbitacora=" + idbitacora;
+                    List list3 = this.jdbcTemplate.queryForList(sql);
+                    model.addAttribute("bitacora", list3);
+                    mav.setViewName("bitacora/editarB");
+                } else {
+                    sql = "select * from bitacora";
+                    lista = this.jdbcTemplate.queryForList(sql);
+                    mav.addObject("bitacoras", lista);
+                    mav.setViewName("bitacora/indexB");  // Este es el nombre del archivo vista .jsp
+                    sql = "select * from usuario";
+                    List list1 = this.jdbcTemplate.queryForList(sql);
+                    model.addAttribute("usuarios", list1);
+                    sql = "select * from servicio";
+                    List list2 = this.jdbcTemplate.queryForList(sql);
+                    model.addAttribute("servicios", list2);
+                    model.addAttribute("message", "No puede editar una bitácora si ya vencio.");
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
+
+            return mav;
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/login/login");
         }
 
-        return mav;
     }
 
     @PostMapping(value = "/editar")

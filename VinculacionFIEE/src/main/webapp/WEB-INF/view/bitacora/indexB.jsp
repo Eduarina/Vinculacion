@@ -57,7 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-xs-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <a href="generar" class="btn btn-primary">Generar Bitácora</a>
+                                        <a href="generar" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Generar Bitácora</a>
                                     </div>
                                     <!-- /.box-header -->
                                     <div class="box-body">
@@ -98,8 +98,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <td> <c:out value="${dato.fechalim}"/></td>
                                                     <td> <c:out value="${dato.numero}"/></td>
                                                     <td>
-                                                        <a href="editar?id=${dato.idbitacora}" class="btn btn-warning">Editar</a>
-                                                        <a href="borrar?id=${dato.idbitacora}" class="btn btn-danger">Eliminar</a>
+                                                        <a href="editar?id=${dato.idbitacora}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
+                                                        <a href="borrar?id=${dato.idbitacora}" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

@@ -42,8 +42,10 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Menú</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Inicio</span></a></li>
-            <li class="treeview">
+            <li class="active"><a href="/VinculacionFIEE/usuarios/lista"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
+            <li class="active"><a href="/VinculacionFIEE/vencimiento/lista"><i class="fa fa-calendar"></i> <span>Vencimiento de Docs</span></a></li>
+            <li class="active"><a href="/VinculacionFIEE/asignacion/lista"><i class="fa fa-user-plus"></i> <span>Asignación de Alumnos</span></a></li>
+<!--            <li class="treeview">
                 <a href="#"><i class="fa fa-users"></i> <span>Usuarios</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
@@ -55,16 +57,16 @@
                     <li><a href="/VinculacionFIEE/usuariosS">Servicios</a></li>
                     <li><a href="/VinculacionFIEE/usuariosM">Maestros</a></li>
                 </ul>
-            </li>
+            </li>-->
             <li class="treeview">
-                <a href="#"><i class="fa fa-link"></i> <span>Registros</span>
+                <a href="#"><i class="fa fa-files-o"></i> <span>Registros</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/VinculacionFIEE/bitacoras">Bitácora</a></li>
-                    <li><a href="/VinculacionFIEE/reportes">Reporte Mensual</a></li>
+                    <li><a href="/VinculacionFIEE/bitacoras/lista"><i class="fa fa-file-text"></i>Bitácora</a></li>
+                    <li><a href="/VinculacionFIEE/reportes/lista"><i class="fa fa-file-text"></i>Reporte Mensual</a></li>
                 </ul>
             </li>
         </ul>

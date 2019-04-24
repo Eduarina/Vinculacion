@@ -16,6 +16,7 @@ import com.fiee.Models.Vinculacion;
 import com.fiee.Models.VinculacionValidator;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -101,6 +102,7 @@ public class loginController {
             session.setAttribute("id", dato.getIdusuario());
             session.setAttribute("tipo", dato.getTipo());
             session.setAttribute("nombre", dato.getNombre());
+            session.setAttribute("band", 1);
             ModelAndView mav = new ModelAndView();
             mav.setViewName("login/sucess");
             return mav;
@@ -120,40 +122,44 @@ public class loginController {
 
     @GetMapping(value = "/perfil")
     public ModelAndView perfil(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        String sql;
-        ModelAndView mav = new ModelAndView();
-        id = (int) session.getAttribute("id");
-        tipo = (int) session.getAttribute("tipo");
-        switch (tipo) {
-            case 1:
-                break;
-            case 2:
-                sql = "select * from vinculacion where idusuario=" + id;
-                lista = this.jdbcTemplate.queryForList(sql);
-                break;
-            case 3:
-                //id=Integer.parseInt(request.getParameter("id"));
-                sql = "select * from maestro where idusuario=" + id;
-                lista = this.jdbcTemplate.queryForList(sql);
-                break;
-            case 4:
-                sql = "select * from servicio where idusuario=" + id;
-                lista = this.jdbcTemplate.queryForList(sql);
-                break;
-            case 5:
-                sql = "select * from encargado where idusuario=" + id;
-                lista = this.jdbcTemplate.queryForList(sql);
-                break;
+        try {
+            HttpSession session = request.getSession();
+            String sql;
+            ModelAndView mav = new ModelAndView();
+            id = (int) session.getAttribute("id");
+            tipo = (int) session.getAttribute("tipo");
+            switch (tipo) {
+                case 1:
+                    break;
+                case 2:
+                    sql = "select * from vinculacion where idusuario=" + id;
+                    lista = this.jdbcTemplate.queryForList(sql);
+                    break;
+                case 3:
+                    //id=Integer.parseInt(request.getParameter("id"));
+                    sql = "select * from maestro where idusuario=" + id;
+                    lista = this.jdbcTemplate.queryForList(sql);
+                    break;
+                case 4:
+                    sql = "select * from servicio where idusuario=" + id;
+                    lista = this.jdbcTemplate.queryForList(sql);
+                    break;
+                case 5:
+                    sql = "select * from encargado where idusuario=" + id;
+                    lista = this.jdbcTemplate.queryForList(sql);
+                    break;
+            }
+            mav.addObject("datos", lista);
+            mav.setViewName("login/perfil");  // Este es el nombre del archivo vista .jsp
+            return mav;
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/login/login");
         }
-        mav.addObject("datos", lista);
-        mav.setViewName("login/perfil");  // Este es el nombre del archivo vista .jsp
-        return mav;
     }
 
     @RequestMapping(value = "/logout")
     public ModelAndView logout(HttpServletRequest request) {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         session.invalidate();
         return new ModelAndView("redirect:/login/login");
     }
@@ -161,64 +167,69 @@ public class loginController {
     //@RequestMapping(value = "/editarUsuarioV", method = RequestMethod.GET)
     @GetMapping(value = "/editar")
     public ModelAndView editar(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        String sql;
-        ModelAndView mav = new ModelAndView();
-        Object[] parameters = new Object[]{};
-        id = (int) session.getAttribute("id");
-        tipo = (int) session.getAttribute("tipo");
-        switch (tipo) {
-            case 1:
-                break;
-            case 2:
-                sql = "select correo from vinculacion where idusuario =" + id;
-                String correo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select carrera from vinculacion where idusuario =" + id;
-                String carrera = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                mav.addObject("datos", new Vinculacion(id, correo, carrera));
-                break;
-            case 3:
-                sql = "select correo from maestro where idusuario =" + id;
-                correo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select carrera from maestro where idusuario =" + id;
-                carrera = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                mav.addObject("datos", new Maestro(id, correo, carrera));
-                break;
-            case 4:
-                sql = "select correo from servicio where idusuario =" + id;
-                correo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select carrera from servicio where idusuario =" + id;
-                carrera = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select matricula from servicio where idusuario =" + id;
-                String matricula = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select creditos from servicio where idusuario =" + id;
-                int creditos = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                sql = "select telefono from servicio where idusuario =" + id;
-                String telefono = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select celular from servicio where idusuario =" + id;
-                String celular = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select cv from servicio where idusuario =" + id;
-                String cv = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select semestre from servicio where idusuario =" + id;
-                int semestre = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                sql = "select horario from servicio where idusuario =" + id;
-                String horario = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                mav.addObject("datos", new Servicio(id, matricula, creditos, correo, telefono, celular, cv, carrera, semestre, horario));
-                break;
-            case 5:
-                sql = "select correo from encargado where idusuario =" + id;
-                correo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select dependencia from encargado where idusuario =" + id;
-                String dependencia = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select direccion from encargado where idusuario =" + id;
-                String direccion = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                sql = "select telefono from encargado where idusuario =" + id;
-                telefono = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                mav.addObject("datos", new Encargado(id, correo, dependencia, direccion, telefono));
-                break;
+        try {
+            HttpSession session = request.getSession();
+            String sql;
+            ModelAndView mav = new ModelAndView();
+            Object[] parameters = new Object[]{};
+            id = (int) session.getAttribute("id");
+            tipo = (int) session.getAttribute("tipo");
+            switch (tipo) {
+                case 1:
+                    break;
+                case 2:
+                    sql = "select correo from vinculacion where idusuario =" + id;
+                    String correo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select carrera from vinculacion where idusuario =" + id;
+                    String carrera = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    mav.addObject("datos", new Vinculacion(id, correo, carrera));
+                    break;
+                case 3:
+                    sql = "select correo from maestro where idusuario =" + id;
+                    correo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select carrera from maestro where idusuario =" + id;
+                    carrera = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    mav.addObject("datos", new Maestro(id, correo, carrera));
+                    break;
+                case 4:
+                    sql = "select correo from servicio where idusuario =" + id;
+                    correo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select carrera from servicio where idusuario =" + id;
+                    carrera = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select matricula from servicio where idusuario =" + id;
+                    String matricula = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select creditos from servicio where idusuario =" + id;
+                    int creditos = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                    sql = "select telefono from servicio where idusuario =" + id;
+                    String telefono = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select celular from servicio where idusuario =" + id;
+                    String celular = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select cv from servicio where idusuario =" + id;
+                    String cv = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select semestre from servicio where idusuario =" + id;
+                    int semestre = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                    sql = "select horario from servicio where idusuario =" + id;
+                    String horario = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    mav.addObject("datos", new Servicio(id, matricula, creditos, correo, telefono, celular, cv, carrera, semestre, horario));
+                    break;
+                case 5:
+                    sql = "select correo from encargado where idusuario =" + id;
+                    correo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select dependencia from encargado where idusuario =" + id;
+                    String dependencia = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select direccion from encargado where idusuario =" + id;
+                    String direccion = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    sql = "select telefono from encargado where idusuario =" + id;
+                    telefono = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                    mav.addObject("datos", new Encargado(id, correo, dependencia, direccion, telefono));
+                    break;
+            }
+            mav.setViewName("login/editarP");
+            return mav;
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/login/login");
         }
-        mav.setViewName("login/editarP");
-        return mav;
+
     }
 //
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)

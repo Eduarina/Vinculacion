@@ -57,7 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-xs-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <a href="insertarR" class="btn btn-primary">Agregar</a>
+                                        <a href="insertarR" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Generar Reporte</a>
                                     </div>
                                     <!-- /.box-header -->
                                     <div class="box-body">
@@ -101,8 +101,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <td> <c:out value="${dato.actividades}"/></td>
                                                     <td> <c:out value="${dato.descripcion}"/></td>
                                                     <td>
-                                                        <a href="editarR?id=${dato.idreporte}" class="btn btn-warning">Editar</a>
-                                                        <a href="borrarR?id=${dato.idreporte}" class="btn btn-danger">Eliminar</a>
+                                                        <a href="editarR?id=${dato.idreporte}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
+                                                        <a href="borrarR?id=${dato.idreporte}" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
