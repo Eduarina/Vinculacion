@@ -66,7 +66,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Id</th>
+<!--                                                    <th>Id</th>-->
                                                     <th>Documento</th>
                                                     <th>Fecha</th>
                                                     <th>Acciones</th>
@@ -75,7 +75,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <tbody>
                                             <c:forEach items="${datos}" var="dato">
                                                 <tr>
-                                                    <td> <c:out value="${dato.idvencimiento}"/></td>
+<!--                                                    <td> <c:out value="${dato.idvencimiento}"/></td>-->
                                                     <td> <c:out value="${dato.descripcion}"/></td>
                                                     <td> <c:out value="${dato.fecha}"/></td>
                                                     <td>

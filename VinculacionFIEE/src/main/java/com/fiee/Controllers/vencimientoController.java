@@ -50,11 +50,15 @@ public class vencimientoController {
             String sql;
             ModelAndView mav = new ModelAndView();
             id = (int) session.getAttribute("id");
-            sql = "select * from vencimiento";
-            lista = this.jdbcTemplate.queryForList(sql);
-            mav.addObject("datos", lista);
-            mav.setViewName("vencimiento/indexV");  // Este es el nombre del archivo vista .jsp
-            return mav;
+            int tipo = (int) session.getAttribute("tipo");
+            if (tipo == 1 || tipo == 2) {
+                sql = "select * from vencimiento";
+                lista = this.jdbcTemplate.queryForList(sql);
+                mav.addObject("datos", lista);
+                mav.setViewName("vencimiento/indexV");  // Este es el nombre del archivo vista .jsp
+                return mav;
+            }
+            return new ModelAndView("redirect:/home");
         } catch (Exception e) {
             return new ModelAndView("redirect:/login/login");
         }
@@ -69,15 +73,19 @@ public class vencimientoController {
             String sql;
             ModelAndView mav = new ModelAndView();
             id = (int) session.getAttribute("id");
-            //id=Integer.parseInt(request.getParameter("id"));
-            sql = "select descripcion from vencimiento where idvencimiento=" + idvencimiento;
-            Object[] parameters = new Object[]{};
-            String descripcion = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-            sql = "select fecha from vencimiento where idvencimiento=" + idvencimiento;
-            String datepicker = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-            mav.addObject("datos", new Vencimiento(idvencimiento, descripcion, datepicker));
-            mav.setViewName("vencimiento/editarV");
-            return mav;
+            int tipo = (int) session.getAttribute("tipo");
+            if (tipo == 1 || tipo == 2) {
+                //id=Integer.parseInt(request.getParameter("id"));
+                sql = "select descripcion from vencimiento where idvencimiento=" + idvencimiento;
+                Object[] parameters = new Object[]{};
+                String descripcion = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                sql = "select fecha from vencimiento where idvencimiento=" + idvencimiento;
+                String datepicker = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                mav.addObject("datos", new Vencimiento(idvencimiento, descripcion, datepicker));
+                mav.setViewName("vencimiento/editarV");
+                return mav;
+            }
+            return new ModelAndView("redirect:/login/login");
         } catch (Exception e) {
             return new ModelAndView("redirect:/login/login");
         }

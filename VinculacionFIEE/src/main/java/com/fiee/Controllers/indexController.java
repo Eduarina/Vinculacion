@@ -10,7 +10,27 @@ import org.springframework.web.servlet.ModelAndView;
 public class indexController {
 
     @RequestMapping(value = "/")
-    public ModelAndView index() {
-        return new ModelAndView("redirect:/login/login");
+    public ModelAndView index(HttpServletRequest request) {
+        try {
+            HttpSession session = request.getSession();
+            String sql;
+            int id = (int) session.getAttribute("id");
+            return new ModelAndView("redirect:/home");
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/login/login");
+        }
+    }
+
+    @RequestMapping(value = "/home")
+    public ModelAndView home(HttpServletRequest request) {
+        try {
+            HttpSession session = request.getSession();
+            int id = (int) session.getAttribute("id");
+            ModelAndView mav = new ModelAndView();
+            mav.setViewName("home");  // Este es el nombre del archivo vista .jsp
+            return mav;
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/login/login");
+        }
     }
 }

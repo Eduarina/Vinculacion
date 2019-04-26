@@ -58,14 +58,18 @@ public class asignarController {
             String sql;
             ModelAndView mav = new ModelAndView();
             id = (int) session.getAttribute("id");
-            sql = "select * from maestro_servicio";
-            lista = this.jdbcTemplate.queryForList(sql);
-            mav.addObject("datos", lista);
-            mav.setViewName("asignar/indexA");  // Este es el nombre del archivo vista .jsp
-            sql = "select * from usuario";
-            List lista1 = this.jdbcTemplate.queryForList(sql);
-            model.addAttribute("nombres", lista1);
-            return mav;
+            int tipo = (int) session.getAttribute("tipo");
+            if (tipo == 1 || tipo == 2) {
+                sql = "select * from maestro_servicio";
+                lista = this.jdbcTemplate.queryForList(sql);
+                mav.addObject("datos", lista);
+                mav.setViewName("asignar/indexA");  // Este es el nombre del archivo vista .jsp
+                sql = "select * from usuario";
+                List lista1 = this.jdbcTemplate.queryForList(sql);
+                model.addAttribute("nombres", lista1);
+                return mav;
+            }
+            return new ModelAndView("redirect:/home");
         } catch (Exception e) {
             return new ModelAndView("redirect:/login/login");
         }
@@ -79,12 +83,16 @@ public class asignarController {
             String sql;
             ModelAndView mav = new ModelAndView();
             id = (int) session.getAttribute("id");
-            mav.addObject("datos", new Asignar1());
-            mav.setViewName("asignar/insertarA");
-            sql = "select * from usuario";
-            lista = this.jdbcTemplate.queryForList(sql);
-            model.addAttribute("nombres", lista);
-            return mav;
+            int tipo = (int) session.getAttribute("tipo");
+            if (tipo == 1 || tipo == 2) {
+                mav.addObject("datos", new Asignar1());
+                mav.setViewName("asignar/insertarA");
+                sql = "SELECT * FROM usuario WHERE idusuario NOT IN (SELECT idservicio FROM maestro_servicio) ORDER BY nombre";
+                lista = this.jdbcTemplate.queryForList(sql);
+                model.addAttribute("nombres", lista);
+                return mav;
+            }
+            return new ModelAndView("redirect:/home");
         } catch (Exception e) {
             return new ModelAndView("redirect:/login/login");
         }
@@ -119,17 +127,21 @@ public class asignarController {
             String sql;
             ModelAndView mav = new ModelAndView();
             id = (int) session.getAttribute("id");
-            sql = "select idmaestro from maestro_servicio where idtabla1=" + idtabla;
-            Object[] parameters = new Object[]{};
-            int idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-            sql = "select idservicio from maestro_servicio where idtabla1=" + idtabla;
-            int idservicio = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-            mav.addObject("datos", new Asignar1(idtabla, idmaestro, idservicio));
-            mav.setViewName("asignar/editarA");
-            sql = "select * from usuario";
-            lista = this.jdbcTemplate.queryForList(sql);
-            model.addAttribute("nombres", lista);
-            return mav;
+            int tipo = (int) session.getAttribute("tipo");
+            if (tipo == 1 || tipo == 2) {
+                sql = "select idmaestro from maestro_servicio where idtabla1=" + idtabla;
+                Object[] parameters = new Object[]{};
+                int idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                sql = "select idservicio from maestro_servicio where idtabla1=" + idtabla;
+                int idservicio = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                mav.addObject("datos", new Asignar1(idtabla, idmaestro, idservicio));
+                mav.setViewName("asignar/editarA");
+                sql = "select * from usuario";
+                lista = this.jdbcTemplate.queryForList(sql);
+                model.addAttribute("nombres", lista);
+                return mav;
+            }
+            return new ModelAndView("redirect:/home");
         } catch (Exception e) {
             return new ModelAndView("redirect:/login/login");
         }

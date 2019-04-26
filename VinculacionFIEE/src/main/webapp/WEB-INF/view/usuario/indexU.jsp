@@ -38,7 +38,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <jsp:include page="../includes/lateral.jsp"></jsp:include>
             <c:if test="${empty sessionScope['user']}">
-                 <c:redirect url="/bitacora/lista" />
+                <c:redirect url="/bitacora/lista" />
             </c:if>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -71,7 +71,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
+                                                <!--                                                <th>Id</th>-->
                                                 <th>Nombre</th>
                                                 <th>Usuario</th>
                                                 <th>Tipo</th>
@@ -81,10 +81,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <tbody>
                                             <c:forEach items="${datos}" var="dato">
                                                 <tr>
-                                                    <td> <c:out value="${dato.idusuario}"/></td>
+<!--                                                    <td> <c:out value="${dato.idusuario}"/></td>-->
                                                     <td> <c:out value="${dato.nombre}"/></td>
                                                     <td> <c:out value="${dato.user}"/></td>
-                                                    <td> <c:out value="${dato.tipo}"/></td>
+                                                    <td> 
+                                                        <c:if test="${dato.tipo eq 1}">
+                                                            <c:out value="Administrador"/>
+                                                        </c:if>
+                                                        <c:if test="${dato.tipo eq 2}">
+                                                            <c:out value="Vinculacion"/>
+                                                        </c:if>
+                                                        <c:if test="${dato.tipo eq 3}">
+                                                            <c:out value="Maestro"/>
+                                                        </c:if>
+                                                        <c:if test="${dato.tipo eq 4}">
+                                                            <c:out value="Servicio"/>
+                                                        </c:if>
+                                                        <c:if test="${dato.tipo eq 5}">
+                                                            <c:out value="Encargado"/>
+                                                        </c:if>
+                                                    </td>
                                                     <td>
                                                         <a href="editar?id=${dato.idusuario}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
                                                         <a href="borrar?id=${dato.idusuario}" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</a>

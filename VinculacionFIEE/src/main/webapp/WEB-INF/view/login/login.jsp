@@ -14,7 +14,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <jsp:include page="../includes/head.jsp"></jsp:include>
         <div class="login-box">
             <div class="login-logo">
-                <a href="../VinculacionFIEE/"><b>Vinculación</b>FIEE</a>
+                <a href="/VinculacionFIEE/"><b>Vinculación</b>FIEE</a>
             </div>
             <!-- /.login-logo -->
             <div class="login-box-body">

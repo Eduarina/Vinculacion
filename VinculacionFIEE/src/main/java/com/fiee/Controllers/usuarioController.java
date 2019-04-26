@@ -59,15 +59,18 @@ public class usuarioController {
             String sql;
             ModelAndView mav = new ModelAndView();
             id = (int) session.getAttribute("id");
-            sql = "select * from usuario";
-            lista = this.jdbcTemplate.queryForList(sql);
-            mav.addObject("datos", lista);
-            mav.setViewName("usuario/indexU");  // Este es el nombre del archivo vista .jsp
-            return mav;
+            int tipo = (int) session.getAttribute("tipo");
+            if (tipo == 1 || tipo == 2) {
+                sql = "select * from usuario";
+                lista = this.jdbcTemplate.queryForList(sql);
+                mav.addObject("datos", lista);
+                mav.setViewName("usuario/indexU");  // Este es el nombre del archivo vista .jsp
+                return mav;
+            }
+            return new ModelAndView("redirect:/home");
         } catch (Exception e) {
             return new ModelAndView("redirect:/login/login");
         }
-
     }
 
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.GET)
@@ -78,9 +81,13 @@ public class usuarioController {
             String sql;
             ModelAndView mav = new ModelAndView();
             id = (int) session.getAttribute("id");
-            mav.addObject("datos", new Usuario());
-            mav.setViewName("usuario/insertarU");
-            return mav;
+            int tipo = (int) session.getAttribute("tipo");
+            if (tipo == 1 || tipo == 2) {
+                mav.addObject("datos", new Usuario());
+                mav.setViewName("usuario/insertarU");
+                return mav;
+            }
+            return new ModelAndView("redirect:/home");
         } catch (Exception e) {
             return new ModelAndView("redirect:/login/login");
         }
@@ -148,19 +155,23 @@ public class usuarioController {
             String sql;
             ModelAndView mav = new ModelAndView();
             id = (int) session.getAttribute("id");
-            //id=Integer.parseInt(request.getParameter("id"));
-            sql = "select nombre from usuario where idusuario=" + idusuario;
-            Object[] parameters = new Object[]{};
-            String nombre = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-            sql = "select user from usuario where idusuario=" + idusuario;
-            String usuario = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-            sql = "select tipo from usuario where idusuario=" + idusuario;
-            int tipo = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-            sql = "select password from usuario where idusuario=" + idusuario;
-            String password = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-            mav.addObject("datos", new Usuario(idusuario, nombre, usuario, password, password, tipo));
-            mav.setViewName("usuario/editarU");
-            return mav;
+            int tipo2 = (int) session.getAttribute("tipo");
+            if (tipo2 == 1 || tipo2 == 2) {
+                //id=Integer.parseInt(request.getParameter("id"));
+                sql = "select nombre from usuario where idusuario=" + idusuario;
+                Object[] parameters = new Object[]{};
+                String nombre = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                sql = "select user from usuario where idusuario=" + idusuario;
+                String usuario = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                sql = "select tipo from usuario where idusuario=" + idusuario;
+                int tipo = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                sql = "select password from usuario where idusuario=" + idusuario;
+                String password = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                mav.addObject("datos", new Usuario(idusuario, nombre, usuario, password, password, tipo));
+                mav.setViewName("usuario/editarU");
+                return mav;
+            }
+            return new ModelAndView("redirect:/home");
         } catch (Exception e) {
             return new ModelAndView("redirect:/login/login");
         }

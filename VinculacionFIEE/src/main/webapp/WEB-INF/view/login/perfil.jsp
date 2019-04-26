@@ -75,10 +75,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <!-- text input -->
                             <c:choose>
                                 <c:when test="${sessionScope.tipo eq 1}">
-                                    <div class="form-group col-md-6">
+<!--                                    <div class="form-group col-md-6">
                                         <label>Idusuario</label><br>
                                         ${sessionScope.id}
-                                    </div>
+                                    </div>-->
                                     <div class="form-group col-md-6">
                                         <label>Nombre</label><br>
                                         ${sessionScope.nombre}
@@ -90,7 +90,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </div>
                             </c:when>
                             <c:when test="${sessionScope.tipo eq 2}">
-                                <div class="form-group col-md-6">
+<!--                                <div class="form-group col-md-6">
                                     <label>Idvinculacion</label><br>
                                     <c:if test="${empty datos[0].idvinculacion}">
                                         Dato por registrar
@@ -98,7 +98,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <c:if test="${not empty datos[0].idvinculacion}">
                                         ${datos[0].idvinculacion}
                                     </c:if>
-                                </div>
+                                </div>-->
                                 <div class="form-group col-md-6">
                                     <label>Correo</label><br>
                                     <c:if test="${empty datos[0].correo}">
@@ -117,7 +117,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         ${datos[0].carrera}
                                     </c:if>
                                 </div>
-                                <div class="form-group col-md-6">
+<!--                                <div class="form-group col-md-6">
                                     <label>Idusuario</label><br>
                                     <c:if test="${empty datos[0].idusuario}">
                                         Dato por registrar
@@ -125,14 +125,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <c:if test="${not empty datos[0].idusuario}">
                                         ${datos[0].idusuario}
                                     </c:if>
-                                </div>
+                                </div>-->
                             </div>
                             <div class="box-footer">
                                 <a href="editar" class="btn btn-warning"><i class="fa fa-edit"></i> Editar datos</a>
                             </div>
                         </c:when>
                         <c:when test="${sessionScope.tipo eq 4}">
-                            <div class="form-group col-md-6">
+<!--                            <div class="form-group col-md-6">
                                 <label>Idservicio</label><br>
                                 <c:if test="${empty datos[0].idservicio}">
                                     Dato por registrar
@@ -140,7 +140,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <c:if test="${not empty datos[0].idservicio}">
                                     ${datos[0].idservicio}
                                 </c:if>
-                            </div>
+                            </div>-->
                             <div class="form-group col-md-6">
                                 <label>Matricula</label><br>
                                 <c:if test="${empty datos[0].matricula}">
@@ -213,7 +213,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     ${datos[0].semestre}
                                 </c:if>
                             </div>
-                            <div class="form-group col-md-6">
+<!--                            <div class="form-group col-md-6">
                                 <label>Estatus</label><br>
                                 <c:if test="${empty datos[0].estatus}">
                                     Dato por registrar
@@ -221,7 +221,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <c:if test="${not empty datos[0].estatus}">
                                     ${datos[0].estatus}
                                 </c:if>
-                            </div>
+                            </div>-->
                             <div class="form-group col-md-6">
                                 <label>Horario</label><br>
                                 <c:if test="${empty datos[0].horario}">
@@ -231,7 +231,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     ${datos[0].horario}
                                 </c:if>
                             </div>
-                            <div class="form-group col-md-6">
+<!--                            <div class="form-group col-md-6">
                                 <label>Idusuario</label><br>
                                 <c:if test="${empty datos[0].idusuario}">
                                     Dato por registrar
@@ -239,14 +239,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <c:if test="${not empty datos[0].idusuario}">
                                     ${datos[0].idusuario}
                                 </c:if>
-                            </div>
+                            </div>-->
                     </div>
                     <div class="box-footer">
                         <a href="editar" class="btn btn-warning"><i class="fa fa-edit"></i> Editar datos</a>
                     </div>
                 </c:when>
                 <c:when test="${sessionScope.tipo eq 3}">
-                    <div class="form-group col-md-6">
+<!--                    <div class="form-group col-md-6">
                         <label>Idmaestro</label><br>
                         <c:if test="${empty datos[0].idmaestro}">
                             Dato por registrar
@@ -254,7 +254,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <c:if test="${not empty datos[0].idmaestro}">
                             ${datos[0].idmaestro}
                         </c:if>
-                    </div>
+                    </div>-->
                     <div class="form-group col-md-6">
                         <label>Correo</label><br>
                         <c:if test="${empty datos[0].correo}">
@@ -273,7 +273,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             ${datos[0].carrera}
                         </c:if>
                     </div>
-                    <div class="form-group col-md-6">
+<!--                    <div class="form-group col-md-6">
                         <label>Idusuario</label><br>
                         <c:if test="${empty datos[0].idusuario}">
                             Dato por registrar
@@ -281,14 +281,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <c:if test="${not empty datos[0].idusuario}">
                             ${datos[0].idusuario}
                         </c:if>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="box-footer">
                     <a href="editar" class="btn btn-warning"><i class="fa fa-edit"></i> Editar datos</a>
                 </div>
             </c:when>
             <c:when test="${sessionScope.tipo eq 5}">
-                <div class="form-group col-md-6">
+<!--                <div class="form-group col-md-6">
                     <label>Idencargado</label><br>
                     <c:if test="${empty datos[0].idencargado}">
                         Dato por registrar
@@ -296,7 +296,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <c:if test="${not empty datos[0].idencargado}">
                         ${datos[0].idencargado}
                     </c:if>
-                </div>
+                </div>-->
                 <div class="form-group col-md-6">
                     <label>Correo</label><br>
                     <c:if test="${empty datos[0].correo}">
@@ -333,7 +333,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         ${datos[0].telefono}
                     </c:if>
                 </div>
-                <div class="form-group col-md-6">
+<!--                <div class="form-group col-md-6">
                     <label>Idusuario</label><br>
                     <c:if test="${empty datos[0].idusuario}">
                         Dato por registrar
@@ -341,7 +341,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <c:if test="${not empty datos[0].idusuario}">
                         ${datos[0].idusuario}
                     </c:if>
-                </div>
+                </div>-->
             </div>
             <div class="box-footer">
                 <a href="editar" class="btn btn-warning"><i class="fa fa-edit"></i> Editar datos</a>

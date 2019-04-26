@@ -69,7 +69,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Idtabla</th>
+<!--                                                    <th>Idtabla</th>-->
                                                     <th>Maestro</th>
                                                     <th>Servicio</th>
                                                     <th>Acciones</th>
@@ -78,7 +78,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <tbody>
                                             <c:forEach items="${datos}" var="dato">
                                                 <tr>
-                                                    <td> <c:out value="${dato.idtabla1}"/></td>
+<!--                                                    <td> <c:out value="${dato.idtabla1}"/></td>-->
                                                     <td><c:forEach items="${nombres}" var="nombre">
                                                             <c:if test="${dato.idmaestro eq nombre.idusuario}">
                                                                 <c:out value="${nombre.nombre}"/></td>
