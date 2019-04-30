@@ -26,8 +26,9 @@ public class VinculacionValidator implements Validator{
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "correo", 
                 "required.correo", "El campo correo es obligatorio");
         
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "carrera", 
-                "required.carrera", "El campo carrera es obligatorio");
+        if(vinculacion.getCarrera().equals("0")){
+            errors.rejectValue("carrera", "required.carrera", "Seleccione un programa educativo");
+        }
     }
     
 }

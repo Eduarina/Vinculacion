@@ -38,10 +38,11 @@ public class ServicioValidator implements Validator{
                 "required.celular", "El campo celular es obligatorio.");
         
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cv",
-                "required.cv", "El campo habilidades es obligatorio.");
+                "required.cv", "El campo habilidades y conocmientos es obligatorio.");
         
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "carrera",
-                "required.carrera", "El campo carrera es obligatorio.");
+        if(servicio.getCarrera().equals("0")){
+            errors.rejectValue("carrera", "required.carrera", "Seleccione un programa educativo");
+        }
         
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "semestre",
                 "required.semestre", "El campo semestre es obligatorio.");

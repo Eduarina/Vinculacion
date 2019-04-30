@@ -17,7 +17,9 @@ import com.fiee.Models.VinculacionValidator;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -342,4 +344,22 @@ public class loginController {
         });
     }
 
+    //poblar select para tipo en insertar
+    @ModelAttribute("carrera")
+    public Map<String, String> listadoTipo() {
+        Map<String, String> carrera = new LinkedHashMap<>();
+        carrera.put("ARQUITECTURA", "ARQUITECTURA");
+        carrera.put("ING. CIVIL", "ING. CIVIL");
+        carrera.put("ING. ELECTRICA", "ING. ELECTRICA");
+        carrera.put("ING. ELECTRONICA Y COMUNICACIONES", "ING. ELECTRONICA Y COMUNICACIONES");
+        carrera.put("ING. INDUSTRIAL", "ING. INDUSTRIAL");
+        carrera.put("ING. INFORMATICA", "ING. INFORMATICA");
+        carrera.put("ING. MECANICA", "ING. MECANICA");
+        carrera.put("ING. MECATRONICA", "ING. MECATRONICA");
+        carrera.put("ING. METALURGICA Y CIENCIA DE LOS MATERIALES", "ING. METALURGICA Y CIENCIA DE LOS MATERIALES");
+        carrera.put("ING. NAVAL", "ING. NAVAL");
+        carrera.put("ING. QUIMICA", "ING. QUIMICA");
+        carrera.put("ING. TOPOGRAGICA GEODESICA", "ING. TOPOGRAGICA GEODESICA");
+        return carrera;
+    }
 }

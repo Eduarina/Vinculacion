@@ -11,59 +11,55 @@ package com.fiee.Models;
  */
 public class Reporte {
     private int idreporte;
-    private String nombre;
-    private String carrera;
-    private String correo;
-    private String telefono;
-    private String celular;
-    private String matricula;
-    
-    private int noreporte;
-    private String fecha;
+    private int numero;
+    private String datepicker;
     private String dependencia;
-    private String telefonod;
+    private String telefono;
     private String proyecto;
     private String horario;
-    
     private String actividades;
     private String descripcion;
+    private String datepicker2;
+    private int estado;
+    private int idencargado;
+    private int idmaestro;
+    private int idservicio;
+    
 
     public Reporte() {
     }
 
-    public Reporte(String nombre, String carrera, String correo, String telefono, String celular, String matricula, int noreporte, String fecha, String dependencia, String telefonod, String proyecto, String horario, String actividades, String descripcion) {
-        this.nombre = nombre;
-        this.carrera = carrera;
-        this.correo = correo;
-        this.telefono = telefono;
-        this.celular = celular;
-        this.matricula = matricula;
-        this.noreporte = noreporte;
-        this.fecha = fecha;
+    public Reporte(int idreporte, int numero, String datepicker, String dependencia, String telefono, String proyecto, String horario, String actividades, String descripcion, String datepicker2, int estado, int idmaestro, int idservicio) {
+        this.idreporte = idreporte;
+        this.numero = numero;
+        this.datepicker = datepicker;
         this.dependencia = dependencia;
-        this.telefonod = telefonod;
+        this.telefono = telefono;
         this.proyecto = proyecto;
         this.horario = horario;
         this.actividades = actividades;
         this.descripcion = descripcion;
+        this.datepicker2 = datepicker2;
+        this.estado = estado;
+        this.idmaestro = idmaestro;
+        this.idservicio = idservicio;
     }
 
-    public Reporte(int idreporte, String nombre, String carrera, String correo, String telefono, String celular, String matricula, int noreporte, String fecha, String dependencia, String telefonod, String proyecto, String horario, String actividades, String descripcion) {
+    public Reporte(int idreporte, int numero, String datepicker, String dependencia, String telefono, String proyecto, String horario, String actividades, String descripcion, String datepicker2, int estado, int idencargado, int idmaestro, int idservicio) {
         this.idreporte = idreporte;
-        this.nombre = nombre;
-        this.carrera = carrera;
-        this.correo = correo;
-        this.telefono = telefono;
-        this.celular = celular;
-        this.matricula = matricula;
-        this.noreporte = noreporte;
-        this.fecha = fecha;
+        this.numero = numero;
+        this.datepicker = datepicker;
         this.dependencia = dependencia;
-        this.telefonod = telefonod;
+        this.telefono = telefono;
         this.proyecto = proyecto;
         this.horario = horario;
         this.actividades = actividades;
         this.descripcion = descripcion;
+        this.datepicker2 = datepicker2;
+        this.estado = estado;
+        this.idencargado = idencargado;
+        this.idmaestro = idmaestro;
+        this.idservicio = idservicio;
     }
 
     public int getIdreporte() {
@@ -74,68 +70,20 @@ public class Reporte {
         this.idreporte = idreporte;
     }
 
-    public String getNombre() {
-        return nombre;
+    public int getNumero() {
+        return numero;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 
-    public String getCarrera() {
-        return carrera;
+    public String getDatepicker() {
+        return datepicker;
     }
 
-    public void setCarrera(String carrera) {
-        this.carrera = carrera;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getCelular() {
-        return celular;
-    }
-
-    public void setCelular(String celular) {
-        this.celular = celular;
-    }
-
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
-
-    public int getNoreporte() {
-        return noreporte;
-    }
-
-    public void setNoreporte(int noreporte) {
-        this.noreporte = noreporte;
-    }
-
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setDatepicker(String datepicker) {
+        this.datepicker = datepicker;
     }
 
     public String getDependencia() {
@@ -146,12 +94,12 @@ public class Reporte {
         this.dependencia = dependencia;
     }
 
-    public String getTelefonod() {
-        return telefonod;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setTelefonod(String telefonod) {
-        this.telefonod = telefonod;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String getProyecto() {
@@ -185,5 +133,45 @@ public class Reporte {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
+
+    public String getDatepicker2() {
+        return datepicker2;
+    }
+
+    public void setDatepicker2(String datepicker2) {
+        this.datepicker2 = datepicker2;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public int getIdencargado() {
+        return idencargado;
+    }
+
+    public void setIdencargado(int idencargado) {
+        this.idencargado = idencargado;
+    }
+
+    public int getIdmaestro() {
+        return idmaestro;
+    }
+
+    public void setIdmaestro(int idmaestro) {
+        this.idmaestro = idmaestro;
+    }
+
+    public int getIdservicio() {
+        return idservicio;
+    }
+
+    public void setIdservicio(int idservicio) {
+        this.idservicio = idservicio;
+    }
+
 }

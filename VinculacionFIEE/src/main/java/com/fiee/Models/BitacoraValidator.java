@@ -25,7 +25,7 @@ public class BitacoraValidator implements Validator{
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dependencia",
                 "required.dependencia", "El campo dependencia es obligatorio.");
         
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dirección",
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "direccion",
                 "required.direccion", "El ubicacion ubiación es obligatorio.");
         
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "datepicker",
@@ -34,7 +34,7 @@ public class BitacoraValidator implements Validator{
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "actividades",
                 "required.actividades", "El campo actividades generales es obligatorio.");
         
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "descripción",
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "descripcion",
                 "required.descripcion", "El campo descripcion de actividades es obligatorio.");
     }
 }
