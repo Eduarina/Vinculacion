@@ -11,7 +11,7 @@ package com.fiee.Models;
  */
 public class Reporte {
     private int idreporte;
-    private int numero;
+    private String numero;
     private String datepicker;
     private String dependencia;
     private String telefono;
@@ -21,6 +21,7 @@ public class Reporte {
     private String descripcion;
     private String datepicker2;
     private int estado;
+    private String observaciones;
     private int idencargado;
     private int idmaestro;
     private int idservicio;
@@ -29,7 +30,7 @@ public class Reporte {
     public Reporte() {
     }
 
-    public Reporte(int idreporte, int numero, String datepicker, String dependencia, String telefono, String proyecto, String horario, String actividades, String descripcion, String datepicker2, int estado, int idmaestro, int idservicio) {
+    public Reporte(int idreporte, String numero, String datepicker, String dependencia, String telefono, String proyecto, String horario, String actividades, String descripcion, String datepicker2, int estado, String observaciones, int idmaestro, int idservicio) {
         this.idreporte = idreporte;
         this.numero = numero;
         this.datepicker = datepicker;
@@ -41,11 +42,12 @@ public class Reporte {
         this.descripcion = descripcion;
         this.datepicker2 = datepicker2;
         this.estado = estado;
+        this.observaciones = observaciones;
         this.idmaestro = idmaestro;
         this.idservicio = idservicio;
     }
 
-    public Reporte(int idreporte, int numero, String datepicker, String dependencia, String telefono, String proyecto, String horario, String actividades, String descripcion, String datepicker2, int estado, int idencargado, int idmaestro, int idservicio) {
+    public Reporte(int idreporte, String numero, String datepicker, String dependencia, String telefono, String proyecto, String horario, String actividades, String descripcion, String datepicker2, int estado, String observaciones, int idencargado, int idmaestro, int idservicio) {
         this.idreporte = idreporte;
         this.numero = numero;
         this.datepicker = datepicker;
@@ -57,6 +59,7 @@ public class Reporte {
         this.descripcion = descripcion;
         this.datepicker2 = datepicker2;
         this.estado = estado;
+        this.observaciones = observaciones;
         this.idencargado = idencargado;
         this.idmaestro = idmaestro;
         this.idservicio = idservicio;
@@ -70,11 +73,11 @@ public class Reporte {
         this.idreporte = idreporte;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 

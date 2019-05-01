@@ -58,10 +58,18 @@ public class bitacoraController {
             String sql;
             ModelAndView mav = new ModelAndView();
             id = (int) session.getAttribute("id");
-            int tipo = (int) session.getAttribute("tipo");
+            tipo = (int) session.getAttribute("tipo");
             if (tipo == 3 || tipo == 4 || tipo == 5) {
-                sql = "select * from bitacora";
-                lista = this.jdbcTemplate.queryForList(sql);
+                if(tipo==3){
+                    sql = "select * from bitacora where idmaestro="+id;
+                    lista = this.jdbcTemplate.queryForList(sql);
+                } if(tipo==4){
+                    sql = "select * from bitacora where idservicio="+id;
+                    lista = this.jdbcTemplate.queryForList(sql);
+                } if(tipo==5){
+                    sql = "select * from bitacora where idencargado="+id;
+                    lista = this.jdbcTemplate.queryForList(sql);
+                }
                 mav.addObject("bitacoras", lista);
                 mav.setViewName("bitacora/indexB");  // Este es el nombre del archivo vista .jsp
                 sql = "select * from usuario";
@@ -112,7 +120,7 @@ public class bitacoraController {
         String sql, fecha;
         SimpleDateFormat mask = new SimpleDateFormat("MM/dd/yyyy");
         int idmaestro;
-        Bitacora dato = this.checkuser(numero);
+        Bitacora dato = this.checkuser(numero, id);
         if (dato != null) {
             ModelAndView mav = new ModelAndView();
             sql = "select * from maestro_servicio where idservicio=" + id;
@@ -591,9 +599,9 @@ public class bitacoraController {
         return new ModelAndView("redirect:/bitacoras/lista");
     }
 
-    public Bitacora checkuser(int numero) {
+    public Bitacora checkuser(int numero, int id) {
         final Bitacora users = new Bitacora();
-        String sql = "select * from bitacora where numero='" + numero + "'";
+        String sql = "select * from bitacora where numero='" + numero + "'and idservicio='"+id+"'";
         return (Bitacora) this.jdbcTemplate.query(sql, new ResultSetExtractor<Bitacora>() {
             public Bitacora extractData(ResultSet rs) throws SQLException, DataAccessException {
                 if (!rs.isBeforeFirst()) {

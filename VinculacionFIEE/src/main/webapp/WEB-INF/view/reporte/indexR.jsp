@@ -57,49 +57,49 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-xs-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <a href="insertarR" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Generar Reporte</a>
+                                        <a href="generar" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Generar Reporte</a>
                                     </div>
                                     <!-- /.box-header -->
                                     <div class="box-body">
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Id</th>
                                                     <th>Alumno</th>
-                                                    <th>Carrera</th>
-                                                    <th>Correo</th>
-                                                    <th>Telefono</th>
-                                                    <th>Celular</th>
+                                                    <th>Programa Educativo</th>
                                                     <th>Matricula</th>
                                                     <th>Reporte</th>
                                                     <th>Fecha</th>
-                                                    <th>Dependencia</th>
-                                                    <th>Telefono de la Dependencia</th>
-                                                    <th>Nombre del Proyecto</th>
-                                                    <th>Horario</th>
-                                                    <th>Actividades Generales</th>
-                                                    <th>Descripcion de Actividades</th>
+                                                    <th>Fecha Limite</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             <c:forEach items="${reportes}" var="dato">
                                                 <tr>
-                                                    <td> <c:out value="${dato.idreporte}"/></td>
-                                                    <td> <c:out value="${dato.nombre}"/></td>
-                                                    <td> <c:out value="${dato.carrera}"/></td>
-                                                    <td> <c:out value="${dato.correo}"/></td>
-                                                    <td> <c:out value="${dato.telefono}"/></td>
-                                                    <td> <c:out value="${dato.celular}"/></td>
-                                                    <td> <c:out value="${dato.matricula}"/></td>
-                                                    <td> <c:out value="${dato.noreporte}"/></td>
+                                                    <td> 
+                                                        <c:forEach items="${usuarios}" var="usuario">
+                                                            <c:if test="${dato.idservicio eq usuario.idusuario}">
+                                                                <c:out value="${usuario.nombre}"/>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td> 
+                                                        <c:forEach items="${servicios}" var="usuario">
+                                                            <c:if test="${dato.idservicio eq usuario.idusuario}">
+                                                                <c:out value="${usuario.carrera}"/>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td> 
+                                                        <c:forEach items="${servicios}" var="usuario">
+                                                            <c:if test="${dato.idservicio eq usuario.idusuario}">
+                                                                <c:out value="${usuario.matricula}"/>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td> <c:out value="${dato.numero}"/></td>
                                                     <td> <c:out value="${dato.fecha}"/></td>
-                                                    <td> <c:out value="${dato.dependencia}"/></td>
-                                                    <td> <c:out value="${dato.telefonod}"/></td>
-                                                    <td> <c:out value="${dato.proyecto}"/></td>
-                                                    <td> <c:out value="${dato.horario}"/></td>
-                                                    <td> <c:out value="${dato.actividades}"/></td>
-                                                    <td> <c:out value="${dato.descripcion}"/></td>
+                                                    <td> <c:out value="${dato.fechalim}"/></td>
                                                     <td>
                                                         <a href="editarR?id=${dato.idreporte}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
                                                         <a href="borrarR?id=${dato.idreporte}" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</a>
