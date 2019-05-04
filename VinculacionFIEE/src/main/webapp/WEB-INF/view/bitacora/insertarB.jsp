@@ -68,28 +68,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <form action="insertar" role="form" method="POST">
                                         <div class="box-body">
                                             <div class="form-group col-md-6">
-                                                <label for="alumno">Nombre del Alumno</label>
+                                                <label for="alumno">Nombre del Alumno:</label>
                                                 <input id="alumno" name="alumno" type="text" class="form-control" placeholder="Nombre del Alumno..." onkeyup="javascript:this.value = this.value.toUpperCase();">
                                             </div>
                                             <div class="form-group col-md-3">
-                                                <label for="matricula">Matricula</label>
+                                                <label for="matricula">Matricula:</label>
                                                 <input id="matricula" name="matricula" type="text" class="form-control" placeholder="S13001317...">
                                             </div>
                                             <div class="form-group col-md-3">
-                                                <label for="carrera">Carrera</label>
+                                                <label for="carrera">Carrera:</label>
                                                 <input id="carrera" name="carrera" type="text" class="form-control" placeholder="Carrera...">
                                             </div>
                                             <div class="form-group col-md-3">
-                                                <label for="dependencia">Dependencia</label>
+                                                <label for="dependencia">Dependencia:</label>
                                                 <input id="dependencia" name="dependencia" type="text" class="form-control" placeholder="Dependencia...">
                                             </div>
                                             <div class="form-group col-md-3">
-                                                <label for="ubicacion">Ubicación</label>
+                                                <label for="ubicacion">Ubicación:</label>
                                                 <input id="ubicacion" name="ubicacion" type="text" class="form-control" placeholder="Dependencia...">
                                             </div>
                                             <!--Date--> 
                                             <div class="form-group col-md-2">
-                                                <label for="fechaini">Fecha de Inicio</label>
+                                                <label for="fechaini">Fecha de Inicio:</label>
 
                                                 <div class="input-group date">
                                                     <div class="input-group-addon">
@@ -101,7 +101,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </div>
                                             <!--Date--> 
                                             <div class="form-group col-md-2">
-                                                <label for="fechafin">Fecha de Fin</label>
+                                                <label for="fechafin">Fecha de Fin:</label>
                                                 <div class="input-group date">
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-calendar"></i>
@@ -111,27 +111,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <!--/.input group--> 
                                             </div>
                                             <div class="form-group col-md-2">
-                                                <label for="nobitacora">Bitácora</label>
+                                                <label for="nobitacora">Bitácora:</label>
                                                 <input id="nobitacora" name="nobitacora" type="number" class="form-control" min="1" max="12">
                                             </div>
                                             <!-- textarea -->
                                             <div class="form-group col-md-6">
-                                                <label for="actividades">Actividades Generales</label>
+                                                <label for="actividades">Actividades Generales:</label>
                                                 <textarea id="actividades" name="actividades" class="form-control" rows="3" placeholder="Actividades Generales..." onkeyup="javascript:this.value = this.value.toUpperCase();"></textarea>
                                             </div>
                                             <!-- textarea -->
                                             <div class="form-group col-md-6">
-                                                <label for="descripcion">Descripción de Actividades</label>
+                                                <label for="descripcion">Descripción de Actividades:</label>
                                                 <textarea id="descripcion" name="descripcion" class="form-control" rows="3" placeholder="Descripción de Actividades..." onkeyup="javascript:this.value = this.value.toUpperCase();"></textarea>
                                             </div>
                                             <!-- textarea -->
                                             <div class="form-group col-md-6">
-                                                <label for="problemas">Problemas Encontrados</label>
+                                                <label for="problemas">Problemas Encontrados:</label>
                                                 <textarea id="problemas" name="problemas" class="form-control" rows="3" placeholder="Problemas Encontrados..." onkeyup="javascript:this.value = this.value.toUpperCase();"></textarea>
                                             </div>
                                             <!-- textarea -->
                                             <div class="form-group col-md-6">
-                                                <label for="soluciones">Soluciones Empleadas</label>
+                                                <label for="soluciones">Soluciones Empleadas:</label>
                                                 <textarea id="soluciones" name="soluciones" class="form-control" rows="3" placeholder="Soluciones Empleadas..." onkeyup="javascript:this.value = this.value.toUpperCase();"></textarea>
                                             </div>
                                         </div>

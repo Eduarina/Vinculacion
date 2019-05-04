@@ -70,7 +70,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <div class="box-body">
                                             <div class="form-group col-md-6">
                                                 <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                                <form:label path="idmaestro">Maestro de la EE</form:label>
+                                                <form:label path="idmaestro">Maestro de la EE:</form:label>
                                                 <c:set var="errorband"><form:errors path="idmaestro"/></c:set>
                                                 <c:if test="${empty errorband}">
                                                     <select id="idmaestro" name="idmaestro" Class="form-control">
@@ -107,7 +107,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                                <form:label path="idservicio">Servicio Social</form:label>
+                                                <form:label path="idservicio">Servicio Social:</form:label>
                                                 <c:set var="errorband"><form:errors path="idservicio"/></c:set>
                                                 <c:if test="${empty errorband}">
                                                     <select id="idservicio" name="idservicio" Class="form-control">

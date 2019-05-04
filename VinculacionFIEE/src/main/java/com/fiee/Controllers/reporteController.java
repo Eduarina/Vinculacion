@@ -5,7 +5,6 @@
  */
 package com.fiee.Controllers;
 
-import com.fiee.Models.Bitacora;
 import com.fiee.Models.Reporte;
 import com.fiee.Models.ReporteValidator;
 import java.sql.ResultSet;
@@ -16,12 +15,15 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -127,206 +129,229 @@ public class reporteController {
 
     @PostMapping(value = "/generar") //Este es el nombre con el que se accede desde el navegador
     public ModelAndView generar2(HttpServletRequest request, Model model) {
-        int numero = Integer.parseInt(request.getParameter("numero"));
-        HttpSession session = request.getSession();
-        id = (int) session.getAttribute("id");
-        Object[] parameters = new Object[]{};
-        String sql, fecha;
-        SimpleDateFormat mask = new SimpleDateFormat("MM/dd/yyyy");
-        int idmaestro;
-        Reporte dato = this.checkuser(numero, id);
-        if (dato != null) {
-            ModelAndView mav = new ModelAndView();
-            sql = "select * from maestro_servicio where idservicio=" + id;
-            lista = this.jdbcTemplate.queryForList(sql);
-            mav.addObject("datos", lista);
-            mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
-            sql = "select * from usuario";
-            List lista1 = this.jdbcTemplate.queryForList(sql);
-            model.addAttribute("usuarios", lista1);
-            model.addAttribute("message", "No puede generar un reporte con el mismo número");
-            return mav;
-        } else {
-            switch (numero) {
-                case 1:
-                    sql = "select fecha from vencimiento where idvencimiento=3";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into reporte (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar un reporte si ya vencio.");
-                            return mav;
+        try {
+            int numero = Integer.parseInt(request.getParameter("numero"));
+            HttpSession session = request.getSession();
+            id = (int) session.getAttribute("id");
+            Object[] parameters = new Object[]{};
+            String sql, fecha;
+            SimpleDateFormat mask = new SimpleDateFormat("MM/dd/yyyy");
+            int idmaestro;
+            Reporte dato = this.checkuser(numero, id);
+            if (dato != null) {
+                ModelAndView mav = new ModelAndView();
+                sql = "select * from maestro_servicio where idservicio=" + id;
+                lista = this.jdbcTemplate.queryForList(sql);
+                mav.addObject("datos", lista);
+                mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
+                sql = "select * from usuario";
+                List lista1 = this.jdbcTemplate.queryForList(sql);
+                model.addAttribute("usuarios", lista1);
+                model.addAttribute("message", "No puede generar un reporte con el mismo número");
+                return mav;
+            } else {
+                switch (numero) {
+                    case 1:
+                        sql = "select fecha from vencimiento where idvencimiento=3";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into reporte (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar un reporte si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 2:
-                    sql = "select fecha from vencimiento where idvencimiento=6";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into reporte (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar un reporte si ya vencio.");
-                            return mav;
+                        break;
+                    case 2:
+                        sql = "select fecha from vencimiento where idvencimiento=6";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into reporte (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar un reporte si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 3:
-                    sql = "select fecha from vencimiento where idvencimiento=9";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into reporte (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar un reporte si ya vencio.");
-                            return mav;
+                        break;
+                    case 3:
+                        sql = "select fecha from vencimiento where idvencimiento=9";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into reporte (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar un reporte si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 4:
-                    sql = "select fecha from vencimiento where idvencimiento=12";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into reporte (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar un reporte si ya vencio.");
-                            return mav;
+                        break;
+                    case 4:
+                        sql = "select fecha from vencimiento where idvencimiento=12";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into reporte (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar un reporte si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 5:
-                    sql = "select fecha from vencimiento where idvencimiento=15";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into reporte (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar un reporte si ya vencio.");
-                            return mav;
+                        break;
+                    case 5:
+                        sql = "select fecha from vencimiento where idvencimiento=15";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into reporte (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar un reporte si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 6:
-                    sql = "select fecha from vencimiento where idvencimiento=18";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into reporte (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar un reporte si ya vencio.");
-                            return mav;
+                        break;
+                    case 6:
+                        sql = "select fecha from vencimiento where idvencimiento=18";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into reporte (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar un reporte si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
+                        break;
+                }
+                return new ModelAndView("redirect:/reportes/lista");
             }
-            return new ModelAndView("redirect:/reportes/lista");
+        } catch (Exception s) {
+            try {
+                ModelAndView mav = new ModelAndView();
+                HttpSession session = request.getSession();
+                id = (int) session.getAttribute("id");
+                tipo = (int) session.getAttribute("tipo");
+                if (tipo == 4) {
+                    String sql = "select * from maestro_servicio where idservicio=" + id;
+                    lista = this.jdbcTemplate.queryForList(sql);
+                    mav.addObject("datos", lista);
+                    mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
+                    sql = "select * from usuario";
+                    List lista1 = this.jdbcTemplate.queryForList(sql);
+                    model.addAttribute("usuarios", lista1);
+                    model.addAttribute("message", "El campo número de reporte es obligatorio.");
+                    return mav;
+                }
+                return new ModelAndView("redirect:/home");
+            } catch (Exception e) {
+                return new ModelAndView("redirect:/login/login");
+            }
         }
+
     }
 
-    @RequestMapping(value = "/editarR", method = RequestMethod.GET)
-    public ModelAndView editar(HttpServletRequest request) {
-        ModelAndView mav = new ModelAndView();
-        id = Integer.parseInt(request.getParameter("id"));
-        String sql = "select * from reporte where idreporte=" + id;
-        lista = this.jdbcTemplate.queryForList(sql);
-        mav.addObject("lista", lista);
-        mav.setViewName("reporte/editarR");
-        return mav;
-    }
-
-    @RequestMapping(value = "/editar", method = RequestMethod.GET)
+//    @GetMapping(value = "/editarR")
+//    public ModelAndView editar(HttpServletRequest request) {
+//        ModelAndView mav = new ModelAndView();
+//        id = Integer.parseInt(request.getParameter("id"));
+//        String sql = "select * from reporte where idreporte=" + id;
+//        lista = this.jdbcTemplate.queryForList(sql);
+//        mav.addObject("lista", lista);
+//        mav.setViewName("reporte/editarR");
+//        return mav;
+//    }
+    @GetMapping(value = "/editar")
     public ModelAndView editar(@RequestParam("id") int idreporte, Model model, HttpServletRequest request) {
         try {
             HttpSession session = request.getSession();
@@ -359,7 +384,7 @@ public class reporteController {
                         String actividades = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
                         sql = "select descripcion from reporte where idreporte=" + idreporte;
                         String descripcion = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                        sql = "select problemas from reporte where idreporte=" + idreporte;
+                        sql = "select fechalim from reporte where idreporte=" + idreporte;
                         String datepicker2 = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
                         sql = "select observaciones from reporte where idreporte=" + idreporte;
                         String observaciones = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
@@ -371,29 +396,44 @@ public class reporteController {
                         int idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
                         //sql = "select idencargado from bitacora where idbitacora=" + idbitacora;
                         //int idencargado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                        mav.addObject("datos", new Bitacora(idreporte, numero, datepicker, dependencia, telefono, proyecto, horario, actividades, descripcion, datepicker2, observaciones, estado, idservicio, idmaestro));
-                        sql = "select * from usuario where idusuario=" + id;
+                        mav.addObject("datos", new Reporte(idreporte, numero, datepicker, dependencia, telefono, proyecto, horario, actividades, descripcion, datepicker2, estado, observaciones, idmaestro, idservicio));
+                        id = (int) session.getAttribute("id");
+                        tipo = (int) session.getAttribute("tipo");
+                        sql = "select * from usuario where idusuario=" + idservicio;
                         List list1 = this.jdbcTemplate.queryForList(sql);
                         model.addAttribute("usuario", list1);
-                        sql = "select * from servicio where idusuario=" + id;
+                        sql = "select * from servicio where idusuario=" + idservicio;
                         List list2 = this.jdbcTemplate.queryForList(sql);
                         model.addAttribute("servicio", list2);
-                        sql = "select * from bitacora where idbitacora=" + idreporte;
+                        sql = "select * from reporte where idreporte=" + idreporte;
                         List list3 = this.jdbcTemplate.queryForList(sql);
                         model.addAttribute("reporte", list3);
                         mav.setViewName("reporte/editarR");
                     } else {
-                        sql = "select * from bitacora";
-                        lista = this.jdbcTemplate.queryForList(sql);
-                        mav.addObject("reportes", lista);
-                        mav.setViewName("reporte/indexR");  // Este es el nombre del archivo vista .jsp
-                        sql = "select * from usuario";
-                        List list1 = this.jdbcTemplate.queryForList(sql);
-                        model.addAttribute("usuarios", list1);
-                        sql = "select * from servicio";
-                        List list2 = this.jdbcTemplate.queryForList(sql);
-                        model.addAttribute("servicios", list2);
-                        model.addAttribute("message", "No puede editar una bitácora si ya vencio.");
+                        if (tipo == 3 || tipo == 4 || tipo == 5) {
+                            if (tipo == 3) {
+                                sql = "select * from reporte where idmaestro=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                            }
+                            if (tipo == 4) {
+                                sql = "select * from reporte where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                            }
+                            if (tipo == 5) {
+                                sql = "select * from reporte where idencargado=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                            }
+                            mav.addObject("reportes", lista);
+                            mav.setViewName("reporte/indexR");  // Este es el nombre del archivo vista .jsp
+                            sql = "select * from usuario";
+                            List list1 = this.jdbcTemplate.queryForList(sql);
+                            model.addAttribute("usuarios", list1);
+                            sql = "select * from servicio";
+                            List list2 = this.jdbcTemplate.queryForList(sql);
+                            model.addAttribute("servicios", list2);
+                            model.addAttribute("message", "No puede editar un reporte si ya vencio.");
+                            return mav;
+                        }
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -404,27 +444,90 @@ public class reporteController {
         } catch (Exception e) {
             return new ModelAndView("redirect:/login/login");
         }
-
-    }
-    
-    @RequestMapping(value = "/editarR", method = RequestMethod.POST)
-    public ModelAndView editar(Reporte v) {
-        String sql = "update reporte set nombre=?, carrera=?, correo=?, telefono=?, celular=?, matricula=?, noreporte=?, fecha=?, dependencia=?, telefonod=?, proyecto=?, horario=?, actividades=?, descripcion=? where idreporte=" + id;
-        //this.jdbcTemplate.update(sql, v.getNombre(), v.getCarrera(), v.getCorreo(), v.getTelefono(), v.getCelular(), v.getMatricula(), v.getNoreporte(), v.getFecha(), v.getDependencia(), v.getTelefonod(), v.getProyecto(), v.getHorario(), v.getActividades(), v.getDescripcion());
-        return new ModelAndView("redirect:/reportes");
     }
 
-    @RequestMapping(value = "/borrarR")
-    public ModelAndView borrar(HttpServletRequest request) {
-        id = Integer.parseInt(request.getParameter("id"));
-        String sql = "delete from reporte where idreporte=" + id;
+    @PostMapping(value = "/editar")
+    public ModelAndView editar(
+            @ModelAttribute("datos")
+            @Valid Reporte u, BindingResult result, HttpServletRequest request, Model model
+    ) {
+        this.reporteValidator.validate(u, result);
+        if (result.hasErrors()) {
+            ModelAndView mav = new ModelAndView();
+            String fecha = request.getParameter("datepicker");
+            u.setDatepicker(fecha);
+            String telefono = request.getParameter("telefono");
+            u.setTelefono(telefono);
+            mav.addObject("datos", u);
+            HttpSession session = request.getSession();
+            id = (int) session.getAttribute("id");
+            tipo = (int) session.getAttribute("tipo");
+            String sql = "select * from usuario where idusuario=" + u.getIdservicio();
+            List list1 = this.jdbcTemplate.queryForList(sql);
+            model.addAttribute("usuario", list1);
+            sql = "select * from servicio where idusuario=" + u.getIdservicio();
+            List list2 = this.jdbcTemplate.queryForList(sql);
+            model.addAttribute("servicio", list2);
+            sql = "select * from reporte where idreporte=" + u.getIdreporte();
+            List list3 = this.jdbcTemplate.queryForList(sql);
+            model.addAttribute("reporte", list3);
+            mav.setViewName("reporte/editarR");
+            return mav;
+        } else {
+            HttpSession session = request.getSession();
+            id = (int) session.getAttribute("id");
+            String sql = "update reporte set fecha=?, dependencia=?, telefono=?, proyecto=?, horario=?, actividades=?, descripcion=?, observaciones=? where idreporte=" + u.getIdreporte();
+            this.jdbcTemplate.update(sql, u.getDatepicker(), u.getDependencia(), u.getTelefono(), u.getProyecto(), u.getHorario(), u.getActividades(), u.getDescripcion(), u.getObservaciones());
+            return new ModelAndView("redirect:/reportes/lista");
+        }
+    }
+
+//    @RequestMapping(value = "/editarR", method = RequestMethod.POST)
+//    public ModelAndView editar(Reporte v) {
+//        String sql = "update reporte set nombre=?, carrera=?, correo=?, telefono=?, celular=?, matricula=?, noreporte=?, fecha=?, dependencia=?, telefonod=?, proyecto=?, horario=?, actividades=?, descripcion=? where idreporte=" + id;
+//        //this.jdbcTemplate.update(sql, v.getNombre(), v.getCarrera(), v.getCorreo(), v.getTelefono(), v.getCelular(), v.getMatricula(), v.getNoreporte(), v.getFecha(), v.getDependencia(), v.getTelefonod(), v.getProyecto(), v.getHorario(), v.getActividades(), v.getDescripcion());
+//        return new ModelAndView("redirect:/reportes");
+//    }
+    @GetMapping(value = "/detalles")
+    public ModelAndView detalles(@RequestParam("id") int idreporte, Model model, HttpServletRequest request) {
+        try {
+            HttpSession session = request.getSession();
+            ModelAndView mav = new ModelAndView();
+            id = (int) session.getAttribute("id");
+            tipo = (int) session.getAttribute("tipo");
+            if (tipo == 3 || tipo == 4 || tipo == 5) {
+                String sql;
+                Object[] parameters = new Object[]{};
+                sql = "select idservicio from reporte where idreporte=" + idreporte;
+                int idservicio = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                sql = "select * from usuario where idusuario=" + idservicio;
+                List list1 = this.jdbcTemplate.queryForList(sql);
+                model.addAttribute("usuario", list1);
+                sql = "select * from servicio where idusuario=" + idservicio;
+                List list2 = this.jdbcTemplate.queryForList(sql);
+                model.addAttribute("servicio", list2);
+                sql = "select * from reporte where idreporte=" + idreporte;
+                List list3 = this.jdbcTemplate.queryForList(sql);
+                model.addAttribute("reporte", list3);
+                mav.setViewName("reporte/detallesR");
+                return mav;
+            }
+            return new ModelAndView("redirect:/home");
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/login/login");
+        }
+    }
+
+    @RequestMapping(value = "/borrar")
+    public ModelAndView borrar(@RequestParam("id") int idreporte, HttpServletRequest request) {
+        String sql = "delete from reporte where idreporte=" + idreporte;
         this.jdbcTemplate.update(sql);
-        return new ModelAndView("redirect:/reportes");
+        return new ModelAndView("redirect:/reportes/lista");
     }
-    
+
     public Reporte checkuser(int numero, int id) {
         final Reporte users = new Reporte();
-        String sql = "select * from reporte where numero='" + numero + "'and idservicio='"+id+"'";
+        String sql = "select * from reporte where numero='" + numero + "'and idservicio='" + id + "'";
         return (Reporte) this.jdbcTemplate.query(sql, new ResultSetExtractor<Reporte>() {
             public Reporte extractData(ResultSet rs) throws SQLException, DataAccessException {
                 if (!rs.isBeforeFirst()) {

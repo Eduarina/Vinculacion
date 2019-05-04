@@ -20,15 +20,15 @@ public class ReporteValidator implements Validator{
 
     @Override
     public void validate(Object target, Errors errors) {
-        Bitacora bitacora = (Bitacora) target;
+        Reporte reporte = (Reporte) target;
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "datepicker",
-                "required.datepicker", "El campo fecha es obligatorio.");
+                "required.datepicker", "El campo fecha de reporte es obligatorio.");
         
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dependencia",
                 "required.dependencia", "El dependencia es obligatorio.");
         
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "telefono",
-                "required.telefono", "El campo telefóno es obligatorio.");
+                "required.telefono", "El campo telefóno de la dependencia es obligatorio.");
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "proyecto",
                 "required.proyecto", "El campo nombre del proyecto es obligatorio.");

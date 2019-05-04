@@ -94,7 +94,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <div class="box-body">
                                         <div class="form-group col-md-6">
                                             <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                            <form:label path="nombre">Nombre</form:label>
+                                            <form:label path="nombre">Nombre:</form:label>
                                             <c:set var="errorband"><form:errors path="nombre"/></c:set>
                                             <c:if test="${empty errorband}">
                                                 <form:input path="nombre" autocomplete="off" type="text" cssClass="form-control" placeholder="Nombre..."  onkeyup="javascript:this.value = this.value.toUpperCase();"/>
@@ -104,17 +104,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </c:if>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <form:label path="user">Usuario</form:label>
+                                            <form:label path="user">Usuario:</form:label>
                                             <c:set var="errorband"><form:errors path="user"/></c:set>
                                             <c:if test="${empty errorband}">
-                                                <form:input path="user" autocomplete="off" type="text" cssClass="form-control" placeholder="Usuario..."/>
+                                                <form:input path="user" autocomplete="off" type="text" cssClass="form-control" placeholder="Usuario..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
                                             </c:if>
                                             <c:if test="${not empty errorband}">
-                                                <form:input path="user" autocomplete="off" type="text" cssClass="form-control" style="border-color:red;" placeholder="Usuario..."/>
+                                                <form:input path="user" autocomplete="off" type="text" cssClass="form-control" style="border-color:red;" placeholder="Usuario..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
                                             </c:if>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <form:label path="password">Contraseña</form:label>
+                                            <form:label path="password">Contraseña:</form:label>
                                             <c:set var="errorband"><form:errors path="password"/></c:set>
                                             <c:if test="${empty errorband}">
                                                 <form:input path="password" type="password" cssClass="form-control" placeholder="Contraseña..."/>
@@ -124,7 +124,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </c:if>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <form:label path="password2">Confirmar contraseña</form:label>
+                                            <form:label path="password2">Confirmar contraseña:</form:label>
                                             <c:set var="errorband"><form:errors path="password2"/></c:set>
                                             <c:if test="${empty errorband}">
                                                 <form:input path="password2" type="password" cssClass="form-control" placeholder="Confirmar contraseña..."/>
@@ -134,7 +134,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </c:if>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <form:label path="tipo">Tipo</form:label>
+                                            <form:label path="tipo">Tipo:</form:label>
                                             <c:set var="errorband"><form:errors path="tipo"/></c:set>
                                             <c:if test="${empty errorband}">
                                                 <form:select path="tipo" cssClass="form-control">

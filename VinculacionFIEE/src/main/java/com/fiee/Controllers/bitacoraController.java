@@ -60,14 +60,16 @@ public class bitacoraController {
             id = (int) session.getAttribute("id");
             tipo = (int) session.getAttribute("tipo");
             if (tipo == 3 || tipo == 4 || tipo == 5) {
-                if(tipo==3){
-                    sql = "select * from bitacora where idmaestro="+id;
+                if (tipo == 3) {
+                    sql = "select * from bitacora where idmaestro=" + id;
                     lista = this.jdbcTemplate.queryForList(sql);
-                } if(tipo==4){
-                    sql = "select * from bitacora where idservicio="+id;
+                }
+                if (tipo == 4) {
+                    sql = "select * from bitacora where idservicio=" + id;
                     lista = this.jdbcTemplate.queryForList(sql);
-                } if(tipo==5){
-                    sql = "select * from bitacora where idencargado="+id;
+                }
+                if (tipo == 5) {
+                    sql = "select * from bitacora where idencargado=" + id;
                     lista = this.jdbcTemplate.queryForList(sql);
                 }
                 mav.addObject("bitacoras", lista);
@@ -113,354 +115,378 @@ public class bitacoraController {
 
     @PostMapping(value = "/generar") //Este es el nombre con el que se accede desde el navegador
     public ModelAndView generar2(HttpServletRequest request, Model model) {
-        int numero = Integer.parseInt(request.getParameter("numero"));
-        HttpSession session = request.getSession();
-        id = (int) session.getAttribute("id");
-        Object[] parameters = new Object[]{};
-        String sql, fecha;
-        SimpleDateFormat mask = new SimpleDateFormat("MM/dd/yyyy");
-        int idmaestro;
-        Bitacora dato = this.checkuser(numero, id);
-        if (dato != null) {
-            ModelAndView mav = new ModelAndView();
-            sql = "select * from maestro_servicio where idservicio=" + id;
-            lista = this.jdbcTemplate.queryForList(sql);
-            mav.addObject("datos", lista);
-            mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
-            sql = "select * from usuario";
-            List lista1 = this.jdbcTemplate.queryForList(sql);
-            model.addAttribute("usuarios", lista1);
-            model.addAttribute("message", "No puede generar una bitácora con el mismo número");
-            return mav;
-        } else {
-            switch (numero) {
-                case 1:
-                    sql = "select fecha from vencimiento where idvencimiento=1";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
-                            return mav;
+        try {
+            int numero = Integer.parseInt(request.getParameter("numero"));
+            HttpSession session = request.getSession();
+            id = (int) session.getAttribute("id");
+            Object[] parameters = new Object[]{};
+            String sql, fecha;
+            SimpleDateFormat mask = new SimpleDateFormat("MM/dd/yyyy");
+            int idmaestro;
+            Bitacora dato = this.checkuser(numero, id);
+            if (dato != null) {
+                ModelAndView mav = new ModelAndView();
+                sql = "select * from maestro_servicio where idservicio=" + id;
+                lista = this.jdbcTemplate.queryForList(sql);
+                mav.addObject("datos", lista);
+                mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
+                sql = "select * from usuario";
+                List lista1 = this.jdbcTemplate.queryForList(sql);
+                model.addAttribute("usuarios", lista1);
+                model.addAttribute("message", "No puede generar una bitácora con el mismo número");
+                return mav;
+            } else {
+                switch (numero) {
+                    case 1:
+                        sql = "select fecha from vencimiento where idvencimiento=1";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 2:
-                    sql = "select fecha from vencimiento where idvencimiento=2";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
-                            return mav;
+                        break;
+                    case 2:
+                        sql = "select fecha from vencimiento where idvencimiento=2";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 3:
-                    sql = "select fecha from vencimiento where idvencimiento=4";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
-                            return mav;
+                        break;
+                    case 3:
+                        sql = "select fecha from vencimiento where idvencimiento=4";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 4:
-                    sql = "select fecha from vencimiento where idvencimiento=5";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
-                            return mav;
+                        break;
+                    case 4:
+                        sql = "select fecha from vencimiento where idvencimiento=5";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 5:
-                    sql = "select fecha from vencimiento where idvencimiento=7";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
-                            return mav;
+                        break;
+                    case 5:
+                        sql = "select fecha from vencimiento where idvencimiento=7";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 6:
-                    sql = "select fecha from vencimiento where idvencimiento=8";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
-                            return mav;
+                        break;
+                    case 6:
+                        sql = "select fecha from vencimiento where idvencimiento=8";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 7:
-                    sql = "select fecha from vencimiento where idvencimiento=10";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
-                            return mav;
+                        break;
+                    case 7:
+                        sql = "select fecha from vencimiento where idvencimiento=10";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 8:
-                    sql = "select fecha from vencimiento where idvencimiento=11";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
-                            return mav;
+                        break;
+                    case 8:
+                        sql = "select fecha from vencimiento where idvencimiento=11";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 9:
-                    sql = "select fecha from vencimiento where idvencimiento=13";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
-                            return mav;
+                        break;
+                    case 9:
+                        sql = "select fecha from vencimiento where idvencimiento=13";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 10:
-                    sql = "select fecha from vencimiento where idvencimiento=14";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
-                            return mav;
+                        break;
+                    case 10:
+                        sql = "select fecha from vencimiento where idvencimiento=14";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 11:
-                    sql = "select fecha from vencimiento where idvencimiento=16";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
-                            return mav;
+                        break;
+                    case 11:
+                        sql = "select fecha from vencimiento where idvencimiento=16";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                case 12:
-                    sql = "select fecha from vencimiento where idvencimiento=17";
-                    fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-                    try {
-                        Date fecha2 = mask.parse(fecha);
-                        Date hoy = new Date();
-                        if (hoy.before(fecha2)) {
-                            sql = "select idmaestro from maestro_servicio where idservicio=" + id;
-                            idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                            sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
-                            this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
-                        } else {
-                            ModelAndView mav = new ModelAndView();
-                            sql = "select * from maestro_servicio where idservicio=" + id;
-                            lista = this.jdbcTemplate.queryForList(sql);
-                            mav.addObject("datos", lista);
-                            mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
-                            sql = "select * from usuario";
-                            List lista1 = this.jdbcTemplate.queryForList(sql);
-                            model.addAttribute("usuarios", lista1);
-                            model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
-                            return mav;
+                        break;
+                    case 12:
+                        sql = "select fecha from vencimiento where idvencimiento=17";
+                        fecha = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                        try {
+                            Date fecha2 = mask.parse(fecha);
+                            Date hoy = new Date();
+                            if (hoy.before(fecha2)) {
+                                sql = "select idmaestro from maestro_servicio where idservicio=" + id;
+                                idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                                sql = "insert into bitacora (numero, fechalim, idmaestro, idservicio) values (?, ?, ?, ?)";
+                                this.jdbcTemplate.update(sql, numero, fecha, idmaestro, id);
+                            } else {
+                                ModelAndView mav = new ModelAndView();
+                                sql = "select * from maestro_servicio where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                                mav.addObject("datos", lista);
+                                mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
+                                sql = "select * from usuario";
+                                List lista1 = this.jdbcTemplate.queryForList(sql);
+                                model.addAttribute("usuarios", lista1);
+                                model.addAttribute("message", "No puede generar una bitácora si ya vencio.");
+                                return mav;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    break;
+                        break;
+                }
+                return new ModelAndView("redirect:/bitacoras/lista");
             }
-            return new ModelAndView("redirect:/bitacoras/lista");
+        } catch (Exception e) {
+            try {
+                ModelAndView mav = new ModelAndView();
+                HttpSession session = request.getSession();
+                id = (int) session.getAttribute("id");
+                int tipo = (int) session.getAttribute("tipo");
+                if (tipo == 4) {
+                    String sql = "select * from maestro_servicio where idservicio=" + id;
+                    lista = this.jdbcTemplate.queryForList(sql);
+                    mav.addObject("datos", lista);
+                    mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
+                    sql = "select * from usuario";
+                    List lista1 = this.jdbcTemplate.queryForList(sql);
+                    model.addAttribute("usuarios", lista1);
+                    model.addAttribute("message", "El campo número de bitacora es obligatorio.");
+                    return mav;
+                }
+                return new ModelAndView("redirect:/home");
+            } catch (Exception s) {
+                return new ModelAndView("redirect:/login/login");
+            }
         }
+
     }
 
 //    @GetMapping(value = "/insertar") //Este es el nombre con el que se accede desde el navegador
@@ -477,13 +503,13 @@ public class bitacoraController {
 //        //this.jdbcTemplate.update(sql, v.getAlumno(), v.getMatricula(), v.getCarrera(), v.getDependencia(), v.getUbicacion(), v.getFechaini(), v.getFechafin(), v.getNobitacora(), v.getActividades(), v.getDescripcion(), v.getProblemas(), v.getSoluciones());
 //        return new ModelAndView("redirect:/bitacoras");
 //    }
-    @RequestMapping(value = "/editar", method = RequestMethod.GET)
+    @GetMapping(value = "/editar")
     public ModelAndView editar(@RequestParam("id") int idbitacora, Model model, HttpServletRequest request) {
         try {
             HttpSession session = request.getSession();
             ModelAndView mav = new ModelAndView();
             id = (int) session.getAttribute("id");
-            int tipo = (int) session.getAttribute("tipo");
+            tipo = (int) session.getAttribute("tipo");
             if (tipo == 3 || tipo == 4 || tipo == 5) {
                 String sql, fecha;
                 SimpleDateFormat mask = new SimpleDateFormat("MM/dd/yyyy");
@@ -525,10 +551,10 @@ public class bitacoraController {
                         mav.addObject("datos", new Bitacora(idbitacora, datepicker, dependencia, direccion, numero, actividades, descripcion, problemas, soluciones, datepicker2, observaciones, estado, idservicio, idmaestro));
                         id = (int) session.getAttribute("id");
                         tipo = (int) session.getAttribute("tipo");
-                        sql = "select * from usuario where idusuario=" + id;
+                        sql = "select * from usuario where idusuario=" + idservicio;
                         List list1 = this.jdbcTemplate.queryForList(sql);
                         model.addAttribute("usuario", list1);
-                        sql = "select * from servicio where idusuario=" + id;
+                        sql = "select * from servicio where idusuario=" + idservicio;
                         List list2 = this.jdbcTemplate.queryForList(sql);
                         model.addAttribute("servicio", list2);
                         sql = "select * from bitacora where idbitacora=" + idbitacora;
@@ -536,17 +562,30 @@ public class bitacoraController {
                         model.addAttribute("bitacora", list3);
                         mav.setViewName("bitacora/editarB");
                     } else {
-                        sql = "select * from bitacora";
-                        lista = this.jdbcTemplate.queryForList(sql);
-                        mav.addObject("bitacoras", lista);
-                        mav.setViewName("bitacora/indexB");  // Este es el nombre del archivo vista .jsp
-                        sql = "select * from usuario";
-                        List list1 = this.jdbcTemplate.queryForList(sql);
-                        model.addAttribute("usuarios", list1);
-                        sql = "select * from servicio";
-                        List list2 = this.jdbcTemplate.queryForList(sql);
-                        model.addAttribute("servicios", list2);
-                        model.addAttribute("message", "No puede editar una bitácora si ya vencio.");
+                        if (tipo == 3 || tipo == 4 || tipo == 5) {
+                            if (tipo == 3) {
+                                sql = "select * from bitacora where idmaestro=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                            }
+                            if (tipo == 4) {
+                                sql = "select * from bitacora where idservicio=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                            }
+                            if (tipo == 5) {
+                                sql = "select * from bitacora where idencargado=" + id;
+                                lista = this.jdbcTemplate.queryForList(sql);
+                            }
+                            mav.addObject("bitacoras", lista);
+                            mav.setViewName("bitacora/indexB");  // Este es el nombre del archivo vista .jsp
+                            sql = "select * from usuario";
+                            List list1 = this.jdbcTemplate.queryForList(sql);
+                            model.addAttribute("usuarios", list1);
+                            sql = "select * from servicio";
+                            List list2 = this.jdbcTemplate.queryForList(sql);
+                            model.addAttribute("servicios", list2);
+                            model.addAttribute("message", "No puede editar una bitácora que ya vencio.");
+                            return mav;
+                        }
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -568,14 +607,16 @@ public class bitacoraController {
         this.bitacoraValidator.validate(u, result);
         if (result.hasErrors()) {
             ModelAndView mav = new ModelAndView();
+            String fecha = request.getParameter("datepicker");
+            u.setDatepicker(fecha);
             mav.addObject("datos", u);
             HttpSession session = request.getSession();
             id = (int) session.getAttribute("id");
             tipo = (int) session.getAttribute("tipo");
-            String sql = "select * from usuario where idusuario=" + id;
+            String sql = "select * from usuario where idusuario=" + u.getIdservicio();
             List list1 = this.jdbcTemplate.queryForList(sql);
             model.addAttribute("usuario", list1);
-            sql = "select * from servicio where idusuario=" + id;
+            sql = "select * from servicio where idusuario=" + u.getIdservicio();
             List list2 = this.jdbcTemplate.queryForList(sql);
             model.addAttribute("servicio", list2);
             sql = "select * from bitacora where idbitacora=" + u.getIdbitacora();
@@ -592,6 +633,36 @@ public class bitacoraController {
         }
     }
 
+    @GetMapping(value = "/detalles")
+    public ModelAndView detalles(@RequestParam("id") int idbitacora, Model model, HttpServletRequest request) {
+        try {
+            HttpSession session = request.getSession();
+            ModelAndView mav = new ModelAndView();
+            id = (int) session.getAttribute("id");
+            tipo = (int) session.getAttribute("tipo");
+            if (tipo == 3 || tipo == 4 || tipo == 5) {
+                String sql;
+                Object[] parameters = new Object[]{};
+                        sql = "select idservicio from bitacora where idbitacora=" + idbitacora;
+                        int idservicio = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                        sql = "select * from usuario where idusuario=" + idservicio;
+                        List list1 = this.jdbcTemplate.queryForList(sql);
+                        model.addAttribute("usuario", list1);
+                        sql = "select * from servicio where idusuario=" + idservicio;
+                        List list2 = this.jdbcTemplate.queryForList(sql);
+                        model.addAttribute("servicio", list2);
+                        sql = "select * from bitacora where idbitacora=" + idbitacora;
+                        List list3 = this.jdbcTemplate.queryForList(sql);
+                        model.addAttribute("bitacora", list3);
+                        mav.setViewName("bitacora/detallesB");
+                        return mav;
+                    }
+            return new ModelAndView("redirect:/home");
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/login/login");
+        }
+
+    }
     @RequestMapping(value = "/borrar")
     public ModelAndView borrar(@RequestParam("id") int idbitacora, HttpServletRequest request) {
         String sql = "delete from bitacora where idbitacora=" + idbitacora;
@@ -601,7 +672,7 @@ public class bitacoraController {
 
     public Bitacora checkuser(int numero, int id) {
         final Bitacora users = new Bitacora();
-        String sql = "select * from bitacora where numero='" + numero + "'and idservicio='"+id+"'";
+        String sql = "select * from bitacora where numero='" + numero + "'and idservicio='" + id + "'";
         return (Bitacora) this.jdbcTemplate.query(sql, new ResultSetExtractor<Bitacora>() {
             public Bitacora extractData(ResultSet rs) throws SQLException, DataAccessException {
                 if (!rs.isBeforeFirst()) {

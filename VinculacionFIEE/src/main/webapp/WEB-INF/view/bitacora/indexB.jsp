@@ -56,18 +56,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="box box-primary">
+                                <c:if test="${sessionScope.tipo eq 4}">
                                     <div class="box-header with-border">
                                         <a href="generar" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Generar Bitácora</a>
                                     </div>
-                                    <!-- /.box-header -->
-                                    <div class="box-body">
+                                </c:if>
+                                <!-- /.box-header -->
+                                <div class="box-body">
                                     <c:if test="${not empty message}">
                                         <div class="alert alert-danger alert-dismissible">${message}</div>
                                     </c:if>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-<!--                                                <th>Id</th>-->
+                                                <!--                                                <th>Id</th>-->
                                                 <th>Alumno</th>
                                                 <th>Matricula</th>
                                                 <th>Fecha</th>
@@ -99,7 +101,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <td> <c:out value="${dato.numero}"/></td>
                                                     <td>
                                                         <a href="editar?id=${dato.idbitacora}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
-                                                        <a href="borrar?id=${dato.idbitacora}" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</a>
+                                                        <a href="detalles?id=${dato.idbitacora}" class="btn btn-info"><i class="fa fa-info-circle"></i> Detalles</a>
+                                                        <a href="borrar?id=${dato.idbitacora}" class="btn btn-danger" onclick="return confirm('Eliminar este registro podria causar inconsistencias en el sistema. ¿Estas seguro que deseas eliminar el registro?')"><i class="fa fa-trash"></i> Eliminar</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

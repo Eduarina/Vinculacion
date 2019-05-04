@@ -73,11 +73,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <div class="box-body">
                                         <div class="form-group col-md-6">
                                             <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                            <label for="numero">Número de Reporte</label>
+                                            <label for="numero">Número de Reporte:</label>
                                             <input id="numero" name="numero" autocomplete="off" type="number" min="1" max="12" Class="form-control" placeholder="Bitácora #..."/>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="idmaestro">Maestro</label>
+                                            <label for="idmaestro">Maestro:</label>
                                             <c:forEach items="${datos}" var="dato">
                                                 <c:forEach items="${usuarios}" var="usuario">
                                                     <c:if test="${dato.idmaestro eq usuario.idusuario}">
@@ -88,7 +88,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="idservicio">Servicio Social</label>
+                                            <label for="idservicio">Servicio Social:</label>
                                             <c:forEach items="${datos}" var="dato">
                                                 <c:forEach items="${usuarios}" var="usuario">
                                                     <c:if test="${dato.idservicio eq usuario.idusuario}">

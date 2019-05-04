@@ -103,7 +103,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     </td>
                                                     <td>
                                                         <a href="editar?id=${dato.idusuario}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
-                                                        <a href="borrar?id=${dato.idusuario}" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</a>
+                                                        <a href="borrar?id=${dato.idusuario}" class="btn btn-danger" onclick="return confirm('Eliminar este registro podria causar inconsistencias en el sistema. ¿Estas seguro que deseas eliminar el registro?')"><i class="fa fa-trash"></i> Eliminar</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

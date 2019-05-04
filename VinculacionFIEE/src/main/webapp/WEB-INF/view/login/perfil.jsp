@@ -80,11 +80,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         ${sessionScope.id}
                                     </div>-->
                                     <div class="form-group col-md-6">
-                                        <label>Nombre</label><br>
+                                        <label>Nombre:</label><br>
                                         ${sessionScope.nombre}
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Usuario</label><br>
+                                        <label>Usuario:</label><br>
                                         ${sessionScope.user}
                                     </div>
                                 </div>
@@ -100,7 +100,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </c:if>
                                 </div>-->
                                 <div class="form-group col-md-6">
-                                    <label>Correo</label><br>
+                                    <label>Correo:</label><br>
                                     <c:if test="${empty datos[0].correo}">
                                         Dato por registrar
                                     </c:if>
@@ -109,7 +109,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </c:if>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label>Programa Educativo</label><br>
+                                    <label>Programa Educativo:</label><br>
                                     <c:if test="${empty datos[0].carrera}">
                                         Dato por registrar
                                     </c:if>
@@ -142,7 +142,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </c:if>
                             </div>-->
                             <div class="form-group col-md-6">
-                                <label>Matricula</label><br>
+                                <label>Matricula:</label><br>
                                 <c:if test="${empty datos[0].matricula}">
                                     Dato por registrar
                                 </c:if>
@@ -151,7 +151,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </c:if>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Créditos</label><br>
+                                <label>Créditos:</label><br>
                                 <c:if test="${datos[0].creditos eq 0}">
                                     Dato por registrar
                                 </c:if>
@@ -160,7 +160,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </c:if>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Correo</label><br>
+                                <label>Correo:</label><br>
                                 <c:if test="${empty datos[0].correo}">
                                     Dato por registrar
                                 </c:if>
@@ -169,7 +169,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </c:if>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Telefóno</label><br>
+                                <label>Telefóno:</label><br>
                                 <c:if test="${empty datos[0].telefono}">
                                     Dato por registrar
                                 </c:if>
@@ -178,7 +178,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </c:if>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Celular</label><br>
+                                <label>Celular:</label><br>
                                 <c:if test="${empty datos[0].celular}">
                                     Dato por registrar
                                 </c:if>
@@ -187,7 +187,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </c:if>
                             </div>
                             <div class="form-group col-md-12">
-                                <label>Curriculum Vitae o Habilidades</label><br>
+                                <label>Habilidades o Conocimientos</label><br>
                                 <c:if test="${empty datos[0].cv}">
                                     Dato por registrar
                                 </c:if>
@@ -196,7 +196,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </c:if>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Programa Educativo</label><br>
+                                <label>Programa Educativo:</label><br>
                                 <c:if test="${empty datos[0].carrera}">
                                     Dato por registrar
                                 </c:if>
@@ -205,7 +205,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </c:if>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Semestre</label><br>
+                                <label>Semestre:</label><br>
                                 <c:if test="${datos[0].semestre eq 0}">
                                     Dato por registrar
                                 </c:if>
@@ -223,7 +223,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </c:if>
                             </div>-->
                             <div class="form-group col-md-6">
-                                <label>Horario</label><br>
+                                <label>Horario:</label><br>
                                 <c:if test="${empty datos[0].horario}">
                                     Dato por registrar
                                 </c:if>
@@ -256,7 +256,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </c:if>
                     </div>-->
                     <div class="form-group col-md-6">
-                        <label>Correo</label><br>
+                        <label>Correo:</label><br>
                         <c:if test="${empty datos[0].correo}">
                             Dato por registrar
                         </c:if>
@@ -265,7 +265,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </c:if>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Programa Educativo</label><br>
+                        <label>Programa Educativo:</label><br>
                         <c:if test="${empty datos[0].carrera}">
                             Dato por registrar
                         </c:if>
@@ -298,7 +298,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </c:if>
                 </div>-->
                 <div class="form-group col-md-6">
-                    <label>Correo</label><br>
+                    <label>Correo:</label><br>
                     <c:if test="${empty datos[0].correo}">
                         Dato por registrar
                     </c:if>
@@ -307,7 +307,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </c:if>
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Dependencia</label><br>
+                    <label>Dependencia:</label><br>
                     <c:if test="${empty datos[0].dependencia}">
                         Dato por registrar
                     </c:if>
@@ -316,7 +316,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </c:if>
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Dirección</label><br>
+                    <label>Dirección:</label><br>
                     <c:if test="${empty datos[0].direccion}">
                         Dato por registrar
                     </c:if>
@@ -325,7 +325,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </c:if>
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Teléfono</label><br>
+                    <label>Teléfono:</label><br>
                     <c:if test="${empty datos[0].telefono}">
                         Dato por registrar
                     </c:if>

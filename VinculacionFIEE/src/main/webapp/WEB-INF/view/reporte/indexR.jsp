@@ -56,24 +56,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="box box-primary">
+                                <c:if test="${sessionScope.tipo eq 4}">
                                     <div class="box-header with-border">
                                         <a href="generar" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Generar Reporte</a>
                                     </div>
-                                    <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <table id="example1" class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Alumno</th>
-                                                    <th>Programa Educativo</th>
-                                                    <th>Matricula</th>
-                                                    <th>Reporte</th>
-                                                    <th>Fecha</th>
-                                                    <th>Fecha Limite</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                </c:if>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <c:if test="${not empty message}">
+                                        <div class="alert alert-danger alert-dismissible">${message}</div>
+                                    </c:if>
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Alumno</th>
+                                                <th>Programa Educativo</th>
+                                                <th>Matricula</th>
+                                                <th>Reporte</th>
+                                                <th>Fecha</th>
+                                                <th>Fecha Limite</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                             <c:forEach items="${reportes}" var="dato">
                                                 <tr>
                                                     <td> 
@@ -101,8 +106,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <td> <c:out value="${dato.fecha}"/></td>
                                                     <td> <c:out value="${dato.fechalim}"/></td>
                                                     <td>
-                                                        <a href="editarR?id=${dato.idreporte}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
-                                                        <a href="borrarR?id=${dato.idreporte}" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</a>
+                                                        <a href="editar?id=${dato.idreporte}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
+                                                        <a href="detalles?id=${dato.idreporte}" class="btn btn-info"><i class="fa fa-info-circle"></i> Detalles</a>
+                                                        <a href="borrar?id=${dato.idreporte}" class="btn btn-danger" onclick="return confirm('Eliminar este registro podria causar inconsistencias en el sistema. ¿Estas seguro que deseas eliminar el registro?')" ><i class="fa fa-trash"></i> Eliminar</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

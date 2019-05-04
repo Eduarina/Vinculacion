@@ -90,12 +90,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <div class="box-body">
                                         <form:hidden path="idvencimiento"/>
                                         <div class="form-group col-md-6">
-                                            <form:label path="descripcion">Documento</form:label><br>
+                                            <form:label path="descripcion">Documento:</form:label><br>
                                             <form:input path="descripcion" type="text" cssClass="form-control" placeholder="documento..." disabled="true"/>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                            <form:label path="datepicker">Fecha</form:label>
+                                            <form:label path="datepicker">Fecha:</form:label>
                                             <c:set var="errorband"><form:errors path="datepicker"/></c:set>
                                             <c:if test="${empty errorband}">
                                                 <!--Date--> 

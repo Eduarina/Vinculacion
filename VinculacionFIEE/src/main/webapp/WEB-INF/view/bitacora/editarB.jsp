@@ -70,42 +70,72 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <form:errors path="*" element="div" cssClass="alert alert-danger alert-dismissible"/>
 
                                     <form:hidden path="idbitacora"/>
+                                    <form:hidden path="idservicio"/>
                                     <div class="box-body">
                                         <div class="form-group col-md-6">
-                                            <label for="nombre">Nombre del Alumno</label>
+                                            <label for="nombre">Nombre del Alumno:</label>
                                             <input id="nombre" name="nombre" type="text" class="form-control" value="${usuario[0].nombre}" disabled="true" placeholder="Nombre del Alumno..." onkeyup="javascript:this.value = this.value.toUpperCase();">
                                         </div>
                                         <div class="form-group col-md-3">
-                                            <label for="matricula">Matricula</label>
+                                            <label for="matricula">Matricula:</label>
                                             <input id="matricula" name="matricula" type="text" value="${servicio[0].matricula}" disabled="true" class="form-control" placeholder="S13001317...">
                                         </div>
                                         <div class="form-group col-md-3">
-                                            <label for="carrera">Programa Educativo</label>
+                                            <label for="carrera">Programa Educativo:</label>
                                             <input id="carrera" name="carrera" type="text" value="${servicio[0].carrera}" disabled="true" class="form-control" placeholder="Carrera...">
                                         </div>
                                         <div class="form-group col-md-3">
-                                            <form:label path="dependencia">Dependencia</form:label>
-                                            <form:input path="dependencia" type="text" cssClass="form-control" placeholder="Dependencia..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            <form:label path="dependencia">Dependencia:</form:label>
+                                            <c:set var="errorband"><form:errors path="dependencia"/></c:set>
+                                            <c:if test="${empty errorband}">
+                                                <form:input path="dependencia" type="text" cssClass="form-control" placeholder="Dependencia..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
+                                            <c:if test="${not empty errorband}">
+                                                <form:input path="dependencia" type="text" cssClass="form-control" placeholder="Dependencia..." autocomplete="off" style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
                                         </div>
                                         <div class="form-group col-md-3">
-                                            <form:label path="direccion">Ubicación</form:label>
-                                            <form:input path="direccion" type="text" cssClass="form-control" placeholder="Ubicación..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            <form:label path="direccion">Ubicación:</form:label>
+                                            <c:set var="errorband"><form:errors path="direccion"/></c:set>
+                                            <c:if test="${empty errorband}">
+                                                <form:input path="direccion" type="text" cssClass="form-control" placeholder="Ubicación..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
+                                            <c:if test="${not empty errorband}">
+                                                <form:input path="direccion" type="text" cssClass="form-control" placeholder="Ubicación..." autocomplete="off" style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
                                         </div>
                                         <!--Date--> 
                                         <div class="form-group col-md-2">
-                                            <label for="datepicker">Fecha de Bitácora</label>
-
-                                            <div class="input-group date">
+                                            <label for="datepicker">Fecha de Bitácora:</label>
+                                            <c:set var="errorband"><form:errors path="datepicker"/></c:set>
+                                            <c:if test="${empty errorband}">
+                                                <div class="input-group date">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <c:if test="${empty datos.datepicker}">
+                                                        <input id="datepicker" name="datepicker" type="text" value="${bitacora[0].fecha}" class="form-control pull-right-container">
+                                                    </c:if>
+                                                    <c:if test="${not empty datos.datepicker}">
+                                                        <input id="datepicker" name="datepicker" type="text" value="${datos.datepicker}" class="form-control pull-right-container">
+                                                    </c:if>
+                                                </div>
+                                                <!--/.input group--> 
+                                            </c:if>
+                                            <c:if test="${not empty errorband}">
+                                                <div class="input-group date">
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-calendar"></i>
                                                 </div>
-                                                <input id="datepicker" name="datepicker" type="text" value="${bitacora[0].fecha}" class="form-control pull-right-container">
+                                                <input id="datepicker" name="datepicker" type="text" style="border-color:red;" class="form-control pull-right-container">
                                             </div>
                                             <!--/.input group--> 
+                                            </c:if>
+                                            
                                         </div>
                                         <!--Date--> 
                                         <div class="form-group col-md-2">
-                                            <label path="datepicker2">Fecha de Vencimiento</label>
+                                            <label path="datepicker2">Fecha de Vencimiento:</label>
 
                                             <div class="input-group date">
                                                 <div class="input-group-addon">
@@ -121,26 +151,38 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         </div>
                                         <!-- textarea -->
                                         <div class="form-group col-md-6">
-                                            <form:label path="actividades">Actividades Generales</form:label>
-                                            <form:textarea path="actividades" cssClass="form-control" rows="3" placeholder="Actividades Generales..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            <form:label path="actividades">Actividades Generales:</form:label>
+                                            <c:set var="errorband"><form:errors path="actividades"/></c:set>
+                                            <c:if test="${empty errorband}">
+                                                <form:textarea path="actividades" cssClass="form-control" rows="3" placeholder="Actividades Generales..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
+                                            <c:if test="${not empty errorband}">
+                                                <form:textarea path="actividades" cssClass="form-control" rows="3" placeholder="Actividades Generales..." autocomplete="off" style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
                                         </div>
                                         <!-- textarea -->
                                         <div class="form-group col-md-6">
-                                            <form:label path="descripcion">Descripción de Actividades</form:label>
-                                            <form:textarea path="descripcion" cssClass="form-control" rows="3" placeholder="Descripción de Actividades..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            <form:label path="descripcion">Descripción de Actividades:</form:label>
+                                            <c:set var="errorband"><form:errors path="descripcion"/></c:set>
+                                            <c:if test="${empty errorband}">
+                                                <form:textarea path="descripcion" cssClass="form-control" rows="3" placeholder="Descripción de Actividades..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
+                                            <c:if test="${not empty errorband}">
+                                                <form:textarea path="descripcion" cssClass="form-control" rows="3" placeholder="Descripción de Actividades..." autocomplete="off" style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
                                         </div>
                                         <!-- textarea -->
                                         <div class="form-group col-md-6">
-                                            <form:label path="problemas">Problemas Encontrados</form:label>
+                                            <form:label path="problemas">Problemas Encontrados:</form:label>
                                             <form:textarea path="problemas" cssClass="form-control" rows="3" placeholder="Problemas Encontrados..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
                                         </div>
                                         <!-- textarea -->
                                         <div class="form-group col-md-6">
-                                            <form:label path="soluciones">Soluciones Empleadas</form:label>
+                                            <form:label path="soluciones">Soluciones Empleadas:</form:label>
                                             <form:textarea path="soluciones" cssClass="form-control" rows="3" placeholder="Soluciones Empleadas..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
                                         </div>
                                         <div class="form-group col-md-12">
-                                            <form:label path="observaciones">Observaciones</form:label>
+                                            <form:label path="observaciones">Observaciones:</form:label>
                                             <form:textarea path="observaciones" cssClass="form-control" rows="3" placeholder="Observaciones sobre la bitácora..." autocomplete="off" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
                                         </div>
                                     </div>

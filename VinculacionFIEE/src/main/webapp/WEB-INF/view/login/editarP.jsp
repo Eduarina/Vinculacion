@@ -83,7 +83,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <form:hidden path="idvinculacion"/>
                                                 <div class="form-group col-md-6">
                                                     <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                                    <form:label path="correo">Correo</form:label>
+                                                    <form:label path="correo">Correo:</form:label>
                                                     <c:set var="errorband"><form:errors path="correo"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <form:input path="correo" type="email" autocomplete="off" cssClass="form-control" placeholder="Correo..."/>
@@ -93,7 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     </c:if>
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <form:label path="carrera">Programa Educativo</form:label>
+                                                    <form:label path="carrera">Programa Educativo:</form:label>
                                                     <c:set var="errorband"><form:errors path="carrera"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <form:select path="carrera" cssClass="form-control">
@@ -122,7 +122,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <form:hidden path="idmaestro"/>
                                                 <div class="form-group col-md-6">
                                                     <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                                    <form:label path="correo">Correo</form:label>
+                                                    <form:label path="correo">Correo:</form:label>
                                                     <c:set var="errorband"><form:errors path="correo"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <form:input path="correo" type="email" autocomplete="off" cssClass="form-control" placeholder="Correo..."/>
@@ -132,7 +132,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     </c:if>
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <form:label path="carrera">Programa Educativo</form:label>
+                                                    <form:label path="carrera">Programa Educativo:</form:label>
                                                     <c:set var="errorband"><form:errors path="carrera"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <form:select path="carrera" cssClass="form-control">
@@ -161,7 +161,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <form:hidden path="idservicio"/>
                                                 <div class="form-group col-md-6">
                                                     <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                                    <form:label path="matricula">Matricula</form:label>
+                                                    <form:label path="matricula">Matricula:</form:label>
                                                     <c:set var="errorband"><form:errors path="matricula"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <form:input path="matricula" autocomplete="off" type="text" cssClass="form-control" placeholder="S19001317..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
@@ -171,7 +171,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     </c:if>
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <form:label path="creditos">Créditos</form:label>
+                                                    <form:label path="creditos">Créditos:</form:label>
                                                     <c:set var="errorband"><form:errors path="creditos"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <form:input path="creditos" type="number" min="300" max="400" cssClass="form-control" placeholder="Créditos..."/>
@@ -182,7 +182,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                                    <form:label path="correo">Correo</form:label>
+                                                    <form:label path="correo">Correo:</form:label>
                                                     <c:set var="errorband"><form:errors path="correo"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <form:input path="correo" type="email" autocomplete="off" cssClass="form-control" placeholder="Correo..."/>
@@ -193,7 +193,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                                    <form:label path="telefono">Teléfono</form:label>
+                                                    <form:label path="telefono">Teléfono:</form:label>
                                                     <c:set var="errorband"><form:errors path="telefono"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <div class="input-group">
@@ -214,7 +214,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                                    <form:label path="celular">Celular</form:label>
+                                                    <form:label path="celular">Celular:</form:label>
                                                     <c:set var="errorband"><form:errors path="celular"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <div class="input-group">
@@ -234,7 +234,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     </c:if>
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <form:label path="carrera">Programa Educativo</form:label>
+                                                    <form:label path="carrera">Programa Educativo:</form:label>
                                                     <c:set var="errorband"><form:errors path="carrera"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <form:select path="carrera" cssClass="form-control">
@@ -251,7 +251,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 </div>
                                                 <div class="form-group col-md-12">
                                                     <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                                    <form:label path="cv">Habilidades y Conocmientos</form:label>
+                                                    <form:label path="cv">Habilidades y Conocimientos:</form:label>
                                                     <c:set var="errorband"><form:errors path="cv"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <form:textarea path="cv" type="text" rows="3" autocomplete="off" cssClass="form-control" placeholder="Menciona tus habilidades y conocimientos..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
@@ -262,7 +262,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                                    <form:label path="semestre">Semestre</form:label>
+                                                    <form:label path="semestre">Semestre:</form:label>
                                                     <c:set var="errorband"><form:errors path="semestre"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <form:input path="semestre" type="number" min="1" max="13" cssClass="form-control" />
@@ -273,7 +273,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                                    <form:label path="horario">Horario de la clase</form:label>
+                                                    <form:label path="horario">Horario de la clase:</form:label>
                                                     <c:set var="errorband"><form:errors path="horario"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <!-- time Picker -->
@@ -321,7 +321,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <form:hidden path="idencargado"/>
                                                 <div class="form-group col-md-6">
                                                     <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                                    <form:label path="correo">Correo</form:label>
+                                                    <form:label path="correo">Correo:</form:label>
                                                     <c:set var="errorband"><form:errors path="correo"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <form:input path="correo" type="email" cssClass="form-control" autocomplete="off" placeholder="Correo..."/>
@@ -331,7 +331,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     </c:if>
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <form:label path="dependencia">Nombre de la Dependencia</form:label>
+                                                    <form:label path="dependencia">Nombre de la Dependencia:</form:label>
                                                     <c:set var="errorband"><form:errors path="dependencia"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <form:input path="dependencia" type="text" cssClass="form-control" autocomplete="off" placeholder="Nombre de la Dependencia..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
@@ -341,7 +341,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     </c:if>
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <form:label path="direccion">Dirección de la Dependencia</form:label>
+                                                    <form:label path="direccion">Dirección de la Dependencia:</form:label>
                                                     <c:set var="errorband"><form:errors path="direccion"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <form:input path="direccion" type="text" cssClass="form-control" autocomplete="off" placeholder="Dirección de la Dependencia..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
@@ -352,7 +352,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                                    <form:label path="telefono">Teléfono</form:label>
+                                                    <form:label path="telefono">Teléfono:</form:label>
                                                     <c:set var="errorband"><form:errors path="telefono"/></c:set>
                                                     <c:if test="${empty errorband}">
                                                         <div class="input-group">

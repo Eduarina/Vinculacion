@@ -29,7 +29,7 @@ public class BitacoraValidator implements Validator{
                 "required.direccion", "El ubicacion ubiación es obligatorio.");
         
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "datepicker",
-                "required.datepicker", "El campo fecha es obligatorio.");
+                "required.datepicker", "El campo fecha de bitácora es obligatorio.");
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "actividades",
                 "required.actividades", "El campo actividades generales es obligatorio.");

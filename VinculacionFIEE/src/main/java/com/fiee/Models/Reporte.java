@@ -65,6 +65,14 @@ public class Reporte {
         this.idservicio = idservicio;
     }
 
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
     public int getIdreporte() {
         return idreporte;
     }
