@@ -2,6 +2,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <spring:url value="/resources" var="urlPublic"/>
 <!DOCTYPE html>
 <!--
@@ -65,37 +66,66 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </div>
                                     <!-- /.box-header -->
                                     <!-- form start -->
-                                    <form role="form" method="POST">
-                                        <div class="box-body">
-                                            <div class="form-group col-md-6">
-                                                <label for="nombre">Nombre del Maestro</label>
-                                                <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Maestro..." value="${lista[0].nombre}" onkeyup="javascript:this.value = this.value.toUpperCase();">
+                                    <div class="box-body">
+                                        <form:form action="editar" method="POST" modelAttribute="datos">
+                                            <form:errors path="*" element="div" cssClass="alert alert-danger alert-dismissible"/>
+                                            <div class="box-body">
+                                                <form:hidden path="idMaestro"/>
+                                                <div class="form-group col-md-6">
+                                                    <form:label path="nombre">Nombre:</form:label>
+                                                <c:set var="errorband"><form:errors path="nombre"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:input path="nombre" autocomplete="off" type="text" cssClass="form-control" placeholder="Nombre..."  onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:input path="nombre" autocomplete="off" type="text" cssClass="form-control" placeholder="Nombre..."  style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="usuario">Usuario</label>
-                                                <input id="usuario" name="usuario" type="text" class="form-control" placeholder="Usuario..." value="${lista[0].usuario}">
+                                                <form:label path="usuario">Usuario:</form:label>
+                                                <c:set var="errorband"><form:errors path="usuario"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:input path="usuario" autocomplete="off" type="text" cssClass="form-control" placeholder="Usuario..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:input path="usuario" autocomplete="off" type="text" cssClass="form-control" style="border-color:red;" placeholder="Usuario..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
                                             </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="correo">Correo</label>
-                                                <input id="correo" name="correo" type="email" class="form-control" placeholder="usuario@gmail.com..." value="${lista[0].correo}">
-                                                <!--<input id="emailAddress" type="email" size="64" maxLength="64" required
-                                                    placeholder="username@beststartupever.com" pattern=".+@beststartupever.com">-->
-                                                <!-- /.input group -->
+                                            <div class="form-group col-md-6">
+                                                <form:label path="correo">Correo: </form:label>
+                                                <c:set var="errorband"><form:errors path="correo"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:input path="correo" autocomplete="off" type="text" cssClass="form-control" placeholder="Usuario..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:input path="correo" autocomplete="off" type="text" cssClass="form-control" style="border-color:red;" placeholder="Usuario..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <form:label path="sexo">Tipo:</form:label>
+                                                <c:if test="${empty errorband}">
+                                                    <form:select path="sexo" cssClass="form-control">
+                                                        <form:option value="0">Seleccion...</form:option>
+                                                        <form:option value="H">Hombre</form:option>
+                                                        <form:option value="M">Mujer</form:option>
+                                                    </form:select>
+                                                </c:if>
                                             </div>
                                         </div>
                                         <div class="box-footer">
                                             <button type="submit" class="btn btn-success">Aceptar</button>
-                                            <a href="usuariosM" class="btn btn-default">Cancelar</a>
+                                            <a href="lista" class="btn btn-default">Cancelar</a>
                                         </div>
-                                    </form>
+                                    </form:form>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                    </section>
-                    <!-- /.content -->
-                </div>
-                <!-- /.content-wrapper -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
 
             <jsp:include page="../includes/footer.jsp"></jsp:include>
 

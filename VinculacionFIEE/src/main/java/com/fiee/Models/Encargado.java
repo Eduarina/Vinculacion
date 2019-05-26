@@ -13,40 +13,16 @@ public class Encargado {
 
     private int idencargado;
     private String correo;
-    private String dependencia;
-    private String direccion;
+    private String nombre;
+    private String usuario;
+    private String pass;
+    private String pass2;
+    private String sexo;
     private String telefono;
     private int estatus;
     private int idusuario;
 
     public Encargado() {
-    }
-
-    public Encargado(int idencargado, String correo, String dependencia, String direccion, String telefono) {
-        this.idencargado = idencargado;
-        this.correo = correo;
-        this.dependencia = dependencia;
-        this.direccion = direccion;
-        this.telefono = telefono;
-    }
-
-    public Encargado(String correo, String dependencia, String direccion, String telefono, int estatus, int idusuario) {
-        this.correo = correo;
-        this.dependencia = dependencia;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.estatus = estatus;
-        this.idusuario = idusuario;
-    }
-
-    public Encargado(int idencargado, String correo, String dependencia, String direccion, String telefono, int estatus, int idusuario) {
-        this.idencargado = idencargado;
-        this.correo = correo;
-        this.dependencia = dependencia;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.estatus = estatus;
-        this.idusuario = idusuario;
     }
 
     public int getIdencargado() {
@@ -65,20 +41,44 @@ public class Encargado {
         this.correo = correo;
     }
 
-    public String getDependencia() {
-        return dependencia;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setDependencia(String dependencia) {
-        this.dependencia = dependencia;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public String getPass2() {
+        return pass2;
+    }
+
+    public void setPass2(String pass2) {
+        this.pass2 = pass2;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 
     public String getTelefono() {
@@ -105,4 +105,5 @@ public class Encargado {
         this.idusuario = idusuario;
     }
 
+    
 }

@@ -2,34 +2,11 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <spring:url value="/resources" var="urlPublic"/>
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html>
     <jsp:include page="../includes/head.jsp"></jsp:include>
-        <!--
-        BODY TAG OPTIONS:
-        =================
-        Apply one or more of the following classes to get the
-        desired effect
-        |---------------------------------------------------------|
-        | SKINS         | skin-blue                               |
-        |               | skin-black                              |
-        |               | skin-purple                             |
-        |               | skin-yellow                             |
-        |               | skin-red                                |
-        |               | skin-green                              |
-        |---------------------------------------------------------|
-        |LAYOUT OPTIONS | fixed                                   |
-        |               | layout-boxed                            |
-        |               | layout-top-nav                          |
-        |               | sidebar-collapse                        |
-        |               | sidebar-mini                            |
-        |---------------------------------------------------------|
-        -->
         <body class="hold-transition skin-green-light sidebar-mini">
             <div class="wrapper">
 
@@ -61,26 +38,49 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-md-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Usuario</h3>
+                                        <h3 class="box-title">Editar Usuario</h3>
                                     </div>
-                                    <!-- /.box-header -->
-                                    <!-- form start -->
-                                    <form role="form" method="POST">
-                                        <div class="box-body">
-                                            <div class="form-group col-md-6">
-                                                <label for="nombre">Nombre del Usuario</label>
-                                                <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Usuario..." value="${lista[0].nombre}" onkeyup="javascript:this.value = this.value.toUpperCase();">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="usuario">Usuario</label>
-                                                <input id="usuario" name="usuario" type="text" class="form-control" placeholder="Usuario..." value="${lista[0].usuario}">
-                                            </div>
+                                    <form:form action="editar" method="POST" modelAttribute="datos">
+                                    <form:errors path="*" element="div" cssClass="alert alert-danger alert-dismissible"/>
+                                    <div class="box-body">
+                                        <form:hidden path="idusuario"/>
+                                        <div class="form-group col-md-6">
+                                            <form:label path="nombre">Nombre:</form:label>
+                                            <c:set var="errorband"><form:errors path="nombre"/></c:set>
+                                            <c:if test="${empty errorband}">
+                                                <form:input path="nombre" autocomplete="off" type="text" cssClass="form-control" placeholder="Nombre..."  onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
+                                            <c:if test="${not empty errorband}">
+                                                <form:input path="nombre" autocomplete="off" type="text" cssClass="form-control" placeholder="Nombre..."  style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
                                         </div>
-                                        <div class="box-footer">
-                                            <button type="submit" class="btn btn-success">Aceptar</button>
-                                            <a href="usuariosV" class="btn btn-default">Cancelar</a>
+                                        <div class="form-group col-md-6">
+                                            <form:label path="user">Usuario:</form:label>
+                                            <c:set var="errorband"><form:errors path="user"/></c:set>
+                                            <c:if test="${empty errorband}">
+                                                <form:input path="user" autocomplete="off" type="text" cssClass="form-control" placeholder="Usuario..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
+                                            <c:if test="${not empty errorband}">
+                                                <form:input path="user" autocomplete="off" type="text" cssClass="form-control" style="border-color:red;" placeholder="Usuario..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
                                         </div>
-                                    </form>
+                                        <div class="form-group col-md-6">
+                                            <form:label path="sexo">Tipo:</form:label>
+                                            <c:set var="errorband"><form:errors path="password2"/></c:set>
+                                            <c:if test="${empty errorband}">
+                                                <form:select path="sexo" cssClass="form-control">
+                                                    <form:option value="0">Seleccion...</form:option>
+                                                    <form:option value="H">Hombre</form:option>
+                                                    <form:option value="M">Mujer</form:option>
+                                                </form:select>
+                                            </c:if>
+                                        </div>
+                                    </div>
+                                    <div class="box-footer">
+                                        <button type="submit" class="btn btn-success">Aceptar</button>
+                                        <a href="lista" class="btn btn-default">Cancelar</a>
+                                    </div>
+                                </form:form>
                                 </div>
                             </div>
                         </div>

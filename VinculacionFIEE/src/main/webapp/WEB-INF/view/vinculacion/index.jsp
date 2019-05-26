@@ -73,12 +73,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <tbody>
                                             <c:forEach items="${usuarios}" var="dato">
                                                 <tr>
-                                                    <td> <c:out value="${dato.idvinculacion}"/></td>
+                                                    <td> <c:out value="${dato.idUsuario}"/></td>
                                                     <td> <c:out value="${dato.nombre}"/></td>
-                                                    <td> <c:out value="${dato.usuario}"/></td>
+                                                    <td> <c:out value="${dato.user}"/></td>
                                                     <td>
-                                                        <a href="editar?id=${dato.idvinculacion}" class="btn btn-warning">Editar</a>
-                                                        <a href="borrar?id=${dato.idvinculacion}" class="btn btn-danger">Eliminar</a>
+                                                        <a href="editar?id=${dato.idUsuario}" class="btn btn-warning">Editar</a>
+                                                        <a href="borrar?id=${dato.idUsuario}" class="btn btn-danger">Eliminar</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

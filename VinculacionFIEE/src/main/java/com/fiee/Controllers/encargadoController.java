@@ -5,12 +5,17 @@
  */
 package com.fiee.Controllers;
 import com.fiee.Models.Encargado;
+import com.fiee.Models.MaestroTable;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -18,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Anemc
  */
 @Controller
+@RequestMapping(value = "/encargados")
 public class encargadoController {
     private JdbcTemplate jdbcTemplate;
     int id;
@@ -28,32 +34,48 @@ public class encargadoController {
         this.jdbcTemplate = new JdbcTemplate(con.conectar());
     }
     
-    @RequestMapping(value="/usuariosE") //Este es el nombre con el que se accede desde el navegador
+    @RequestMapping(value="/lista") //Este es el nombre con el que se accede desde el navegador
     public ModelAndView lista()
     {
         ModelAndView mav = new ModelAndView();
-        String sql = "select * from encargado";
+        String sql = "select * from vw_info_encargado";
         lista = this.jdbcTemplate.queryForList(sql);
-        mav.addObject("usuarios", lista);    
+        mav.addObject("encargados", lista);    
         mav.setViewName("encargado/indexE");  // Este es el nombre del archivo vista .jsp
         return mav;
     }
     
-    @RequestMapping(value = "/insertarUsuarioE", method = RequestMethod.GET)
+    @RequestMapping(value = "/insertar", method = RequestMethod.GET)
     public ModelAndView insertar()
     {
         ModelAndView mav = new ModelAndView();
-        mav.addObject(new Encargado());
+        mav.addObject("nuevo", new Encargado());
         mav.setViewName("encargado/insertarE");
         return mav;
     }
     
-    @RequestMapping(value = "/insertarUsuarioE", method = RequestMethod.POST)
-    public ModelAndView insertar( Encargado v)
-    {
-        String sql = "insert into encargado(nombre, usuario, password,correo) values (?,?,?,?)";
-        //this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(), v.getPassword(), v.getCorreo());
-        return new ModelAndView("redirect:/usuariosE");
+    @PostMapping(value = "insertar")
+    public ModelAndView insertar(
+            @ModelAttribute("nuevo") Encargado e, BindingResult result, SessionStatus status
+    ) {
+        e.setPass(loginController.getMD5(e.getPass()));
+        String path;
+        if (e.getSexo().equals("H")) {
+            path = "/dist/img/user2-160x160.jpg";
+        } else {
+            path = "/dist/img/avatar2.png";
+        }
+        String sql = "insert into tb_usuarios(nombre, user, password, tipo, sexo, path, estado) values (?,?,?,?,?,?,?)";
+        this.jdbcTemplate.update(sql, e.getNombre(), e.getUsuario(), e.getPass(), 3, e.getSexo(), path, 1);
+
+        sql = "select idUsuario from last_ID";
+        Object[] parameters = new Object[]{};
+        int lastID = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+
+        sql = "insert into tb_encargados (correo, telefono, Estado, idUsuario) values (?,?,?,?)";
+        this.jdbcTemplate.update(sql, e.getCorreo(), e.getTelefono(), 1, lastID);
+
+        return new ModelAndView("redirect:/encargados/lista");
     }
     
     @RequestMapping(value = "/editarUsuarioE", method = RequestMethod.GET)

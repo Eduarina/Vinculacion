@@ -4,42 +4,13 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <spring:url value="/resources" var="urlPublic"/>
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html>
     <jsp:include page="../includes/head.jsp"></jsp:include>
-        <!--
-        BODY TAG OPTIONS:
-        =================
-        Apply one or more of the following classes to get the
-        desired effect
-        |---------------------------------------------------------|
-        | SKINS         | skin-blue                               |
-        |               | skin-black                              |
-        |               | skin-purple                             |
-        |               | skin-yellow                             |
-        |               | skin-red                                |
-        |               | skin-green                              |
-        |---------------------------------------------------------|
-        |LAYOUT OPTIONS | fixed                                   |
-        |               | layout-boxed                            |
-        |               | layout-top-nav                          |
-        |               | sidebar-collapse                        |
-        |               | sidebar-mini                            |
-        |---------------------------------------------------------|
-        -->
         <body class="hold-transition skin-green-light sidebar-mini">
             <div class="wrapper">
-
             <jsp:include page="../includes/menu.jsp"></jsp:include>
-
             <jsp:include page="../includes/lateral.jsp"></jsp:include>
-
-                <!-- Content Wrapper. Contains page content -->
                 <div class="content-wrapper">
-                    <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
                             Lista de Maestros
@@ -57,7 +28,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-xs-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <a href="insertarUsuarioM" class="btn btn-primary">Agregar</a>
+                                        <a href="insertar" class="btn btn-primary">Agregar</a>
                                     </div>
                                     <!-- /.box-header -->
                                     <div class="box-body">
@@ -74,13 +45,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <tbody>
                                             <c:forEach items="${usuarios}" var="dato">
                                                 <tr>
-                                                    <td> <c:out value="${dato.idmaestro}"/></td>
+                                                    <td> <c:out value="${dato.ID}"/></td>
                                                     <td> <c:out value="${dato.nombre}"/></td>
                                                     <td> <c:out value="${dato.usuario}"/></td>
                                                     <td> <c:out value="${dato.correo}"/></td>
                                                     <td>
-                                                        <a href="editarUsuarioM?id=${dato.idmaestro}" class="btn btn-warning">Editar</a>
-                                                        <a href="borrarUsuarioM?id=${dato.idmaestro}" class="btn btn-danger">Eliminar</a>
+                                                        <a href="editar?id=${dato.ID}" class="btn btn-warning">Editar</a>
+                                                        <c:if test="${dato.estado eq 1}">
+                                                            <a href="borrarUsuarioM?id=${dato.ID}" class="btn btn-danger">Dar de baja</a>
+                                                        </c:if> 
+                                                        <c:if test="${dato.estado eq 2}">
+                                                            <a href="borrarUsuarioM?id=${dato.ID}" class="btn btn-success">Dar de alta</a>
+                                                        </c:if> 
                                                     </td>
                                                 </tr>
                                             </c:forEach>

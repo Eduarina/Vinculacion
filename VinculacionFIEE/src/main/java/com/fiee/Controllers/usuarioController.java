@@ -61,7 +61,7 @@ public class usuarioController {
             id = (int) session.getAttribute("id");
             int tipo = (int) session.getAttribute("tipo");
             if (tipo == 1 || tipo == 2) {
-                sql = "select * from usuario";
+                sql = "select * from tb_usuarios where idUsuario != "+id;
                 lista = this.jdbcTemplate.queryForList(sql);
                 mav.addObject("datos", lista);
                 mav.setViewName("usuario/indexU");  // Este es el nombre del archivo vista .jsp

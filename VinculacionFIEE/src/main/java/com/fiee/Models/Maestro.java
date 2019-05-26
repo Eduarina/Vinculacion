@@ -11,12 +11,33 @@ package com.fiee.Models;
  */
 public class Maestro {
     private int idmaestro;
-    private String correo;
-    private String carrera;
-    private int estatus;
     private int idusuario;
+    private String correo;
+    private String nombre;
+    private int estatus;
+    
 
     public Maestro() {
+    }
+    
+    public Maestro(int idmaestro, String correo, String nombre, int estatus, int idusuario) {
+        this.idmaestro = idmaestro;
+        this.correo = correo;
+        this.nombre = nombre;
+        this.estatus = estatus;
+        this.idusuario = idusuario;
+    }
+
+    public Maestro(String correo, String nombre, int estatus) {
+        this.correo = correo;
+        this.nombre = nombre;
+        this.estatus = estatus;
+    }
+
+    public Maestro(int idmaestro, String correo, String nombre) {
+        this.idmaestro = idmaestro;
+        this.correo = correo;
+        this.nombre = nombre;
     }
 
     public int getIdmaestro() {
@@ -35,14 +56,6 @@ public class Maestro {
         this.correo = correo;
     }
 
-    public String getCarrera() {
-        return carrera;
-    }
-
-    public void setCarrera(String carrera) {
-        this.carrera = carrera;
-    }
-
     public int getEstatus() {
         return estatus;
     }
@@ -59,24 +72,12 @@ public class Maestro {
         this.idusuario = idusuario;
     }
 
-    public Maestro(int idmaestro, String correo, String carrera, int estatus, int idusuario) {
-        this.idmaestro = idmaestro;
-        this.correo = correo;
-        this.carrera = carrera;
-        this.estatus = estatus;
-        this.idusuario = idusuario;
+    public String getNombre() {
+        return nombre;
     }
 
-    public Maestro(String correo, String carrera, int estatus) {
-        this.correo = correo;
-        this.carrera = carrera;
-        this.estatus = estatus;
-    }
-
-    public Maestro(int idmaestro, String correo, String carrera) {
-        this.idmaestro = idmaestro;
-        this.correo = correo;
-        this.carrera = carrera;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
 }

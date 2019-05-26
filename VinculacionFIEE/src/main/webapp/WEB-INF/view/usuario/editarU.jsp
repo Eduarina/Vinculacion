@@ -69,30 +69,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <!-- form start -->
                                 <form:form action="editar" method="POST" modelAttribute="datos">
                                     <form:errors path="*" element="div" cssClass="alert alert-danger alert-dismissible"/>
-
-                                    <%--  <spring:bind path="*">
-                                        <c:forEach items="${status.errorMessages}" var="error">
-                                            <div class="alert alert-danger alert-dismissible">
-                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                                <h4><i class="icon fa fa-info"></i> Error!</h4>
-                                                ${error}
-                                            </div>
-                                        </c:forEach>      
-                                    </spring:bind>
-                                    <spring:bind path="*">
-                                        <c:forEach items="${status.errorMessages}" var="error">
-                                            <div class="callout callout-danger">
-                                                <h4>I am a danger callout!</h4>
-                                                ${error}
-                                            </div>
-                                        </c:forEach>      
-</spring:bind> --%>
                                     <div class="box-body">
                                         <form:hidden path="idusuario"/>
                                         <form:hidden path="password"/>
                                         <form:hidden path="password2"/>
                                         <div class="form-group col-md-6">
-                                            <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
                                             <form:label path="nombre">Nombre:</form:label>
                                             <c:set var="errorband"><form:errors path="nombre"/></c:set>
                                             <c:if test="${empty errorband}">

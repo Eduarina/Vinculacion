@@ -14,6 +14,9 @@ import com.fiee.Models.ServicioValidator;
 import com.fiee.Models.Usuario;
 import com.fiee.Models.Vinculacion;
 import com.fiee.Models.VinculacionValidator;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -71,23 +74,6 @@ public class loginController {
         return mav;
     }
 
-//    @PostMapping("/login")
-//    public String login(@ModelAttribute("usuario") Usuario usuario, Model model){
-//        // Implement your business logic
-//      if (usuario.getUser().equals("qwe") && usuario.getPassword().equals("123")) {
-//         // Set user dummy data
-//         usuario.setIdusuario(2);
-//         usuario.setNombre("qwewqe");
-//         usuario.setPassword("123");
-//         usuario.setPassword2("123");
-//         usuario.setTipo(3);
-//         usuario.setUser("qwe");
-//      } else {
-//         model.addAttribute("message", "Login failed. Try again.");
-//         return "login";
-//      }
-//      return "sucess";
-//    }
     @PostMapping(value = "/login")
     public ModelAndView login(
             @ModelAttribute("usuario") Usuario u, Model model, HttpServletRequest request) {
@@ -104,6 +90,7 @@ public class loginController {
             session.setAttribute("id", dato.getIdusuario());
             session.setAttribute("tipo", dato.getTipo());
             session.setAttribute("nombre", dato.getNombre());
+            session.setAttribute("src",dato.getPath());
             session.setAttribute("band", 1);
             ModelAndView mav = new ModelAndView();
             mav.setViewName("login/sucess");
@@ -272,8 +259,8 @@ public class loginController {
         } else {
             HttpSession session = request.getSession();
             id = (int) session.getAttribute("id");
-            String sql = "update maestro set correo=?, carrera=? where idusuario=" + id;
-            this.jdbcTemplate.update(sql, u.getCorreo(), u.getCarrera());
+            String sql = "update maestro set correo=?, nombre=? where idusuario=" + id;
+            this.jdbcTemplate.update(sql, u.getCorreo(), u.getNombre());
             return new ModelAndView("redirect:/login/perfil");
         }
 
@@ -325,7 +312,8 @@ public class loginController {
 
     public Usuario selectuser(String user, String password) {
         final Usuario users = new Usuario();
-        String sql = "select * from usuario where user='" + user + "' and password='" + password + "'";
+        password = getMD5(password);
+        String sql = "select * from tb_usuarios where User ='" + user + "' and Password ='" + password + "' and Estado = 1";
         return (Usuario) this.jdbcTemplate.query(sql, new ResultSetExtractor<Usuario>() {
             public Usuario extractData(ResultSet rs) throws SQLException, DataAccessException {
                 if (!rs.isBeforeFirst()) {
@@ -338,6 +326,7 @@ public class loginController {
                     users.setPassword(rs.getString("password"));
                     users.setPassword2(rs.getString("password"));
                     users.setTipo(rs.getInt("tipo"));
+                    users.setPath(rs.getString("path"));
                 }
                 return users;
             }
@@ -361,5 +350,20 @@ public class loginController {
         carrera.put("ING. QUIMICA", "ING. QUIMICA");
         carrera.put("ING. TOPOGRAGICA GEODESICA", "ING. TOPOGRAGICA GEODESICA");
         return carrera;
+    }
+
+    public static String getMD5(String data){ 
+        try{
+            MessageDigest md =MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(data.getBytes());
+            BigInteger no = new BigInteger(1, messageDigest);
+            String hashtext = no.toString(16);
+            while(hashtext.length() < 32){
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        }catch(NoSuchAlgorithmException e){
+            throw new RuntimeException(e);
+        }
     }
 }

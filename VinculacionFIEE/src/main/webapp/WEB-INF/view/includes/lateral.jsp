@@ -12,12 +12,12 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image" style="height: 25px">
-                <img src="${urlPublic}/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="${urlPublic}${sessionScope.src}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <table> 
                     <tr> 
-                        <td width=150 nowrap>${sessionScope.nombre}</td> 
+                        <td width=150 nowrap><a href="/VinculacionFIEE/login/perfil">${sessionScope.nombre}</a></td> 
                     </tr> 
                 </table> 
 
@@ -41,7 +41,27 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Menú</li>
-            <!-- Optionally, you can add icons to the links -->
+            
+            <li class="treeview">
+                <a href="#"><i class="fa fa-files-o"></i> <span>Registros</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <c:if test="${sessionScope.tipo <= 1}">
+                        <li><a href="/VinculacionFIEE/vinculacion/lista"><i class="fa fa-file-text"></i>Vinculación</a></li>
+                    </c:if>
+                    <c:if test="${sessionScope.tipo <= 2}">
+                        <li><a href="/VinculacionFIEE/maestros/lista"><i class="fa fa-file-text"></i>Maestros</a></li>
+                        <li><a href="/VinculacionFIEE/encargados/lista"><i class="fa fa-file-text"></i>Encargados</a></li>
+                    </c:if>
+                    <c:if test="${sessionScope.tipo <= 3}">
+                        <li><a href="/VinculacionFIEE/alumnos/lista"><i class="fa fa-file-text"></i>Alumnos</a></li>
+                    </c:if>
+                </ul>
+            </li>
+            
             <li class="active"><a href="/VinculacionFIEE/usuarios/lista"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
             <li class="active"><a href="/VinculacionFIEE/vencimiento/lista"><i class="fa fa-calendar"></i> <span>Vencimiento de Docs</span></a></li>
             <li class="active"><a href="/VinculacionFIEE/asignacion/lista"><i class="fa fa-user-plus"></i> <span>Asignación de Alumnos</span></a></li>

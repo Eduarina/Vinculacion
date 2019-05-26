@@ -16,16 +16,18 @@ public class Usuario {
     private String password;
     private String password2;
     private int tipo;
-
+    private String sexo;
+    private String path;
+    
     public Usuario() {
     }
 
-    public Usuario(String nombre, String user, String password, String password2, int tipo) {
+    public Usuario(String nombre, String user, String password, String password2, String sexo) {
         this.nombre = nombre;
         this.user = user;
         this.password = password;
         this.password2 = password2;
-        this.tipo = tipo;
+        this.sexo = sexo;
     }
 
     public Usuario(String nombre, String user, int tipo) {
@@ -47,6 +49,13 @@ public class Usuario {
     public Usuario(String user, String password) {
         this.user = user;
         this.password = password;
+    }
+
+    public Usuario(int i, String nombre, String usuario, String sexo) {
+        this.idusuario = i;
+        this.nombre = nombre;
+        this.user = usuario;
+        this.sexo = sexo;
     }
 
 
@@ -98,5 +107,20 @@ public class Usuario {
         this.tipo = tipo;
     }
 
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
     
 }

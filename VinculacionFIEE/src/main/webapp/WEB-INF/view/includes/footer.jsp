@@ -11,33 +11,21 @@
             = new SimpleDateFormat("yyyy");
     String currentDate = ft.format(dNow);
 %>
-<!-- Main Footer -->
 <footer class="main-footer">
-    <!-- To the right -->
     <div class="pull-right hidden-xs">
         Sistema de Gestión de Servicio Social
     </div>
 
-    <!-- Default to the left -->
     <strong>Copyright &copy; <%=currentDate%> <a href="#">Company</a>.</strong> All rights reserved.
 </footer>
-<!-- REQUIRED JS SCRIPTS -->
 
-<!-- jQuery 3 -->
 <script src="${urlPublic}/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
 <script src="${urlPublic}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
 <script src="${urlPublic}/dist/js/adminlte.min.js"></script>
-<!-- InputMask -->
 <script src="${urlPublic}/plugins/input-mask/jquery.inputmask.js"></script>
-<!--<script src="${urlPublic}/plugins/input-mask/jquery.inputmask.extensions.js"></script>-->
-<!-- bootstrap datepicker -->
 <script src="${urlPublic}/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<!-- DataTables -->
 <script src="${urlPublic}/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="${urlPublic}/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<!-- bootstrap time picker -->
 <script src="${urlPublic}/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <script>
     $(function () {
@@ -77,6 +65,3 @@
 
 
 </script>
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. -->

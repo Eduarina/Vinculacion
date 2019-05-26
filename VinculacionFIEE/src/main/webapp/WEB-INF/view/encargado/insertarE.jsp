@@ -2,6 +2,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <spring:url value="/resources" var="urlPublic"/>
 <!DOCTYPE html>
 <!--
@@ -65,33 +66,81 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </div>
                                     <!-- /.box-header -->
                                     <!-- form start -->
-                                    <form role="form" method="POST">
                                         <div class="box-body">
-                                            <div class="form-group col-md-6">
-                                                <label for="nombre">Nombre del Encargado</label>
-                                                <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Encargado..." onkeyup="javascript:this.value = this.value.toUpperCase();">
+                                            <form:form method="POST" style="font-size:16px;" action="/VinculacionFIEE/encargados/insertar" modelAttribute="nuevo">
+                                        <div class="form-group">
+                                            <div class="col-sm-2" >
+                                                <form:label path="nombre">Nombre: </form:label>
                                             </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="usuario">Usuario</label>
-                                                <input id="usuario" name="usuario" type="text" class="form-control" placeholder="Usuario...">
+                                            <div class="col-sm-8" >
+                                                <form:input path="nombre" class="form-control" placeholder="Nombre" onkeydown="javascript:this.value = this.value.toUpperCase();"/>
                                             </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="password">Contraseña</label>
-                                                <input id="password" name="password" type="password" class="form-control" placeholder="Contraseña...">
+                                            <br>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2" >
+                                                <form:label path="correo">Correo: </form:label>
                                             </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="correo">Correo</label>
-                                                <input id="correo" name="correo" type="email" class="form-control" placeholder="usuario@gmail.com...">
-                                                <!--<input id="emailAddress" type="email" size="64" maxLength="64" required
-                                                    placeholder="username@beststartupever.com" pattern=".+@beststartupever.com">-->
-                                                <!-- /.input group -->
+                                            <div class="col-sm-8" >
+                                                <form:input path="correo" class="form-control" placeholder="Correo" onkeydown="javascript:this.value = this.value.toUpperCase();"/>
                                             </div>
+                                            <br>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2" >
+                                                <form:label path="telefono">Telefono: </form:label>
+                                            </div>
+                                            <div class="col-sm-8" >
+                                                <form:input path="telefono" class="form-control" placeholder="Telefono" onkeydown="javascript:this.value = this.value.toUpperCase();"/>
+                                            </div>
+                                            <br>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2" >
+                                                <form:label path="usuario">Usuario:</form:label>
+                                            </div>
+                                            <div class="col-sm-8" >
+                                                <form:input path="usuario" class="form-control" placeholder="Usuario" onkeydown="javascript:this.value = this.value.toUpperCase();"/>
+                                            </div>
+                                            <br>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2" >
+                                                <form:label path="pass">Contraseña: </form:label>
+                                            </div>
+                                            <div class="col-sm-8" >
+                                                <form:input path="pass" type="password" autocomplete="off" required="required" class="form-control" placeholder="Contraseña"/>
+                                            </div>
+                                            <br>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2" >
+                                                <form:label path="pass2">Repetir contraseña: </form:label>
+                                            </div>
+                                            <div class="col-sm-8" >
+                                                <form:input path="pass2" type="password" autocomplete="off" required="required" class="form-control" placeholder="Contraseña"/>
+                                            </div>
+                                            <br>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2" >
+                                                <form:label path="sexo">Sexo: </form:label>
+                                            </div>
+                                            <div class="col-sm-8" >
+                                                <form:select path="sexo" cssClass="form-control">
+                                                    <form:option value="0">Seleccion...</form:option>
+                                                    <form:option value="H">Hombre</form:option>
+                                                    <form:option value="H">Mujer</form:option>
+                                                </form:select>
+                                            </div>
+                                            <br>
                                         </div>
                                         <div class="box-footer">
                                             <button type="submit" class="btn btn-success">Aceptar</button>
-                                            <a href="usuariosE" class="btn btn-default">Cancelar</a>
+                                            <a href="lista" class="btn btn-default">Cancelar</a>
                                         </div>
-                                    </form>
+                                    </form:form>
+                                        </div>
                                 </div>
                             </div>
                         </div>
