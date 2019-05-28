@@ -55,9 +55,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Main content -->
                 <section class="content container-fluid">
 
-                    <!--------------------------
-                    | Your Page Content Here |
-                    -------------------------->
+                    <form:form method="POST" modelAttribute="fileUpload" enctype="multipart/form-data">
+                        <input type="file" name="file">
+                        <input type="submit" value="Upload">
+                    </form:form>
 
                 </section>
                 <!-- /.content -->
