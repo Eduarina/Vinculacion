@@ -11,26 +11,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
     <jsp:include page="../includes/head.jsp"></jsp:include>
-        <!--
-        BODY TAG OPTIONS:
-        =================
-        Apply one or more of the following classes to get the
-        desired effect
-        |---------------------------------------------------------|
-        | SKINS         | skin-blue                               |
-        |               | skin-black                              |
-        |               | skin-purple                             |
-        |               | skin-yellow                             |
-        |               | skin-red                                |
-        |               | skin-green                              |
-        |---------------------------------------------------------|
-        |LAYOUT OPTIONS | fixed                                   |
-        |               | layout-boxed                            |
-        |               | layout-top-nav                          |
-        |               | sidebar-collapse                        |
-        |               | sidebar-mini                            |
-        |---------------------------------------------------------|
-        -->
         <body class="hold-transition skin-green-light sidebar-mini">
             <div class="wrapper">
 
@@ -62,56 +42,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-xs-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <a href="insertar" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Asignar Alumno</a>
+                                        <a href="insertar" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Asignar Alumnos</a>
                                     </div>
                                     <!-- /.box-header -->
                                     <div class="box-body">
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-<!--                                                    <th>Idtabla</th>-->
                                                     <th>Maestro</th>
-                                                    <th>Servicio</th>
+                                                    <th>Estudiantes Asignados</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            <c:forEach items="${datos}" var="dato">
+                                                <c:forEach items="${datos}" var="dato">
                                                 <tr>
-<!--                                                    <td> <c:out value="${dato.idtabla1}"/></td>-->
-                                                    <td><c:forEach items="${nombres}" var="nombre">
-                                                            <c:if test="${dato.idmaestro eq nombre.idusuario}">
-                                                                <c:out value="${nombre.nombre}"/></td>
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    <td><c:forEach items="${nombres}" var="nombre">
-                                                            <c:if test="${dato.idservicio eq nombre.idusuario}">
-                                                                <c:out value="${nombre.nombre}"/></td>
-                                                            </c:if>
-                                                        </c:forEach>
+                                                    <td> <c:out value="${dato.Maestro}"/></td>
+                                                    <td> <c:out value="${dato.Estudiantes}"/></td>
                                                     <td>
-                                                        <a href="editar?id=${dato.idtabla1}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
-                                                        <a href="borrar?id=${dato.idtabla1}" class="btn btn-danger" onclick="return confirm('Eliminar este registro podria causar inconsistencias en el sistema. ¿Estas seguro que deseas eliminar el registro?')"><i class="fa fa-trash"></i> Eliminar</a>
+                                                        <a href="editarUsuarioE?id=${dato.ID}" class="btn btn-warning">Editar</a>
+                                                        <c:if test="${dato.estado eq 1}">
+                                                            <a href="borrarUsuarioM?id=${dato.ID}" class="btn btn-danger">Dar de baja</a>
+                                                        </c:if> 
+                                                        <c:if test="${dato.estado eq 2}">
+                                                            <a href="borrarUsuarioM?id=${dato.ID}" class="btn btn-success">Dar de alta</a>
+                                                        </c:if> 
                                                     </td>
                                                 </tr>
                                             </c:forEach>
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.box-body -->
                                 </div>
-                                <!-- /.box-body -->
+                                <!-- /.box -->
                             </div>
-                            <!-- /.box -->
                         </div>
-                    </div>
-                </section>
+                    </section>
                 <!-- /.content -->
-            </div>
-            <!-- /.content-wrapper -->
-
+                </div>
+                <!-- /.content-wrapper -->
             <jsp:include page="../includes/footer.jsp"></jsp:include>
+            </div>
 
-
-        </div>
-
-    </body>
+        </body>
 </html>

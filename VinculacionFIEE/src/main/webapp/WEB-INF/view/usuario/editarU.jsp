@@ -70,9 +70,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <form:form action="editar" method="POST" modelAttribute="datos">
                                     <form:errors path="*" element="div" cssClass="alert alert-danger alert-dismissible"/>
                                     <div class="box-body">
-                                        <form:hidden path="idusuario"/>
-                                        <form:hidden path="password"/>
-                                        <form:hidden path="password2"/>
+                                        <form:hidden path="idestudiante"/>
+                                        <div class="form-group col-md-6">
+                                            <form:label path="matricula">Matricula:</form:label>
+                                            <c:set var="errorband"><form:errors path="matricula"/></c:set>
+                                            <c:if test="${empty errorband}">
+                                                <form:input path="matricula" autocomplete="off" type="text" cssClass="form-control" placeholder="Nombre..."  onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
+                                            <c:if test="${not empty errorband}">
+                                                <form:input path="matricula" autocomplete="off" type="text" cssClass="form-control" placeholder="Nombre..."  style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
+                                        </div>
                                         <div class="form-group col-md-6">
                                             <form:label path="nombre">Nombre:</form:label>
                                             <c:set var="errorband"><form:errors path="nombre"/></c:set>
@@ -81,6 +89,55 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </c:if>
                                             <c:if test="${not empty errorband}">
                                                 <form:input path="nombre" autocomplete="off" type="text" cssClass="form-control" placeholder="Nombre..."  style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
+                                        </div>
+                                            <div class="form-group col-md-6">
+                                                <form:label path="carrera">Carrera:</form:label>
+                                                <form:select path="carrera" cssClass="form-control">
+                                                    <form:option value="0">Seleccion...</form:option>
+                                                    <c:forEach items="${carrera}" var="dato">
+                                                        <form:option value="${dato.idCarrera}">${dato.descripcion}</form:option>    
+                                                    </c:forEach>
+                                                </form:select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                            <form:label path="semestre">Semestre: </form:label>
+                                            <c:set var="errorband"><form:errors path="semestre"/></c:set>
+                                            <c:if test="${empty errorband}">
+                                                <form:input path="semestre" autocomplete="off" type="text" cssClass="form-control" placeholder="semestre..."  onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
+                                            <c:if test="${not empty errorband}">
+                                                <form:input path="semestre" autocomplete="off" type="text" cssClass="form-control" placeholder="semestre..."  style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
+                                        </div>
+                                            <div class="form-group col-md-6">
+                                            <form:label path="correo">Correo: </form:label>
+                                            <c:set var="errorband"><form:errors path="correo"/></c:set>
+                                            <c:if test="${empty errorband}">
+                                                <form:input path="correo" autocomplete="off" type="text" cssClass="form-control" placeholder="Usuario..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
+                                            <c:if test="${not empty errorband}">
+                                                <form:input path="correo" autocomplete="off" type="text" cssClass="form-control" style="border-color:red;" placeholder="Usuario..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <form:label path="telefono">Telefono: </form:label>
+                                            <c:set var="errorband"><form:errors path="telefono"/></c:set>
+                                            <c:if test="${empty errorband}">
+                                                <form:input path="telefono" autocomplete="off" type="text" cssClass="form-control" placeholder="telefono..."  onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
+                                            <c:if test="${not empty errorband}">
+                                                <form:input path="telefono" autocomplete="off" type="text" cssClass="form-control" placeholder="telefono..."  style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
+                                        </div>
+                                            <div class="form-group col-md-6">
+                                            <form:label path="celular">Celular:</form:label>
+                                            <c:set var="errorband"><form:errors path="celular"/></c:set>
+                                            <c:if test="${empty errorband}">
+                                                <form:input path="celular" autocomplete="off" type="text" cssClass="form-control" placeholder="celular..."  onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                            </c:if>
+                                            <c:if test="${not empty errorband}">
+                                                <form:input path="celular" autocomplete="off" type="text" cssClass="form-control" placeholder="celular..."  style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
                                             </c:if>
                                         </div>
                                         <div class="form-group col-md-6">
@@ -94,18 +151,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </c:if>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <form:label path="tipo">Tipo:</form:label>
-                                            <c:set var="errorband"><form:errors path="password2"/></c:set>
+                                            <form:label path="sexo">Tipo:</form:label>
                                             <c:if test="${empty errorband}">
-                                                <form:select path="tipo" cssClass="form-control">
+                                                <form:select path="sexo" cssClass="form-control">
                                                     <form:option value="0">Seleccion...</form:option>
-                                                    <form:options items="${tipo}"/>
-                                                </form:select>
-                                            </c:if>
-                                            <c:if test="${not empty errorband}">
-                                                <form:select path="tipo" cssClass="form-control" style="border-color:red;">
-                                                    <form:option value="0">Seleccion...</form:option>
-                                                    <form:options items="${tipo}"/>
+                                                    <form:option value="H">Hombre</form:option>
+                                                    <form:option value="M">Mujer</form:option>
                                                 </form:select>
                                             </c:if>
                                         </div>

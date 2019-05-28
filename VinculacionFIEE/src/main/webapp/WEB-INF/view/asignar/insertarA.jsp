@@ -46,18 +46,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             Asignación de alumnos
                             <small>Asignaciones</small>
                         </h1>
-                        <!--<ol class="breadcrumb">
-                            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                            <li class="active">Inicio</li>
-                        </ol>
-                    </section>-->
+                    </section>
 
                         <!-- Main content -->
                         <section class="content container-fluid">
-
-                            <!--------------------------
-                            | Your Page Content Here |
-                            -------------------------->
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="box box-primary">
@@ -74,19 +66,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <c:set var="errorband"><form:errors path="idmaestro"/></c:set>
                                                 <c:if test="${empty errorband}">
                                                     <select id="idmaestro" name="idmaestro" Class="form-control">
-                                                        <option value="0">Seleccion...</option>
-                                                        <c:forEach items="${nombres}" var="nombre">
-                                                            <c:if test="${nombre.tipo eq 3}">
-                                                                <c:if test="${datos.idmaestro eq nombre.idusuario}">
-                                                                <option value="${nombre.idusuario}" selected="selected">${nombre.nombre}
-                                                                </c:if>
-                                                                <c:if test="${datos.idmaestro ne nombre.idusuario}">
-                                                                <option value="${nombre.idusuario}">${nombre.nombre}
-                                                                </c:if>
-                                                            </option>
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    </select>
+                                                        <c:choose>
+                                                            <c:when test = "${sessionScope.tipo eq 3}">
+                                                                <option value="${sessionScope.id}" selected="selected">${sessionScope.nombre}
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <option value="0">Seleccion...</option>
+                                                                <c:forEach items="${nombres}" var="nombre">
+                                                                    <c:if test="${nombre.tipo eq 3 and nombre.estado eq 1}">
+                                                                        <c:if test="${datos.idmaestro eq nombre.idusuario}">
+                                                                            <option value="${nombre.idusuario}" selected="selected">${nombre.nombre}
+                                                                            </c:if>
+                                                                            <c:if test="${datos.idmaestro ne nombre.idusuario}">
+                                                                            <option value="${nombre.idusuario}">${nombre.nombre}
+                                                                            </c:if>
+                                                                        </option>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                            </c:otherwise>
+                                                        </c:choose>   
+                                                        </select>
                                                 </c:if>
                                                 <c:if test="${not empty errorband}">
                                                     <select id="idmaestro" name="idmaestro" Class="form-control" style="border-color:red;">
@@ -94,12 +93,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                         <c:forEach items="${nombres}" var="nombre">
                                                             <c:if test="${nombre.tipo eq 3}">
                                                                 <c:if test="${datos.idmaestro eq nombre.idusuario}">
-                                                                <option value="${nombre.idusuario}" selected="selected">${nombre.nombre}
-                                                                </c:if>
-                                                                <c:if test="${datos.idmaestro ne nombre.idusuario}">
-                                                                <option value="${nombre.idusuario}">${nombre.nombre}
-                                                                </c:if>
-                                                            </option>
+                                                                    <option value="${nombre.idusuario}" selected="selected">${nombre.nombre}
+                                                                    </c:if>
+                                                                    <c:if test="${datos.idmaestro ne nombre.idusuario}">
+                                                                    <option value="${nombre.idusuario}">${nombre.nombre}
+                                                                    </c:if>
+                                                                </option>
                                                             </c:if>
                                                         </c:forEach>
                                                     </select>
@@ -107,36 +106,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                                <form:label path="idservicio">Servicio Social:</form:label>
-                                                <c:set var="errorband"><form:errors path="idservicio"/></c:set>
+                                                <form:label path="idEstudiante">Servicio Social:</form:label>
+                                                <c:set var="errorband"><form:errors path="idEstudiante"/></c:set>
                                                 <c:if test="${empty errorband}">
-                                                    <select id="idservicio" name="idservicio" Class="form-control">
+                                                    <select class="form-control" path="idEstudiante">
                                                         <option value="0">Seleccion...</option>
                                                         <c:forEach items="${nombres}" var="nombre">
-                                                            <c:if test="${nombre.tipo eq 4}">
-                                                                <c:if test="${datos.idservicio eq nombre.idusuario}">
-                                                                <option value="${nombre.idusuario}" selected="selected">${nombre.nombre}
-                                                                </c:if>
-                                                                <c:if test="${datos.idservicio ne nombre.idusuario}">
-                                                                <option value="${nombre.idusuario}">${nombre.nombre}
-                                                                </c:if>
-                                                            </option>
+                                                            <c:if test="${nombre.tipo eq 5}">
+                                                                <c:if test="${datos.idEstudiante eq nombre.idusuario}">
+                                                                    <option value="${nombre.idusuario}" selected="selected">${nombre.nombre}
+                                                                    </c:if>
+                                                                    <c:if test="${datos.idEstudiante ne nombre.idusuario}">
+                                                                    <option value="${nombre.idusuario}">${nombre.nombre}
+                                                                    </c:if>
+                                                                </option>
                                                             </c:if>
                                                         </c:forEach>
                                                     </select>
                                                 </c:if>
                                                 <c:if test="${not empty errorband}">
-                                                    <select id="idservicio" name="idservicio" Class="form-control" style="border-color:red;">
+                                                    <select id="idEstudiante" name="idEstudiante" Class="form-control" style="border-color:red;">
                                                         <option value="0">Seleccion...</option>
                                                         <c:forEach items="${nombres}" var="nombre">
-                                                            <c:if test="${nombre.tipo eq 4}">
-                                                                <c:if test="${datos.idservicio eq nombre.idusuario}">
-                                                                <option value="${nombre.idusuario}" selected="selected">${nombre.nombre}
-                                                                </c:if>
-                                                                <c:if test="${datos.idservicio ne nombre.idusuario}">
-                                                                <option value="${nombre.idusuario}">${nombre.nombre}
-                                                                </c:if>
-                                                            </option>
+                                                            <c:if test="${nombre.tipo eq 5}">
+                                                                <c:if test="${datos.idEstudiante eq nombre.idusuario}">
+                                                                    <option value="${nombre.idusuario}" selected="selected">${nombre.nombre}
+                                                                    </c:if>
+                                                                    <c:if test="${datos.idEstudiante ne nombre.idusuario}">
+                                                                    <option value="${nombre.idusuario}">${nombre.nombre}
+                                                                    </c:if>
+                                                                </option>
                                                             </c:if>
                                                         </c:forEach>
                                                     </select>

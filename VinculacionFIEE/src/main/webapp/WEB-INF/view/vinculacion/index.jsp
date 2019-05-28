@@ -78,7 +78,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <td> <c:out value="${dato.user}"/></td>
                                                     <td>
                                                         <a href="editar?id=${dato.idUsuario}" class="btn btn-warning">Editar</a>
-                                                        <a href="borrar?id=${dato.idUsuario}" class="btn btn-danger">Eliminar</a>
+                                                        <c:if test="${dato.estado eq 1}">
+                                                            <a href="borrar?id=${dato.idUsuario}" class="btn btn-danger">Dar de baja</a>
+                                                        </c:if> 
+                                                        <c:if test="${dato.estado eq 2}">
+                                                            <a href="borrar?id=${dato.idUsuario}" class="btn btn-success">Dar de alta</a>
+                                                        </c:if> 
                                                     </td>
                                                 </tr>
                                             </c:forEach>

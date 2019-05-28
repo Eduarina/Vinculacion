@@ -66,7 +66,7 @@ public class encargadoController {
             path = "/dist/img/avatar2.png";
         }
         String sql = "insert into tb_usuarios(nombre, user, password, tipo, sexo, path, estado) values (?,?,?,?,?,?,?)";
-        this.jdbcTemplate.update(sql, e.getNombre(), e.getUsuario(), e.getPass(), 3, e.getSexo(), path, 1);
+        this.jdbcTemplate.update(sql, e.getNombre(), e.getUsuario(), e.getPass(), 4, e.getSexo(), path, 1);
 
         sql = "select idUsuario from last_ID";
         Object[] parameters = new Object[]{};
@@ -96,12 +96,25 @@ public class encargadoController {
         //this.jdbcTemplate.update(sql, v.getNombre(), v.getUsuario(),v.getCorreo());
         return new ModelAndView("redirect:/usuariosE");
     }
-    @RequestMapping(value = "/borrarUsuarioE")
+    @RequestMapping(value = "/borrar")
     public ModelAndView borrar( HttpServletRequest request)
     {
-        id=Integer.parseInt(request.getParameter("id"));
-        String sql = "delete from encargado where idencargado="+id;
+        id = Integer.parseInt(request.getParameter("id"));
+        String sql = "select idUsuario from tb_encargados where idEncargado =" + id;
+        Object[] parameters = new Object[]{};
+        int idUsuario = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+        sql = "select Estado from tb_usuarios where idUsuario =" + idUsuario;
+        int estado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+        if(estado == 1){
+           sql = "update tb_usuarios set Estado = 2 where idUsuario=" + idUsuario;
+           this.jdbcTemplate.update(sql);
+           sql = "update tb_encargados set Estado = 2 where idEncargado =" + id;
+        }else{
+            sql = "update tb_usuarios set Estado = 1 where idUsuario=" + idUsuario;
+            this.jdbcTemplate.update(sql);
+            sql = "update tb_encargados set Estado = 1 where idEncargado =" + id;
+        }
         this.jdbcTemplate.update(sql);
-        return new ModelAndView("redirect:/usuariosE");
+        return new ModelAndView("redirect:lista");
     }
 }

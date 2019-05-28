@@ -52,10 +52,10 @@
                                                     <td>
                                                         <a href="editar?id=${dato.ID}" class="btn btn-warning">Editar</a>
                                                         <c:if test="${dato.estado eq 1}">
-                                                            <a href="borrarUsuarioM?id=${dato.ID}" class="btn btn-danger">Dar de baja</a>
+                                                            <a href="borrar?id=${dato.ID}" class="btn btn-danger">Dar de baja</a>
                                                         </c:if> 
                                                         <c:if test="${dato.estado eq 2}">
-                                                            <a href="borrarUsuarioM?id=${dato.ID}" class="btn btn-success">Dar de alta</a>
+                                                            <a href="borrar?id=${dato.ID}" class="btn btn-success">Dar de alta</a>
                                                         </c:if> 
                                                     </td>
                                                 </tr>

@@ -18,46 +18,23 @@ public class Usuario {
     private int tipo;
     private String sexo;
     private String path;
+    private int idestudiante;
+    private String matricula;
+    private String correo;
+    private int carrera;
+    private String celular;
+    private String telefono;
+    private int semestre;
+    private int estado;
+    
     
     public Usuario() {
-    }
-
-    public Usuario(String nombre, String user, String password, String password2, String sexo) {
-        this.nombre = nombre;
-        this.user = user;
-        this.password = password;
-        this.password2 = password2;
-        this.sexo = sexo;
-    }
-
-    public Usuario(String nombre, String user, int tipo) {
-        this.nombre = nombre;
-        this.user = user;
-        this.tipo = tipo;
-    }
-
-
-    public Usuario(int idusuario, String nombre, String user, String password, String password2, int tipo) {
-        this.idusuario = idusuario;
-        this.nombre = nombre;
-        this.user = user;
-        this.password = password;
-        this.password2 = password2;
-        this.tipo = tipo;
     }
 
     public Usuario(String user, String password) {
         this.user = user;
         this.password = password;
     }
-
-    public Usuario(int i, String nombre, String usuario, String sexo) {
-        this.idusuario = i;
-        this.nombre = nombre;
-        this.user = usuario;
-        this.sexo = sexo;
-    }
-
 
     public int getIdusuario() {
         return idusuario;
@@ -122,5 +99,71 @@ public class Usuario {
     public void setPath(String path) {
         this.path = path;
     }
+
+    public int getIdestudiante() {
+        return idestudiante;
+    }
+
+    public void setIdestudiante(int idestudiante) {
+        this.idestudiante = idestudiante;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public int getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(int carrera) {
+        this.carrera = carrera;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public int getSemestre() {
+        return semestre;
+    }
+
+    public void setSemestre(int semestre) {
+        this.semestre = semestre;
+    }
+
+    
     
 }

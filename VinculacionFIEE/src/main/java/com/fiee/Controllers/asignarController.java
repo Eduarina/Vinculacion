@@ -5,8 +5,7 @@
  */
 package com.fiee.Controllers;
 
-import com.fiee.Models.Asignar1;
-import com.fiee.Models.Asignar1Validator;
+import com.fiee.Models.Asignacion;
 import com.fiee.Models.Maestro;
 import com.fiee.Models.Usuario;
 import java.sql.ResultSet;
@@ -41,13 +40,13 @@ public class asignarController {
     private JdbcTemplate jdbcTemplate;
     int id;
     List lista;
-    private Asignar1Validator asignar1Validator;
+    
 
     public asignarController() //Constructor de la clase
     {
         conectionClass con = new conectionClass();
         this.jdbcTemplate = new JdbcTemplate(con.conectar());
-        this.asignar1Validator = new Asignar1Validator();
+        //this.asignar1Validator = new AsignacionValidator();
     }
 
     //@RequestMapping(value="/usuariosV") //Este es el nombre con el que se accede desde el navegador
@@ -58,18 +57,11 @@ public class asignarController {
             String sql;
             ModelAndView mav = new ModelAndView();
             id = (int) session.getAttribute("id");
-            int tipo = (int) session.getAttribute("tipo");
-            if (tipo == 1 || tipo == 2) {
-                sql = "select * from maestro_servicio";
+                sql = "select * from vw_numEstudiantes_maestros";
                 lista = this.jdbcTemplate.queryForList(sql);
                 mav.addObject("datos", lista);
                 mav.setViewName("asignar/indexA");  // Este es el nombre del archivo vista .jsp
-                sql = "select * from usuario";
-                List lista1 = this.jdbcTemplate.queryForList(sql);
-                model.addAttribute("nombres", lista1);
                 return mav;
-            }
-            return new ModelAndView("redirect:/home");
         } catch (Exception e) {
             return new ModelAndView("redirect:/login/login");
         }
@@ -85,9 +77,9 @@ public class asignarController {
             id = (int) session.getAttribute("id");
             int tipo = (int) session.getAttribute("tipo");
             if (tipo == 1 || tipo == 2) {
-                mav.addObject("datos", new Asignar1());
+                mav.addObject("datos", new Asignacion());
                 mav.setViewName("asignar/insertarA");
-                sql = "SELECT * FROM usuario WHERE idusuario NOT IN (SELECT idservicio FROM maestro_servicio) ORDER BY nombre";
+                sql = "SELECT * FROM tb_usuarios where (tipo = 3 OR tipo = 5) and idUsuario NOT IN (SELECT idEstudiante from tb_asignacion)";
                 lista = this.jdbcTemplate.queryForList(sql);
                 model.addAttribute("nombres", lista);
                 return mav;
@@ -101,22 +93,12 @@ public class asignarController {
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
     @PostMapping(value = "/insertar")
     public ModelAndView insertar(
-            @ModelAttribute("datos") @Valid Asignar1 u, BindingResult result, Model model
+            @ModelAttribute("datos") @Valid Asignacion u, BindingResult result, Model model
     ) {
-        this.asignar1Validator.validate(u, result);
-        if (result.hasErrors()) {
-            ModelAndView mav = new ModelAndView();
-            mav.addObject("datos", u);
-            mav.setViewName("asignar/insertarA");
-            String sql = "select * from usuario";
-            lista = this.jdbcTemplate.queryForList(sql);
-            model.addAttribute("nombres", lista);
-            return mav;
-        } else {
-            String sql = "insert into maestro_servicio (idmaestro, idservicio) values (?,?)";
-            this.jdbcTemplate.update(sql, u.getIdmaestro(), u.getIdservicio());
-            return new ModelAndView("redirect:/asignacion/lista");
-        }
+        //this.asignar1Validator.validate(u, result);
+        String sql = "insert into tb_asignacion (idmaestro, idestudiante, estado) values (?,?,?)";
+        this.jdbcTemplate.update(sql, u.getIdmaestro(), u.getIdEstudiante(),1);
+        return new ModelAndView("redirect:/asignacion/insertar");
     }
 
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.GET)
@@ -134,7 +116,7 @@ public class asignarController {
                 int idmaestro = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
                 sql = "select idservicio from maestro_servicio where idtabla1=" + idtabla;
                 int idservicio = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-                mav.addObject("datos", new Asignar1(idtabla, idmaestro, idservicio));
+                mav.addObject("datos", new Asignacion());
                 mav.setViewName("asignar/editarA");
                 sql = "select * from usuario";
                 lista = this.jdbcTemplate.queryForList(sql);
@@ -150,9 +132,9 @@ public class asignarController {
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
     @PostMapping(value = "/editar")
     public ModelAndView editar(
-            @ModelAttribute("datos") @Valid Asignar1 u, BindingResult result, Model model
+            @ModelAttribute("datos") @Valid Asignacion u, BindingResult result, Model model
     ) {
-        this.asignar1Validator.validate(u, result);
+        //this.asignar1Validator.validate(u, result);
         if (result.hasErrors()) {
             ModelAndView mav = new ModelAndView();
             mav.addObject("datos", u);
@@ -162,8 +144,8 @@ public class asignarController {
             model.addAttribute("nombres", lista);
             return mav;
         } else {
-            String sql = "update maestro_servicio set idmaestro=?, idservicio=? where idtabla1=" + u.getIdtabla1();
-            this.jdbcTemplate.update(sql, u.getIdmaestro(), u.getIdservicio());
+            String sql = "update maestro_servicio set idmaestro=?, idservicio=? where idtabla1=" + u.getIdAsignacion();
+            this.jdbcTemplate.update(sql, u.getIdmaestro(), u.getIdEstudiante());
             return new ModelAndView("redirect:/asignacion/lista");
         }
     }

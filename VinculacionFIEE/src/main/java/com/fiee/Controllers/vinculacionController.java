@@ -5,6 +5,7 @@ import com.fiee.Models.Vinculacion;
 import com.fiee.Models.VinculacionValidator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -60,7 +61,7 @@ public class vinculacionController {
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
     @PostMapping(value = "insertar")
     public ModelAndView insertar(
-            @ModelAttribute("vinculacion") Usuario u, BindingResult result, SessionStatus status
+            @ModelAttribute("vinculacion") Usuario u, BindingResult result, SessionStatus status, HttpServletRequest request
     ) {
         
         u.setPassword( loginController.getMD5(u.getPassword()) );
@@ -73,8 +74,19 @@ public class vinculacionController {
         }
         String sql = "insert into tb_usuarios(nombre, user, password, tipo, sexo, path, estado) values (?,?,?,?,?,?,?)";
         this.jdbcTemplate.update(sql, u.getNombre(), u.getUser(), u.getPassword(), 2, u.getSexo(), path, 1);
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 3){
+            int id = (int) session.getAttribute("id");
+            sql = "SELECT idUsurioa from last_id";
+            Object[] parameters = new Object[]{};
+            int idEstudiante = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            sql = "insert into tb_asignacion (idmaestro, idestudiante, estado) values (?,?,?)";
+            this.jdbcTemplate.update(sql, id, idEstudiante, 1);            
+        }
+        
         return new ModelAndView("redirect:/vinculacion/lista");
-        //}
+        
 
     }
 
@@ -115,8 +127,15 @@ public class vinculacionController {
     @RequestMapping(value = "/borrar")
     public ModelAndView borrar(HttpServletRequest request) {
         id = Integer.parseInt(request.getParameter("id"));
-        String sql = "delete from vinculacion where idvinculacion=" + id;
+        String sql = "select Estado from tb_usuarios where idUsuario=" + id;
+        Object[] parameters = new Object[]{};
+        int estado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+        if(estado == 1){
+           sql = "update tb_usuarios set Estado = 2 where idUsuario=" + id;
+        }else{
+            sql = "update tb_usuarios set Estado = 1 where idUsuario=" + id;
+        }
         this.jdbcTemplate.update(sql);
-        return new ModelAndView("redirect:/vinculacion/listaV");
+        return new ModelAndView("redirect:/vinculacion/lista");
     }
 }

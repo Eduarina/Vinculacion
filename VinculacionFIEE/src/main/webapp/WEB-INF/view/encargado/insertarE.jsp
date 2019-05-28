@@ -62,7 +62,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-md-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Nuevo Usuario</h3>
+                                        <h3 class="box-title">Nuevo Encargado</h3>
                                     </div>
                                     <!-- /.box-header -->
                                     <!-- form start -->

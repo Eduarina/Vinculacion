@@ -62,9 +62,10 @@
                 </ul>
             </li>
             
-            <li class="active"><a href="/VinculacionFIEE/usuarios/lista"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
             <li class="active"><a href="/VinculacionFIEE/vencimiento/lista"><i class="fa fa-calendar"></i> <span>Vencimiento de Docs</span></a></li>
-            <li class="active"><a href="/VinculacionFIEE/asignacion/lista"><i class="fa fa-user-plus"></i> <span>Asignación de Alumnos</span></a></li>
+            <c:if test="${sessionScope.tipo <= 2}">
+                <li class="active"><a href="/VinculacionFIEE/asignacion/lista"><i class="fa fa-user-plus"></i> <span>Asignación de Alumnos</span></a></li>
+            </c:if>
 <!--            <li class="treeview">
                 <a href="#"><i class="fa fa-users"></i> <span>Usuarios</span>
                     <span class="pull-right-container">

@@ -119,11 +119,24 @@ public class maestroController {
         return new ModelAndView("redirect:lista");
     }
 
-    @RequestMapping(value = "/borrarUsuarioM")
+    @RequestMapping(value = "/borrar")
     public ModelAndView borrar(HttpServletRequest request) {
         id = Integer.parseInt(request.getParameter("id"));
-        String sql = "delete from maestro where idmaestro=" + id;
+        String sql = "select idUsuario from tb_maestros where idMaestro=" + id;
+        Object[] parameters = new Object[]{};
+        int idUsuario = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+        sql = "select Estado from tb_usuarios where idUsuario =" + idUsuario;
+        int estado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+        if(estado == 1){
+           sql = "update tb_usuarios set Estado = 2 where idUsuario=" + idUsuario;
+           this.jdbcTemplate.update(sql);
+           sql = "update tb_maestros set Estado = 2 where idMaestro=" + id;
+        }else{
+            sql = "update tb_usuarios set Estado = 1 where idUsuario=" + idUsuario;
+            this.jdbcTemplate.update(sql);
+            sql = "update tb_maestros set Estado = 1 where idMaestro=" + id;
+        }
         this.jdbcTemplate.update(sql);
-        return new ModelAndView("redirect:/usuariosM");
+        return new ModelAndView("redirect: lista");
     }
 }

@@ -9,6 +9,9 @@
     <title>AdminLTE 2 | Starter</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    
     <link rel="stylesheet" href="${urlPublic}/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="${urlPublic}/bower_components/font-awesome/css/font-awesome.min.css">
@@ -26,6 +29,7 @@
     <link rel="stylesheet" href="${urlPublic}/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <!-- Bootstrap time Picker -->
     <link rel="stylesheet" href="${urlPublic}/plugins/timepicker/bootstrap-timepicker.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -51,4 +55,9 @@
             background: transparent !important;
         }
     </style>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
 </head>

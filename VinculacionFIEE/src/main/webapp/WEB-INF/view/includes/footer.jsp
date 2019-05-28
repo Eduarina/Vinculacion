@@ -18,8 +18,9 @@
 
     <strong>Copyright &copy; <%=currentDate%> <a href="#">Company</a>.</strong> All rights reserved.
 </footer>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <script src="${urlPublic}/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="${urlPublic}/bower_components/alertify.js/alrtify.min.js"></script>
 <script src="${urlPublic}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="${urlPublic}/dist/js/adminlte.min.js"></script>
 <script src="${urlPublic}/plugins/input-mask/jquery.inputmask.js"></script>

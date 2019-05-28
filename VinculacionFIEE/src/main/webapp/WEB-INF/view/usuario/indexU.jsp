@@ -72,38 +72,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <thead>
                                             <tr>
                                                 <!--                                                <th>Id</th>-->
+                                                <th>Matricula</th>
                                                 <th>Nombre</th>
-                                                <th>Usuario</th>
-                                                <th>Tipo</th>
+                                                <th>Carrera</th>
+                                                <th>Celular</th>
+                                                <th>Correo</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <c:forEach items="${datos}" var="dato">
                                                 <tr>
-<!--                                                    <td> <c:out value="${dato.idusuario}"/></td>-->
-                                                    <td> <c:out value="${dato.nombre}"/></td>
-                                                    <td> <c:out value="${dato.user}"/></td>
-                                                    <td> 
-                                                        <c:if test="${dato.tipo eq 1}">
-                                                            <c:out value="Administrador"/>
-                                                        </c:if>
-                                                        <c:if test="${dato.tipo eq 2}">
-                                                            <c:out value="Vinculacion"/>
-                                                        </c:if>
-                                                        <c:if test="${dato.tipo eq 3}">
-                                                            <c:out value="Maestro"/>
-                                                        </c:if>
-                                                        <c:if test="${dato.tipo eq 4}">
-                                                            <c:out value="Servicio"/>
-                                                        </c:if>
-                                                        <c:if test="${dato.tipo eq 5}">
-                                                            <c:out value="Encargado"/>
-                                                        </c:if>
-                                                    </td>
+                                                    <td> <c:out value="${dato.Matricula}"/></td>
+                                                    <td> <c:out value="${dato.Nombre}"/></td>
+                                                    <td> <c:out value="${dato.Carrera}"/></td>
+                                                    <td> <c:out value="${dato.Celular}"/></td>
+                                                    <td> <c:out value="${dato.Correo}"/></td>
                                                     <td>
-                                                        <a href="editar?id=${dato.idusuario}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
-                                                        <a href="borrar?id=${dato.idusuario}" class="btn btn-danger" onclick="return confirm('Eliminar este registro podria causar inconsistencias en el sistema. ¿Estas seguro que deseas eliminar el registro?')"><i class="fa fa-trash"></i> Eliminar</a>
+                                                        <a href="editar?id=${dato.ID}" class="btn btn-warning">Editar</a>
+                                                        <c:if test="${dato.estado eq 1}">
+                                                            <a href="borrarUsuarioM?id=${dato.ID}" class="btn btn-danger">Dar de baja</a>
+                                                        </c:if> 
+                                                        <c:if test="${dato.estado eq 2}">
+                                                            <a href="borrarUsuarioM?id=${dato.ID}" class="btn btn-success">Dar de alta</a>
+                                                        </c:if> 
                                                     </td>
                                                 </tr>
                                             </c:forEach>
