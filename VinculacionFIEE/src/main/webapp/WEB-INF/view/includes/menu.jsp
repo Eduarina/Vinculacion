@@ -47,7 +47,7 @@
                         <li class="user-body">
                             <div class="row">
                                 <div class="col-xs-6 text-center">
-                                    <a href="#"><i class="fa fa-upload"></i> Documentos</a>
+                                    <a href="/VinculacionFIEE/documentos/lista"><i class="fa fa-upload"></i> Documentos</a>
                                 </div>
                                 <div class="col-xs-6 text-center">
                                     <a href="/VinculacionFIEE/login/perfil"><i class="fa fa-user"></i> Perfil</a>

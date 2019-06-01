@@ -1,6 +1,7 @@
 package com.fiee.Controllers;
 
 import com.fiee.Models.Fichero;
+import com.fiee.Models.FileModel;
 import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletContext;
@@ -38,10 +39,9 @@ public class indexController {
         try {
             HttpSession session = request.getSession();
             int id = (int) session.getAttribute("id");
-            Fichero file = new Fichero();
-            ModelAndView mav = new ModelAndView("fileUpload","command", file);
-            mav.setViewName("home");  // Este es el nombre del archivo vista .jsp
-            return mav;
+            FileModel file = new FileModel();
+            ModelAndView modelAndView = new ModelAndView("home", "command", file);
+            return modelAndView;
         } catch (Exception e) {
             return new ModelAndView("redirect:/login/login");
         }

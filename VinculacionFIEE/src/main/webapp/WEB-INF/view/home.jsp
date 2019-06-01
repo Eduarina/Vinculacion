@@ -38,26 +38,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <jsp:include page="includes/lateral.jsp"></jsp:include>
 
-            <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                        Sistema de Gestión de Servicio Social
-<!--                        <small>Contenido</small>-->
-                    </h1>
-<!--                    <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Inicio</li>
-                    </ol>-->
-                </section>
+                <!-- Content Wrapper. Contains page content -->
+                <div class="content-wrapper">
+                    <!-- Content Header (Page header) -->
+                    <section class="content-header">
+                        <h1>
+                            Sistema de Gestión de Servicio Social
+                            <!--                        <small>Contenido</small>-->
+                        </h1>
+                        <!--                    <ol class="breadcrumb">
+                                                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                                                <li class="active">Inicio</li>
+                                            </ol>-->
+                    </section>
 
-                <!-- Main content -->
-                <section class="content container-fluid">
+                    <!-- Main content -->
+                    <section class="content container-fluid">
 
-                    <form:form method="POST" modelAttribute="fileUpload" enctype="multipart/form-data">
-                        <input type="file" name="file">
-                        <input type="submit" value="Upload">
+                    <form:form method = "POST" modelAttribute = "fileUpload"
+                               enctype = "multipart/form-data">
+                        Please select a file to upload : 
+                        <input type = "file" name = "file" />
+                        <input type = "submit" value = "upload" />
                     </form:form>
 
                 </section>

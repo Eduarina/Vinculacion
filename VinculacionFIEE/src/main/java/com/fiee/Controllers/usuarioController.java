@@ -8,14 +8,18 @@ package com.fiee.Controllers;
 import com.fiee.Models.MaestroTable;
 import com.fiee.Models.Usuario;
 import com.fiee.Models.UsuarioValidator;
+import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -40,9 +44,13 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/alumnos")
 public class usuarioController {
 
+    @Autowired
+    ServletContext context; 
+    
     private JdbcTemplate jdbcTemplate;
     int id;
     List lista;
+    ArrayList<String> documentos;
     private UsuarioValidator usuarioValidator;
 
     public usuarioController() //Constructor de la clase
@@ -51,8 +59,7 @@ public class usuarioController {
         this.jdbcTemplate = new JdbcTemplate(con.conectar());
         this.usuarioValidator = new UsuarioValidator();
     }
-
-    //@RequestMapping(value="/usuariosV") //Este es el nombre con el que se accede desde el navegador
+    
     @GetMapping(value = "/lista")
     public ModelAndView lista(HttpServletRequest request) {
         try {
@@ -118,12 +125,29 @@ public class usuarioController {
         String sql = "insert into tb_usuarios(nombre, user, password, tipo, sexo, path, estado) values (?,?,?,?,?,?,?)";
         this.jdbcTemplate.update(sql, u.getNombre(), u.getUser(), u.getPassword(), 5, u.getSexo(), path, 1);
         
+        String uploadPath = context.getRealPath("") + File.separator + u.getNombre();
+        File file = new File(uploadPath);
+        file.mkdir();
+        
         sql = "select idUsuario from last_ID";
         Object[] parameters = new Object[]{};
         int lastID = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
 
         sql = "insert into tb_estudiantes (matricula, correo, carrera, semestre, celular, telefono, Estado, idUsuario) values (?,?,?,?,?,?,?,?)";
         this.jdbcTemplate.update(sql, u.getMatricula(), u.getCorreo(), u.getCarrera(), u.getSemestre(), u.getCelular(), u.getTelefono() , 1, lastID);
+        
+        sql = "select idEstudiate from last_ID_Estudiante";
+        lastID = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+        sql = "select idDocumento from ctg_documentos";
+        List<String> documentos = jdbcTemplate.queryForList(sql, String.class);
+        try{
+            for(int i = 0; i < documentos.size(); i++){
+                int idDocumento = Integer.parseInt((String) documentos.get(i));
+                sql = "INSERT INTO tb_documentacion_alumno (idDocumento,idEstudiante,Estado) VALUES (?,?,?)";
+                this.jdbcTemplate.update(sql, idDocumento, lastID, 3);
+            }
+        }catch(Exception e){}
+        
         
         return new ModelAndView("redirect:/alumnos/lista");
         

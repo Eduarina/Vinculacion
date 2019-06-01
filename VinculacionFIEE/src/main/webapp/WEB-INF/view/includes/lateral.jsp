@@ -41,7 +41,7 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Menú</li>
-            
+            <c:if test="${ sessionScope.tipo <= 3 }">
             <li class="treeview">
                 <a href="#"><i class="fa fa-files-o"></i> <span>Registros</span>
                     <span class="pull-right-container">
@@ -61,7 +61,7 @@
                     </c:if>
                 </ul>
             </li>
-            
+            </c:if>
             <li class="active"><a href="/VinculacionFIEE/vencimiento/lista"><i class="fa fa-calendar"></i> <span>Vencimiento de Docs</span></a></li>
             <c:if test="${sessionScope.tipo <= 2}">
                 <li class="active"><a href="/VinculacionFIEE/asignacion/lista"><i class="fa fa-user-plus"></i> <span>Asignación de Alumnos</span></a></li>
