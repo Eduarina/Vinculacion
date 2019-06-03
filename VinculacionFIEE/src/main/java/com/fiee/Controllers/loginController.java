@@ -5,6 +5,7 @@
  */
 package com.fiee.Controllers;
 
+import com.fiee.Controllers.conectionClass;
 import com.fiee.Models.Encargado;
 import com.fiee.Models.EncargadoValidator;
 import com.fiee.Models.Maestro;

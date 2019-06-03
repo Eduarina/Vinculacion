@@ -47,7 +47,7 @@ public class indexController {
         }
     }
     
-    @RequestMapping(value="/fileUploadPage", method = RequestMethod.POST)
+    @RequestMapping(value="/home", method = RequestMethod.POST)
     public String fileUpload(@Validated Fichero file, BindingResult result, ModelMap model) throws IOException {
       if (result.hasErrors()) {
          System.out.println("validation errors");

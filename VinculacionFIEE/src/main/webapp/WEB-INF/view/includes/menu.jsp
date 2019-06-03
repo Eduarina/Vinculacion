@@ -38,8 +38,8 @@
                                     <c:if test="${sessionScope.tipo eq 1}">Administrador</c:if>
                                     <c:if test="${sessionScope.tipo eq 2}">Vinculación</c:if>
                                     <c:if test="${sessionScope.tipo eq 3}">Maestro</c:if>
-                                    <c:if test="${sessionScope.tipo eq 4}">Servicio</c:if>
-                                    <c:if test="${sessionScope.tipo eq 5}">Encargado</c:if>
+                                    <c:if test="${sessionScope.tipo eq 5}">Estudiante</c:if>
+                                    <c:if test="${sessionScope.tipo eq 4}">Encargado</c:if>
                                 </small>
                             </p>
                         </li>

@@ -4,6 +4,12 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <spring:url value="/resources" var="urlPublic"/>
+<%
+
+     ServletContext sc = request.getServletContext();
+     String path = sc.getRealPath("/");
+
+%>
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -67,13 +73,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <td> <c:out value="${docs.descripcion}"/></td>
                                                     <td> <c:out value="${docs.estado}"/></td>
                                                     <c:if test="${docs.numestado eq 3}">
-                                                        <td><input type = "file" name = "file" /></td>
+                                                        <form:form method = "POST" modelAttribute = "fileUpload" enctype = "multipart/form-data">
+                                                            <td><input type="hidden" name="descripcion" value="${docs.descripcion}"><input type = "file" name = "file" /></td>
+                                                        <td><input type="submit" value="Subir Archivo"></td>    
+                                                        </form:form>
                                                     </c:if>
-                                                    <c:if test="${docs.numestado eq 3}">
-                                                    <td><a>Archivo</a></td>
-                                                    </c:if>
-                                                    <c:if test="${docs.numestado eq 3}">
-                                                        <td><input type="submit" value="Subir Archivo"></td>
+                                                    <c:if test="${docs.numestado ne 3}">
+                                                    <td><a href="download/${docs.nombre}_${docs.descripcion}" donwload="${docs.descripcion}_${docs.nombre}">${docs.descripcion}</a></td>
                                                     </c:if>
                                                 </tr>
                                             </c:forEach>

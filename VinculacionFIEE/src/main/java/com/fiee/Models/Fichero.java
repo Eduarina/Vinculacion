@@ -12,7 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
  * @author hp
  */
 public class Fichero {
-   private MultipartFile file;
+    private String descripcion;
+    private MultipartFile file;
 
     public MultipartFile getFile() {
         return file;
@@ -21,5 +22,15 @@ public class Fichero {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
-   
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+ 
+    
+    
 }

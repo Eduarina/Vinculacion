@@ -13,7 +13,7 @@ public class conectionClass
         System.gc();
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setDriverClassName("com.mysql.jdbc.Driver");
-        ds.setUrl("jdbc:mysql://localhost:3306/vinculacionfiee");
+        ds.setUrl("jdbc:mysql://localhost:3306/vinculacionfiee?characterEncoding=latin1&useConfigs=maxPerformance");
         ds.setUsername("root");
         ds.setPassword("12345a");
 
