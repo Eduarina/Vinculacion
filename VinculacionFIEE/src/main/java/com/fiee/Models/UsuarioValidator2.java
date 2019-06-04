@@ -13,7 +13,7 @@ import org.springframework.validation.Validator;
  *
  * @author Anemc
  */
-public class UsuarioValidator implements Validator{
+public class UsuarioValidator2 implements Validator{
     @Override
     public boolean supports(Class<?> type) {
         return Usuario.class.isAssignableFrom(type);
@@ -24,7 +24,16 @@ public class UsuarioValidator implements Validator{
         Usuario usuario = (Usuario) target;
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nombre", 
                 "required.nombre", "El campo nombre es obligatorio");
-        
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "matricula", 
+                "required.matricula", "El campo matricula es obligatorio");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "semestre", 
+                "required.semestre", "El campo semestre es obligatorio");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "correo", 
+                "required.correo", "El campo correo es obligatorio");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "telefono", 
+                "required.telefono", "El campo telefono es obligatorio");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "celular", 
+                "required.celular", "El campo celular es obligatorio");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "user", 
                 "required.user", "El campo usuario es obligatorio");
         
@@ -35,6 +44,9 @@ public class UsuarioValidator implements Validator{
         
         if(usuario.getSexo().equals("0")){
             errors.rejectValue("sexo", "required.sexo", "Seleccione un sexo");
+        }
+        if(usuario.getCarrera()==0){
+            errors.rejectValue("carrera", "required.carrera", "Seleccione una carrera");
         }
         if(usuario.getUser().length()<6){
             errors.rejectValue("user", "required.user", "El usuario debe contener al menos 6 caracteres.");

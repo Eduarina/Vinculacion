@@ -6,8 +6,11 @@
 package com.fiee.Controllers;
 
 import com.fiee.Models.*;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -32,11 +35,13 @@ public class maestroController {
     private JdbcTemplate jdbcTemplate;
     int id;
     List lista;
+    private MaestroValidator maestroValidator;
 
     public maestroController() //Constructor de la clase
     {
         conectionClass con = new conectionClass();
         this.jdbcTemplate = new JdbcTemplate(con.conectar());
+        this.maestroValidator = new MaestroValidator();
     }
 
     @RequestMapping(value = "/lista") //Este es el nombre con el que se accede desde el navegador
@@ -61,24 +66,33 @@ public class maestroController {
     public ModelAndView insertar(
             @ModelAttribute("maestro") MaestroTable u, BindingResult result, SessionStatus status
     ) {
-        u.setPass(loginController.getMD5(u.getPass()));
-        String path;
-        if (u.getSexo().equals("H")) {
-            path = "/dist/img/user2-160x160.jpg";
+        this.maestroValidator.validate(u, result);
+        if (result.hasErrors()) {
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("maestro", u);
+            mav.setViewName("maestro/insertarM");
+            return mav;
         } else {
-            path = "/dist/img/avatar2.png";
+            u.setPass(loginController.getMD5(u.getPass()));
+            String path;
+            if (u.getSexo().equals("H")) {
+                path = "/dist/img/user2-160x160.jpg";
+            } else {
+                path = "/dist/img/avatar2.png";
+            }
+            String sql = "insert into tb_usuarios(nombre, user, password, tipo, sexo, path, estado) values (?,?,?,?,?,?,?)";
+            this.jdbcTemplate.update(sql, u.getNombre(), u.getUsuario(), u.getPass(), 3, u.getSexo(), path, 1);
+
+            sql = "select idUsuario from last_ID";
+            Object[] parameters = new Object[]{};
+            int lastID = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+
+            sql = "insert into tb_maestros (correo, Estado, idUsuario) values (?,?,?)";
+            this.jdbcTemplate.update(sql, u.getCorreo(), 1, lastID);
+
+            return new ModelAndView("redirect:/maestros/lista");
+
         }
-        String sql = "insert into tb_usuarios(nombre, user, password, tipo, sexo, path, estado) values (?,?,?,?,?,?,?)";
-        this.jdbcTemplate.update(sql, u.getNombre(), u.getUsuario(), u.getPass(), 3, u.getSexo(), path, 1);
-
-        sql = "select idUsuario from last_ID";
-        Object[] parameters = new Object[]{};
-        int lastID = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-
-        sql = "insert into tb_maestros (correo, Estado, idUsuario) values (?,?,?)";
-        this.jdbcTemplate.update(sql, u.getCorreo(), 1, lastID);
-
-        return new ModelAndView("redirect:/maestros/lista");
     }
 
     @GetMapping(value = "/editar")
@@ -96,9 +110,15 @@ public class maestroController {
         sql = "select sexo from vw_info_maestro where ID=" + idusuario;
         String sexo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
         user.setSexo(sexo);
+        sql = "select idUsuario from vw_info_maestro where ID=" + idusuario;
+        String iduser = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        sql = "select password from tb_usuarios where idusuario=" + iduser;
+        String password = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        user.setPass(password);
+        user.setPass2(password);
         sql = "select correo from vw_info_maestro where ID=" + idusuario;
         String correo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-            user.setCorreo(correo);
+        user.setCorreo(correo);
         mav.addObject("datos", user);
         mav.setViewName("maestro/editarM");
         return mav;
@@ -109,14 +129,23 @@ public class maestroController {
             @ModelAttribute("datos")
             @Valid MaestroTable mt, BindingResult result
     ) {
-        String sql = "select idUsuario from vw_info_maestro where ID = "+mt.getIdMaestro();
-        Object[] parameters = new Object[]{};
-        int idUsuario = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        sql = "update tb_usuarios set nombre=?, user =?, sexo = ? where idUsuario=" + idUsuario;
-        this.jdbcTemplate.update(sql, mt.getNombre(), mt.getUsuario(), mt.getSexo());
-        sql = "update tb_maestros set correo=? where idMaestro=" + mt.getIdMaestro();
-        this.jdbcTemplate.update(sql, mt.getCorreo());
-        return new ModelAndView("redirect:lista");
+        this.maestroValidator.validate(mt, result);
+        if (result.hasErrors()) {
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("datos", mt);
+            mav.setViewName("maestro/editarM");
+            return mav;
+        } else {
+            String sql = "select idUsuario from vw_info_maestro where ID = " + mt.getIdMaestro();
+            Object[] parameters = new Object[]{};
+            int idUsuario = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            sql = "update tb_usuarios set nombre=?, user =?, sexo = ? where idUsuario=" + idUsuario;
+            this.jdbcTemplate.update(sql, mt.getNombre(), mt.getUsuario(), mt.getSexo());
+            sql = "update tb_maestros set correo=? where idMaestro=" + mt.getIdMaestro();
+            this.jdbcTemplate.update(sql, mt.getCorreo());
+            return new ModelAndView("redirect:lista");
+        }
+
     }
 
     @RequestMapping(value = "/borrar")
@@ -127,16 +156,25 @@ public class maestroController {
         int idUsuario = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
         sql = "select Estado from tb_usuarios where idUsuario =" + idUsuario;
         int estado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        if(estado == 1){
-           sql = "update tb_usuarios set Estado = 2 where idUsuario=" + idUsuario;
-           this.jdbcTemplate.update(sql);
-           sql = "update tb_maestros set Estado = 2 where idMaestro=" + id;
-        }else{
+        if (estado == 1) {
+            sql = "update tb_usuarios set Estado = 2 where idUsuario=" + idUsuario;
+            this.jdbcTemplate.update(sql);
+            sql = "update tb_maestros set Estado = 2 where idMaestro=" + id;
+        } else {
             sql = "update tb_usuarios set Estado = 1 where idUsuario=" + idUsuario;
             this.jdbcTemplate.update(sql);
             sql = "update tb_maestros set Estado = 1 where idMaestro=" + id;
         }
         this.jdbcTemplate.update(sql);
         return new ModelAndView("redirect: lista");
+    }
+
+    //poblar select para tipo en insertar
+    @ModelAttribute("sexo")
+    public Map<String, String> listadoTipo() {
+        Map<String, String> sexo = new LinkedHashMap<>();
+        sexo.put("H", "Hombre");
+        sexo.put("M", "Mujer");
+        return sexo;
     }
 }

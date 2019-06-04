@@ -67,12 +67,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <!-- /.box-header -->
                                     <!-- form start -->
                                     <div class="box-body">
-                                        <form:form action="editar" method="POST" modelAttribute="datos">
-                                            <form:errors path="*" element="div" cssClass="alert alert-danger alert-dismissible"/>
-                                            <div class="box-body">
-                                                <form:hidden path="idMaestro"/>
-                                                <div class="form-group col-md-6">
-                                                    <form:label path="nombre">Nombre:</form:label>
+                                    <form:form action="editar" method="POST" modelAttribute="datos">
+                                        <form:errors path="*" element="div" cssClass="alert alert-danger alert-dismissible"/>
+                                        <div class="box-body">
+                                            <form:hidden path="idMaestro"/>
+                                            <form:hidden path="pass"/>
+                                            <form:hidden path="pass2"/>
+                                            <div class="form-group col-md-6">
+                                                <form:label path="nombre">Nombre:</form:label>
                                                 <c:set var="errorband"><form:errors path="nombre"/></c:set>
                                                 <c:if test="${empty errorband}">
                                                     <form:input path="nombre" autocomplete="off" type="text" cssClass="form-control" placeholder="Nombre..."  onkeyup="javascript:this.value = this.value.toUpperCase();"/>
@@ -102,9 +104,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 </c:if>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <form:label path="sexo">Tipo:</form:label>
+                                                <form:label path="sexo">Sexo: </form:label>
+                                                <c:set var="errorband"><form:errors path="sexo"/></c:set>
                                                 <c:if test="${empty errorband}">
                                                     <form:select path="sexo" cssClass="form-control">
+                                                        <form:option value="0">Seleccion...</form:option>
+                                                        <c:if test="${sexo eq 'H'}">
+                                                            <form:option value="H" selected="selected">Hombre</form:option>
+                                                        </c:if>
+                                                        <c:if test="${sexo ne 'H'}">
+                                                            <form:option value="H">Hombre</form:option>
+                                                        </c:if>
+                                                        <c:if test="${sexo eq 'M'}">
+                                                            <form:option value="M" selected="selected">Mujer</form:option>
+                                                        </c:if>
+                                                        <c:if test="${sexo ne 'M'}">
+                                                            <form:option value="M">Mujer</form:option>
+                                                        </c:if>
+                                                    </form:select>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:select path="sexo" cssClass="form-control" style="border-color:red;">
                                                         <form:option value="0">Seleccion...</form:option>
                                                         <form:option value="H">Hombre</form:option>
                                                         <form:option value="M">Mujer</form:option>

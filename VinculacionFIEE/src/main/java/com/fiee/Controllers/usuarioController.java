@@ -8,6 +8,8 @@ package com.fiee.Controllers;
 import com.fiee.Models.MaestroTable;
 import com.fiee.Models.Usuario;
 import com.fiee.Models.UsuarioValidator;
+import com.fiee.Models.UsuarioValidator2;
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,21 +47,21 @@ import org.springframework.web.servlet.ModelAndView;
 public class usuarioController {
 
     @Autowired
-    ServletContext context; 
-    
+    ServletContext context;
+
     private JdbcTemplate jdbcTemplate;
     int id;
     List lista;
     ArrayList<String> documentos;
-    private UsuarioValidator usuarioValidator;
+    private UsuarioValidator2 usuarioValidator2;
 
     public usuarioController() //Constructor de la clase
     {
         conectionClass con = new conectionClass();
         this.jdbcTemplate = new JdbcTemplate(con.conectar());
-        this.usuarioValidator = new UsuarioValidator();
+        this.usuarioValidator2 = new UsuarioValidator2();
     }
-    
+
     @GetMapping(value = "/lista")
     public ModelAndView lista(HttpServletRequest request) {
         try {
@@ -110,52 +112,64 @@ public class usuarioController {
     public ModelAndView insertar(
             @ModelAttribute("datos") @Valid Usuario u, BindingResult result, Model model
     ) {
-        Usuario dato = null;
-        //Usuario dato = this.checkuser(u.getUser());
-        if(dato == null){
-            
-            u.setPassword( loginController.getMD5(u.getPassword()) );
-        String path;
-        
-        if (u.getSexo().equals("H")) {
-            path = "/dist/img/user2-160x160.jpg";
+        this.usuarioValidator2.validate(u, result);
+        if (result.hasErrors()) {
+            ModelAndView mav = new ModelAndView();
+            String sql = "select * from ctg_carreras";
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("carrera", lista);
+            mav.addObject("datos", u);
+            mav.setViewName("usuario/insertarU");
+            return mav;
         } else {
-            path = "/dist/img/avatar2.png";
-        }
-        String sql = "insert into tb_usuarios(nombre, user, password, tipo, sexo, path, estado) values (?,?,?,?,?,?,?)";
-        this.jdbcTemplate.update(sql, u.getNombre(), u.getUser(), u.getPassword(), 5, u.getSexo(), path, 1);
-        
-        String uploadPath = context.getRealPath("") + File.separator + u.getNombre();
-        File file = new File(uploadPath);
-        file.mkdir();
-        
-        sql = "select idUsuario from last_ID";
-        Object[] parameters = new Object[]{};
-        int lastID = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            Usuario dato = null;
+            //Usuario dato = this.checkuser(u.getUser());
+            if (dato == null) {
 
-        sql = "insert into tb_estudiantes (matricula, correo, carrera, semestre, celular, telefono, Estado, idUsuario) values (?,?,?,?,?,?,?,?)";
-        this.jdbcTemplate.update(sql, u.getMatricula(), u.getCorreo(), u.getCarrera(), u.getSemestre(), u.getCelular(), u.getTelefono() , 1, lastID);
-        
-        sql = "select idEstudiate from last_ID_Estudiante";
-        lastID = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        sql = "select idDocumento from ctg_documentos";
-        List<String> documentos = jdbcTemplate.queryForList(sql, String.class);
-        try{
-            for(int i = 0; i < documentos.size(); i++){
-                int idDocumento = Integer.parseInt((String) documentos.get(i));
-                sql = "INSERT INTO tb_documentacion_alumno (idDocumento,idEstudiante,Estado) VALUES (?,?,?)";
-                this.jdbcTemplate.update(sql, idDocumento, lastID, 3);
+                u.setPassword(loginController.getMD5(u.getPassword()));
+                String path;
+
+                if (u.getSexo().equals("H")) {
+                    path = "/dist/img/user2-160x160.jpg";
+                } else {
+                    path = "/dist/img/avatar2.png";
+                }
+                String sql = "insert into tb_usuarios(nombre, user, password, tipo, sexo, path, estado) values (?,?,?,?,?,?,?)";
+                this.jdbcTemplate.update(sql, u.getNombre(), u.getUser(), u.getPassword(), 5, u.getSexo(), path, 1);
+
+                String uploadPath = context.getRealPath("") + File.separator + u.getNombre();
+                File file = new File(uploadPath);
+                file.mkdir();
+
+                sql = "select idUsuario from last_ID";
+                Object[] parameters = new Object[]{};
+                int lastID = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+
+                sql = "insert into tb_estudiantes (matricula, correo, carrera, semestre, celular, telefono, Estado, idUsuario) values (?,?,?,?,?,?,?,?)";
+                this.jdbcTemplate.update(sql, u.getMatricula(), u.getCorreo(), u.getCarrera(), u.getSemestre(), u.getCelular(), u.getTelefono(), 1, lastID);
+
+                sql = "select idEstudiate from last_ID_Estudiante";
+                lastID = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                sql = "select idDocumento from ctg_documentos";
+                List<String> documentos = jdbcTemplate.queryForList(sql, String.class);
+                try {
+                    for (int i = 0; i < documentos.size(); i++) {
+                        int idDocumento = Integer.parseInt((String) documentos.get(i));
+                        sql = "INSERT INTO tb_documentacion_alumno (idDocumento,idEstudiante,Estado) VALUES (?,?,?)";
+                        this.jdbcTemplate.update(sql, idDocumento, lastID, 3);
+                    }
+                } catch (Exception e) {
+                }
+
+                return new ModelAndView("redirect:/alumnos/lista");
+
+            } else {
+                return new ModelAndView();
             }
-        }catch(Exception e){}
-        
-        
-        return new ModelAndView("redirect:/alumnos/lista");
-        
-        }else{
-           return new ModelAndView(); 
         }
+
     }
-    
+
     @GetMapping(value = "/editar")
     public ModelAndView editar(@RequestParam("id") int idusuario, HttpServletRequest request) {
         Usuario user = new Usuario();
@@ -171,12 +185,21 @@ public class usuarioController {
         sql = "select sexo from vw_info_estudiantes where ID=" + idusuario;
         String sexo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
         user.setSexo(sexo);
+        sql = "select semestre from vw_info_estudiantes where ID=" + idusuario;
+        String semestre = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        user.setSemestre(semestre);
         sql = "select correo from vw_info_estudiantes where ID=" + idusuario;
         String correo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
         user.setCorreo(correo);
         sql = "select matricula from vw_info_estudiantes where ID=" + idusuario;
         String matricula = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
         user.setMatricula(matricula);
+        sql = "select idUsuario from vw_info_estudiantes where ID=" + idusuario;
+        String iduser = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        sql = "select password from tb_usuarios where idusuario=" + iduser;
+        String password = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        user.setPassword(password);
+        user.setPassword2(password);
         sql = "select telefono from vw_info_estudiantes where ID=" + idusuario;
         String telefono = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
         user.setTelefono(telefono);
@@ -192,23 +215,33 @@ public class usuarioController {
         mav.addObject("carrera", lista);
         mav.setViewName("usuario/editarU");
         return mav;
-    }   
-    
+    }
+
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
     @PostMapping(value = "editar")
     public ModelAndView editar(
             @ModelAttribute("datos")
             @Valid Usuario u, BindingResult result
     ) {
-        String sql = "select idUsuario from vw_info_estudiantes where ID = "+u.getIdestudiante();
-        Object[] parameters = new Object[]{};
-        int idUsuario = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        sql = "update tb_usuarios set nombre=?, user =?, sexo = ? where idUsuario=" + idUsuario;
-        this.jdbcTemplate.update(sql, u.getNombre(), u.getUser(), u.getSexo());
-        sql = "update tb_estudiantes set matricula = ?, celular = ?, telefono = ?, carrera = ?, correo=? where idEstudiate=" + u.getIdestudiante();
-        this.jdbcTemplate.update(sql, u.getMatricula(), u.getCelular(),u.getTelefono(), u.getCarrera(), u.getCorreo());
-        return new ModelAndView("redirect:lista");
-
+        this.usuarioValidator2.validate(u, result);
+        if (result.hasErrors()) {
+            ModelAndView mav = new ModelAndView();
+            String sql = "select * from ctg_carreras";
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("carrera", lista);
+            mav.addObject("datos", u);
+            mav.setViewName("usuario/editarU");
+            return mav;
+        } else {
+            String sql = "select idUsuario from vw_info_estudiantes where ID = " + u.getIdestudiante();
+            Object[] parameters = new Object[]{};
+            int idUsuario = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            sql = "update tb_usuarios set nombre=?, user =?, sexo = ? where idUsuario=" + idUsuario;
+            this.jdbcTemplate.update(sql, u.getNombre(), u.getUser(), u.getSexo());
+            sql = "update tb_estudiantes set matricula = ?, celular = ?, telefono = ?, carrera = ?, correo=?, semestre=? where idEstudiate=" + u.getIdestudiante();
+            this.jdbcTemplate.update(sql, u.getMatricula(), u.getCelular(), u.getTelefono(), u.getCarrera(), u.getCorreo(), u.getSemestre());
+            return new ModelAndView("redirect:lista");
+        }
     }
 
     @RequestMapping(value = "/borrar")
@@ -219,11 +252,11 @@ public class usuarioController {
         int idUsuario = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
         sql = "select Estado from tb_usuarios where idUsuario =" + idUsuario;
         int estado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        if(estado == 1){
-           sql = "update tb_usuarios set Estado = 2 where idUsuario=" + idUsuario;
-           this.jdbcTemplate.update(sql);
-           sql = "update tb_estudiantes set Estado = 2 where idEncargado =" + id;
-        }else{
+        if (estado == 1) {
+            sql = "update tb_usuarios set Estado = 2 where idUsuario=" + idUsuario;
+            this.jdbcTemplate.update(sql);
+            sql = "update tb_estudiantes set Estado = 2 where idEncargado =" + id;
+        } else {
             sql = "update tb_usuarios set Estado = 1 where idUsuario=" + idUsuario;
             this.jdbcTemplate.update(sql);
             sql = "update tb_estudiantes set Estado = 1 where idEncargado =" + id;
@@ -251,5 +284,14 @@ public class usuarioController {
                 return users;
             }
         });
+    }
+
+    //poblar select para tipo en insertar
+    @ModelAttribute("sexo")
+    public Map<String, String> listadoTipo() {
+        Map<String, String> sexo = new LinkedHashMap<>();
+        sexo.put("H", "Hombre");
+        sexo.put("M", "Mujer");
+        return sexo;
     }
 }

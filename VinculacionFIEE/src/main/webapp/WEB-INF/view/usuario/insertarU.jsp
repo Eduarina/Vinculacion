@@ -68,112 +68,186 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <!-- /.box-header -->
                                     <!-- form start -->
                                     <div class="box-body">
-                                        <form:form method="POST" style="font-size:16px;" action="/VinculacionFIEE/alumnos/insertar" modelAttribute="datos">
+                                    <form:form method="POST" style="font-size:16px;" action="/VinculacionFIEE/alumnos/insertar" modelAttribute="datos">
+                                        <form:errors path="*" element="div" cssClass="alert alert-danger alert-dismissible"/>
                                         <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="matricula">Matricula: </form:label>
-                                            </div>
-                                            <div class="col-sm-8" >
-                                                <form:input path="matricula" class="form-control" placeholder="Matricula" onkeydown="javascript:this.value = this.value.toUpperCase();"/>
+                                                </div>
+                                                <div class="col-sm-8" >
+                                                <c:set var="errorband"><form:errors path="matricula"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:input path="matricula" class="form-control" autocomplete="off" placeholder="Matricula" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:input path="matricula" class="form-control" autocomplete="off" placeholder="Matricula" style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
                                             </div>
                                             <br>
                                         </div>
-                                            <div class="form-group">
+                                        <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="nombre">Nombre: </form:label>
-                                            </div>
-                                            <div class="col-sm-8" >
-                                                <form:input path="nombre" class="form-control" placeholder="Nombre" onkeydown="javascript:this.value = this.value.toUpperCase();"/>
+                                                </div>
+                                                <div class="col-sm-8" >
+                                                <c:set var="errorband"><form:errors path="nombre"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:input path="nombre" class="form-control" autocomplete="off" placeholder="Nombre" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:input path="nombre" class="form-control" autocomplete="off" placeholder="Nombre" style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
                                             </div>
                                             <br>
                                         </div> 
                                         <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="carrera">Carrera:</form:label>
-                                            </div>
-                                            <div class="col-sm-8" >
-                                                <form:select path="carrera" cssClass="form-control">
-                                                    <form:option value="0">Seleccion...</form:option>
-                                                    <c:forEach items="${carrera}" var="dato">
-                                                        <form:option value="${dato.idCarrera}">${dato.descripcion}</form:option>    
-                                                    </c:forEach>
-                                                </form:select>
+                                                </div>
+                                                <div class="col-sm-8" >
+                                                <c:set var="errorband"><form:errors path="carrera"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:select path="carrera" cssClass="form-control">
+                                                        <form:option value="0">Seleccion...</form:option>
+                                                        <c:forEach items="${carrera}" var="dato">
+                                                            <form:option value="${dato.idCarrera}">${dato.descripcion}</form:option>    
+                                                        </c:forEach>
+                                                    </form:select>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:select path="carrera" cssClass="form-control" style="border-color:red;" >
+                                                        <form:option value="0">Seleccion...</form:option>
+                                                        <c:forEach items="${carrera}" var="dato">
+                                                            <form:option value="${dato.idCarrera}">${dato.descripcion}</form:option>    
+                                                        </c:forEach>
+                                                    </form:select>
+                                                </c:if>
                                             </div>
                                             <br>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="semestre">Semestre: </form:label>
-                                            </div>
-                                            <div class="col-sm-8" >
-                                                <form:input path="semestre" class="form-control" placeholder="Semestre" onkeydown="javascript:this.value = this.value.toUpperCase();"/>
+                                                </div>
+                                                <div class="col-sm-8" >
+                                                <c:set var="errorband"><form:errors path="semestre"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:input path="semestre" class="form-control" autocomplete="off" placeholder="Semestre" onkeydown="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:input path="semestre" class="form-control" autocomplete="off" placeholder="Semestre" style="border-color:red;" onkeydown="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
                                             </div>
                                             <br>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="correo">Correo: </form:label>
-                                            </div>
-                                            <div class="col-sm-8" >
-                                                <form:input path="correo" class="form-control" placeholder="Correo" onkeydown="javascript:this.value = this.value.toUpperCase();"/>
-                                            </div>
-                                            <br>
+                                                </div>
+                                                <div class="col-sm-8" >
+                                                <c:set var="errorband"><form:errors path="correo"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:input path="correo" type="email" class="form-control" autocomplete="off" placeholder="Correo" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:input path="correo" type="email" class="form-control" autocomplete="off" placeholder="Correo" style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
+                                                
+                                            </div><br>
                                         </div>
-                                            <div class="form-group">
+                                        <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="telefono">Telefono: </form:label>
-                                            </div>
-                                            <div class="col-sm-8" >
-                                                <form:input path="telefono" class="form-control" placeholder="Telefono" onkeydown="javascript:this.value = this.value.toUpperCase();"/>
-                                            </div>
-                                            <br>
+                                                </div>
+                                                <div class="col-sm-8" >
+                                                <c:set var="errorband"><form:errors path="telefono"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:input path="telefono" class="form-control" autocomplete="off" placeholder="Telefono..." onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:input path="telefono" class="form-control" autocomplete="off" placeholder="Telefono..." style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
+                                                
+                                            </div><br>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="celular">Celular: </form:label>
-                                            </div>
-                                            <div class="col-sm-8" >
-                                                <form:input path="celular" class="form-control" placeholder="Celular" onkeydown="javascript:this.value = this.value.toUpperCase();"/>
+                                                </div>
+                                                <div class="col-sm-8" >
+                                                <c:set var="errorband"><form:errors path="celular"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:input path="celular" class="form-control" autocomplete="off" placeholder="Celular" onkeydown="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:input path="celular" class="form-control" autocomplete="off" placeholder="Celular" style="border-color:red;" onkeydown="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
                                             </div>
                                             <br>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="user">Usuario:</form:label>
-                                            </div>
-                                            <div class="col-sm-8" >
-                                                <form:input path="user" class="form-control" placeholder="Usuario" onkeydown="javascript:this.value = this.value.toUpperCase();"/>
+                                                </div>
+                                                <div class="col-sm-8" >
+                                                <c:set var="errorband"><form:errors path="user"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:input path="user" class="form-control" autocomplete="off" placeholder="Usuario" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:input path="user" class="form-control" autocomplete="off" placeholder="Usuario" style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
                                             </div>
                                             <br>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="password">Contraseña: </form:label>
-                                            </div>
-                                            <div class="col-sm-8" >
-                                                <form:input path="password" type="password" autocomplete="off" required="required" class="form-control" placeholder="Contraseña"/>
+                                                </div>
+                                                <div class="col-sm-8" >
+                                                <c:set var="errorband"><form:errors path="password"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:input path="password" type="password" autocomplete="off" required="required" class="form-control" placeholder="Contraseña"/>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:input path="password" type="password" autocomplete="off" required="required" class="form-control" style="border-color:red;" placeholder="Contraseña"/>
+                                                </c:if>
                                             </div>
                                             <br>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="password2">Repetir contraseña: </form:label>
-                                            </div>
-                                            <div class="col-sm-8" >
-                                                <form:input path="password2" type="password" autocomplete="off" required="required" class="form-control" placeholder="Contraseña"/>
+                                                </div>
+                                                <div class="col-sm-8" >
+                                                <c:set var="errorband"><form:errors path="password2"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:input path="password2" type="password" autocomplete="off" required="required" class="form-control" placeholder="Contraseña"/>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:input path="password2" type="password" autocomplete="off" required="required" style="border-color:red;" class="form-control" placeholder="Contraseña"/>
+                                                </c:if>
                                             </div>
                                             <br>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="sexo">Sexo: </form:label>
-                                            </div>
-                                            <div class="col-sm-8" >
-                                                <form:select path="sexo" cssClass="form-control">
-                                                    <form:option value="0">Seleccion...</form:option>
-                                                    <form:option value="H">Hombre</form:option>
-                                                    <form:option value="H">Mujer</form:option>
-                                                </form:select>
+                                                </div>
+                                                <div class="col-sm-8" >
+                                                <c:set var="errorband"><form:errors path="sexo"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:select path="sexo" cssClass="form-control">
+                                                        <form:option value="0">Seleccion...</form:option>
+                                                        <form:options items="${sexo}"/>
+                                                    </form:select>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:select path="sexo" cssClass="form-control" style="border-color:red;">
+                                                        <form:option value="0">Seleccion...</form:option>
+                                                        <form:options items="${sexo}"/>
+                                                    </form:select>
+                                                </c:if>
                                             </div>
                                             <br>
                                         </div>
@@ -182,7 +256,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <a href="lista" class="btn btn-default">Cancelar</a>
                                         </div>
                                     </form:form>
-                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
