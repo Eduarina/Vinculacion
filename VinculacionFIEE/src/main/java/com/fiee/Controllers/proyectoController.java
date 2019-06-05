@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -24,13 +26,13 @@ public class proyectoController {
     private JdbcTemplate jdbcTemplate;
     int id, tipo;
     List lista;
-    private BitacoraValidator bitacoraValidator;
+    private ProyectoValidator proyectoValidator;
 
     public proyectoController() //Constructor de la clase
     {
         conectionClass con = new conectionClass();
         this.jdbcTemplate = new JdbcTemplate(con.conectar());
-        this.bitacoraValidator = new BitacoraValidator();
+        this.proyectoValidator = new ProyectoValidator();
     }
     
     @GetMapping(value = "/lista")
@@ -78,5 +80,81 @@ public class proyectoController {
         return new ModelAndView("redirect:lista");
     }
     
+    @GetMapping(value = "/editar")
+    public ModelAndView editar(@RequestParam("id") int id, HttpServletRequest request) {
+        Proyecto user = new Proyecto();
+        user.setId(id);
+        ModelAndView mav = new ModelAndView();
+        String sql = "select titulo from tb_proyectos where ID=" + id;
+        Object[] parameters = new Object[]{};
+        String titulo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        user.setTitulo(titulo);
+        sql = "select dependencia from tb_proyectos where ID=" + id;
+        String dependencia = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        user.setDependencia(dependencia);
+        sql = "select horario from tb_proyectos where ID=" + id;
+        String horario = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        user.setHorario(horario);
+        sql = "select fechainicio from tb_proyectos where ID=" + id;
+        String fechainicio = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        user.setFechainicio(fechainicio);
+        sql = "select fechafin from tb_proyectos where ID=" + id;
+        String fechafin = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        user.setFechafin(fechafin);
+        sql = "select objetivo from tb_proyectos where ID=" + id;
+        String objetivo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        user.setObjetivo(objetivo);
+        sql = "select actividades from tb_proyectos where ID=" + id;
+        String actividades = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        user.setActividades(actividades);
+        sql = "select ubicacion from tb_proyectos where ID=" + id;
+        String ubicacion = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        user.setUbicacion(ubicacion);
+        sql = "select tipo from tb_proyectos where ID=" + id;
+        String tipo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        user.setTipo(tipo);
+        mav.addObject("datos", user);
+        mav.setViewName("proyectos/editar");
+        return mav;
+    }
+
+    @RequestMapping(value = "/editar", method = RequestMethod.POST)
+    public ModelAndView editar(
+            @ModelAttribute("datos")
+            @Valid Proyecto v, BindingResult result
+    ) {
+        this.proyectoValidator.validate(v, result);
+        if (result.hasErrors()) {
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("datos", v);
+            mav.setViewName("proyectos/editar");
+            return mav;
+        } else {
+            String sql = "update tb_proyectos set titulo=?, dependencia =?, ubicacion = ?, horario=?, fechainicio=?, fechafin=?, objetivo=?, actividades=?, tipo=? where idProyecto=" + v.getId();
+            this.jdbcTemplate.update(sql, v.getTitulo(), v.getDependencia(), v.getUbicacion(), v.getHorario(), v.getFechainicio(), v.getFechafin(), v.getObjetivo(), v.getActividades(), v.getTipo());
+            return new ModelAndView("redirect:lista");
+        }
+    }
+
+    @RequestMapping(value = "/borrar")
+    public ModelAndView borrar(HttpServletRequest request) {
+        id = Integer.parseInt(request.getParameter("id"));
+        String sql = "select idUsuario from tb_encargados where idEncargado =" + id;
+        Object[] parameters = new Object[]{};
+        int idUsuario = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+        sql = "select Estado from tb_usuarios where idUsuario =" + idUsuario;
+        int estado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+        if (estado == 1) {
+            sql = "update tb_usuarios set Estado = 2 where idUsuario=" + idUsuario;
+            this.jdbcTemplate.update(sql);
+            sql = "update tb_encargados set Estado = 2 where idEncargado =" + id;
+        } else {
+            sql = "update tb_usuarios set Estado = 1 where idUsuario=" + idUsuario;
+            this.jdbcTemplate.update(sql);
+            sql = "update tb_encargados set Estado = 1 where idEncargado =" + id;
+        }
+        this.jdbcTemplate.update(sql);
+        return new ModelAndView("redirect:lista");
+    }
     
 }

@@ -166,25 +166,6 @@ public class usuarioController {
             } else {
                 return new ModelAndView();
             }
-<<<<<<< HEAD
-        }catch(Exception e){}
-        
-        HttpSession session = request.getSession();
-        int tipo = (int) session.getAttribute("tipo");
-        if(tipo == 3){
-            int id = (int) session.getAttribute("id");
-            sql = "SELECT idUsurio from last_id";
-            int idEstudiante = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-            sql = "insert into tb_asignacion (idmaestro, idestudiante, estado) values (?,?,?)";
-            this.jdbcTemplate.update(sql, id, idEstudiante, 1);            
-        }
-        
-        return new ModelAndView("redirect:/alumnos/lista");
-        
-        }else{
-           return new ModelAndView(); 
-=======
->>>>>>> e5f6f34ff48057e6dc8ed13d79dcee14fa7e1fb1
         }
 
     }

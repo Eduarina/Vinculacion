@@ -6,21 +6,12 @@
 package com.fiee.Controllers;
 
 import com.fiee.Models.Encargado;
-<<<<<<< HEAD
-import com.fiee.Models.MaestroTable;
-import java.io.File;
-import java.util.List;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-=======
 import com.fiee.Models.EncargadoValidator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
->>>>>>> e5f6f34ff48057e6dc8ed13d79dcee14fa7e1fb1
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -40,14 +31,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/encargados")
 public class encargadoController {
-<<<<<<< HEAD
-    
-    @Autowired
-    ServletContext context; 
-    
-=======
-
->>>>>>> e5f6f34ff48057e6dc8ed13d79dcee14fa7e1fb1
     private JdbcTemplate jdbcTemplate;
     int id;
     List lista;
@@ -82,24 +65,12 @@ public class encargadoController {
     public ModelAndView insertar(
             @ModelAttribute("nuevo") Encargado e, BindingResult result, SessionStatus status
     ) {
-<<<<<<< HEAD
-        e.setPass(loginController.getMD5(e.getPass()));
-        String path;
-        
-        String uploadPath = context.getRealPath("") + File.separator +"maestros"+ File.separator + e.getNombre();
-        File file = new File(uploadPath);
-        file.mkdir();
-        
-        if (e.getSexo().equals("H")) {
-            path = "/dist/img/user2-160x160.jpg";
-=======
         this.encargadoValidator.validate(e, result);
         if (result.hasErrors()) {
             ModelAndView mav = new ModelAndView();
             mav.addObject("nuevo", e);
             mav.setViewName("encargado/insertarE");
             return mav;
->>>>>>> e5f6f34ff48057e6dc8ed13d79dcee14fa7e1fb1
         } else {
             e.setPass(loginController.getMD5(e.getPass()));
             String path;

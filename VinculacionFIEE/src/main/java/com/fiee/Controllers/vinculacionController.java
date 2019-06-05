@@ -67,22 +67,6 @@ public class vinculacionController {
     public ModelAndView insertar(
             @ModelAttribute("usuario") Usuario u, BindingResult result, SessionStatus status, HttpServletRequest request
     ) {
-<<<<<<< HEAD
-        
-        u.setPassword( loginController.getMD5(u.getPassword()) );
-        String path;
-        
-        if ( u.getSexo().equals( "H" ) ) {
-            path = "/dist/img/user2-160x160.jpg";
-        } else {
-            path = "/dist/img/avatar2.png";
-        }
-        String sql = "insert into tb_usuarios(nombre, user, password, tipo, sexo, path, estado) values (?,?,?,?,?,?,?)";
-        this.jdbcTemplate.update(sql, u.getNombre(), u.getUser(), u.getPassword(), 2, u.getSexo(), path, 1);
-        
-        return new ModelAndView("redirect:/vinculacion/lista");
-        
-=======
         this.usuarioValidator.validate(u, result);
         if (result.hasErrors()) {
             ModelAndView mav = new ModelAndView();
@@ -114,7 +98,6 @@ public class vinculacionController {
             return new ModelAndView("redirect:/vinculacion/lista");
 
         }
->>>>>>> e5f6f34ff48057e6dc8ed13d79dcee14fa7e1fb1
 
     }
 

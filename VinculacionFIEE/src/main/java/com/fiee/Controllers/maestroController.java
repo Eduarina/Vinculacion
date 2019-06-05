@@ -6,15 +6,10 @@
 package com.fiee.Controllers;
 
 import com.fiee.Models.*;
-<<<<<<< HEAD
-import java.io.File;
-import java.util.List;
-import javax.servlet.ServletContext;
-=======
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
->>>>>>> e5f6f34ff48057e6dc8ed13d79dcee14fa7e1fb1
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -100,17 +95,9 @@ public class maestroController {
             sql = "insert into tb_maestros (correo, Estado, idUsuario) values (?,?,?)";
             this.jdbcTemplate.update(sql, u.getCorreo(), 1, lastID);
 
-<<<<<<< HEAD
-        String uploadPath = context.getRealPath("") + File.separator +"maestros"+ File.separator + u.getNombre();
-        File file = new File(uploadPath);
-        file.mkdir();
-        
-        return new ModelAndView("redirect:/maestros/lista");
-=======
             return new ModelAndView("redirect:/maestros/lista");
 
         }
->>>>>>> e5f6f34ff48057e6dc8ed13d79dcee14fa7e1fb1
     }
 
     @GetMapping(value = "/editar")
