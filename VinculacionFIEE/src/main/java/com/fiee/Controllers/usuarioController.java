@@ -108,7 +108,7 @@ public class usuarioController {
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
     @PostMapping(value = "/insertar")
     public ModelAndView insertar(
-            @ModelAttribute("datos") @Valid Usuario u, BindingResult result, Model model
+            @ModelAttribute("datos") @Valid Usuario u, BindingResult result, Model model, HttpServletRequest request
     ) {
         Usuario dato = null;
         //Usuario dato = this.checkuser(u.getUser());
@@ -148,6 +148,15 @@ public class usuarioController {
             }
         }catch(Exception e){}
         
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 3){
+            int id = (int) session.getAttribute("id");
+            sql = "SELECT idUsurio from last_id";
+            int idEstudiante = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            sql = "insert into tb_asignacion (idmaestro, idestudiante, estado) values (?,?,?)";
+            this.jdbcTemplate.update(sql, id, idEstudiante, 1);            
+        }
         
         return new ModelAndView("redirect:/alumnos/lista");
         

@@ -6,9 +6,12 @@
 package com.fiee.Controllers;
 
 import com.fiee.Models.*;
+import java.io.File;
 import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -28,6 +31,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/maestros")
 public class maestroController {
+    
+    @Autowired
+    ServletContext context; 
 
     private JdbcTemplate jdbcTemplate;
     int id;
@@ -78,6 +84,10 @@ public class maestroController {
         sql = "insert into tb_maestros (correo, Estado, idUsuario) values (?,?,?)";
         this.jdbcTemplate.update(sql, u.getCorreo(), 1, lastID);
 
+        String uploadPath = context.getRealPath("") + File.separator +"maestros"+ File.separator + u.getNombre();
+        File file = new File(uploadPath);
+        file.mkdir();
+        
         return new ModelAndView("redirect:/maestros/lista");
     }
 

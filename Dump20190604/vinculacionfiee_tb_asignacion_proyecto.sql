@@ -16,6 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `tb_asignacion_proyecto`
+--
+
+DROP TABLE IF EXISTS `tb_asignacion_proyecto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `tb_asignacion_proyecto` (
+  `idAsignacionProyecto` int(11) NOT NULL AUTO_INCREMENT,
+  `idEstudiante` int(11) DEFAULT NULL,
+  `idProyecto` int(11) DEFAULT NULL,
+  `Estado` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idAsignacionProyecto`),
+  KEY `fk_Estudiante_AsignacionProyecto_idx` (`idEstudiante`),
+  KEY `fk_Proyecto_AsignacionProyecto_idx` (`idProyecto`),
+  KEY `fk_Estado_AsignacionProyecto_idx` (`Estado`),
+  CONSTRAINT `fk_Estado_AsignacionProyecto` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
+  CONSTRAINT `fk_Estudiante_AsignacionProyecto` FOREIGN KEY (`idEstudiante`) REFERENCES `tb_estudiantes` (`idEstudiate`),
+  CONSTRAINT `fk_Proyecto_AsignacionProyecto` FOREIGN KEY (`idProyecto`) REFERENCES `tb_proyectos` (`idProyecto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `tb_asignacion_proyecto`
 --
 
@@ -33,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-02 21:32:58
+-- Dump completed on 2019-06-04 23:20:45

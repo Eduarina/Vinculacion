@@ -38,6 +38,8 @@
         $("input[name$='datepicker2']").datepicker({
             autoclose: true
         })
+        $("input[name$='fechainicio']").datepicker({ autoclose:true }); 
+        $("input[name$='fechafin']").datepicker({ autoclose:true }); 
         //Money Euro
         $('[data-mask]').inputmask()
         $('#example1').DataTable()

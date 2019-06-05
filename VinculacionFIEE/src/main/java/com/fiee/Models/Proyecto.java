@@ -11,8 +11,21 @@ package com.fiee.Models;
  */
 public class Proyecto {
     private int id;
-    private String nombre;
+    private String titulo;
+    private String dependencia;
+    private String horario;
+    private String fechainicio;
+    private String fechafin;
+    private String objetivo;
+    private String actividades;
+    private String ubicacion;
+    private int aspirantes;
+    private String tipo;
+    private int encargado;
+    private int estado;
+    private int idEstudiante;
 
+    public Proyecto() {}
 
     public int getId() {
         return id;
@@ -22,18 +35,110 @@ public class Proyecto {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public Proyecto() {
+    public String getDependencia() {
+        return dependencia;
+    }
+
+    public void setDependencia(String dependencia) {
+        this.dependencia = dependencia;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    public String getFechainicio() {
+        return fechainicio;
+    }
+
+    public void setFechainicio(String fechainicio) {
+        this.fechainicio = fechainicio;
+    }
+
+    public String getFechafin() {
+        return fechafin;
+    }
+
+    public void setFechafin(String fechafin) {
+        this.fechafin = fechafin;
+    }
+
+    public String getObjetivo() {
+        return objetivo;
+    }
+
+    public void setObjetivo(String objetivo) {
+        this.objetivo = objetivo;
+    }
+
+    public String getActividades() {
+        return actividades;
+    }
+
+    public void setActividades(String actividades) {
+        this.actividades = actividades;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public int getAspirantes() {
+        return aspirantes;
+    }
+
+    public void setAspirantes(int aspirantes) {
+        this.aspirantes = aspirantes;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public int getEncargado() {
+        return encargado;
+    }
+
+    public void setEncargado(int encargado) {
+        this.encargado = encargado;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public int getIdEstudiante() {
+        return idEstudiante;
+    }
+
+    public void setIdEstudiante(int idEstudiante) {
+        this.idEstudiante = idEstudiante;
     }
     
-    public Proyecto(String nombre) {
-        this.nombre = nombre;
-    }
+    
+
 }

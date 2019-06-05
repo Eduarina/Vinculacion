@@ -26,18 +26,6 @@
             </div>
         </div>
 
-        <!--                     search form (Optional) 
-                            <form action="#" method="get" class="sidebar-form">
-                                <div class="input-group">
-                                    <input type="text" name="q" class="form-control" placeholder="Search...">
-                                    <span class="input-group-btn">
-                                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                            </form>
-                             /.search form -->
-
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Menú</li>
@@ -62,23 +50,12 @@
                 </ul>
             </li>
             </c:if>
-            <li class="active"><a href="/VinculacionFIEE/vencimiento/lista"><i class="fa fa-calendar"></i> <span>Vencimiento de Docs</span></a></li>
             <c:if test="${sessionScope.tipo <= 2}">
+                <li class="active"><a href="/VinculacionFIEE/vencimiento/lista"><i class="fa fa-calendar"></i> <span>Vencimiento de Docs</span></a></li>
                 <li class="active"><a href="/VinculacionFIEE/asignacion/lista"><i class="fa fa-user-plus"></i> <span>Asignación de Alumnos</span></a></li>
             </c:if>
-<!--            <li class="treeview">
-                <a href="#"><i class="fa fa-users"></i> <span>Usuarios</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="/VinculacionFIEE/vinculacion/lista">Vinculacion</a></li>
-                    <li><a href="/VinculacionFIEE/usuariosE">Encargados</a></li>
-                    <li><a href="/VinculacionFIEE/usuariosS">Servicios</a></li>
-                    <li><a href="/VinculacionFIEE/usuariosM">Maestros</a></li>
-                </ul>
-            </li>-->
+            <c:if test="${sessionScope.tipo eq 5}">
+            <li class="active"><a href="/VinculacionFIEE/vencimiento/lista"><i class="fa fa-calendar"></i> <span>Vencimiento de Docs</span></a></li>
             <li class="treeview">
                 <a href="#"><i class="fa fa-files-o"></i> <span>Registros</span>
                     <span class="pull-right-container">
@@ -90,6 +67,12 @@
                     <li><a href="/VinculacionFIEE/reportes/lista"><i class="fa fa-file-text"></i>Reporte Mensual</a></li>
                 </ul>
             </li>
+            </c:if>
+            <c:if test="${sessionScope.tipo eq 4}">
+            <li class="active"><a href="/VinculacionFIEE/proyecto/lista"><i class="fa fa-calendar"></i> <span>Crear Proyecto</span></a></li>
+            <li class="active"><a href="/VinculacionFIEE/asignacion/proyectos"><i class="fa fa-calendar"></i> <span>Asignación Proyectos-Alumnos</span></a></li>
+            <li class="active"><a href="/VinculacionFIEE/bitacoras/reporte"><i class="fa fa-calendar"></i> <span>Revisar reportes</span></a></li>
+            </c:if>
         </ul>
         <!-- /.sidebar-menu -->
     </section>

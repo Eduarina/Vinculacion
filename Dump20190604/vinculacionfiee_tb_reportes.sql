@@ -16,6 +16,37 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `tb_reportes`
+--
+
+DROP TABLE IF EXISTS `tb_reportes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `tb_reportes` (
+  `idReporte` int(11) NOT NULL AUTO_INCREMENT,
+  `Num_Reporte` int(11) DEFAULT NULL,
+  `idProyecto` int(11) DEFAULT NULL,
+  `Tipo` int(11) DEFAULT NULL,
+  `Actividades` varchar(100) DEFAULT NULL,
+  `Descripcion` varchar(150) DEFAULT NULL,
+  `Problemas` varchar(100) DEFAULT NULL,
+  `Soluciones` varchar(100) DEFAULT NULL,
+  `Estado` int(11) DEFAULT NULL,
+  `Fecha` varchar(20) DEFAULT NULL,
+  `idEstudiante` int(11) DEFAULT NULL,
+  `VBo_Maestro` int(11) DEFAULT NULL,
+  `VBo_Encargado` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idReporte`),
+  KEY `fk_AsignacionProyecto_Reporte_idx` (`idProyecto`),
+  KEY `fk_Estado_Reporte_idx` (`Estado`),
+  KEY `idEstudiante` (`idEstudiante`),
+  CONSTRAINT `fk_AsignacionProyecto_Reporte` FOREIGN KEY (`idProyecto`) REFERENCES `tb_asignacion_proyecto` (`idAsignacionProyecto`),
+  CONSTRAINT `fk_Estado_Reporte` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
+  CONSTRAINT `tb_reportes_ibfk_1` FOREIGN KEY (`idEstudiante`) REFERENCES `tb_usuarios` (`idUsuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `tb_reportes`
 --
 
@@ -33,4 +64,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-02 21:32:54
+-- Dump completed on 2019-06-04 23:20:43

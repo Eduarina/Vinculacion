@@ -6,15 +6,9 @@
 package com.fiee.Controllers;
 
 import com.fiee.Controllers.conectionClass;
-import com.fiee.Models.Encargado;
-import com.fiee.Models.EncargadoValidator;
-import com.fiee.Models.Maestro;
-import com.fiee.Models.MaestroValidator;
-import com.fiee.Models.Servicio;
-import com.fiee.Models.ServicioValidator;
-import com.fiee.Models.Usuario;
-import com.fiee.Models.Vinculacion;
-import com.fiee.Models.VinculacionValidator;
+import com.fiee.Models.*;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -24,21 +18,29 @@ import java.text.ParseException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -49,6 +51,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/login")
 public class loginController {
 
+    @Autowired
+    ServletContext context; 
+    
     private JdbcTemplate jdbcTemplate;
     int id, tipo;
     List lista;
@@ -99,16 +104,6 @@ public class loginController {
         }
 
     }
-//    @GetMapping(value = "/lista")
-//    public ModelAndView lista() {
-//        ModelAndView mav = new ModelAndView();
-//        String sql = "select * from usuario";
-//        lista = this.jdbcTemplate.queryForList(sql);
-//        mav.addObject("datos", lista);
-//        mav.setViewName("usuario/indexU");  // Este es el nombre del archivo vista .jsp
-//        return mav;
-//    }
-    //@GetMapping(value = "/info")
 
     @GetMapping(value = "/perfil")
     public ModelAndView perfil(HttpServletRequest request) {
@@ -116,26 +111,31 @@ public class loginController {
             HttpSession session = request.getSession();
             String sql;
             ModelAndView mav = new ModelAndView();
+            FileModel file = new FileModel();
             id = (int) session.getAttribute("id");
             tipo = (int) session.getAttribute("tipo");
             switch (tipo) {
                 case 1:
+                    sql = "select * from tb_usuarios where idusuario=" + id;
+                    lista = this.jdbcTemplate.queryForList(sql);
                     break;
                 case 2:
-                    sql = "select * from vinculacion where idusuario=" + id;
+                    sql = "select * from tb_usuarios where idusuario=" + id;
                     lista = this.jdbcTemplate.queryForList(sql);
                     break;
                 case 3:
                     //id=Integer.parseInt(request.getParameter("id"));
-                    sql = "select * from maestro where idusuario=" + id;
+                    sql = "select * from tb_maestros where idusuario=" + id;
                     lista = this.jdbcTemplate.queryForList(sql);
+                    mav.addObject("command", file);
                     break;
                 case 4:
-                    sql = "select * from servicio where idusuario=" + id;
+                    sql = "select * from tb_encargados where idusuario=" + id;
                     lista = this.jdbcTemplate.queryForList(sql);
+                    mav.addObject("command", file);
                     break;
                 case 5:
-                    sql = "select * from encargado where idusuario=" + id;
+                    sql = "SELECT * FROM tb_estudiantes e, ctg_carreras c WHERE e.Carrera = c.idCarrera AND e.idusuario=" + id;
                     lista = this.jdbcTemplate.queryForList(sql);
                     break;
             }
@@ -154,75 +154,131 @@ public class loginController {
         return new ModelAndView("redirect:/login/login");
     }
 
+    
+    @RequestMapping(value = "/eliminarFirmaM")
+    public ModelAndView deleteFirm(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        int id = (int) session.getAttribute("id");
+        String sql = "Update tb_maestros SET Firma = '' WHERE idUsuario = "+id;
+        this.jdbcTemplate.update(sql);
+        return new ModelAndView("redirect:/login/perfil");
+    }
 
+    @RequestMapping(value = "/eliminarFirmaE")
+    public ModelAndView deleteFirmE(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        int id = (int) session.getAttribute("id");
+        String sql = "Update tb_maestros SET Firma = '' WHERE idUsuario = "+id;
+        this.jdbcTemplate.update(sql);
+        return new ModelAndView("redirect:/login/perfil");
+    }
+    
+    @RequestMapping(value = "/eliminarFirmaEs")
+    public ModelAndView deleteFirmEs(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        int id = (int) session.getAttribute("id");
+        String sql = "Update tb_estudiantes SET Firma = '' WHERE idUsuario = "+id;
+        this.jdbcTemplate.update(sql);
+        return new ModelAndView("redirect:/login/perfil");
+    }
+    
 //
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
-
-    @PostMapping(value = "/editar2")
-    public ModelAndView editar2(
-            @ModelAttribute("datos")
-            @Valid Vinculacion u, BindingResult result, HttpServletRequest request
-    ) {
-        this.vinculacionValidator.validate(u, result);
+  
+    @RequestMapping(value = "/perfil", method = RequestMethod.POST)
+    public ModelAndView fileUpload(@Validated Fichero file, BindingResult result, ModelMap model, HttpServletRequest request) throws IOException {
         if (result.hasErrors()) {
-            ModelAndView mav = new ModelAndView();
-            mav.addObject("datos", u);
-            mav.setViewName("login/editarP");
-            return mav;
+            System.out.println("validation errors");
+            return new ModelAndView("return:lista");
         } else {
             HttpSession session = request.getSession();
-            id = (int) session.getAttribute("id");
-            String sql = "update vinculacion set correo=?, carrera=? where idusuario=" + id;
-            this.jdbcTemplate.update(sql, u.getCorreo(), u.getCarrera());
+            String nombre = (String) session.getAttribute("nombre");
+            int id = (int) session.getAttribute("id");
+            MultipartFile multipartFile = file.getFile();
+            String uploadPath = context.getRealPath("/maestros") + File.separator + nombre + File.separator;
+            //Now do something with file...
+            String extension = FilenameUtils.getExtension(file.getFile().getOriginalFilename());
+            String fileName = uploadPath + "firma." + extension;
+            FileCopyUtils.copy(file.getFile().getBytes(), new File(fileName));
+            fileName =File.separator + nombre + File.separator + "firma." + extension;
+            
+            String sql = "update tb_maestros SET firma = ? WHERE idUsuario = ?";
+            this.jdbcTemplate.update(sql, fileName, id);
             return new ModelAndView("redirect:/login/perfil");
         }
-
     }
-
-    //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
-    @PostMapping(value = "/editar3")
-    public ModelAndView editar3(
-            @ModelAttribute("datos")
-            @Valid Maestro u, BindingResult result, HttpServletRequest request
-    ) {
-        this.maestroValidator.validate(u, result);
+    
+    @RequestMapping(value = "/insertarFirmaE", method = RequestMethod.POST)
+    public ModelAndView fileFirm(@Validated Fichero file, BindingResult result, ModelMap model, HttpServletRequest request) throws IOException {
         if (result.hasErrors()) {
-            ModelAndView mav = new ModelAndView();
-            mav.addObject("datos", u);
-            mav.setViewName("login/editarP");
-            return mav;
+            System.out.println("validation errors");
+            return new ModelAndView("return:lista");
         } else {
             HttpSession session = request.getSession();
-            id = (int) session.getAttribute("id");
-            String sql = "update maestro set correo=?, nombre=? where idusuario=" + id;
-            this.jdbcTemplate.update(sql, u.getCorreo(), u.getNombre());
+            String nombre = (String) session.getAttribute("nombre");
+            int id = (int) session.getAttribute("id");
+            MultipartFile multipartFile = file.getFile();
+            String uploadPath = context.getRealPath("/encargados") + File.separator + nombre + File.separator;
+            //Now do something with file...
+            String extension = FilenameUtils.getExtension(file.getFile().getOriginalFilename());
+            String fileName = uploadPath + "firma." + extension;
+            FileCopyUtils.copy(file.getFile().getBytes(), new File(fileName));
+            fileName =File.separator + nombre + File.separator + "firma." + extension;
+            
+            String sql = "update tb_encargados SET firma = ? WHERE idUsuario = ?";
+            this.jdbcTemplate.update(sql, fileName, id);
             return new ModelAndView("redirect:/login/perfil");
         }
-
     }
-
-    //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
-    @PostMapping(value = "/editar4")
-    public ModelAndView editar4(
-            @ModelAttribute("datos")
-            @Valid Servicio u, BindingResult result, HttpServletRequest request
-    ) {
-        this.servicioValidator.validate(u, result);
+    
+    @RequestMapping(value = "/insertarFirmaEs", method = RequestMethod.POST)
+    public ModelAndView alumnFirm(@Validated Fichero file, BindingResult result, ModelMap model, HttpServletRequest request) throws IOException {
         if (result.hasErrors()) {
-            ModelAndView mav = new ModelAndView();
-            mav.addObject("datos", u);
-            mav.setViewName("login/editarP");
-            return mav;
+            System.out.println("validation errors");
+            return new ModelAndView("return:lista");
         } else {
             HttpSession session = request.getSession();
-            id = (int) session.getAttribute("id");
-            String sql = "update servicio set matricula=?, creditos=?, correo=?, telefono=?, celular=?, cv=?, carrera=?, semestre=?, horario=? where idusuario=" + id;
-            this.jdbcTemplate.update(sql, u.getMatricula(), u.getCreditos(), u.getCorreo(), u.getTelefono(), u.getCelular(), u.getCv(), u.getCarrera(), u.getSemestre(), u.getHorario());
+            String nombre = (String) session.getAttribute("nombre");
+            int id = (int) session.getAttribute("id");
+            MultipartFile multipartFile = file.getFile();
+            String uploadPath = context.getRealPath("/") + File.separator + nombre + File.separator;
+            //Now do something with file...
+            String extension = FilenameUtils.getExtension(file.getFile().getOriginalFilename());
+            String fileName = uploadPath + "firma." + extension;
+            FileCopyUtils.copy(file.getFile().getBytes(), new File(fileName));
+            fileName =File.separator + nombre + File.separator + "firma." + extension;
+            
+            String sql = "update tb_estudiantes SET firma = ? WHERE idUsuario = ?";
+            this.jdbcTemplate.update(sql, fileName, id);
             return new ModelAndView("redirect:/login/perfil");
         }
-
     }
-
+    
+    @RequestMapping(value = "/photoperfil", method = RequestMethod.POST)
+    public ModelAndView photoPerfil(@Validated Fichero file, BindingResult result, ModelMap model, HttpServletRequest request) throws IOException {
+        if (result.hasErrors()) {
+            System.out.println("validation errors");
+            return new ModelAndView("return:lista");
+        } else {
+            HttpSession session = request.getSession();
+            String nombre = (String) session.getAttribute("nombre");
+            int id = (int) session.getAttribute("id");
+            MultipartFile multipartFile = file.getFile();
+            String uploadPath = context.getRealPath("/resources/dist/img") + File.separator;
+            String extension = FilenameUtils.getExtension(file.getFile().getOriginalFilename());
+            String fileName = uploadPath + file.getFile().getOriginalFilename();
+            
+            FileCopyUtils.copy(file.getFile().getBytes(), new File(fileName));
+            fileName = "/dist/img" + File.separator + file.getFile().getOriginalFilename();
+            
+            String sql = "update tb_usuarios SET path = ? WHERE idUsuario = ?";
+            this.jdbcTemplate.update(sql, fileName, id);
+            session.removeAttribute("src");
+            session.setAttribute("src",fileName);
+            return new ModelAndView("redirect:/login/perfil");
+        }
+    }
+    
     public Usuario selectuser(String user, String password) {
         final Usuario users = new Usuario();
         password = getMD5(password);

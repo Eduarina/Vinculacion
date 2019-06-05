@@ -45,52 +45,49 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Usuarios
-                        <small>Lista de Usuarios</small>
+                        Proyectos
+                        <small>Lista de Proyectos</small>
                     </h1>
-                    <!--                    <ol class="breadcrumb">
-                                            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                                            <li class="active">Inicio</li>
-                                        </ol>-->
                 </section>
 
                 <!-- Main content -->
                 <section class="content container-fluid">
 
-                    <!--------------------------
-                    | Your Page Content Here |
-                    -------------------------->
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="box box-primary">
                                 <div class="box-header with-border">
-                                    <a href="insertar" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Agregar Usuario</a>
+                                    <a href="insertar" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Agregar Proyecto</a>
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <!--                                                <th>Id</th>-->
-                                                <th>Matricula</th>
                                                 <th>Nombre</th>
-                                                <th>Carrera</th>
-                                                <th>Celular</th>
-                                                <th>Correo</th>
+                                                <th>Dependencia</th>
+                                                <th>Ubicación</th>
+                                                <th>Horario</th>
+                                                <th>Fecha Inicio</th>
+                                                <th>Fecha Fin</th>
+                                                <th>Objetivo</th>
+                                                <th>Actividades</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <c:forEach items="${datos}" var="dato">
                                                 <tr>
-                                                    <td> <c:out value="${dato.Matricula}"/></td>
-                                                    <td> <c:out value="${dato.Nombre}"/></td>
-                                                    <td> <c:out value="${dato.Carrera}"/></td>
-                                                    <td> <c:out value="${dato.Celular}"/></td>
-                                                    <td> <c:out value="${dato.Correo}"/></td>
+                                                    <td> <c:out value="${dato.Titulo}"/></td>
+                                                    <td> <c:out value="${dato.Dependencia}"/></td>
+                                                    <td> <c:out value="${dato.Ubicacion}"/></td>
+                                                    <td> <c:out value="${dato.Horario}"/></td>
+                                                    <td> <c:out value="${dato.FechaInicio}"/></td>
+                                                    <td> <c:out value="${dato.FechaFin}"/></td>
+                                                    <td> <c:out value="${dato.Objetivo}"/></td>
+                                                    <td> <c:out value="${dato.Actividades}"/></td>
                                                     <td>
-                                                        <a href="/VinculacionFIEE/documentos/ver?id=${dato.ID}" class="btn btn-primary">Ver documentacion</a>
-                                                        <a href="editar?id=${dato.ID}" class="btn btn-warning">Editar</a>
+                                                        <a href="editar?id=${dato.idProyecto}" class="btn btn-warning">Editar</a>
                                                         <c:if test="${dato.estado eq 1}">
                                                             <a href="borrarUsuarioM?id=${dato.ID}" class="btn btn-danger">Dar de baja</a>
                                                         </c:if> 

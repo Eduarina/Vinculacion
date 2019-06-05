@@ -67,23 +67,13 @@ public class vinculacionController {
         u.setPassword( loginController.getMD5(u.getPassword()) );
         String path;
         
-        if (u.getSexo() == "H") {
+        if ( u.getSexo().equals( "H" ) ) {
             path = "/dist/img/user2-160x160.jpg";
         } else {
             path = "/dist/img/avatar2.png";
         }
         String sql = "insert into tb_usuarios(nombre, user, password, tipo, sexo, path, estado) values (?,?,?,?,?,?,?)";
         this.jdbcTemplate.update(sql, u.getNombre(), u.getUser(), u.getPassword(), 2, u.getSexo(), path, 1);
-        HttpSession session = request.getSession();
-        int tipo = (int) session.getAttribute("tipo");
-        if(tipo == 3){
-            int id = (int) session.getAttribute("id");
-            sql = "SELECT idUsurioa from last_id";
-            Object[] parameters = new Object[]{};
-            int idEstudiante = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-            sql = "insert into tb_asignacion (idmaestro, idestudiante, estado) values (?,?,?)";
-            this.jdbcTemplate.update(sql, id, idEstudiante, 1);            
-        }
         
         return new ModelAndView("redirect:/vinculacion/lista");
         

@@ -16,12 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `tb_proyectos`
+-- Table structure for table `tb_postulacion`
 --
 
-LOCK TABLES `tb_proyectos` WRITE;
-/*!40000 ALTER TABLE `tb_proyectos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tb_proyectos` ENABLE KEYS */;
+DROP TABLE IF EXISTS `tb_postulacion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `tb_postulacion` (
+  `idPostulacion` int(11) NOT NULL AUTO_INCREMENT,
+  `idProyecto` int(11) DEFAULT NULL,
+  `idEstudiante` int(11) DEFAULT NULL,
+  `Estado` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idPostulacion`),
+  KEY `fk_Estudiante_Postulacion_idx` (`idEstudiante`),
+  KEY `fk_Estado_Postulacion_idx` (`Estado`),
+  KEY `fk_Proyecto_Postulacion_idx` (`idProyecto`),
+  CONSTRAINT `fk_Estado_Postulacion` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
+  CONSTRAINT `fk_Estudiante_Postulacion` FOREIGN KEY (`idEstudiante`) REFERENCES `tb_estudiantes` (`idEstudiate`),
+  CONSTRAINT `fk_Proyecto_Postulacion` FOREIGN KEY (`idProyecto`) REFERENCES `tb_proyectos` (`idProyecto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_postulacion`
+--
+
+LOCK TABLES `tb_postulacion` WRITE;
+/*!40000 ALTER TABLE `tb_postulacion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_postulacion` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -33,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-02 21:32:53
+-- Dump completed on 2019-06-04 23:20:41

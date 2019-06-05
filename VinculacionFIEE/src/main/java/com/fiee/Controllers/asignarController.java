@@ -5,9 +5,7 @@
  */
 package com.fiee.Controllers;
 
-import com.fiee.Models.Asignacion;
-import com.fiee.Models.Maestro;
-import com.fiee.Models.Usuario;
+import com.fiee.Models.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
@@ -66,6 +64,23 @@ public class asignarController {
             return new ModelAndView("redirect:/login/login");
         }
     }
+    
+    @GetMapping(value = "/proyectos")
+    public ModelAndView proyectos(Model model, HttpServletRequest request) {
+        try {
+            HttpSession session = request.getSession();
+            String sql;
+            ModelAndView mav = new ModelAndView();
+            id = (int) session.getAttribute("id");
+                sql = "select * from vw_asignacion_proyectos WHERE encargado = "+id;
+                lista = this.jdbcTemplate.queryForList(sql);
+                mav.addObject("datos", lista);
+                mav.setViewName("asignar/indexP");  // Este es el nombre del archivo vista .jsp
+                return mav;
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/login/login");
+        }
+    }
 
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.GET)
     @GetMapping(value = "/insertar")
@@ -90,6 +105,27 @@ public class asignarController {
         }
     }
 
+    @GetMapping(value = "/asignar")
+    public ModelAndView asignacion(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String sql;
+        ModelAndView mav = new ModelAndView();
+        id = (int) session.getAttribute("id");
+        sql = "SELECT idEncargado from tb_encargados where idUsuario = "+id;
+        Object []parameters = new Object[]{};
+        int idEncargado = this.jdbcTemplate.queryForObject(sql,parameters,int.class);
+        mav.addObject("datos", new Asignacion_Proyecto());
+        mav.setViewName("asignar/insertarP");
+        sql = "SELECT * FROM tb_proyectos where idEncargado = "+idEncargado;
+        lista = this.jdbcTemplate.queryForList(sql);
+        model.addAttribute("nombres", lista);
+        sql = "SELECT ID, Nombre from vw_info_estudiantes WHERE ID NOT IN (SELECT idEstudiante from tb_proyectos)";
+        lista = this.jdbcTemplate.queryForList(sql);
+        model.addAttribute("estudiantes", lista);
+        return mav;
+    }
+
+    
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
     @PostMapping(value = "/insertar")
     public ModelAndView insertar(

@@ -73,6 +73,22 @@ public class documentosController {
         response.setViewName("documentos/index");
         return response;
     }
+    
+    @GetMapping(value = "/ver")
+    public ModelAndView ver(HttpServletRequest request) {
+        int id=Integer.parseInt(request.getParameter("id"));
+        String sql = "SELECT * from vw_documentacion_alumno where Estudiante = " + id;
+        lista = jdbcTemplate.queryForList(sql);
+        sql = "Select distinct Nombre from vw_documentacion_alumno WHERE Estudiante = "+id; 
+        Object[] parameters = new Object[]{};
+        String name = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+        ModelAndView response = new ModelAndView();
+        response.addObject("datos", lista);
+        response.addObject("nombre", name);
+        response.setViewName("documentos/ver");
+        return response;
+    }
+
 
     @RequestMapping(value = "/lista", method = RequestMethod.POST)
     public ModelAndView fileUpload(@Validated Fichero file, BindingResult result, ModelMap model, HttpServletRequest request) throws IOException {

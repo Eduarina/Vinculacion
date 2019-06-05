@@ -16,6 +16,20 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `ctg_documentos`
+--
+
+DROP TABLE IF EXISTS `ctg_documentos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `ctg_documentos` (
+  `idDocumento` int(11) NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idDocumento`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `ctg_documentos`
 --
 
@@ -34,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-02 21:32:55
+-- Dump completed on 2019-06-04 23:20:46

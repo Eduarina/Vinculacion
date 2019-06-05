@@ -16,6 +16,24 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `tb_asignacion`
+--
+
+DROP TABLE IF EXISTS `tb_asignacion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `tb_asignacion` (
+  `idAsignacion` int(11) NOT NULL AUTO_INCREMENT,
+  `idMaestro` int(11) DEFAULT NULL,
+  `idEstudiante` int(11) DEFAULT NULL,
+  `Estado` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idAsignacion`),
+  KEY `fk_Estado_Asignacion_idx` (`Estado`),
+  CONSTRAINT `fk_Estado_Asignacion` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `tb_asignacion`
 --
 
@@ -33,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-02 21:32:51
+-- Dump completed on 2019-06-04 23:20:38

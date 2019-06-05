@@ -7,6 +7,7 @@ package com.fiee.Controllers;
 
 import com.fiee.Models.Bitacora;
 import com.fiee.Models.BitacoraValidator;
+import com.fiee.Models.Encargado;
 import com.fiee.Models.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -61,7 +62,7 @@ public class bitacoraController {
             tipo = (int) session.getAttribute("tipo");
             if (tipo == 3 || tipo == 4 || tipo == 5) {
                 if (tipo == 3) {
-                    sql = "select * from bitacora where idmaestro=" + id;
+                    sql = "select * from tb_reportes where tipo = 1";
                     lista = this.jdbcTemplate.queryForList(sql);
                 }
                 if (tipo == 4) {
@@ -69,17 +70,15 @@ public class bitacoraController {
                     lista = this.jdbcTemplate.queryForList(sql);
                 }
                 if (tipo == 5) {
-                    sql = "select * from bitacora where idencargado=" + id;
+                    sql = "select * from tb_reportes where idEstudiante =" + id;
                     lista = this.jdbcTemplate.queryForList(sql);
+                    sql = "select count(idProyecto) from tb_proyectos where idEstudiante = "+id;
+                    Object[] parameters = new Object[]{};
+                    int num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+                    mav.addObject("cant",num);
                 }
                 mav.addObject("bitacoras", lista);
                 mav.setViewName("bitacora/indexB");  // Este es el nombre del archivo vista .jsp
-                sql = "select * from usuario";
-                List list1 = this.jdbcTemplate.queryForList(sql);
-                model.addAttribute("usuarios", list1);
-                sql = "select * from servicio";
-                List list2 = this.jdbcTemplate.queryForList(sql);
-                model.addAttribute("servicios", list2);
                 return mav;
             }
             return new ModelAndView("redirect:/home");
@@ -89,6 +88,19 @@ public class bitacoraController {
 
     }
 
+    @GetMapping(value = "/cargar")
+    public ModelAndView cargar(HttpServletRequest request){
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("datos", new Encargado());
+        mav.setViewName("bitacora/cargar");
+        return mav;
+    }
+    
+    @PostMapping(value = "/cargar")
+    public ModelAndView cargarPost( @ModelAttribute("datos") @Valid Encargado e, BindingResult result, HttpServletRequest request, Model model ) {
+        return null;
+    }
+    
     @GetMapping(value = "/generar") //Este es el nombre con el que se accede desde el navegador
     public ModelAndView generar(HttpServletRequest request, Model model) {
         try {

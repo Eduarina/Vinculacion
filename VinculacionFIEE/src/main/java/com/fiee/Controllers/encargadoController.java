@@ -6,8 +6,11 @@
 package com.fiee.Controllers;
 import com.fiee.Models.Encargado;
 import com.fiee.Models.MaestroTable;
+import java.io.File;
 import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -25,6 +28,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/encargados")
 public class encargadoController {
+    
+    @Autowired
+    ServletContext context; 
+    
     private JdbcTemplate jdbcTemplate;
     int id;
     List lista;
@@ -60,6 +67,11 @@ public class encargadoController {
     ) {
         e.setPass(loginController.getMD5(e.getPass()));
         String path;
+        
+        String uploadPath = context.getRealPath("") + File.separator +"maestros"+ File.separator + e.getNombre();
+        File file = new File(uploadPath);
+        file.mkdir();
+        
         if (e.getSexo().equals("H")) {
             path = "/dist/img/user2-160x160.jpg";
         } else {

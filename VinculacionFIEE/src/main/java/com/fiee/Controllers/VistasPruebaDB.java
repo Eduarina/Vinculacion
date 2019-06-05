@@ -52,7 +52,7 @@ public class VistasPruebaDB {
     public ModelAndView insertarAlumno( Proyecto p)
     {
         String sql = "insert into proyecto(nombre) values (?)";
-        this.jdbcTemplate.update(sql, p.getNombre());
+        this.jdbcTemplate.update(sql, p.getTitulo());
         return new ModelAndView("redirect:/getAlumnos");
     }
     
