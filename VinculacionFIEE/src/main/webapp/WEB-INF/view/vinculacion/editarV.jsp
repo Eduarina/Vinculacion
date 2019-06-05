@@ -40,12 +40,14 @@
                                     <div class="box-header with-border">
                                         <h3 class="box-title">Editar Usuario</h3>
                                     </div>
-                                    <form:form action="editar" method="POST" modelAttribute="datos">
+                                <form:form action="editar" method="POST" modelAttribute="datos">
                                     <form:errors path="*" element="div" cssClass="alert alert-danger alert-dismissible"/>
                                     <div class="box-body">
                                         <form:hidden path="idusuario"/>
                                         <div class="form-group col-md-6">
                                             <form:label path="nombre">Nombre:</form:label>
+                                            <form:hidden path="password"/>
+                                            <form:hidden path="password2"/>
                                             <c:set var="errorband"><form:errors path="nombre"/></c:set>
                                             <c:if test="${empty errorband}">
                                                 <form:input path="nombre" autocomplete="off" type="text" cssClass="form-control" placeholder="Nombre..."  onkeyup="javascript:this.value = this.value.toUpperCase();"/>
@@ -65,10 +67,27 @@
                                             </c:if>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <form:label path="sexo">Tipo:</form:label>
-                                            <c:set var="errorband"><form:errors path="password2"/></c:set>
+                                            <form:label path="sexo">Sexo: </form:label>
+                                            <c:set var="errorband"><form:errors path="sexo"/></c:set>
                                             <c:if test="${empty errorband}">
                                                 <form:select path="sexo" cssClass="form-control">
+                                                    <form:option value="0">Seleccion...</form:option>
+                                                    <c:if test="${sexo eq 'H'}">
+                                                        <form:option value="H" selected="selected">Hombre</form:option>
+                                                    </c:if>
+                                                    <c:if test="${sexo ne 'H'}">
+                                                        <form:option value="H">Hombre</form:option>
+                                                    </c:if>
+                                                    <c:if test="${sexo eq 'M'}">
+                                                        <form:option value="M" selected="selected">Mujer</form:option>
+                                                    </c:if>
+                                                    <c:if test="${sexo ne 'M'}">
+                                                        <form:option value="M">Mujer</form:option>
+                                                    </c:if>
+                                                </form:select>
+                                            </c:if>
+                                            <c:if test="${not empty errorband}">
+                                                <form:select path="sexo" cssClass="form-control" style="border-color:red;">
                                                     <form:option value="0">Seleccion...</form:option>
                                                     <form:option value="H">Hombre</form:option>
                                                     <form:option value="M">Mujer</form:option>
@@ -81,14 +100,14 @@
                                         <a href="lista" class="btn btn-default">Cancelar</a>
                                     </div>
                                 </form:form>
-                                </div>
                             </div>
                         </div>
+                    </div>
 
-                    </section>
-                    <!-- /.content -->
-                </div>
-                <!-- /.content-wrapper -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
 
             <jsp:include page="../includes/footer.jsp"></jsp:include>
 

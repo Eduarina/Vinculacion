@@ -24,7 +24,7 @@ public class Usuario {
     private int carrera;
     private String celular;
     private String telefono;
-    private int semestre;
+    private String semestre;
     private int estado;
     
     
@@ -156,11 +156,11 @@ public class Usuario {
         this.estado = estado;
     }
 
-    public int getSemestre() {
+    public String getSemestre() {
         return semestre;
     }
 
-    public void setSemestre(int semestre) {
+    public void setSemestre(String semestre) {
         this.semestre = semestre;
     }
 

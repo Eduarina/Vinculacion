@@ -34,68 +34,102 @@
                                         <h3 class="box-title">Nuevo Usuario</h3>
                                     </div>
                                     <div class="box-body">
-                                        <form:form method="POST" style="font-size:16px;" action="/VinculacionFIEE/vinculacion/insertar" modelAttribute="usuario">
-                                            <div class="form-group">
+                                    <form:form method="POST" style="font-size:16px;" action="/VinculacionFIEE/vinculacion/insertar" modelAttribute="usuario">
+                                        <form:errors path="*" element="div" cssClass="alert alert-danger alert-dismissible"/>
+                                        
+                                        <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="nombre">Nombre: </form:label>
-                                            </div>
-                                            <div class="col-sm-8" >
-                                                <form:input path="nombre" class="form-control" placeholder="Nombre" onkeydown="javascript:this.value = this.value.toUpperCase();"/>
+                                                </div>
+                                                <div class="col-sm-8" >
+                                                <c:set var="errorband"><form:errors path="nombre"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:input path="nombre" class="form-control" autocomplete="off" placeholder="Nombre" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:input path="nombre" class="form-control" autocomplete="off" placeholder="Nombre" style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
                                             </div>
                                             <br>
-                                            </div>
-                                            <div class="form-group">
+                                        </div>
+                                        <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="user">Usuario:</form:label>
-                                            </div>
-                                            <div class="col-sm-8" >
-                                                <form:input path="user" class="form-control" placeholder="Usuario" onkeydown="javascript:this.value = this.value.toUpperCase();"/>
+                                                </div>
+                                                <div class="col-sm-8" >
+                                                <c:set var="errorband"><form:errors path="user"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:input path="user" class="form-control" autocomplete="off" placeholder="Usuario" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:input path="user" class="form-control" autocomplete="off" placeholder="Usuario" style="border-color:red;" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                                </c:if>
                                             </div>
                                             <br>
-                                            </div>
-                                            <div class="form-group">
+                                        </div>
+                                        <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="password">Contraseña: </form:label>
-                                            </div>
-                                            <div class="col-sm-8" >
-                                                <form:input path="password" type="password" autocomplete="off" required="required" class="form-control" placeholder="Contraseña"/>
+                                                </div>
+                                                <div class="col-sm-8" >
+                                                <c:set var="errorband"><form:errors path="password"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:input path="password" type="password" autocomplete="off" required="required" class="form-control" placeholder="Contraseña"/>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:input path="password" type="password" autocomplete="off" required="required" class="form-control" style="border-color:red;" placeholder="Contraseña"/>
+                                                </c:if>
                                             </div>
                                             <br>
-                                            </div>
-                                            <div class="form-group">
+                                        </div>
+                                        <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="password2">Repetir contraseña: </form:label>
-                                            </div>
-                                            <div class="col-sm-8" >
-                                                <form:input path="password2" type="password" autocomplete="off" required="required" class="form-control" placeholder="Contraseña"/>
+                                                </div>
+                                                <div class="col-sm-8" >
+                                                <c:set var="errorband"><form:errors path="password2"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:input path="password2" type="password" autocomplete="off" required="required" class="form-control" placeholder="Contraseña"/>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:input path="password2" type="password" autocomplete="off" required="required" class="form-control" style="border-color:red;" placeholder="Contraseña"/>
+                                                </c:if>
                                             </div>
                                             <br>
-                                            </div>
-                                            <div class="form-group">
+                                        </div>
+                                        <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="sexo">Sexo: </form:label>
-                                            </div>
-                                            <div class="col-sm-8" >
-                                                <form:select path="sexo" cssClass="form-control">
-                                                    <form:option value="0">Seleccion...</form:option>
-                                                    <form:option value="H">Hombre</form:option>
-                                                    <form:option value="H">Mujer</form:option>
-                                                </form:select>
+                                                </div>
+                                                <div class="col-sm-8" >
+                                                <c:set var="errorband"><form:errors path="sexo"/></c:set>
+                                                <c:if test="${empty errorband}">
+                                                    <form:select path="sexo" cssClass="form-control">
+                                                        <form:option value="0">Seleccion...</form:option>
+                                                        <form:options items="${sexo}"/>
+                                                    </form:select>
+                                                </c:if>
+                                                <c:if test="${not empty errorband}">
+                                                    <form:select path="sexo" cssClass="form-control" style="border-color:red;">
+                                                        <form:option value="0">Seleccion...</form:option>
+                                                        <form:options items="${sexo}"/>
+                                                    </form:select>
+                                                </c:if>
                                             </div>
                                             <br>
-                                            </div>
-                                            <div class="box-footer">
-                                                <button type="submit" class="btn btn-success">Aceptar</button>
-                                                <a href="lista" class="btn btn-default">Cancelar</a>
-                                            </div>
-                                        </form:form>
-                                    </div>
+                                        </div>
+                                        <div class="box-footer">
+                                            <button type="submit" class="btn btn-success">Aceptar</button>
+                                            <a href="lista" class="btn btn-default">Cancelar</a>
+                                        </div>
+                                    </form:form>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                    </section>
-                </div>
+                </section>
+            </div>
 
             <jsp:include page="../includes/footer.jsp"></jsp:include>
         </div>
