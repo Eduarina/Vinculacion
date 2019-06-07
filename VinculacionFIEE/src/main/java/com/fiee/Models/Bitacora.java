@@ -11,206 +11,127 @@ package com.fiee.Models;
  */
 public class Bitacora {
 
-    private int idbitacora;
-    private String datepicker;
-    private String dependencia;
-    private String direccion;
-    private String numero;
-    private String actividades;
-    private String descripcion;
-    private String problemas;
-    private String soluciones;
-    private String datepicker2;
-    private String observaciones;
-    private int estado;
-    private int idservicio;
-    private int idmaestro;
-    private int idencargado;
-    private int idproyecto;
+    private int idReporte;
+    private int Num_Reporte;
+    private int idProyecto;
+    private int Tipo;
+    private String Actividades;
+    private String Descripcion;
+    private String Problemas;
+    private String Soluciones;
+    private int Estado;
+    private String Fecha;
+    private int idEstudiante;
+    private int vbo_Maestro;
+    private int vbo_Encargado;
 
     public Bitacora() {
     }
 
-    public Bitacora(int idbitacora, String datepicker, String dependencia, String direccion, String numero, String actividades, String descripcion, String problemas, String soluciones, String datepicker2, String observaciones, int estado, int idservicio, int idmaestro) {
-        this.idbitacora = idbitacora;
-        this.datepicker = datepicker;
-        this.dependencia = dependencia;
-        this.direccion = direccion;
-        this.numero = numero;
-        this.actividades = actividades;
-        this.descripcion = descripcion;
-        this.problemas = problemas;
-        this.soluciones = soluciones;
-        this.datepicker2 = datepicker2;
-        this.observaciones = observaciones;
-        this.estado = estado;
-        this.idservicio = idservicio;
-        this.idmaestro = idmaestro;
+    public int getIdReporte() {
+        return idReporte;
     }
 
-    public Bitacora(int idbitacora, String datepicker, String dependencia, String direccion, String numero, String actividades, String descripcion, String problemas, String soluciones, String datepicker2, String observaciones, int estado, int idservicio, int idmaestro, int idencargado) {
-        this.idbitacora = idbitacora;
-        this.datepicker = datepicker;
-        this.dependencia = dependencia;
-        this.direccion = direccion;
-        this.numero = numero;
-        this.actividades = actividades;
-        this.descripcion = descripcion;
-        this.problemas = problemas;
-        this.soluciones = soluciones;
-        this.datepicker2 = datepicker2;
-        this.observaciones = observaciones;
-        this.estado = estado;
-        this.idservicio = idservicio;
-        this.idmaestro = idmaestro;
-        this.idencargado = idencargado;
+    public void setIdReporte(int idReporte) {
+        this.idReporte = idReporte;
     }
 
-    public Bitacora(int idbitacora, String datepicker, String dependencia, String direccion, String numero, String actividades, String descripcion, String problemas, String soluciones, String datepicker2, String observaciones, int estado, int idservicio, int idmaestro, int idencargado, int idproyecto) {
-        this.idbitacora = idbitacora;
-        this.datepicker = datepicker;
-        this.dependencia = dependencia;
-        this.direccion = direccion;
-        this.numero = numero;
-        this.actividades = actividades;
-        this.descripcion = descripcion;
-        this.problemas = problemas;
-        this.soluciones = soluciones;
-        this.datepicker2 = datepicker2;
-        this.observaciones = observaciones;
-        this.estado = estado;
-        this.idservicio = idservicio;
-        this.idmaestro = idmaestro;
-        this.idencargado = idencargado;
-        this.idproyecto = idproyecto;
+    public int getNum_Reporte() {
+        return Num_Reporte;
     }
 
-    public int getIdbitacora() {
-        return idbitacora;
+    public void setNum_Reporte(int Num_Reporte) {
+        this.Num_Reporte = Num_Reporte;
     }
 
-    public void setIdbitacora(int idbitacora) {
-        this.idbitacora = idbitacora;
+    public int getIdProyecto() {
+        return idProyecto;
     }
 
-    public String getDatepicker() {
-        return datepicker;
+    public void setIdProyecto(int idProyecto) {
+        this.idProyecto = idProyecto;
     }
 
-    public void setDatepicker(String datepicker) {
-        this.datepicker = datepicker;
+    public int getTipo() {
+        return Tipo;
     }
 
-    public String getDependencia() {
-        return dependencia;
-    }
-
-    public void setDependencia(String dependencia) {
-        this.dependencia = dependencia;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public void setTipo(int Tipo) {
+        this.Tipo = Tipo;
     }
 
     public String getActividades() {
-        return actividades;
+        return Actividades;
     }
 
-    public void setActividades(String actividades) {
-        this.actividades = actividades;
+    public void setActividades(String Actividades) {
+        this.Actividades = Actividades;
     }
 
     public String getDescripcion() {
-        return descripcion;
+        return Descripcion;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescripcion(String Descripcion) {
+        this.Descripcion = Descripcion;
     }
 
     public String getProblemas() {
-        return problemas;
+        return Problemas;
     }
 
-    public void setProblemas(String problemas) {
-        this.problemas = problemas;
+    public void setProblemas(String Problemas) {
+        this.Problemas = Problemas;
     }
 
     public String getSoluciones() {
-        return soluciones;
+        return Soluciones;
     }
 
-    public void setSoluciones(String soluciones) {
-        this.soluciones = soluciones;
-    }
-
-    public String getDatepicker2() {
-        return datepicker2;
-    }
-
-    public void setDatepicker2(String datepicker2) {
-        this.datepicker2 = datepicker2;
-    }
-
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
+    public void setSoluciones(String Soluciones) {
+        this.Soluciones = Soluciones;
     }
 
     public int getEstado() {
-        return estado;
+        return Estado;
     }
 
-    public void setEstado(int estado) {
-        this.estado = estado;
+    public void setEstado(int Estado) {
+        this.Estado = Estado;
     }
 
-    public int getIdservicio() {
-        return idservicio;
+    public String getFecha() {
+        return Fecha;
     }
 
-    public void setIdservicio(int idservicio) {
-        this.idservicio = idservicio;
+    public void setFecha(String Fecha) {
+        this.Fecha = Fecha;
     }
 
-    public int getIdmaestro() {
-        return idmaestro;
+    public int getIdEstudiante() {
+        return idEstudiante;
     }
 
-    public void setIdmaestro(int idmaestro) {
-        this.idmaestro = idmaestro;
+    public void setIdEstudiante(int idEstudiante) {
+        this.idEstudiante = idEstudiante;
     }
 
-    public int getIdencargado() {
-        return idencargado;
+    public int getVbo_Maestro() {
+        return vbo_Maestro;
     }
 
-    public void setIdencargado(int idencargado) {
-        this.idencargado = idencargado;
+    public void setVbo_Maestro(int vbo_Maestro) {
+        this.vbo_Maestro = vbo_Maestro;
     }
 
-    public int getIdproyecto() {
-        return idproyecto;
+    public int getVbo_Encargado() {
+        return vbo_Encargado;
     }
 
-    public void setIdproyecto(int idproyecto) {
-        this.idproyecto = idproyecto;
+    public void setVbo_Encargado(int vbo_Encargado) {
+        this.vbo_Encargado = vbo_Encargado;
     }
 
+    
+    
 }

@@ -57,14 +57,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <h3 class="box-title">Nueva asignación</h3>
                                     </div>
                                 <form:form action="insertar" method="POST" modelAttribute="datos">
-                                    <form:errors path="*" element="div" cssClass="alert alert-danger alert-dismissible"/>
+                                    <form:errors name="*" element="div" cssClass="alert alert-danger alert-dismissible"/>
 
                                     <div class="box-body">
                                         <div class="form-group col-md-6">
                                             <form:label path="idProyecto">Proyecto:</form:label>
-                                            <c:set var="errorband"><form:errors path="idProyecto"/></c:set>
+                                            <c:set var="errorband"><form:errors name="idProyecto"/></c:set>
                                             <c:if test="${empty errorband}">
-                                                <select id="idProyecto" name="idProyecto" Class="form-control">
+                                                <select name="idProyecto" Class="form-control">
                                                     <option value="0">Seleccion...</option>
                                                     <c:forEach items="${nombres}" var="nombre">
                                                         <option value="${nombre.idProyecto}">${nombre.titulo}</option>
@@ -72,7 +72,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 </select>
                                             </c:if>
                                             <c:if test="${not empty errorband}">
-                                                <select id="idProyecto" name="idProyecto" Class="form-control" style="border-color:red;">
+                                                <select name="idProyecto" Class="form-control" style="border-color:red;">
                                                     <option value="0">Seleccion...</option>
                                                     <c:forEach items="${nombres}" var="nombre">
                                                         <option value="${nombre.idProyecto}">${nombre.titulo}</option>
@@ -81,22 +81,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </c:if>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
+                                            <%--<form:errors name="nombre" cssClass="alert alert-danger col-md-6" />--%>
                                             <form:label path="idEstudiante">Alumno: </form:label>
-                                            <c:set var="errorband"><form:errors path="idEstudiante"/></c:set>
+                                            <c:set var="errorband"><form:errors name="idEstudiante"/></c:set>
                                             <c:if test="${empty errorband}">
-                                                <select class="form-control" path="idEstudiante">
+                                                <select class="form-control" name="idEstudiante">
                                                     <option value="0">Seleccion...</option>
                                                     <c:forEach items="${estudiantes}" var="nombre">
-                                                        <option value="${nombre.idestudiate}" selected="selected">${nombre.nombre}
+                                                        <option value="${nombre.ID}">${nombre.nombre}
                                                     </c:forEach>
                                                 </select>
                                             </c:if>
                                             <c:if test="${not empty errorband}">
-                                                <select class="form-control" path="idEstudiante" style="border-color: red;">
+                                                <select class="form-control" name="idEstudiante" style="border-color: red;">
                                                     <option value="0">Seleccion...</option>
                                                     <c:forEach items="${estudiantes}" var="nombre">
-                                                        <option value="${nombre.idestudiate}" selected="selected">${nombre.nombre}
+                                                        <option value="${nombre.ID}">${nombre.nombre}
                                                     </c:forEach>
                                                 </select>
                                             </c:if>

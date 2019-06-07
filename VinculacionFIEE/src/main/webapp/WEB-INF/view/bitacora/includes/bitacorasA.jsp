@@ -15,16 +15,9 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="box box-primary">
-                                <c:if test="${cant eq 0}">
-                                    <div class="box-header with-border">
-                                        <a href="cargar" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Cargar Proyecto</a>
-                                    </div>
-                                </c:if>
-                                <c:if test="${cant eq 1}">
                                     <div class="box-header with-border">
                                         <a href="generar" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Generar Bitácora</a>
                                     </div>
-                                </c:if>
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <table id="example1" class="table table-bordered table-striped">

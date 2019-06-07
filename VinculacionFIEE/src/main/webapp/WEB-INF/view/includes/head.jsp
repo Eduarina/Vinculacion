@@ -7,39 +7,23 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>AdminLTE 2 | Starter</title>
-    <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <link rel="stylesheet" href="${urlPublic}/plugins/timepicker/bootstrap-timepicker.min.css">
     <link rel="stylesheet" href="${urlPublic}/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="${urlPublic}/bower_components/font-awesome/css/font-awesome.min.css">
-    <!-- Ionicons -->
     <link rel="stylesheet" href="${urlPublic}/bower_components/Ionicons/css/ionicons.min.css">
-    <!-- DataTables -->
     <link rel="stylesheet" href="${urlPublic}/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-    <!-- Theme style -->
     <link rel="stylesheet" href="${urlPublic}/dist/css/AdminLTE.min.css">
-    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
-          page. However, you can choose any other skin. Make sure you
-          apply the skin class to the body tag so the changes take effect. -->
     <link rel="stylesheet" href="${urlPublic}/dist/css/skins/skin-green-light.min.css">
-    <!-- bootstrap datepicker -->
     <link rel="stylesheet" href="${urlPublic}/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-    <!-- Bootstrap time Picker -->
     <link rel="stylesheet" href="${urlPublic}/plugins/timepicker/bootstrap-timepicker.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Google Font -->
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
     <style>
         .example-modal .modal {
             position: relative;
@@ -51,6 +35,11 @@
             z-index: 1;
         }
 
+        #formatR tbody td{
+            border: 1px #000 solid;
+            padding-left: 5px;
+        }
+        
         .example-modal .modal {
             background: transparent !important;
         }

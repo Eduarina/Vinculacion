@@ -60,50 +60,72 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         -------------------------->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="box box-primary">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Nuevo</h3>
+                                <div class="box box-primary" id="reporte">
+                                    <div class="box-header" style="text-align: center;">
+                                        <h3 class="box-title">BITÁCORA DE ACTIVIDADES DE SERVICIO SOCIAL</h3>
                                     </div>
-                                    <!-- /.box-header -->
-                                    <!-- form start -->
-                                    <form action="generar" method="POST" modelAttribute="datos">
-                                    <c:if test="${not empty message}">
-                                        <div class="alert alert-danger alert-dismissible">${message}</div>
-                                    </c:if>
                                     <div class="box-body">
-                                        <div class="form-group col-md-6">
-                                            <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                            <label for="numero">Número de Bitácora:</label>
-                                            <input id="numero" name="numero" autocomplete="off" type="number" min="1" max="12" Class="form-control" placeholder="Bitácora #..."/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="idmaestro">Maestro:</label>
-                                            <c:forEach items="${datos}" var="dato">
-                                                <c:forEach items="${usuarios}" var="usuario">
-                                                    <c:if test="${dato.idmaestro eq usuario.idusuario}">
-                                                        <input id="idmaestro" name="idmaestro" disabled="true" value="${usuario.nombre}" type="text" Class="form-control" placeholder="Maestro..."/>
-                                                    </c:if>
-                                                </c:forEach>
+                                    <c:forEach items="${info}" var="info">
+                                        <table width="100%" id="formatR">
+                                            <tr>
+                                                <td><b>Alumno: </b><c:out value="${info.Nombre}" /></td>
+                                                <td><b>Matricula: </b><c:out value="${info.Matricula}" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"><b>Carrera: </b><c:out value="${info.carrera}" /></td>
+                                            </tr>
+                                            <c:forEach items="${datos}" var="pro">
+                                                <tr>
+                                                    <td colspan="2"><b>Dependencia: </b><c:out value="${pro.Dependencia}" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><b>Ubicación: </b><c:out value="${pro.Ubicacion}" /></td>
+                                                </tr>    
                                             </c:forEach>
-
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="idservicio">Servicio Social:</label>
-                                            <c:forEach items="${datos}" var="dato">
-                                                <c:forEach items="${usuarios}" var="usuario">
-                                                    <c:if test="${dato.idservicio eq usuario.idusuario}">
-                                                        <input id="idservicio" name="idservicio" disabled="true" value="${usuario.nombre}" type="text" Class="form-control" placeholder="Maestro..."/>
-                                                    </c:if>
-                                                </c:forEach>
-                                            </c:forEach>
-
-                                        </div>
-                                    </div>
-                                    <div class="box-footer">
-                                        <button type="submit" class="btn btn-success">Aceptar</button>
-                                        <a href="lista" class="btn btn-default">Cancelar</a>
-                                    </div>
-                                </form>       
+                                            <tr>
+                                                <td><b>Fecha: </b><c:out value="${fecha}" /></td>
+                                                <td id="title"><b>Bitácora: </b><c:out value="${num}" /></td>
+                                            </tr>
+                                            <form action="generar" method="POST" modelAttribute="bitacora">
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <label for="Actividades">Actividades generales: </label> <br>
+                                                            <textarea name="Actividades" rows="7" style="width: 100%; border:none;" placeholder="Aquí se redactan las actividades realizadas."></textarea>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <label for="Descripcion">Descripción de las actividades: </label> <br>
+                                                            <textarea name="Descripcion" rows="7" style="width: 100%; border:none;" placeholder="Aquí se redactan la descripción de actividades."></textarea>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <label for="Problemas">Problemas encontrados: </label> <br>
+                                                            <textarea name="Problemas" rows="7" style="width: 100%; border:none;" placeholder="Aquí se redactan los problemas que se hayan presentado."></textarea>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <label for="Soluciones">Soluciones empleadas: </label> <br>
+                                                            <textarea name="Soluciones" rows="7" style="width: 100%; border:none;" placeholder="Aquí se redactan las soluciones que se implementaron."></textarea>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </form>
+                                            <tfoot>
+                                                <tr>
+                                                    <td></td>
+                                                    <td style="padding-top: 5px; padding-left: 33%;">
+                                                        <a id="exportar" class="btn btn-success">Exportar</a>
+                                                        <a href="lista" class="btn btn-default">Cancelar</a>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </c:forEach>
+                                </div>
                             </div>
 
                         </div>
@@ -118,7 +140,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <jsp:include page="../includes/footer.jsp"></jsp:include>
 
 
-    </div>
+        <script>
+            $("#exportar").on("click", function () {
+                $("#reporte tfoot").hide();
+                html2canvas(document.getElementById("reporte"), {
+                    dpi: 400, // Set to 300 DPI
+                    scale: 1, // Adjusts your resolution
+                    onrendered: function (canvas) {
+                        var img = canvas.toDataURL("image/jpeg", 1);
+                        var doc = new jsPDF('l','mm',[297, 210]);
+                        doc.addImage(img, 'JPEG', 20, 20, 257, 210);
+                        var title = document.getElementById ( "title" ).innerText+".pdf"
+                        doc.save(title);
+                    }
+                });
+                $("#reporte tfoot").show();
+            });
+        </script>
 
-</body>
+    </body>
 </html>

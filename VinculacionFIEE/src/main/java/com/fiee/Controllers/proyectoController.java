@@ -26,13 +26,13 @@ public class proyectoController {
     private JdbcTemplate jdbcTemplate;
     int id, tipo;
     List lista;
-    private ProyectoValidator proyectoValidator;
+//    private ProyectoValidator proyectoValidator;
 
     public proyectoController() //Constructor de la clase
     {
         conectionClass con = new conectionClass();
         this.jdbcTemplate = new JdbcTemplate(con.conectar());
-        this.proyectoValidator = new ProyectoValidator();
+//        this.proyectoValidator = new ProyectoValidator();
     }
     
     @GetMapping(value = "/lista")
@@ -123,7 +123,7 @@ public class proyectoController {
             @ModelAttribute("datos")
             @Valid Proyecto v, BindingResult result
     ) {
-        this.proyectoValidator.validate(v, result);
+  //      this.proyectoValidator.validate(v, result);
         if (result.hasErrors()) {
             ModelAndView mav = new ModelAndView();
             mav.addObject("datos", v);

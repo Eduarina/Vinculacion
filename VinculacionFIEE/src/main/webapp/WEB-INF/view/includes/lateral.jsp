@@ -51,11 +51,9 @@
             </li>
             </c:if>
             <c:if test="${sessionScope.tipo <= 2}">
-                <li class="active"><a href="/VinculacionFIEE/vencimiento/lista"><i class="fa fa-calendar"></i> <span>Vencimiento de Docs</span></a></li>
                 <li class="active"><a href="/VinculacionFIEE/asignacion/lista"><i class="fa fa-user-plus"></i> <span>Asignación de Alumnos</span></a></li>
             </c:if>
             <c:if test="${sessionScope.tipo eq 5}">
-            <li class="active"><a href="/VinculacionFIEE/vencimiento/lista"><i class="fa fa-calendar"></i> <span>Vencimiento de Docs</span></a></li>
             <li class="treeview">
                 <a href="#"><i class="fa fa-files-o"></i> <span>Registros</span>
                     <span class="pull-right-container">
@@ -71,7 +69,9 @@
             <c:if test="${sessionScope.tipo eq 4}">
             <li class="active"><a href="/VinculacionFIEE/proyecto/lista"><i class="fa fa-calendar"></i> <span>Crear Proyecto</span></a></li>
             <li class="active"><a href="/VinculacionFIEE/asignacion/proyectos"><i class="fa fa-calendar"></i> <span>Asignación Proyectos-Alumnos</span></a></li>
-            <li class="active"><a href="/VinculacionFIEE/bitacoras/reporte"><i class="fa fa-calendar"></i> <span>Revisar reportes</span></a></li>
+            </c:if>
+            <c:if test="${sessionScope.tipo eq 3 or sessionScope.tipo eq 4}">
+                <li class="active"><a href="/VinculacionFIEE/bitacoras/reporte"><i class="fa fa-calendar"></i> <span>Revisar reportes</span></a></li>
             </c:if>
         </ul>
         <!-- /.sidebar-menu -->

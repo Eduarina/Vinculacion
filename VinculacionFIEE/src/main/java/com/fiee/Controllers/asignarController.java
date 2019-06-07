@@ -72,7 +72,10 @@ public class asignarController {
             String sql;
             ModelAndView mav = new ModelAndView();
             id = (int) session.getAttribute("id");
-                sql = "select * from vw_asignacion_proyectos WHERE encargado = "+id;
+            sql = "SELECT idEncargado from tb_encargados where idUsuario = "+id;
+            Object []parameters = new Object[]{};
+            int idEncargado = this.jdbcTemplate.queryForObject(sql,parameters,int.class);
+                sql = "select * from vw_asignacion_proyectos WHERE idencargado = "+idEncargado;
                 lista = this.jdbcTemplate.queryForList(sql);
                 mav.addObject("datos", lista);
                 mav.setViewName("asignar/indexP");  // Este es el nombre del archivo vista .jsp
@@ -82,6 +85,14 @@ public class asignarController {
         }
     }
 
+    @GetMapping(value = "/baja")
+    public ModelAndView baja(@RequestParam("id") int idtabla
+    ) {
+        String sql = "UPDATE from tb_asignacion_proyecto SET Estado = 6 where idAsignacionProyecto=" + idtabla;
+        this.jdbcTemplate.update(sql);
+        return new ModelAndView("redirect:/asignacion/proyectos");
+    }
+    
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.GET)
     @GetMapping(value = "/insertar")
     public ModelAndView insertar(Model model, HttpServletRequest request) {
@@ -119,7 +130,7 @@ public class asignarController {
         sql = "SELECT * FROM tb_proyectos where idEncargado = "+idEncargado;
         lista = this.jdbcTemplate.queryForList(sql);
         model.addAttribute("nombres", lista);
-        sql = "SELECT ID, Nombre from vw_info_estudiantes WHERE ID NOT IN (SELECT idEstudiante from tb_proyectos)";
+        sql = "SELECT * FROM vw_estudiantes_noAsignados";
         lista = this.jdbcTemplate.queryForList(sql);
         model.addAttribute("estudiantes", lista);
         return mav;
@@ -129,12 +140,17 @@ public class asignarController {
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
     @PostMapping(value = "/insertar")
     public ModelAndView insertar(
-            @ModelAttribute("datos") @Valid Asignacion u, BindingResult result, Model model
+            @ModelAttribute("datos") @Valid Asignacion_Proyecto u, BindingResult result, Model model
     ) {
         //this.asignar1Validator.validate(u, result);
-        String sql = "insert into tb_asignacion (idmaestro, idestudiante, estado) values (?,?,?)";
-        this.jdbcTemplate.update(sql, u.getIdmaestro(), u.getIdEstudiante(),1);
-        return new ModelAndView("redirect:/asignacion/insertar");
+        String sql = "insert into tb_asignacion_proyecto (idProyecto, idestudiante, estado) values (?,?,?)";
+        this.jdbcTemplate.update(sql, u.getIdProyecto(), u.getIdEstudiante(),1);
+        sql = "SELECT idUsuario from tb_estudiantes WHERE idEstudiate = "+u.getIdEstudiante();
+        Object []parameters = new Object[]{};
+        int idUsuario = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+        sql = "UPDATE FROM tb_proyectos SET idEstudiante = ? WHERE idProyecto = "+u.getIdProyecto();
+        this.jdbcTemplate.update(sql,idUsuario);
+        return new ModelAndView("redirect:/asignacion/proyectos ");
     }
 
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.GET)

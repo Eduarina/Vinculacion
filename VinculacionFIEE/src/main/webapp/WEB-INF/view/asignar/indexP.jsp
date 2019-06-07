@@ -51,6 +51,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <tr>
                                                     <th>Proyecto</th>
                                                     <th>Estudiante Asignado</th>
+                                                    <th>Estado</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -59,15 +60,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <tr>
                                                     <td> <c:out value="${dato.titulo}"/></td>
                                                     <td> <c:out value="${dato.nombre}"/></td>
-                                                    <td>
-                                                        <a href="editarUsuarioE?id=${dato.ID}" class="btn btn-warning">Editar</a>
-                                                        <c:if test="${dato.estado eq 1}">
-                                                            <a href="borrarUsuarioM?id=${dato.ID}" class="btn btn-danger">Dar de baja</a>
-                                                        </c:if> 
-                                                        <c:if test="${dato.estado eq 2}">
-                                                            <a href="borrarUsuarioM?id=${dato.ID}" class="btn btn-success">Dar de alta</a>
-                                                        </c:if> 
-                                                    </td>
+                                                    <td><c:out value="${dato.descripcion}" /></td>
+                                                    <c:if test="${dato.estado eq 5}">
+                                                        <td><a href="baja?id=${dato.ID}" class="btn btn-danger">Dar de baja</a></td>
+                                                    </c:if>
+                                                <c:if test="${dato.estado eq 6}">
+                                                    <td><a href="baja?id=${dato.ID}" class="btn btn-success">Dar de baja</a></td>
+                                                    </c:if>
                                                 </tr>
                                             </c:forEach>
                                             </tbody>
