@@ -59,7 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         | Your Page Content Here |
                         -------------------------->
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-10">
                                 <div class="box box-primary" id="reporte">
                                     <div class="box-header" style="text-align: center;">
                                         <h3 class="box-title">BITÁCORA DE ACTIVIDADES DE SERVICIO SOCIAL</h3>
@@ -67,6 +67,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <div class="box-body">
                                     <c:forEach items="${info}" var="info">
                                         <table width="100%" id="formatR">
+                                            <tbody>
                                             <tr>
                                                 <td><b>Alumno: </b><c:out value="${info.Nombre}" /></td>
                                                 <td><b>Matricula: </b><c:out value="${info.Matricula}" /></td>
@@ -87,9 +88,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <td id="title"><b>Bitácora: </b><c:out value="${num}" /></td>
                                             </tr>
                                             <form action="generar" method="POST" modelAttribute="bitacora">
-                                                <tbody>
                                                     <tr>
                                                         <td colspan="2">
+                                                            <input type="hidden" value="1" name="Tipo">
+                                                            <input type="hidden" value="${fecha}" name="Fecha">
+                                                            <input type="hidden" value="${num}" name="Num_Reporte">
+                                                            <input type="hidden" value="${pro}" name="idProyecto">
                                                             <label for="Actividades">Actividades generales: </label> <br>
                                                             <textarea name="Actividades" rows="7" style="width: 100%; border:none;" placeholder="Aquí se redactan las actividades realizadas."></textarea>
                                                         </td>
@@ -112,17 +116,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                             <textarea name="Soluciones" rows="7" style="width: 100%; border:none;" placeholder="Aquí se redactan las soluciones que se implementaron."></textarea>
                                                         </td>
                                                     </tr>
-                                                </tbody>
-                                            </form>
+                                            </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <td></td>
                                                     <td style="padding-top: 5px; padding-left: 33%;">
-                                                        <a id="exportar" class="btn btn-success">Exportar</a>
+                                                        <input type="submit" id="exportar" class="btn btn-success" value="Exportar" />
                                                         <a href="lista" class="btn btn-default">Cancelar</a>
                                                     </td>
                                                 </tr>
                                             </tfoot>
+                                            </form>
                                         </table>
                                     </c:forEach>
                                 </div>
@@ -138,25 +142,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- /.content-wrapper -->
 
         <jsp:include page="../includes/footer.jsp"></jsp:include>
-
-
-        <script>
-            $("#exportar").on("click", function () {
-                $("#reporte tfoot").hide();
-                html2canvas(document.getElementById("reporte"), {
-                    dpi: 400, // Set to 300 DPI
-                    scale: 1, // Adjusts your resolution
-                    onrendered: function (canvas) {
-                        var img = canvas.toDataURL("image/jpeg", 1);
-                        var doc = new jsPDF('l','mm',[297, 210]);
-                        doc.addImage(img, 'JPEG', 20, 20, 257, 210);
-                        var title = document.getElementById ( "title" ).innerText+".pdf"
-                        doc.save(title);
-                    }
-                });
-                $("#reporte tfoot").show();
-            });
-        </script>
 
     </body>
 </html>

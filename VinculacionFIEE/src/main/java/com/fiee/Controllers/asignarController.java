@@ -111,11 +111,20 @@ public class asignarController {
                 return mav;
             }
             return new ModelAndView("redirect:/home");
-        } catch (Exception e) {
+        } catch (Exception ie) {
             return new ModelAndView("redirect:/login/login");
         }
     }
 
+    @PostMapping(value = "/insercion")
+    public ModelAndView insercion(
+        @ModelAttribute("datos") @Valid Asignacion u, BindingResult result, Model model
+    ){
+        String sql = "insert into tb_asignacion (idMaestro, idestudiante, estado) values (?,?,?)";
+        this.jdbcTemplate.update(sql, u.getIdmaestro(), u.getIdEstudiante(),1);
+        return new ModelAndView("redirect:lista");
+    }
+    
     @GetMapping(value = "/asignar")
     public ModelAndView asignacion(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();

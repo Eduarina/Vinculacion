@@ -59,51 +59,94 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         | Your Page Content Here |
                         -------------------------->
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="box box-primary">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Nuevo</h3>
+                            <div class="col-md-10">
+                                <div class="box box-primary" id="reporte">
+                                    <div class="box-header" style="text-align: center;">
+                                        <h3 class="box-title">REPORTE DE ACTIVIDADES DE SERVICIO SOCIAL</h3>
                                     </div>
-                                    <!-- /.box-header -->
-                                    <!-- form start -->
-                                    <form action="generar" method="POST" modelAttribute="datos">
-                                    <c:if test="${not empty message}">
-                                        <div class="alert alert-danger alert-dismissible">${message}</div>
-                                    </c:if>
                                     <div class="box-body">
-                                        <div class="form-group col-md-6">
-                                            <%--<form:errors path="nombre" cssClass="alert alert-danger col-md-6" />--%>
-                                            <label for="numero">Número de Reporte:</label>
-                                            <input id="numero" name="numero" autocomplete="off" type="number" min="1" max="12" Class="form-control" placeholder="Bitácora #..."/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="idmaestro">Maestro:</label>
-                                            <c:forEach items="${datos}" var="dato">
-                                                <c:forEach items="${usuarios}" var="usuario">
-                                                    <c:if test="${dato.idmaestro eq usuario.idusuario}">
-                                                        <input id="idmaestro" name="idmaestro" disabled="true" value="${usuario.nombre}" type="text" Class="form-control" placeholder="Maestro..."/>
-                                                    </c:if>
+                                    <c:forEach items="${info}" var="info">
+                                        <table width="100%" class="formatoR">
+                                            <tbody>
+                                            <tr>
+                                                <td colspan="2" rowspan="6" style="width: 30%; padding-left: 7%;"><img align="center" width="150px" src="${urlPublic}/dist/img/logoUV.jpg"></td>
+                                                <td colspan="9" style="text-align: center;"><b>Universidad Veracruzana</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="9" style="text-align:center;"><b>Facultad de Ingeniería Eléctrica y Electrónica</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="9" style="text-align:center;"><b>Coordinación de Vinculación y Servicio Social</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="9" style="text-align:center; background: #D9D9D9"><b>REPORTE MENSUAL</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="9" style="text-align:center; background: #BFBFBF"><b>Datos del Alumno</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="9" ><b>Nombre: </b><c:out value="${info.Nombre}" /> </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" ><b>Carrera: </b><c:out value="${info.Carrera}" /> </td>
+                                                <td colspan="5" ><b>Correo: </b><c:out value="${info.Correo}" /> </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" ><b>Telefono: </b><c:out value="${info.Telefono}" /> </td>
+                                                <td colspan="4" ><b>Celular: </b><c:out value="${info.Celular}" /> </td>
+                                                <td colspan="3" ><b>Matricula: </b><c:out value="${info.Matricula}" /> </td>
+                                            </tr>
+                                            <tr></tr>
+                                        </table>
+                                            <br>
+                                            <table width="100%" class="formatoR">
+                                                <tr><td colspan="3" style="text-align:center; background: #BFBFBF"><b>Datos de la Dependencia</b></td></tr>
+                                                <tr>
+                                                    <td><b>Reporte: </b><c:out value="${num}" /></td>
+                                                    <td colspan="2"><b>Fecha: </b><c:out value="${fecha}" /></td>
+                                                </tr>
+                                                <c:forEach items="${datos}" var="dependencia">
+                                                <tr>
+                                                    <td colspan="2"><b>Dependencia: </b><c:out value="${dependencia.Dependencia}" /></td>
+                                                    <td><b>Teléfono de la Dependencia: </b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3"><b>Titulo del proyecto: </b><c:out value="${dependencia.Titulo}" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3"><b>Horario en el que se realiza <c:out value="${dependencia.Tipo}" />: </b><c:out value="${dependencia.Horario}" /></td>
+                                                </tr>
                                                 </c:forEach>
-                                            </c:forEach>
-
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="idservicio">Servicio Social:</label>
-                                            <c:forEach items="${datos}" var="dato">
-                                                <c:forEach items="${usuarios}" var="usuario">
-                                                    <c:if test="${dato.idservicio eq usuario.idusuario}">
-                                                        <input id="idservicio" name="idservicio" disabled="true" value="${usuario.nombre}" type="text" Class="form-control" placeholder="Maestro..."/>
-                                                    </c:if>
-                                                </c:forEach>
-                                            </c:forEach>
-
-                                        </div>
-                                    </div>
-                                    <div class="box-footer">
-                                        <button type="submit" class="btn btn-success">Aceptar</button>
-                                        <a href="lista" class="btn btn-default">Cancelar</a>
-                                    </div>
-                                </form>       
+                                            </table>
+                                                <form method="POST" action="insertarR" modelAttribute="reporte">
+                                                    <table width="100%" class="formatoR">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td style="text-align:center; width: 50%; background: #BFBFBF"><b>Actividades</b></td>
+                                                            <td style="text-align:center; width: 50%; background: #BFBFBF"><b>Descripción</b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <input type="hidden" value="1" name="Tipo">
+                                                            <input type="hidden" value="${fecha}" name="Fecha">
+                                                            <input type="hidden" value="${num}" name="Num_Reporte">
+                                                            <input type="hidden" value="${pro}" name="idProyecto">
+                                                            <td><textarea name="Actividades" style="width: 100%; border:none;" placeholder="Aquí se redactan las actividades realizadas." rows="10"></textarea></td>
+                                                            <td><textarea name="Descripcion" style="width: 100%; border:none;" placeholder="Aquí se redacta la descripción de las actividades." rows="10"></textarea></td>
+                                                        </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                <tr>
+                                                    <td></td>
+                                                    <td style="padding-top: 5px; padding-left: 20%;">
+                                                        <input type="submit" id="exportar" class="btn btn-success" value="Guardar" />
+                                                        <a href="lista" class="btn btn-default">Cancelar</a>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                                    </table>
+                                                </form>
+                                    </c:forEach>
+                                </div>
                             </div>
 
                         </div>
@@ -117,8 +160,5 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <jsp:include page="../includes/footer.jsp"></jsp:include>
 
-
-    </div>
-
-</body>
+    </body>
 </html>

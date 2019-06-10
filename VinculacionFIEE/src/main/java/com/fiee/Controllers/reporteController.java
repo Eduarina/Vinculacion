@@ -5,6 +5,7 @@
  */
 package com.fiee.Controllers;
 
+import com.fiee.Models.Bitacora;
 import com.fiee.Models.Reporte;
 import com.fiee.Models.ReporteValidator;
 import java.sql.ResultSet;
@@ -68,17 +69,11 @@ public class reporteController {
                     lista = this.jdbcTemplate.queryForList(sql);
                 }
                 if (tipo == 5) {
-                    sql = "select * from reporte where idencargado=" + id;
+                    sql = "select * from tb_reportes where tipo = 2 AND idEstudiante =" + id;
                     lista = this.jdbcTemplate.queryForList(sql);
                 }
                 mav.addObject("reportes", lista);
                 mav.setViewName("reporte/indexR");  // Este es el nombre del archivo vista .jsp
-                sql = "select * from usuario";
-                List list1 = this.jdbcTemplate.queryForList(sql);
-                model.addAttribute("usuarios", list1);
-                sql = "select * from servicio";
-                List list2 = this.jdbcTemplate.queryForList(sql);
-                model.addAttribute("servicios", list2);
                 return mav;
             }
             return new ModelAndView("redirect:/home");
@@ -87,24 +82,48 @@ public class reporteController {
         }
 
     }
-
-    @RequestMapping(value = "/insertarR", method = RequestMethod.GET) //Este es el nombre con el que se accede desde el navegador
-    public ModelAndView insertar() {
+    
+    @GetMapping(value = "/generar") //Este es el nombre con el que se accede desde el navegador
+    public ModelAndView generar(HttpServletRequest request, Model model) {
         ModelAndView mav = new ModelAndView();
-        mav.addObject(new Reporte());
-        mav.setViewName("reporte/insertarR");  // Este es el nombre del archivo vista .jsp
+        Object []parameters = new Object[]{};
+        HttpSession session = request.getSession();
+        int id = (int) session.getAttribute("id");
+        String sql = "SELECT count(idReporte) from tb_reportes where tipo = 2 AND idEstudiante = "+id;
+        int num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+        num++;
+        mav.addObject("num",num);
+        sql = "SELECT idEstudiate from tb_estudiantes where idUsuario = "+id;
+        num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+        sql = "SELECT DISTINCT idAsignacionProyecto from tb_asignacion_proyecto WHERE idEstudiante = "+num;
+        num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+        mav.addObject("pro",num);
+        String fecha = new SimpleDateFormat("dd/MM/yyyy").format( new Date() );
+        mav.addObject("fecha",fecha);
+        sql = "SELECT * FROM vw_info_estudiantes where idUsuario = "+id;
+        lista= this.jdbcTemplate.queryForList(sql);
+        mav.addObject("info", lista);
+        sql = "SELECT * FROM tb_proyectos WHERE idEstudiante = "+id;
+        lista= this.jdbcTemplate.queryForList(sql);
+        mav.addObject("datos", lista);
+        mav.addObject("reporte",new Bitacora());
+        mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
         return mav;
     }
 
+
     @RequestMapping(value = "/insertarR", method = RequestMethod.POST)
-    public ModelAndView insertar(Reporte v) {
-        String sql = "insert into reporte(nombre, carrera, correo, telefono, celular, matricula, noreporte, fecha, dependencia, telefonod, proyecto, horario, actividades, descripcion) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        //this.jdbcTemplate.update(sql, v.getNombre(), v.getCarrera(), v.getCorreo(), v.getTelefono(), v.getCelular(), v.getMatricula(), v.getNoreporte(), v.getFecha(), v.getDependencia(), v.getTelefonod(), v.getProyecto(), v.getHorario(), v.getActividades(), v.getDescripcion());
-        return new ModelAndView("redirect:/reportes");
+    public ModelAndView insertar(@ModelAttribute("reporte") @Valid Bitacora u, BindingResult result, Model model, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        int id = (int) session.getAttribute("id");
+        String sql = "INSERT INTO tb_reportes (Num_Reporte, idProyecto, Tipo, Actividades, Descripcion, Problemas, Soluciones, Estado, Fecha, idEstudiante, VBo_Maestro, VBo_Encargado) "
+                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        this.jdbcTemplate.update(sql, u.getNum_Reporte(), u.getIdProyecto(), 2, u.getActividades(), u.getDescripcion(), u.getProblemas(), u.getSoluciones(), 1, u.getFecha(), id, 1,1);
+        return new ModelAndView("redirect:lista");
     }
 
-    @GetMapping(value = "/generar") //Este es el nombre con el que se accede desde el navegador
-    public ModelAndView generar(HttpServletRequest request, Model model) {
+    @GetMapping(value = "/generacion") //Este es el nombre con el que se accede desde el navegador
+    public ModelAndView generaReporte(HttpServletRequest request, Model model) {
         try {
             ModelAndView mav = new ModelAndView();
             HttpSession session = request.getSession();

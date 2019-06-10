@@ -16,7 +16,7 @@
                             <div class="col-xs-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <a href="generar" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Generar Bitácora</a>
+                                        <a href="generar" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Generar Reporte</a>
                                     </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
@@ -24,14 +24,14 @@
                                         <thead>
                                             <tr>
                                                 <!--                                                <th>Id</th>-->
-                                                <th>Bitácora #</th>
+                                                <th>Reporte #</th>
                                                 <th>VBo. Maestro</th>
                                                 <th>VBo. Encargado</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${bitacoras}" var="dato">
+                                            <c:forEach items="${reportes}" var="dato">
                                                 <tr>
                                                     <td> 
                                                         Bitacora #<c:out value="${dato.num_reporte}" />

@@ -5,6 +5,7 @@
  */
 package com.fiee.Controllers;
 
+import com.fiee.Models.Asignacion_Proyecto;
 import com.fiee.Models.Bitacora;
 import com.fiee.Models.BitacoraValidator;
 import com.fiee.Models.Encargado;
@@ -81,7 +82,16 @@ public class bitacoraController {
         } catch (Exception e) {
             return new ModelAndView("redirect:/login/login");
         }
-
+    }
+    
+    @RequestMapping(value = "/generar", method = RequestMethod.POST)
+    public ModelAndView insertar(@ModelAttribute("bitacora") @Valid Bitacora u, BindingResult result, Model model, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        int id = (int) session.getAttribute("id");
+        String sql = "INSERT INTO tb_reportes (Num_Reporte, idProyecto, Tipo, Actividades, Descripcion, Problemas, Soluciones, Estado, Fecha, idEstudiante, VBo_Maestro, VBo_Encargado) "
+                + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        this.jdbcTemplate.update(sql, u.getNum_Reporte(), u.getIdProyecto(), 1, u.getActividades(), u.getDescripcion(), u.getProblemas(), u.getSoluciones(), 1, u.getFecha(), id, 1,1);
+        return new ModelAndView("redirect:lista");
     }
     
     @GetMapping(value = "/generar") //Este es el nombre con el que se accede desde el navegador
@@ -94,6 +104,11 @@ public class bitacoraController {
         int num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
         num++;
         mav.addObject("num",num);
+        sql = "SELECT idEstudiate from tb_estudiantes where idUsuario = "+id;
+        num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+        sql = "SELECT DISTINCT idAsignacionProyecto from tb_asignacion_proyecto WHERE idEstudiante = "+num;
+        num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+        mav.addObject("pro",num);
         String fecha = new SimpleDateFormat("dd/MM/yyyy").format( new Date() );
         mav.addObject("fecha",fecha);
         sql = "SELECT * FROM vw_info_estudiantes where idUsuario = "+id;
