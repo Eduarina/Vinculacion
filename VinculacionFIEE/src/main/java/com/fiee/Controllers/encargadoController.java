@@ -7,11 +7,14 @@ package com.fiee.Controllers;
 
 import com.fiee.Models.Encargado;
 import com.fiee.Models.EncargadoValidator;
+import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -31,6 +34,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/encargados")
 public class encargadoController {
+    
+    @Autowired
+    ServletContext context; 
+
     private JdbcTemplate jdbcTemplate;
     int id;
     List lista;
@@ -81,6 +88,10 @@ public class encargadoController {
             }
             String sql = "insert into tb_usuarios(nombre, user, password, tipo, sexo, path, estado) values (?,?,?,?,?,?,?)";
             this.jdbcTemplate.update(sql, e.getNombre(), e.getUsuario(), e.getPass(), 4, e.getSexo(), path, 1);
+
+            String uploadPath = context.getRealPath("resources/encargados") + File.separator + e.getNombre();
+            File file = new File(uploadPath);
+            file.mkdir();
 
             sql = "select idUsuario from last_ID";
             Object[] parameters = new Object[]{};

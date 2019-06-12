@@ -228,8 +228,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <form:input path="password2" type="password" autocomplete="off" required="required" style="border-color:red;" class="form-control" placeholder="Contraseña"/>
                                                 </c:if>
                                             </div>
-                                            <br>
                                         </div>
+                                        <br>
                                         <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="sexo">Sexo: </form:label>

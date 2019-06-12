@@ -6,6 +6,7 @@
 package com.fiee.Controllers;
 
 import com.fiee.Models.*;
+import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,6 +89,11 @@ public class maestroController {
             String sql = "insert into tb_usuarios(nombre, user, password, tipo, sexo, path, estado) values (?,?,?,?,?,?,?)";
             this.jdbcTemplate.update(sql, u.getNombre(), u.getUsuario(), u.getPass(), 3, u.getSexo(), path, 1);
 
+            String uploadPath = context.getRealPath("/resources/maestros") + File.separator + u.getNombre();
+            File file = new File(uploadPath);
+            file.mkdir();
+
+            
             sql = "select idUsuario from last_ID";
             Object[] parameters = new Object[]{};
             int lastID = this.jdbcTemplate.queryForObject(sql, parameters, int.class);

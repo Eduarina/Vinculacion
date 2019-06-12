@@ -65,8 +65,10 @@ public class usuarioController {
     @GetMapping(value = "/lista")
     public ModelAndView lista(HttpServletRequest request) {
             String sql;
+            HttpSession session = request.getSession();
+            int id = (int) session.getAttribute("id");
             ModelAndView mav = new ModelAndView();
-                sql = "select * from vw_info_estudiantes";
+                sql = "SELECT * FROM vinculacionfiee.vw_info_estudiantes WHERE idUsuario IN (SELECT idEstudiante FROM tb_asignacion WHERE idMaestro = "+id+" )";
                 lista = this.jdbcTemplate.queryForList(sql);
                 mav.addObject("datos", lista);
                 mav.setViewName("usuario/indexU");  // Este es el nombre del archivo vista .jsp
@@ -82,7 +84,7 @@ public class usuarioController {
             ModelAndView mav = new ModelAndView();
             id = (int) session.getAttribute("id");
             int tipo = (int) session.getAttribute("tipo");
-            if (tipo == 1 || tipo == 2) {
+            if (tipo == 1 || tipo == 2 || tipo == 3) {
                 sql = "select * from ctg_carreras";
                 lista = this.jdbcTemplate.queryForList(sql);
                 mav.addObject("carrera", lista);
@@ -127,7 +129,7 @@ public class usuarioController {
                 String sql = "insert into tb_usuarios(nombre, user, password, tipo, sexo, path, estado) values (?,?,?,?,?,?,?)";
                 this.jdbcTemplate.update(sql, u.getNombre(), u.getUser(), u.getPassword(), 5, u.getSexo(), path, 1);
 
-                String uploadPath = context.getRealPath("/estudiantes") + File.separator + u.getNombre();
+                String uploadPath = context.getRealPath("resources/estudiantes") + File.separator + u.getNombre();
                 File file = new File(uploadPath);
                 file.mkdir();
 
