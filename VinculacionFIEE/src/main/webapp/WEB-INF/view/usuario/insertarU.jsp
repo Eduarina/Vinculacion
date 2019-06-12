@@ -229,7 +229,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 </c:if>
                                             </div>
                                         </div>
-                                        <br>
+                                                <br><br>
                                         <div class="form-group">
                                             <div class="col-sm-2" >
                                                 <form:label path="sexo">Sexo: </form:label>
