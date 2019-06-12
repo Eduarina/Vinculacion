@@ -30,7 +30,7 @@ CREATE TABLE `tb_asignacion` (
   PRIMARY KEY (`idAsignacion`),
   KEY `fk_Estado_Asignacion_idx` (`Estado`),
   CONSTRAINT `fk_Estado_Asignacion` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,7 @@ CREATE TABLE `tb_asignacion` (
 
 LOCK TABLES `tb_asignacion` WRITE;
 /*!40000 ALTER TABLE `tb_asignacion` DISABLE KEYS */;
+INSERT INTO `tb_asignacion` VALUES (18,32,30,1);
 /*!40000 ALTER TABLE `tb_asignacion` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-04 23:20:38
+-- Dump completed on 2019-06-11 23:27:54

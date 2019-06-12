@@ -5,7 +5,7 @@
         <h1>
             Perfil
             <small>
-                Estudiante
+                Administrador
             </small>
         </h1>
     </section>

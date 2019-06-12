@@ -68,26 +68,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <c:forEach items="${infoE}" var="info">
                                         <table width="100%" id="formatR">
                                             <tbody>
-                                            <tr>
-                                                <td><b>Alumno: </b><c:out value="${info.Nombre}" /></td>
-                                                <td><b>Matricula: </b><c:out value="${info.Matricula}" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2"><b>Carrera: </b><c:out value="${info.carrera}" /></td>
-                                            </tr>
-                                            <c:forEach items="${infoP}" var="pro">
                                                 <tr>
-                                                    <td colspan="2"><b>Dependencia: </b><c:out value="${pro.Dependencia}" /></td>
+                                                    <td><b>Alumno: </b><c:out value="${info.Nombre}" /></td>
+                                                    <td><b>Matricula: </b><c:out value="${info.Matricula}" /></td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="2"><b>Ubicación: </b><c:out value="${pro.Ubicacion}" /></td>
-                                                </tr>    
-                                            </c:forEach>
-                                            <tr>
-                                                <td><b>Fecha: </b><c:out value="${fecha}" /></td>
-                                                <td id="title"><b>Bitácora: </b><c:out value="${num}" /></td>
-                                            </tr>
-                                            <form:form action="editar" method="POST" modelAttribute="bitacora">
+                                                    <td colspan="2"><b>Carrera: </b><c:out value="${info.carrera}" /></td>
+                                                </tr>
+                                                <c:forEach items="${infoP}" var="pro">
+                                                    <tr>
+                                                        <td colspan="2"><b>Dependencia: </b><c:out value="${pro.Dependencia}" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2"><b>Ubicación: </b><c:out value="${pro.Ubicacion}" /></td>
+                                                    </tr>    
+                                                </c:forEach>
+                                                <tr>
+                                                    <td><b>Fecha: </b><c:out value="${fecha}" /></td>
+                                                    <td><b id="title">Bitácora: <c:out value="${num}" /></b></td>
+                                                </tr>
+                                                <form:form action="editar" method="POST" modelAttribute="bitacora">
                                                     <tr>
                                                         <td colspan="2">
                                                             <form:hidden path="idReporte" />
@@ -113,16 +113,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                             <form:textarea path="Soluciones" rows="7" style="width: 100%; border:none;" placeholder="Aquí se redactan las soluciones que se implementaron." />
                                                         </td>
                                                     </tr>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <td></td>
-                                                    <td style="padding-top: 5px; padding-left: 33%;">
-                                                        <button type="submit" id="exportar" class="btn btn-success">Editar</button>
-                                                        <a href="lista" class="btn btn-default">Cancelar</a>
-                                                    </td>
-                                                </tr>
-                                            </tfoot>
+                                                </tbody>
+                                            </table>
+                                                        <br>
+                                            <table width="100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width:10%"></td>
+                                                        <td style="width:35%; text-align: center;"><img width="140px" height="100px" src="${urlPublic}/estudiantes${firmaA}" /></td>
+                                                        <td style="width:10%"></td>
+                                                        <td style="width:35%; text-align: center;"><img width="140px" height="100px" src="${urlPublic}/maestros${firmaM}" /></td>
+                                                        <td style="width:10%"></td>
+                                                    </tr>
+                                                    <tr style="height: 50px;"></tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td><a href="lista" class="btn btn-default">Cancelar</a></td>
+                                                        <td>
+                                                            <a id="exportar" class="btn btn-success">Exportar</a>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
                                             </form:form>
                                         </table>
                                     </c:forEach>
@@ -140,5 +152,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <jsp:include page="../includes/footer.jsp"></jsp:include>
 
+        <script>
+            $("#exportar").on("click", function () {
+                var w = document.getElementById("reporteA").offsetWidth;
+                var h = document.getElementById("reporteA").offsetHeight;
+                var div = document.getElementById("reporteA");
+                var title = document.getElementById("title").innerHTML;
+                div.style.background = "white";
+                html2canvas(div, {
+                    dpi: 300, // Set to 300 DPI
+                    scale: 3, // Adjusts your resolution
+                    onrendered: function (canvas) {
+                        var img = canvas.toDataURL("image/jpeg", 1);
+                        var doc = new jsPDF('L', 'px', [w, h]);
+                        doc.addImage(img, 'JPEG', 0, 0, w, h);
+                        doc.save(title+'.pdf');
+                    }
+                });
+            });
+        </script>
+        
     </body>
 </html>

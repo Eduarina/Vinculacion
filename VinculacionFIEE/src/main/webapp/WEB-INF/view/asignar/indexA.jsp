@@ -15,7 +15,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="wrapper">
 
             <jsp:include page="../includes/menu.jsp"></jsp:include>
-
             <jsp:include page="../includes/lateral.jsp"></jsp:include>
 
                 <!-- Content Wrapper. Contains page content -->
@@ -57,10 +56,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <tbody>
                                                 <c:forEach items="${datos}" var="dato">
                                                 <tr>
-                                                    <td> <c:out value="${dato.Maestro}"/></td>
+                                                    <td> <c:out value="${dato.Nombre}"/></td>
                                                     <td> <c:out value="${dato.Estudiantes}"/></td>
                                                     <td>
-                                                        <a href="editarUsuarioE?id=${dato.ID}" class="btn btn-warning">Editar</a>
+                                                        <a href="infoAsignacion?id=${dato.ID}" class="btn btn-warning">Ver información</a>
                                                         <c:if test="${dato.estado eq 1}">
                                                             <a href="borrarUsuarioM?id=${dato.ID}" class="btn btn-danger">Dar de baja</a>
                                                         </c:if> 

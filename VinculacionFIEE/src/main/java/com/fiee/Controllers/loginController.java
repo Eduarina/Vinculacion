@@ -195,7 +195,7 @@ public class loginController {
             String nombre = (String) session.getAttribute("nombre");
             int id = (int) session.getAttribute("id");
             MultipartFile multipartFile = file.getFile();
-            String uploadPath = context.getRealPath("/maestros") + File.separator + nombre + File.separator;
+            String uploadPath = context.getRealPath("/resources/maestros") + File.separator + nombre + File.separator;
             //Now do something with file...
             String extension = FilenameUtils.getExtension(file.getFile().getOriginalFilename());
             String fileName = uploadPath + "firma." + extension;
@@ -218,7 +218,7 @@ public class loginController {
             String nombre = (String) session.getAttribute("nombre");
             int id = (int) session.getAttribute("id");
             MultipartFile multipartFile = file.getFile();
-            String uploadPath = context.getRealPath("/encargados") + File.separator + nombre + File.separator;
+            String uploadPath = context.getRealPath("/resources/encargados") + File.separator + nombre + File.separator;
             //Now do something with file...
             String extension = FilenameUtils.getExtension(file.getFile().getOriginalFilename());
             String fileName = uploadPath + "firma." + extension;
@@ -241,7 +241,7 @@ public class loginController {
             String nombre = (String) session.getAttribute("nombre");
             int id = (int) session.getAttribute("id");
             MultipartFile multipartFile = file.getFile();
-            String uploadPath = context.getRealPath("/") + File.separator + nombre + File.separator;
+            String uploadPath = context.getRealPath("/resources/estudiantes") + File.separator + nombre + File.separator;
             //Now do something with file...
             String extension = FilenameUtils.getExtension(file.getFile().getOriginalFilename());
             String fileName = uploadPath + "firma." + extension;

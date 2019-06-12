@@ -50,6 +50,9 @@
                 </ul>
             </li>
             </c:if>
+            <c:if test="${sessionScope.tipo <= 1}">
+                <li class="active"><a href="/VinculacionFIEE/firmas/home"><i class="fa fa-user-plus"></i> <span>Firmas de autoridades</span></a></li>
+            </c:if>
             <c:if test="${sessionScope.tipo <= 2}">
                 <li class="active"><a href="/VinculacionFIEE/asignacion/lista"><i class="fa fa-user-plus"></i> <span>Asignación de Alumnos</span></a></li>
             </c:if>

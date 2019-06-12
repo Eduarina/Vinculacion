@@ -16,34 +16,41 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tb_asignacion_proyecto`
+-- Table structure for table `tb_estudiantes`
 --
 
-DROP TABLE IF EXISTS `tb_asignacion_proyecto`;
+DROP TABLE IF EXISTS `tb_estudiantes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `tb_asignacion_proyecto` (
-  `idAsignacionProyecto` int(11) NOT NULL AUTO_INCREMENT,
-  `idEstudiante` int(11) DEFAULT NULL,
-  `idProyecto` int(11) DEFAULT NULL,
+CREATE TABLE `tb_estudiantes` (
+  `idEstudiate` int(11) NOT NULL AUTO_INCREMENT,
+  `Matricula` varchar(10) DEFAULT NULL,
+  `Correo` varchar(45) DEFAULT NULL,
+  `Carrera` int(11) DEFAULT NULL,
+  `Celular` varchar(12) DEFAULT NULL,
+  `Telefono` varchar(10) DEFAULT NULL,
+  `Semestre` int(11) DEFAULT NULL,
   `Estado` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idAsignacionProyecto`),
-  KEY `fk_Estudiante_AsignacionProyecto_idx` (`idEstudiante`),
-  KEY `fk_Proyecto_AsignacionProyecto_idx` (`idProyecto`),
-  KEY `fk_Estado_AsignacionProyecto_idx` (`Estado`),
-  CONSTRAINT `fk_Estado_AsignacionProyecto` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
-  CONSTRAINT `fk_Estudiante_AsignacionProyecto` FOREIGN KEY (`idEstudiante`) REFERENCES `tb_estudiantes` (`idEstudiate`),
-  CONSTRAINT `fk_Proyecto_AsignacionProyecto` FOREIGN KEY (`idProyecto`) REFERENCES `tb_proyectos` (`idProyecto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `idUsuario` int(11) DEFAULT NULL,
+  `firma` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`idEstudiate`),
+  KEY `fk_Estado_Estudiantes_idx` (`idUsuario`),
+  KEY `fk_Carrera_Estudiantes` (`Carrera`),
+  KEY `fk_Estados_Estudiantes_idx` (`Estado`),
+  CONSTRAINT `fk_Carrera_Estudiantes` FOREIGN KEY (`Carrera`) REFERENCES `ctg_carreras` (`idCarrera`),
+  CONSTRAINT `fk_Estados_Estudiantes` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
+  CONSTRAINT `fk_Usuario_Estudiantes` FOREIGN KEY (`idUsuario`) REFERENCES `tb_usuarios` (`idUsuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_asignacion_proyecto`
+-- Dumping data for table `tb_estudiantes`
 --
 
-LOCK TABLES `tb_asignacion_proyecto` WRITE;
-/*!40000 ALTER TABLE `tb_asignacion_proyecto` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tb_asignacion_proyecto` ENABLE KEYS */;
+LOCK TABLES `tb_estudiantes` WRITE;
+/*!40000 ALTER TABLE `tb_estudiantes` DISABLE KEYS */;
+INSERT INTO `tb_estudiantes` VALUES (13,'S12001347','KSORIANO@HOTMAIL.COM',5,'2299191094','2299191094',8,1,30,'\\KARINA SORIANO\\firma.png');
+/*!40000 ALTER TABLE `tb_estudiantes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-04 23:20:45
+-- Dump completed on 2019-06-11 23:27:55

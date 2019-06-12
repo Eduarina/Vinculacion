@@ -16,35 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tb_usuarios`
+-- Table structure for table `tb_documentacion_alumno`
 --
 
-DROP TABLE IF EXISTS `tb_usuarios`;
+DROP TABLE IF EXISTS `tb_documentacion_alumno`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `tb_usuarios` (
-  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(45) DEFAULT NULL,
-  `User` varchar(45) DEFAULT NULL,
-  `Password` varchar(45) DEFAULT NULL,
-  `Tipo` int(11) DEFAULT NULL,
-  `Path` varchar(45) DEFAULT NULL,
-  `Sexo` varchar(1) DEFAULT NULL,
+CREATE TABLE `tb_documentacion_alumno` (
+  `idDocumentacionAlumno` int(11) NOT NULL AUTO_INCREMENT,
+  `idEstudiante` int(11) DEFAULT NULL,
+  `idDocumento` int(11) DEFAULT NULL,
   `Estado` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idUsuario`),
-  KEY `fk_Estado_Usuario_idx` (`Estado`),
-  CONSTRAINT `fk_Estado_Usuario` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+  `Path` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idDocumentacionAlumno`),
+  KEY `fk_Estudiantes_Documetacion_idx` (`idEstudiante`),
+  KEY `fk_Documentos_Documentacion_idx` (`idDocumento`),
+  KEY `fk_Estado_Documentacion_idx` (`Estado`),
+  CONSTRAINT `fk_Documentos_Documentacion` FOREIGN KEY (`idDocumento`) REFERENCES `ctg_documentos` (`idDocumento`),
+  CONSTRAINT `fk_Estado_Documentacion` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
+  CONSTRAINT `fk_Estudiantes_Documetacion` FOREIGN KEY (`idEstudiante`) REFERENCES `tb_estudiantes` (`idEstudiate`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_usuarios`
+-- Dumping data for table `tb_documentacion_alumno`
 --
 
-LOCK TABLES `tb_usuarios` WRITE;
-/*!40000 ALTER TABLE `tb_usuarios` DISABLE KEYS */;
-INSERT INTO `tb_usuarios` VALUES (28,'Eduardo Soriano','esoriano','81dc9bdb52d04dc20036dbd8313ed055',1,'/dist/img/user2-160x160.jpg','H',1),(30,'KARINA SORIANO','KSORIANO','25d55ad283aa400af464c76d713c07ad',5,'/dist/img\\avatar2.png','H',1),(31,'USUARIO','USUARIO','25d55ad283aa400af464c76d713c07ad',2,'/dist/img/avatar2.png','H',1),(32,'MAESTRO','MAESTRO','25d55ad283aa400af464c76d713c07ad',3,'/dist/img\\avatar5.png.png','H',1),(33,'ENCARGADO','ENCARGADO','25d55ad283aa400af464c76d713c07ad',4,'/dist/img/user2-160x160.jpg','H',1);
-/*!40000 ALTER TABLE `tb_usuarios` ENABLE KEYS */;
+LOCK TABLES `tb_documentacion_alumno` WRITE;
+/*!40000 ALTER TABLE `tb_documentacion_alumno` DISABLE KEYS */;
+INSERT INTO `tb_documentacion_alumno` VALUES (11,13,6,4,'KARINA SORIANO\\Carta de Aceptación.xlsx'),(12,13,7,3,NULL),(13,13,8,3,NULL),(14,13,9,3,NULL),(15,13,10,3,NULL);
+/*!40000 ALTER TABLE `tb_documentacion_alumno` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-04 23:20:44
+-- Dump completed on 2019-06-11 23:27:57

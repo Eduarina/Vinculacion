@@ -10,7 +10,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
     <link rel="stylesheet" href="${urlPublic}/plugins/timepicker/bootstrap-timepicker.min.css">
     <link rel="stylesheet" href="${urlPublic}/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="${urlPublic}/bower_components/font-awesome/css/font-awesome.min.css">

@@ -16,36 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tb_documentacion_alumno`
+-- Table structure for table `tb_firmas`
 --
 
-DROP TABLE IF EXISTS `tb_documentacion_alumno`;
+DROP TABLE IF EXISTS `tb_firmas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `tb_documentacion_alumno` (
-  `idDocumentacionAlumno` int(11) NOT NULL AUTO_INCREMENT,
-  `idEstudiante` int(11) DEFAULT NULL,
-  `idDocumento` int(11) DEFAULT NULL,
-  `Estado` int(11) DEFAULT NULL,
-  `Path` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idDocumentacionAlumno`),
-  KEY `fk_Estudiantes_Documetacion_idx` (`idEstudiante`),
-  KEY `fk_Documentos_Documentacion_idx` (`idDocumento`),
-  KEY `fk_Estado_Documentacion_idx` (`Estado`),
-  CONSTRAINT `fk_Documentos_Documentacion` FOREIGN KEY (`idDocumento`) REFERENCES `ctg_documentos` (`idDocumento`),
-  CONSTRAINT `fk_Estado_Documentacion` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
-  CONSTRAINT `fk_Estudiantes_Documetacion` FOREIGN KEY (`idEstudiante`) REFERENCES `tb_estudiantes` (`idEstudiate`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+CREATE TABLE `tb_firmas` (
+  `idFirma` int(11) NOT NULL AUTO_INCREMENT,
+  `autoridad` varchar(45) NOT NULL,
+  `path` varchar(50) NOT NULL,
+  PRIMARY KEY (`idFirma`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_documentacion_alumno`
+-- Dumping data for table `tb_firmas`
 --
 
-LOCK TABLES `tb_documentacion_alumno` WRITE;
-/*!40000 ALTER TABLE `tb_documentacion_alumno` DISABLE KEYS */;
-INSERT INTO `tb_documentacion_alumno` VALUES (11,13,6,4,'KARINA SORIANO\\Carta de Aceptación.xlsx'),(12,13,7,3,NULL),(13,13,8,3,NULL),(14,13,9,3,NULL),(15,13,10,3,NULL);
-/*!40000 ALTER TABLE `tb_documentacion_alumno` ENABLE KEYS */;
+LOCK TABLES `tb_firmas` WRITE;
+/*!40000 ALTER TABLE `tb_firmas` DISABLE KEYS */;
+INSERT INTO `tb_firmas` VALUES (1,'Director','/dist/firmas\\firma.png'),(2,'Coordinador','/dist/firmas\\firma.png');
+/*!40000 ALTER TABLE `tb_firmas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -57,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-04 23:20:42
+-- Dump completed on 2019-06-11 23:27:56

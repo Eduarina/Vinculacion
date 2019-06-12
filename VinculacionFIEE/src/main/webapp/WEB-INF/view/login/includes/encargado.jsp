@@ -8,7 +8,7 @@
         <h1>
             Perfil
             <small>
-                Estudiante
+                Encargado
             </small>
         </h1>
     </section>

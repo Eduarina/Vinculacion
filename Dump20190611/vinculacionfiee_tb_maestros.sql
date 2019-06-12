@@ -16,27 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `ctg_documentos`
+-- Table structure for table `tb_maestros`
 --
 
-DROP TABLE IF EXISTS `ctg_documentos`;
+DROP TABLE IF EXISTS `tb_maestros`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `ctg_documentos` (
-  `idDocumento` int(11) NOT NULL AUTO_INCREMENT,
-  `Descripcion` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idDocumento`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+CREATE TABLE `tb_maestros` (
+  `idMaestro` int(11) NOT NULL AUTO_INCREMENT,
+  `Correo` varchar(45) DEFAULT NULL,
+  `Firma` varchar(45) DEFAULT NULL,
+  `Estado` int(11) DEFAULT NULL,
+  `idUsuario` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idMaestro`),
+  KEY `fk_Estados_Maestros_idx` (`Estado`),
+  KEY `fk_Usuarios_Maestros_idx` (`idUsuario`),
+  CONSTRAINT `fk_Estados_Maestros` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
+  CONSTRAINT `fk_Usuarios_Maestros` FOREIGN KEY (`idUsuario`) REFERENCES `tb_usuarios` (`idUsuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ctg_documentos`
+-- Dumping data for table `tb_maestros`
 --
 
-LOCK TABLES `ctg_documentos` WRITE;
-/*!40000 ALTER TABLE `ctg_documentos` DISABLE KEYS */;
-INSERT INTO `ctg_documentos` VALUES (6,'Carta de Aceptación'),(7,'Formato de asignación de proyecto'),(8,'Horario servicio social'),(9,'Porcentaje de creditos'),(10,'Carta de liberación');
-/*!40000 ALTER TABLE `ctg_documentos` ENABLE KEYS */;
+LOCK TABLES `tb_maestros` WRITE;
+/*!40000 ALTER TABLE `tb_maestros` DISABLE KEYS */;
+INSERT INTO `tb_maestros` VALUES (11,'MAESTRO@UV.MX','\\MAESTRO\\firma.jpg',1,32);
+/*!40000 ALTER TABLE `tb_maestros` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-04 23:20:46
+-- Dump completed on 2019-06-11 23:27:56

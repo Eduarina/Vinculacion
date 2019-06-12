@@ -36,23 +36,32 @@
                                                     <td> 
                                                         Bitacora #<c:out value="${dato.num_reporte}" />
                                                     </td>
-                                                    <c:if test="${dato.vbo_maestro eq 1}">
+                                                    <c:choose>
+                                                    <c:when test="${dato.vbo_maestro eq 1}">
                                                         <td>Pendiente de Revision</td>
-                                                    </c:if>
-                                                    <c:if test="${dato.vbo_maestro eq 2}">
+                                                    </c:when>
+                                                    <c:when test="${dato.vbo_maestro eq 2}">
                                                         <td>Revisado</td>
-                                                    </c:if> 
-                                                    <c:if test="${dato.vbo_encargado eq 1}">
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <td><c:out value="${dato.vbo_maestro}" /></td>
+                                                    </c:otherwise>
+                                                    </c:choose>
+                                                    <c:choose>
+                                                    <c:when test="${dato.vbo_encargado eq 1}">
                                                         <td>Pendiente de Revision</td>
-                                                    </c:if>
-                                                    <c:if test="${dato.vbo_encargado eq 2}">
+                                                    </c:when>
+                                                    <c:when test="${dato.vbo_encargado eq 2}">
                                                         <td>Revisado</td>
-                                                    </c:if> 
+                                                    </c:when> 
+                                                    <c:otherwise>
+                                                        <td><c:out value="${dato.vbo_encargado}" /></td>
+                                                    </c:otherwise>
+                                                    </c:choose>    
                                                     <td>
-                                                        <a href="editar?id=${dato.idbitacora}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
-                                                        <a href="borrar?id=${dato.idbitacora}" class="btn btn-danger" onclick="return confirm('Eliminar este registro podria causar inconsistencias en el sistema. ¿Estas seguro que deseas eliminar el registro?')"><i class="fa fa-trash"></i> Eliminar</a>
+                                                        <a href="editar?id=${dato.idReporte}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
                                                         <c:if test="${dato.vbo_encargado eq 2 && dato.vbo_maestro eq 2}">
-                                                            <a href="exportar" id=${dato.idbitacora}_${sessionScope.id}" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</a>
+                                                            <a href="exportar?id=${dato.idReporte}" class="btn btn-success"><i class="fa fa-trash"></i> Exportar</a>
                                                         </c:if>
                                                     </td>
                                                 </tr>

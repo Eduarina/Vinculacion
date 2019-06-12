@@ -16,43 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tb_reportes`
+-- Table structure for table `ctg_estados`
 --
 
-DROP TABLE IF EXISTS `tb_reportes`;
+DROP TABLE IF EXISTS `ctg_estados`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `tb_reportes` (
-  `idReporte` int(11) NOT NULL AUTO_INCREMENT,
-  `Num_Reporte` int(11) DEFAULT NULL,
-  `idProyecto` int(11) DEFAULT NULL,
-  `Tipo` int(11) DEFAULT NULL,
-  `Actividades` varchar(100) DEFAULT NULL,
-  `Descripcion` varchar(150) DEFAULT NULL,
-  `Problemas` varchar(100) DEFAULT NULL,
-  `Soluciones` varchar(100) DEFAULT NULL,
-  `Estado` int(11) DEFAULT NULL,
-  `Fecha` varchar(20) DEFAULT NULL,
-  `idEstudiante` int(11) DEFAULT NULL,
-  `VBo_Maestro` int(11) DEFAULT NULL,
-  `VBo_Encargado` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idReporte`),
-  KEY `fk_AsignacionProyecto_Reporte_idx` (`idProyecto`),
-  KEY `fk_Estado_Reporte_idx` (`Estado`),
-  KEY `idEstudiante` (`idEstudiante`),
-  CONSTRAINT `fk_AsignacionProyecto_Reporte` FOREIGN KEY (`idProyecto`) REFERENCES `tb_asignacion_proyecto` (`idAsignacionProyecto`),
-  CONSTRAINT `fk_Estado_Reporte` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
-  CONSTRAINT `tb_reportes_ibfk_1` FOREIGN KEY (`idEstudiante`) REFERENCES `tb_usuarios` (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `ctg_estados` (
+  `idEstado` int(11) NOT NULL AUTO_INCREMENT,
+  `Descripcion` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idEstado`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_reportes`
+-- Dumping data for table `ctg_estados`
 --
 
-LOCK TABLES `tb_reportes` WRITE;
-/*!40000 ALTER TABLE `tb_reportes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tb_reportes` ENABLE KEYS */;
+LOCK TABLES `ctg_estados` WRITE;
+/*!40000 ALTER TABLE `ctg_estados` DISABLE KEYS */;
+INSERT INTO `ctg_estados` VALUES (1,'Activo'),(2,'Inactivo'),(3,'Pendiente de Entrega'),(4,'Entregado'),(5,'Vigente'),(6,'Cumplido');
+/*!40000 ALTER TABLE `ctg_estados` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -64,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-04 23:20:43
+-- Dump completed on 2019-06-11 23:27:58

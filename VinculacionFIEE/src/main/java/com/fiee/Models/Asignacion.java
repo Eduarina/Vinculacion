@@ -11,7 +11,7 @@ package com.fiee.Models;
  */
 public class Asignacion {
     private int idAsignacion;
-    private int idmaestro;
+    private int idMaestro;
     private int idEstudiante;  
     private int Estado;
 
@@ -26,12 +26,12 @@ public class Asignacion {
         this.idAsignacion = idAsignacion;
     }
 
-    public int getIdmaestro() {
-        return idmaestro;
+    public int getIdMaestro() {
+        return idMaestro;
     }
 
-    public void setIdmaestro(int idmaestro) {
-        this.idmaestro = idmaestro;
+    public void setIdMaestro(int idmaestro) {
+        this.idMaestro = idmaestro;
     }
 
     public int getIdEstudiante() {

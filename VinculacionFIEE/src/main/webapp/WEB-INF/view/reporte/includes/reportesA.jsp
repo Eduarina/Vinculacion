@@ -1,8 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <section class="content-header">
                         <h1>
-                            Bitácoras
-                            <small>Lista de Bitácoras</small>
+                            Reportes
+                            <small>Lista de Reportes</small>
                         </h1>
                         <!--<ol class="breadcrumb">
                             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -49,10 +49,9 @@
                                                         <td>Revisado</td>
                                                     </c:if> 
                                                     <td>
-                                                        <a href="editar?id=${dato.idbitacora}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
-                                                        <a href="borrar?id=${dato.idbitacora}" class="btn btn-danger" onclick="return confirm('Eliminar este registro podria causar inconsistencias en el sistema. ¿Estas seguro que deseas eliminar el registro?')"><i class="fa fa-trash"></i> Eliminar</a>
-                                                        <c:if test="${dato.vbo_encargado eq 2 && dato.vbo_maestro eq 2}">
-                                                            <a href="exportar" id=${dato.idbitacora}_${sessionScope.id}" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</a>
+                                                        <a href="editar?id=${dato.idReporte}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
+                                                        <c:if test="${dato.vbo_encargado eq 1 && dato.vbo_maestro eq 1}">
+                                                            <a href="exportar?id=${dato.idReporte}" class="btn btn-success"><i class="fa fa-trash"></i>Exportar</a>
                                                         </c:if>
                                                     </td>
                                                 </tr>

@@ -121,7 +121,7 @@ public class asignarController {
         @ModelAttribute("datos") @Valid Asignacion u, BindingResult result, Model model
     ){
         String sql = "insert into tb_asignacion (idMaestro, idestudiante, estado) values (?,?,?)";
-        this.jdbcTemplate.update(sql, u.getIdmaestro(), u.getIdEstudiante(),1);
+        this.jdbcTemplate.update(sql, u.getIdMaestro(), u.getIdEstudiante(),1);
         return new ModelAndView("redirect:lista");
     }
     
@@ -206,7 +206,7 @@ public class asignarController {
             return mav;
         } else {
             String sql = "update maestro_servicio set idmaestro=?, idservicio=? where idtabla1=" + u.getIdAsignacion();
-            this.jdbcTemplate.update(sql, u.getIdmaestro(), u.getIdEstudiante());
+            this.jdbcTemplate.update(sql, u.getIdMaestro(), u.getIdEstudiante());
             return new ModelAndView("redirect:/asignacion/lista");
         }
     }
