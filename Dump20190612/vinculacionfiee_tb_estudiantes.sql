@@ -16,36 +16,41 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tb_documentacion_alumno`
+-- Table structure for table `tb_estudiantes`
 --
 
-DROP TABLE IF EXISTS `tb_documentacion_alumno`;
+DROP TABLE IF EXISTS `tb_estudiantes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `tb_documentacion_alumno` (
-  `idDocumentacionAlumno` int(11) NOT NULL AUTO_INCREMENT,
-  `idEstudiante` int(11) DEFAULT NULL,
-  `idDocumento` int(11) DEFAULT NULL,
+CREATE TABLE `tb_estudiantes` (
+  `idEstudiate` int(11) NOT NULL AUTO_INCREMENT,
+  `Matricula` varchar(10) DEFAULT NULL,
+  `Correo` varchar(45) DEFAULT NULL,
+  `Carrera` int(11) DEFAULT NULL,
+  `Celular` varchar(12) DEFAULT NULL,
+  `Telefono` varchar(10) DEFAULT NULL,
+  `Semestre` int(11) DEFAULT NULL,
   `Estado` int(11) DEFAULT NULL,
-  `Path` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idDocumentacionAlumno`),
-  KEY `fk_Estudiantes_Documetacion_idx` (`idEstudiante`),
-  KEY `fk_Documentos_Documentacion_idx` (`idDocumento`),
-  KEY `fk_Estado_Documentacion_idx` (`Estado`),
-  CONSTRAINT `fk_Documentos_Documentacion` FOREIGN KEY (`idDocumento`) REFERENCES `ctg_documentos` (`idDocumento`),
-  CONSTRAINT `fk_Estado_Documentacion` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
-  CONSTRAINT `fk_Estudiantes_Documetacion` FOREIGN KEY (`idEstudiante`) REFERENCES `tb_estudiantes` (`idEstudiate`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+  `idUsuario` int(11) DEFAULT NULL,
+  `firma` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`idEstudiate`),
+  KEY `fk_Estado_Estudiantes_idx` (`idUsuario`),
+  KEY `fk_Carrera_Estudiantes` (`Carrera`),
+  KEY `fk_Estados_Estudiantes_idx` (`Estado`),
+  CONSTRAINT `fk_Carrera_Estudiantes` FOREIGN KEY (`Carrera`) REFERENCES `ctg_carreras` (`idCarrera`),
+  CONSTRAINT `fk_Estados_Estudiantes` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
+  CONSTRAINT `fk_Usuario_Estudiantes` FOREIGN KEY (`idUsuario`) REFERENCES `tb_usuarios` (`idUsuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_documentacion_alumno`
+-- Dumping data for table `tb_estudiantes`
 --
 
-LOCK TABLES `tb_documentacion_alumno` WRITE;
-/*!40000 ALTER TABLE `tb_documentacion_alumno` DISABLE KEYS */;
-INSERT INTO `tb_documentacion_alumno` VALUES (11,13,6,4,'KARINA SORIANO\\Carta de Aceptación.xlsx'),(12,13,7,3,NULL),(13,13,8,3,NULL),(14,13,9,3,NULL),(15,13,10,3,NULL);
-/*!40000 ALTER TABLE `tb_documentacion_alumno` ENABLE KEYS */;
+LOCK TABLES `tb_estudiantes` WRITE;
+/*!40000 ALTER TABLE `tb_estudiantes` DISABLE KEYS */;
+INSERT INTO `tb_estudiantes` VALUES (13,'S12001347','KSORIANO@HOTMAIL.COM',5,'2299191094','2299191094',8,1,30,'\\KARINA SORIANO\\firma.png');
+/*!40000 ALTER TABLE `tb_estudiantes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -57,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-11 23:27:57
+-- Dump completed on 2019-06-12 14:20:34

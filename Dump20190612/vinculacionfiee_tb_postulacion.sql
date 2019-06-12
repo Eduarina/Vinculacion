@@ -16,27 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `ctg_estados`
+-- Table structure for table `tb_postulacion`
 --
 
-DROP TABLE IF EXISTS `ctg_estados`;
+DROP TABLE IF EXISTS `tb_postulacion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `ctg_estados` (
-  `idEstado` int(11) NOT NULL AUTO_INCREMENT,
-  `Descripcion` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idEstado`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+CREATE TABLE `tb_postulacion` (
+  `idPostulacion` int(11) NOT NULL AUTO_INCREMENT,
+  `idProyecto` int(11) DEFAULT NULL,
+  `idEstudiante` int(11) DEFAULT NULL,
+  `Estado` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idPostulacion`),
+  KEY `fk_Estudiante_Postulacion_idx` (`idEstudiante`),
+  KEY `fk_Estado_Postulacion_idx` (`Estado`),
+  KEY `fk_Proyecto_Postulacion_idx` (`idProyecto`),
+  CONSTRAINT `fk_Estado_Postulacion` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
+  CONSTRAINT `fk_Estudiante_Postulacion` FOREIGN KEY (`idEstudiante`) REFERENCES `tb_estudiantes` (`idEstudiate`),
+  CONSTRAINT `fk_Proyecto_Postulacion` FOREIGN KEY (`idProyecto`) REFERENCES `tb_proyectos` (`idProyecto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ctg_estados`
+-- Dumping data for table `tb_postulacion`
 --
 
-LOCK TABLES `ctg_estados` WRITE;
-/*!40000 ALTER TABLE `ctg_estados` DISABLE KEYS */;
-INSERT INTO `ctg_estados` VALUES (1,'Activo'),(2,'Inactivo'),(3,'Pendiente de Entrega'),(4,'Entregado'),(5,'Vigente'),(6,'Cumplido');
-/*!40000 ALTER TABLE `ctg_estados` ENABLE KEYS */;
+LOCK TABLES `tb_postulacion` WRITE;
+/*!40000 ALTER TABLE `tb_postulacion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_postulacion` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-11 23:27:58
+-- Dump completed on 2019-06-12 14:20:37

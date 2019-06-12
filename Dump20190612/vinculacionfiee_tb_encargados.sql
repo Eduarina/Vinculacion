@@ -16,35 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tb_usuarios`
+-- Table structure for table `tb_encargados`
 --
 
-DROP TABLE IF EXISTS `tb_usuarios`;
+DROP TABLE IF EXISTS `tb_encargados`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `tb_usuarios` (
-  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(45) DEFAULT NULL,
-  `User` varchar(45) DEFAULT NULL,
-  `Password` varchar(45) DEFAULT NULL,
-  `Tipo` int(11) DEFAULT NULL,
-  `Path` varchar(45) DEFAULT NULL,
-  `Sexo` varchar(1) DEFAULT NULL,
+CREATE TABLE `tb_encargados` (
+  `idEncargado` int(11) NOT NULL AUTO_INCREMENT,
+  `Firma` varchar(45) DEFAULT NULL,
+  `Correo` varchar(45) DEFAULT NULL,
+  `Telefono` varchar(45) DEFAULT NULL,
   `Estado` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idUsuario`),
-  KEY `fk_Estado_Usuario_idx` (`Estado`),
-  CONSTRAINT `fk_Estado_Usuario` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+  `idUsuario` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idEncargado`),
+  KEY `fk_Usuarios_Encargados_idx` (`idUsuario`),
+  KEY `fk_Estado_Encargados_idx` (`Estado`),
+  CONSTRAINT `fk_Estado_Encargados` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
+  CONSTRAINT `fk_Usuarios_Encargados` FOREIGN KEY (`idUsuario`) REFERENCES `tb_usuarios` (`idUsuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_usuarios`
+-- Dumping data for table `tb_encargados`
 --
 
-LOCK TABLES `tb_usuarios` WRITE;
-/*!40000 ALTER TABLE `tb_usuarios` DISABLE KEYS */;
-INSERT INTO `tb_usuarios` VALUES (28,'Eduardo Soriano','esoriano','81dc9bdb52d04dc20036dbd8313ed055',1,'/dist/img/user2-160x160.jpg','H',1),(30,'KARINA SORIANO','KSORIANO','25d55ad283aa400af464c76d713c07ad',5,'/dist/img\\avatar2.png','H',1),(31,'USUARIO','USUARIO','25d55ad283aa400af464c76d713c07ad',2,'/dist/img/avatar2.png','H',1),(32,'MAESTRO','MAESTRO','25d55ad283aa400af464c76d713c07ad',3,'/dist/img\\avatar5.png','H',1),(33,'ENCARGADO','ENCARGADO','25d55ad283aa400af464c76d713c07ad',4,'/dist/img/user2-160x160.jpg','H',1),(35,'JONATHAN','JONATHAN','81dc9bdb52d04dc20036dbd8313ed055',1,NULL,NULL,1);
-/*!40000 ALTER TABLE `tb_usuarios` ENABLE KEYS */;
+LOCK TABLES `tb_encargados` WRITE;
+/*!40000 ALTER TABLE `tb_encargados` DISABLE KEYS */;
+INSERT INTO `tb_encargados` VALUES (2,'\\ENCARGADO\\firma.png','ENCARGADO@UV.MX','222222222',1,33);
+/*!40000 ALTER TABLE `tb_encargados` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-11 23:27:58
+-- Dump completed on 2019-06-12 14:20:33

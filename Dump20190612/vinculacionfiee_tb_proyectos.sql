@@ -16,44 +16,45 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tb_reportes`
+-- Table structure for table `tb_proyectos`
 --
 
-DROP TABLE IF EXISTS `tb_reportes`;
+DROP TABLE IF EXISTS `tb_proyectos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `tb_reportes` (
-  `idReporte` int(11) NOT NULL AUTO_INCREMENT,
-  `Num_Reporte` int(11) DEFAULT NULL,
-  `idProyecto` int(11) DEFAULT NULL,
-  `Tipo` int(11) DEFAULT NULL,
+CREATE TABLE `tb_proyectos` (
+  `idProyecto` int(11) NOT NULL AUTO_INCREMENT,
+  `Titulo` varchar(45) DEFAULT NULL,
+  `Dependencia` varchar(45) DEFAULT NULL,
+  `Horario` varchar(45) DEFAULT NULL,
+  `FechaInicio` varchar(45) DEFAULT NULL,
+  `FechaFin` varchar(45) DEFAULT NULL,
+  `Objetivo` varchar(45) DEFAULT NULL,
   `Actividades` varchar(100) DEFAULT NULL,
-  `Descripcion` varchar(150) DEFAULT NULL,
-  `Problemas` varchar(100) DEFAULT NULL,
-  `Soluciones` varchar(100) DEFAULT NULL,
+  `Ubicacion` varchar(45) DEFAULT NULL,
+  `Aspirantes` int(11) DEFAULT NULL,
+  `tipo` varchar(30) DEFAULT NULL,
+  `idEncargado` int(11) DEFAULT NULL,
   `Estado` int(11) DEFAULT NULL,
-  `Fecha` varchar(20) DEFAULT NULL,
   `idEstudiante` int(11) DEFAULT NULL,
-  `Vbo_Maestro` text,
-  `VBo_Encargado` text,
-  PRIMARY KEY (`idReporte`),
-  KEY `fk_AsignacionProyecto_Reporte_idx` (`idProyecto`),
-  KEY `fk_Estado_Reporte_idx` (`Estado`),
+  PRIMARY KEY (`idProyecto`),
+  KEY `fk_Encargado_Proyecto_idx` (`idEncargado`),
+  KEY `fk_Estado_Proyecto_idx` (`Estado`),
   KEY `idEstudiante` (`idEstudiante`),
-  CONSTRAINT `fk_AsignacionProyecto_Reporte` FOREIGN KEY (`idProyecto`) REFERENCES `tb_asignacion_proyecto` (`idAsignacionProyecto`),
-  CONSTRAINT `fk_Estado_Reporte` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
-  CONSTRAINT `tb_reportes_ibfk_1` FOREIGN KEY (`idEstudiante`) REFERENCES `tb_usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_Encargado_Proyecto` FOREIGN KEY (`idEncargado`) REFERENCES `tb_encargados` (`idEncargado`),
+  CONSTRAINT `fk_Estado_Proyecto` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
+  CONSTRAINT `tb_proyectos_ibfk_1` FOREIGN KEY (`idEstudiante`) REFERENCES `tb_usuarios` (`idUsuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_reportes`
+-- Dumping data for table `tb_proyectos`
 --
 
-LOCK TABLES `tb_reportes` WRITE;
-/*!40000 ALTER TABLE `tb_reportes` DISABLE KEYS */;
-INSERT INTO `tb_reportes` VALUES (10,1,4,1,'Actividades generales','Descripción de las actividades','Problemas encontrados','Soluciones empleadas',1,'09/06/2019',30,'1','1'),(11,1,4,2,'asda','jkaskdh',NULL,NULL,1,'09/06/2019',30,'1','1');
-/*!40000 ALTER TABLE `tb_reportes` ENABLE KEYS */;
+LOCK TABLES `tb_proyectos` WRITE;
+/*!40000 ALTER TABLE `tb_proyectos` DISABLE KEYS */;
+INSERT INTO `tb_proyectos` VALUES (1,'TITULO','DEPENDENCIA','HORARIO','04/06/2019','06/06/2019','OBJETIVOS','ACTIVIDADES','UBICACION',0,'Servicio Social',2,1,30);
+/*!40000 ALTER TABLE `tb_proyectos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -65,4 +66,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-11 23:27:57
+-- Dump completed on 2019-06-12 14:20:33

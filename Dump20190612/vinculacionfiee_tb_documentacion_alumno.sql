@@ -16,27 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `ctg_documentos`
+-- Table structure for table `tb_documentacion_alumno`
 --
 
-DROP TABLE IF EXISTS `ctg_documentos`;
+DROP TABLE IF EXISTS `tb_documentacion_alumno`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `ctg_documentos` (
-  `idDocumento` int(11) NOT NULL AUTO_INCREMENT,
-  `Descripcion` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idDocumento`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+CREATE TABLE `tb_documentacion_alumno` (
+  `idDocumentacionAlumno` int(11) NOT NULL AUTO_INCREMENT,
+  `idEstudiante` int(11) DEFAULT NULL,
+  `idDocumento` int(11) DEFAULT NULL,
+  `Estado` int(11) DEFAULT NULL,
+  `Path` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idDocumentacionAlumno`),
+  KEY `fk_Estudiantes_Documetacion_idx` (`idEstudiante`),
+  KEY `fk_Documentos_Documentacion_idx` (`idDocumento`),
+  KEY `fk_Estado_Documentacion_idx` (`Estado`),
+  CONSTRAINT `fk_Documentos_Documentacion` FOREIGN KEY (`idDocumento`) REFERENCES `ctg_documentos` (`idDocumento`),
+  CONSTRAINT `fk_Estado_Documentacion` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
+  CONSTRAINT `fk_Estudiantes_Documetacion` FOREIGN KEY (`idEstudiante`) REFERENCES `tb_estudiantes` (`idEstudiate`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ctg_documentos`
+-- Dumping data for table `tb_documentacion_alumno`
 --
 
-LOCK TABLES `ctg_documentos` WRITE;
-/*!40000 ALTER TABLE `ctg_documentos` DISABLE KEYS */;
-INSERT INTO `ctg_documentos` VALUES (6,'Carta de Aceptación'),(7,'Formato de asignación de proyecto'),(8,'Horario servicio social'),(9,'Porcentaje de creditos'),(10,'Carta de liberación');
-/*!40000 ALTER TABLE `ctg_documentos` ENABLE KEYS */;
+LOCK TABLES `tb_documentacion_alumno` WRITE;
+/*!40000 ALTER TABLE `tb_documentacion_alumno` DISABLE KEYS */;
+INSERT INTO `tb_documentacion_alumno` VALUES (11,13,6,4,'KARINA SORIANO\\Carta de Aceptación.xlsx'),(12,13,7,3,NULL),(13,13,8,3,NULL),(14,13,9,3,NULL),(15,13,10,3,NULL);
+/*!40000 ALTER TABLE `tb_documentacion_alumno` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-11 23:28:00
+-- Dump completed on 2019-06-12 14:20:35
