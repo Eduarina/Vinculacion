@@ -176,7 +176,21 @@ public class reporteController {
             @ModelAttribute("datos")
             @Valid Bitacora u, BindingResult result, HttpServletRequest request, Model model
     ) {
-        String sql = "UPDATE tb_reportes SET Actividades = ?, Descripcion = ? WHERE idReporte = "+u.getIdReporte();
+        
+        String sql = "SELECT vbo_maestro FROM tb_reportes where idReporte = "+u.getIdReporte();
+        String revision = this.jdbcTemplate.queryForObject(sql, new Object[]{}, String.class);
+        if( !revision.equals("2") ){
+            sql = "Update tb_reportes SET vbo_maestro = 1 WHERE idReporte = "+u.getIdReporte();
+            this.jdbcTemplate.update(sql);
+        }
+        sql = "SELECT vbo_encargado FROM tb_reportes where idReporte = "+u.getIdReporte();
+        revision = this.jdbcTemplate.queryForObject(sql, new Object[]{}, String.class);
+        if( !revision.equals("2") ){
+            sql = "Update tb_reportes SET vbo_encargado = 1 WHERE idReporte = "+u.getIdReporte();
+            this.jdbcTemplate.update(sql);
+        }
+        
+        sql = "UPDATE tb_reportes SET Actividades = ?, Descripcion = ? WHERE idReporte = "+u.getIdReporte();
         this.jdbcTemplate.update(sql, u.getActividades(), u.getDescripcion());
         return new ModelAndView("redirect:lista");
     }

@@ -4,10 +4,6 @@
                             Reportes
                             <small>Lista de Reportes</small>
                         </h1>
-                        <!--<ol class="breadcrumb">
-                            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                            <li class="active">Inicio</li>
-                        </ol>-->
                     </section>
 
                     <!-- Main content -->
@@ -34,23 +30,30 @@
                                             <c:forEach items="${reportes}" var="dato">
                                                 <tr>
                                                     <td> 
-                                                        Bitacora #<c:out value="${dato.num_reporte}" />
+                                                        Reporte #<c:out value="${dato.num_reporte}" />
                                                     </td>
-                                                    <c:if test="${dato.vbo_maestro eq 1}">
+                                                    <c:choose>
+                                                    <c:when test="${dato.vbo_maestro == '1'}">
                                                         <td>Pendiente de Revision</td>
-                                                    </c:if>
-                                                    <c:if test="${dato.vbo_maestro eq 2}">
+                                                    </c:when>
+                                                    <c:when test="${dato.vbo_maestro == '2'}">
                                                         <td>Revisado</td>
-                                                    </c:if> 
-                                                    <c:if test="${dato.vbo_encargado eq 1}">
+                                                    </c:when> 
+                                                    <c:otherwise>
+                                                        <td>${dato.vbo_maestro}</td>
+                                                    </c:otherwise>
+                                                    </c:choose>
+                                                    <c:if test="${dato.vbo_encargado == '1'}">
                                                         <td>Pendiente de Revision</td>
                                                     </c:if>
-                                                    <c:if test="${dato.vbo_encargado eq 2}">
+                                                    <c:if test="${dato.vbo_encargado == '2'}">
                                                         <td>Revisado</td>
                                                     </c:if> 
                                                     <td>
-                                                        <a href="editar?id=${dato.idReporte}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
-                                                        <c:if test="${dato.vbo_encargado eq 1 && dato.vbo_maestro eq 1}">
+                                                        <c:if test="${dato.vbo_encargado ne '2' || dato.vbo_maestro ne '2'}">
+                                                            <a href="editar?id=${dato.idReporte}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
+                                                        </c:if>
+                                                        <c:if test="${dato.vbo_encargado == '2' && dato.vbo_maestro == '2'}">
                                                             <a href="exportar?id=${dato.idReporte}" class="btn btn-success"><i class="fa fa-trash"></i>Exportar</a>
                                                         </c:if>
                                                     </td>

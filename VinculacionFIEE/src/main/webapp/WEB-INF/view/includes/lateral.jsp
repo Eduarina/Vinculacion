@@ -74,7 +74,7 @@
             <li class="active"><a href="/VinculacionFIEE/asignacion/proyectos"><i class="fa fa-calendar"></i> <span>Asignación Proyectos-Alumnos</span></a></li>
             </c:if>
             <c:if test="${sessionScope.tipo eq 3 or sessionScope.tipo eq 4}">
-                <li class="active"><a href="/VinculacionFIEE/bitacoras/reporte"><i class="fa fa-calendar"></i> <span>Revisar reportes</span></a></li>
+                <li class="active"><a href="/VinculacionFIEE/detalles"><i class="fa fa-calendar"></i> <span>Revisar reportes</span></a></li>
             </c:if>
         </ul>
         <!-- /.sidebar-menu -->

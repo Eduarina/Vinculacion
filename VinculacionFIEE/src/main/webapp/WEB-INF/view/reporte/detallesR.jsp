@@ -43,13 +43,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Detalles de Reporte Mensual
-                            <small></small>
+                            Reportes
+                            <small>Documentos</small>
                         </h1>
-                        <!--                        <ol class="breadcrumb">
-                                                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                                                    <li class="active">Inicio</li>
-                                                </ol>-->
+                        <!--<ol class="breadcrumb">
+                            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                            <li class="active">Inicio</li>
+                        </ol>-->
                     </section>
 
                     <!-- Main content -->
@@ -59,170 +59,122 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         | Your Page Content Here |
                         -------------------------->
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="box box-primary">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Reporte ${reporte[0].numero}</h3>
-                                </div>
-                                <!-- /.box-header -->
-                                <!-- form start -->
-                                <div class="box-body">
-                                    <div class="form-group col-md-6">
-                                        <label for="nombre">Nombre del Alumno:</label><br>
-                                        <c:if test="${empty servicio[0].carrera}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty servicio[0].carrera}">
-                                            ${servicio[0].carrera}
-                                        </c:if>
+                            <div class="col-md-10">
+                                <div class="box box-primary" id="reporte">
+                                    <div class="box-header">
+                                        <form action="comentar" method="POST">
+                                            <div class="col-md-12">
+                                                <label for="obse">Observaciones</label><br>
+                                                <input type="hidden" name="idR" value="${idR}">
+                                                <textarea name="obse" style="width:100%"></textarea> <br><br>
+                                                <input class="btn btn-primary" type="submit" value="Enviar Comentarios">
+                                                <a class="btn btn-success" href="autoriza?id=${idR}" >Autorizar reporte</a>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="carrera">Programa Educativo:</label><br>
-                                        <c:if test="${empty servicio[0].carrera}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty servicio[0].carrera}">
-                                            ${servicio[0].carrera}
-                                        </c:if>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="correo">Correo:</label><br>
-                                        <c:if test="${empty servicio[0].correo}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty servicio[0].correo}">
-                                            ${servicio[0].correo}
-                                        </c:if>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="telefono">Teléfono:</label><br>
-                                        <c:if test="${empty servicio[0].telefono}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty servicio[0].telefono}">
-                                            ${servicio[0].telefono}
-                                        </c:if>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="celular">Celular:</label><br>
-                                        <c:if test="${empty servicio[0].celular}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty servicio[0].celular}">
-                                            ${servicio[0].celular}
-                                        </c:if>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="matricula">Matricula:</label><br>
-                                        <c:if test="${empty servicio[0].matricula}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty servicio[0].matricula}">
-                                            ${servicio[0].matricula}
-                                        </c:if>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label path="numero">Reporte:</label><br>
-                                        <c:if test="${empty reporte[0].numero}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty reporte[0].numero}">
-                                            ${reporte[0].numero}
-                                        </c:if>
-                                    </div>
-                                    <!--Date--> 
-                                    <div class="form-group col-md-2">
-                                        <label for="datepicker">Fecha de Reporte:</label><br>
-                                        <c:if test="${empty reporte[0].fecha}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty reporte[0].fecha}">
-                                            ${reporte[0].fecha}
-                                        </c:if>
-                                    </div>
-                                    <!--Date--> 
-                                    <div class="form-group col-md-2">
-                                        <label path="datepicker2">Fecha de Vencimiento:</label><br>
-                                        <c:if test="${empty reporte[0].fechalim}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty reporte[0].fechalim}">
-                                            ${reporte[0].fechalim}
-                                        </c:if>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label path="dependencia">Dependencia:</label><br>
-                                        <c:if test="${empty reporte[0].dependencia}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty reporte[0].dependencia}">
-                                            ${reporte[0].dependencia}
-                                        </c:if>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label path="telefono">Teléfono de la Dependencia:</label><br>
-                                        <c:if test="${empty reporte[0].telefono}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty reporte[0].telefono}">
-                                            ${reporte[0].telefono}
-                                        </c:if>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label path="horario">Horario de Servicio:</label><br>
-                                        <c:if test="${empty reporte[0].horario}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty reporte[0].horario}">
-                                            ${reporte[0].horario}
-                                        </c:if>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label path="proyecto">Nombre del Proyecto:</label><br>
-                                        <c:if test="${empty reporte[0].proyecto}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty reporte[0].proyecto}">
-                                            ${reporte[0].proyecto}
-                                        </c:if>
-                                    </div>
-                                    <!-- textarea -->
-                                    <div class="form-group col-md-6">
-                                        <label path="actividades">Actividades Generales:</label><br>
-                                        <c:if test="${empty reporte[0].actividades}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty reporte[0].actividades}">
-                                            ${reporte[0].actividades}
-                                        </c:if>
-                                    </div>
-                                    <!-- textarea -->
-                                    <div class="form-group col-md-6">
-                                        <label path="descripcion">Descripción de Actividades:</label><br>
-                                        <c:if test="${empty reporte[0].descripcion}">
-                                            Dato por registrar
-                                        </c:if>
-                                        <c:if test="${not empty reporte[0].descripcion}">
-                                            ${reporte[0].descripcion}
-                                        </c:if>
-                                    </div>
-                                </div>
-                                <div class="box-footer">
-                                    <a href="lista" class="btn btn-default"><i class="fa fa-reply"></i> Volver</a>
+                                    <div class="box-body">
+                                    <c:forEach items="${infoE}" var="info">
+                                        <table width="100%" class="formatoR">
+                                            <tbody>
+                                            <tr>
+                                                <td colspan="2" rowspan="6" style="width: 30%; padding-left: 7%;"><img align="center" width="150px" src="${urlPublic}/dist/img/logoUV.jpg"></td>
+                                                <td colspan="9" style="text-align: center;"><b>Universidad Veracruzana</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="9" style="text-align:center;"><b>Facultad de Ingeniería Eléctrica y Electrónica</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="9" style="text-align:center;"><b>Coordinación de Vinculación y Servicio Social</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="9" style="text-align:center; background: #D9D9D9"><b>REPORTE MENSUAL</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="9" style="text-align:center; background: #BFBFBF"><b>Datos del Alumno</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="9" ><b>Nombre: </b><c:out value="${info.Nombre}" /> </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" ><b>Carrera: </b><c:out value="${info.Carrera}" /> </td>
+                                                <td colspan="5" ><b>Correo: </b><c:out value="${info.Correo}" /> </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" ><b>Telefono: </b><c:out value="${info.Telefono}" /> </td>
+                                                <td colspan="4" ><b>Celular: </b><c:out value="${info.Celular}" /> </td>
+                                                <td colspan="3" ><b>Matricula: </b><c:out value="${info.Matricula}" /> </td>
+                                            </tr>
+                                            <tr></tr>
+                                        </table>
+                                            <br>
+                                            <table width="100%" class="formatoR">
+                                                <tr><td colspan="3" style="text-align:center; background: #BFBFBF"><b>Datos de la Dependencia</b></td></tr>
+                                                <tr>
+                                                    <td><b>Reporte: </b><c:out value="${num}" /></td>
+                                                    <td colspan="2"><b>Fecha: </b><c:out value="${fecha}" /></td>
+                                                </tr>
+                                                <c:forEach items="${infoP}" var="dependencia">
+                                                <tr>
+                                                    <td colspan="2"><b>Dependencia: </b><c:out value="${dependencia.Dependencia}" /></td>
+                                                    <td><b>Teléfono de la Dependencia: </b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3"><b>Titulo del proyecto: </b><c:out value="${dependencia.Titulo}" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3"><b>Horario en el que se realiza <c:out value="${dependencia.Tipo}" />: </b><c:out value="${dependencia.Horario}" /></td>
+                                                </tr>
+                                                </c:forEach>
+                                            </table>
+                                                <br>
+                                                <form:form method="POST" action="editar" modelAttribute="reporte">
+                                                    <table width="100%" class="formatoR">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td style="text-align:center; width: 50%; background: #BFBFBF"><b>Actividades</b></td>
+                                                            <td style="text-align:center; width: 50%; background: #BFBFBF"><b>Descripción</b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <form:hidden path="idReporte" /> 
+                                                            <td><form:textarea path="Actividades" style="width: 100%; border:none;" placeholder="Aquí se redactan las actividades realizadas." rows="10" /></td>
+                                                            <td><form:textarea path="Descripcion" style="width: 100%; border:none;" placeholder="Aquí se redacta la descripción de las actividades." rows="10" /></td>
+                                                        </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                <tr>
+                                                    <td></td>
+                                                    <td style="padding-top: 5px; padding-left: 20%;">
+                                                        <input type="submit" id="exportar" class="btn btn-success" value="Editar" />
+                                                        <a href="lista" class="btn btn-default">Cancelar</a>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                                    </table>
+                                                </form:form>
+                                    </c:forEach>
                                 </div>
                             </div>
+                                            <div class="box-footer">
+                                                <form action="comentar" method="POST">
+                                            <div class="col-md-12">
+                                                <label for="obse">Observaciones</label><br>
+                                                <input type="hidden" name="idR" value="${idR}">
+                                                <textarea name="obse" style="width:100%"></textarea> <br><br>
+                                                <input class="btn btn-primary" type="submit" value="Enviar Comentarios">
+                                                <a class="btn btn-success" href="autoriza?id=${idR}" >Autorizar reporte</a>
+                                            </div>
+                                        </form>
+                                            </div>
                         </div>
                     </div>
-
                 </section>
-                <!-- /.content -->
             </div>
-            <!-- /.content-wrapper -->
 
-            <jsp:include page="../includes/footer.jsp"></jsp:include>
-
-
+            <!-- /.content -->
         </div>
+        <!-- /.content-wrapper -->
+
+        <jsp:include page="../includes/footer.jsp"></jsp:include>
 
     </body>
 </html>

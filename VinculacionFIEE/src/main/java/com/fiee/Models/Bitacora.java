@@ -22,8 +22,8 @@ public class Bitacora {
     private int Estado;
     private String Fecha;
     private int idEstudiante;
-    private int vbo_Maestro;
-    private int vbo_Encargado;
+    private String vbo_Maestro;
+    private String vbo_Encargado;
 
     public Bitacora() {
     }
@@ -116,19 +116,19 @@ public class Bitacora {
         this.idEstudiante = idEstudiante;
     }
 
-    public int getVbo_Maestro() {
+    public String getVbo_Maestro() {
         return vbo_Maestro;
     }
 
-    public void setVbo_Maestro(int vbo_Maestro) {
+    public void setVbo_Maestro(String vbo_Maestro) {
         this.vbo_Maestro = vbo_Maestro;
     }
 
-    public int getVbo_Encargado() {
+    public String getVbo_Encargado() {
         return vbo_Encargado;
     }
 
-    public void setVbo_Encargado(int vbo_Encargado) {
+    public void setVbo_Encargado(String vbo_Encargado) {
         this.vbo_Encargado = vbo_Encargado;
     }
 

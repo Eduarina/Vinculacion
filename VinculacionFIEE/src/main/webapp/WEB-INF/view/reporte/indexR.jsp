@@ -8,7 +8,7 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
-<html>
+<html> 
     <jsp:include page="../includes/head.jsp"></jsp:include>
         <body class="hold-transition skin-green-light sidebar-mini">
             <div class="wrapper">

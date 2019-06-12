@@ -23,6 +23,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <c:when test="${sessionScope.tipo eq 5}">
                         <jsp:include page="includes/bitacorasA.jsp"></jsp:include>
                     </c:when>
+                    <c:when test="${sessionScope.tipo eq 3 or sessionScope.tipo eq 4}">
+                        <jsp:include page="includes/bitacoras.jsp"></jsp:include>
+                    </c:when>
                 </c:choose>
                 </div>
                 <!-- /.content-wrapper -->
