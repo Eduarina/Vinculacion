@@ -72,6 +72,11 @@ public class reporteController {
                 if (tipo == 5) {
                     sql = "select * from tb_reportes where tipo = 2 AND idEstudiante =" + id;
                     lista = this.jdbcTemplate.queryForList(sql);
+                    sql = "SELECT count(idProyecto) FROM tb_proyectos WHERE idEstudiante = "+id;
+                    int count = this.jdbcTemplate.queryForObject(sql, new Object[]{}, int.class);
+                    mav.addObject("total",count);
+                    sql = "select * from tb_reportes where tipo = 1 AND idEstudiante =" + id;
+                    lista = this.jdbcTemplate.queryForList(sql);
                 }
                 mav.addObject("reportes", lista);
                 mav.setViewName("reporte/indexR");  // Este es el nombre del archivo vista .jsp

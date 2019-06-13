@@ -74,8 +74,12 @@ public class bitacoraController {
                     lista = this.jdbcTemplate.queryForList(sql);
                 }
                 if (tipo == 5) {
+                    sql = "SELECT count(idProyecto) FROM tb_proyectos WHERE idEstudiante = "+id;
+                    int count = this.jdbcTemplate.queryForObject(sql, new Object[]{}, int.class);
+                    mav.addObject("total",count);
                     sql = "select * from tb_reportes where tipo = 1 AND idEstudiante =" + id;
                     lista = this.jdbcTemplate.queryForList(sql);
+                    
                 }
                 mav.addObject("bitacoras", lista);
                 mav.setViewName("bitacora/indexB");  // Este es el nombre del archivo vista .jsp
@@ -103,26 +107,22 @@ public class bitacoraController {
         Object []parameters = new Object[]{};
         HttpSession session = request.getSession();
         int id = (int) session.getAttribute("id");
-        String sql = "SELECT count(idReporte) from tb_reportes where tipo = 1 AND idEstudiante = "+id;
-        int num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        num++;
-        mav.addObject("num",num);
-        sql = "SELECT idEstudiate from tb_estudiantes where idUsuario = "+id;
-        num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        sql = "SELECT DISTINCT idAsignacionProyecto from tb_asignacion_proyecto WHERE idEstudiante = "+num;
-        num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        mav.addObject("pro",num);
-        String fecha = new SimpleDateFormat("dd/MM/yyyy").format( new Date() );
-        mav.addObject("fecha",fecha);
-        sql = "SELECT * FROM vw_info_estudiantes where idUsuario = "+id;
-        lista= this.jdbcTemplate.queryForList(sql);
-        mav.addObject("info", lista);
-        sql = "SELECT * FROM tb_proyectos WHERE idEstudiante = "+id;
-        lista= this.jdbcTemplate.queryForList(sql);
-        mav.addObject("datos", lista);
-        mav.addObject("bitacora",new Bitacora());
-        mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
-        return mav;
+            String sql = "SELECT count(idReporte) from tb_reportes where tipo = 1 AND idEstudiante = "+id;
+            int num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            num++;
+            mav.addObject("num",num);
+
+            String fecha = new SimpleDateFormat("dd/MM/yyyy").format( new Date() );
+            mav.addObject("fecha",fecha);
+            sql = "SELECT * FROM vw_info_estudiantes where idUsuario = "+id;
+            lista= this.jdbcTemplate.queryForList(sql);
+            mav.addObject("info", lista);
+            sql = "SELECT * FROM tb_proyectos WHERE idEstudiante = "+id;
+            lista= this.jdbcTemplate.queryForList(sql);
+            mav.addObject("datos", lista);
+            mav.addObject("bitacora",new Bitacora());
+            mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
+            return mav;
     }
 
     @GetMapping(value = "/editar")

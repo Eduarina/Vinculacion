@@ -67,8 +67,13 @@ public class usuarioController {
             String sql;
             HttpSession session = request.getSession();
             int id = (int) session.getAttribute("id");
+            int tipo = (int) session.getAttribute("tipo");
             ModelAndView mav = new ModelAndView();
-                sql = "SELECT * FROM vinculacionfiee.vw_info_estudiantes WHERE idUsuario IN (SELECT idEstudiante FROM tb_asignacion WHERE idMaestro = "+id+" )";
+                if( tipo == 3){
+                    sql = "SELECT * FROM vinculacionfiee.vw_info_estudiantes WHERE idUsuario IN (SELECT idEstudiante FROM tb_asignacion WHERE idMaestro = "+id+" )";
+                }else{
+                    sql = "SELECT * FROM vinculacionfiee.vw_info_estudiantes";
+                }
                 lista = this.jdbcTemplate.queryForList(sql);
                 mav.addObject("datos", lista);
                 mav.setViewName("usuario/indexU");  // Este es el nombre del archivo vista .jsp

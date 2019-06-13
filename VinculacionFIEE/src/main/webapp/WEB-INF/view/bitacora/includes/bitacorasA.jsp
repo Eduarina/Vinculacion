@@ -16,7 +16,9 @@
                             <div class="col-xs-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
+                                        <c:if test="${total ne 0}">
                                         <a href="generar" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Generar Bitácora</a>
+                                        </c:if>
                                     </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
