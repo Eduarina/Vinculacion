@@ -137,9 +137,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <table width="100%">
                                             <tr>
                                                 <td style="width:10%"></td>
-                                                <td style="width:35%; text-align: center;"><img width="140px" height="100px" src="${urlPublic}/estudiantes${firmaA}" /></td>
+                                                <c:forEach items="${firmaA}" var="firmaA" >
+                                                <td style="width:35%; text-align: center;"><img width="140px" height="100px" src="${urlPublic}/estudiantes${firmaA.Firma}" /></td>
+                                                </c:forEach>
                                                 <td style="width:10%"></td>
-                                                <td style="width:35%; text-align: center;"><img width="140px" height="100px" src="${urlPublic}/maestros${firmaM}" /></td>
+                                                <c:forEach items="${firmaE}" var="firmaM" >
+                                                <td style="width:35%; text-align: center;"><img width="140px" height="100px" src="${urlPublic}/encargados${firmaM.Firma}" /></td>
+                                                </c:forEach>
+                                                <td style="width:10%"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:10%"></td>
+                                                <c:forEach items="${firmaA}" var="firmaA" >
+                                                    <td style="width:35%; border-top: 2px solid #000; text-align: center;"><b>${firmaA.Nombre}<b/><br>Prestador de Servicio Social</td>
+                                                </c:forEach>
+                                                <td style="width:10%"></td>
+                                                <c:forEach items="${firmaE}" var="firmaM" >
+                                                    <td style="width:35%; border-top: 2px solid #000; text-align: center;">
+                                                        <b>${firmaM.Nombre}<b/><br>
+                                                        <c:forEach items="${infoP}" var="dependencia">
+                                                            <c:out value="${dependencia.Dependencia}" />
+                                                        </c:forEach>
+                                                    </td> 
+                                                </c:forEach>
                                                 <td style="width:10%"></td>
                                             </tr>
                                         </table>
@@ -147,9 +167,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <table width="100%">
                                             <tr>
                                                 <td style="width:10%"></td>
-                                                <td style="width:35%; text-align:center;"><img width="140px" height="100px" src="${urlPublic}/estudiantes${firmaA}" /></td>
+                                                <c:forEach items="${firmaD}" var="firmaD" >
+                                                    <td style="width:35%; text-align: center;"><img width="140px" height="100px" src="${urlPublic}${firmaD.path}" /></td>
+                                                </c:forEach>
                                                 <td style="width:10%"></td>
-                                                <td style="width:35%; text-align:center;"><img width="140px" height="100px" src="${urlPublic}/maestros${firmaM}" /></td>
+                                                <c:forEach items="${firmaC}" var="firmaC" >
+                                                    <td style="width:35%; text-align: center;"><img width="140px" height="100px" src="${urlPublic}${firmaC.path}" /></td>
+                                                </c:forEach>
+                                                <td style="width:10%"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:10%"></td>
+                                                <c:forEach items="${firmaD}" var="firmaD" >
+                                                    <td style="width:35%; border-top: 2px solid #000; text-align: center;"><b>${firmaD.autoridad}<b/><br>Director de la Facultad de Ingeniería Eléctrica y Electrónica</td>
+                                                </c:forEach>
+                                                <td style="width:10%"></td>
+                                                <c:forEach items="${firmaC}" var="firmaC" >
+                                                    <td style="width:35%; border-top: 2px solid #000; text-align: center;"><b>${firmaC.autoridad}<b/><br>Coordinación de Vinculación</td>
+                                                </c:forEach>
                                                 <td style="width:10%"></td>
                                             </tr>
                                         </table>
@@ -158,7 +193,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <tbody>
                                                 <tr>
                                                     <td style="width:40%"></td>
-                                                    <td style="width:30%"><img width="140px" height="100px" src="${urlPublic}/estudiantes${firmaA}" /></td>
+                                                    <c:forEach items="${firmaM}" var="firmaA" >
+                                                        <td style="width:35%; text-align: center;"><img width="140px" height="100px" src="${urlPublic}/maestros${firmaA.Firma}" /></td>
+                                                    </c:forEach>
+                                                    <td style="width:40%"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:40%"></td>
+                                                    <c:forEach items="${firmaM}" var="firmaA" >
+                                                        <td style="width:30%; border-top: 2px solid #000; text-align: center;"><b>${firmaA.Nombre}<b/><br>Catedrático de la EE Servicio Social</td>
+                                                    </c:forEach>
                                                     <td style="width:40%"></td>
                                                 </tr>
                                             </tbody>

@@ -75,8 +75,6 @@ public class reporteController {
                     sql = "SELECT count(idProyecto) FROM tb_proyectos WHERE idEstudiante = "+id;
                     int count = this.jdbcTemplate.queryForObject(sql, new Object[]{}, int.class);
                     mav.addObject("total",count);
-                    sql = "select * from tb_reportes where tipo = 1 AND idEstudiante =" + id;
-                    lista = this.jdbcTemplate.queryForList(sql);
                 }
                 mav.addObject("reportes", lista);
                 mav.setViewName("reporte/indexR");  // Este es el nombre del archivo vista .jsp
@@ -217,16 +215,22 @@ public class reporteController {
         sql = "SELECT Dependencia, Ubicacion, Horario, Tipo, Titulo from tb_proyectos where idProyecto ="+idProyecto;
         lista = this.jdbcTemplate.queryForList(sql);
         mav.addObject("infoP",lista);
-        sql = "SELECT m.Firma FROM tb_asignacion a, tb_maestros m WHERE a.idMaestro = m.idUsuario and a.idEstudiante = "+bita.getIdEstudiante();
-        String firma = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        mav.addObject("firmaM",firma);
-        sql = "SELECT Firma FROM tb_estudiantes WHERE idUsuario = "+bita.getIdEstudiante();
-        firma = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        mav.addObject("firmaA",firma);
+        sql = "SELECT u.Nombre, m.Firma FROM tb_asignacion a, tb_maestros m, tb_usuarios u WHERE a.idMaestro = m.idUsuario AND a.idMaestro = u.idUsuario and a.idEstudiante = "+bita.getIdEstudiante();
+        lista = this.jdbcTemplate.queryForList(sql);
+        mav.addObject("firmaM",lista);
+        sql = "SELECT u.Nombre, e.Firma FROM tb_estudiantes e, tb_usuarios u WHERE u.idUsuario = e.idUsuario AND e.idUsuario = "+bita.getIdEstudiante();
+        lista = this.jdbcTemplate.queryForList(sql);
+        mav.addObject("firmaA",lista);
         mav.setViewName("reporte/exportar");
-        sql = "SELECT e.Firma from tb_proyectos p, tb_encargados e WHERE p.idEncargado = e.idEncargado";
-        firma = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        mav.addObject("firmaE", firma);
+        sql = "SELECT u.Nombre, e.Firma from tb_proyectos p, tb_encargados e, tb_usuarios u WHERE p.idEncargado = e.idEncargado AND e.idUsuario = u.idUsuario AND p.idProyecto = "+idProyecto;
+        lista = this.jdbcTemplate.queryForList(sql);
+        mav.addObject("firmaE", lista);
+        sql = "SELECT * FROM tb_firmas WHERE idFirma = 2";
+        lista = this.jdbcTemplate.queryForList(sql);
+        mav.addObject("firmaC",lista);
+        sql = "SELECT * FROM tb_firmas WHERE idFirma = 1";
+        lista = this.jdbcTemplate.queryForList(sql);
+        mav.addObject("firmaD",lista);
         return mav;
     }
 }

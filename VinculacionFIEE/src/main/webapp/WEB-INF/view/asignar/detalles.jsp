@@ -22,7 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Content Header (Page header) -->
                     <section class="content-header">
                         <h1>
-                            Asignación de alumnos
+                            Alumnos asignados a <c:out value="${nombre}" />
                             <small>Lista de asignaciones</small>
                         </h1>
                         <!--<ol class="breadcrumb">
@@ -41,26 +41,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="col-xs-12">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <a href="insertar" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Asignar Alumnos</a>
+                                        <a href="lista" class="btn btn-primary"><i class="fa fa-chevron-left"></i> Regresar</a>
                                     </div>
                                     <!-- /.box-header -->
                                     <div class="box-body">
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Maestro</th>
-                                                    <th>Estudiantes Asignados</th>
-                                                    <th>Acciones</th>
+                                                    <th>Estudiante</th>
+                                                    <th>Correo</th>
+                                                    <th>Carrera</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <c:forEach items="${datos}" var="dato">
+                                                <c:forEach items="${lista}" var="dato">
                                                 <tr>
                                                     <td> <c:out value="${dato.Nombre}"/></td>
-                                                    <td> <c:out value="${dato.Estudiantes}"/></td>
-                                                    <td>
-                                                        <a href="infoAsignacion?id=${dato.ID}" class="btn btn-warning">Ver información</a>
-                                                    </td>
+                                                    <td> <c:out value="${dato.Correo}"/></td>
+                                                    <td> <c:out value="${dato.Descripcion}"/></td>
                                                 </tr>
                                             </c:forEach>
                                             </tbody>

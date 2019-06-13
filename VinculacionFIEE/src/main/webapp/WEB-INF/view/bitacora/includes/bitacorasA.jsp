@@ -36,7 +36,7 @@
                                             <c:forEach items="${bitacoras}" var="dato">
                                                 <tr>
                                                     <td> 
-                                                        Reporte #<c:out value="${dato.num_reporte}" />
+                                                        Bitácora #<c:out value="${dato.num_reporte}" />
                                                     </td>
                                                     <c:choose>
                                                     <c:when test="${dato.vbo_maestro == '1'}">

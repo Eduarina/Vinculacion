@@ -77,7 +77,7 @@ public class vinculacionController {
             u.setPassword(loginController.getMD5(u.getPassword()));
             String path;
 
-            if (u.getSexo() == "H") {
+            if (u.getSexo().equals("H")) {
                 path = "/dist/img/user2-160x160.jpg";
             } else {
                 path = "/dist/img/avatar2.png";

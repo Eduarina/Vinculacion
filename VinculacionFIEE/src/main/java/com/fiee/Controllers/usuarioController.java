@@ -131,7 +131,7 @@ public class usuarioController {
                 } else {
                     path = "/dist/img/avatar2.png";
                 }
-                String sql = "insert into tb_usuarios(nombre, user, password, tipo, sexo, path, estado) values (?,?,?,?,?,?,?)";
+                String sql = "insert into tb_usuarios (nombre, user, password, tipo, sexo, path, estado) values (?,?,?,?,?,?,?)";
                 this.jdbcTemplate.update(sql, u.getNombre(), u.getUser(), u.getPassword(), 5, u.getSexo(), path, 1);
 
                 String uploadPath = context.getRealPath("/resources/estudiantes") + File.separator + u.getNombre();
@@ -142,6 +142,14 @@ public class usuarioController {
                 Object[] parameters = new Object[]{};
                 int lastID = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
 
+                HttpSession session = request.getSession();
+                int tipo = (int) session.getAttribute("tipo");
+                if(tipo == 3){
+                    int idM = (int) session.getAttribute("id");
+                    sql = "INSERT INTO tb_asignacion (idMaestro, idEstudiante, Estado) VALUES (?,?,?)";
+                    this.jdbcTemplate.update(sql, idM, lastID, 1);
+                }
+                
                 sql = "insert into tb_estudiantes (matricula, correo, carrera, semestre, celular, telefono, Estado, idUsuario) values (?,?,?,?,?,?,?,?)";
                 this.jdbcTemplate.update(sql, u.getMatricula(), u.getCorreo(), u.getCarrera(), u.getSemestre(), u.getCelular(), u.getTelefono(), 1, lastID);
 
@@ -157,7 +165,7 @@ public class usuarioController {
                     }
                 } catch (Exception e) {
                 }
-
+                
                 return new ModelAndView("redirect:/alumnos/lista");
 
             } else {

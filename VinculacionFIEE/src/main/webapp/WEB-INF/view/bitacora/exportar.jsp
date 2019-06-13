@@ -120,9 +120,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <tbody>
                                                     <tr>
                                                         <td style="width:10%"></td>
-                                                        <td style="width:35%; text-align: center;"><img width="140px" height="100px" src="${urlPublic}/estudiantes${firmaA}" /></td>
+                                                        <c:forEach items="${firmaA}" var="firmaA">
+                                                            <td style="width:35%; text-align: center;"><img width="140px" height="100px" src="${urlPublic}/estudiantes${firmaA.Firma}" /></td>
+                                                        </c:forEach>
                                                         <td style="width:10%"></td>
-                                                        <td style="width:35%; text-align: center;"><img width="140px" height="100px" src="${urlPublic}/maestros${firmaM}" /></td>
+                                                        <c:forEach items="${firmaM}" var="firmaM">
+                                                            <td style="width:35%; text-align: center;"><img width="140px" height="100px" src="${urlPublic}/maestros${firmaM.firma}" /></td>
+                                                        </c:forEach>
+                                                        <td style="width:10%"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:10%"></td>
+                                                        <c:forEach items="${firmaA}" var="firmaA">
+                                                            <td style="width:35%; border-top: 2px solid #000; text-align: center;"><b>${firmaA.Nombre}<b/></td>
+                                                        </c:forEach>
+                                                        <td style="width:10%"></td>
+                                                        <c:forEach items="${firmaM}" var="firmaM">
+                                                            <td style="width:35%; border-top: 2px solid #000;  text-align: center;"><b> ${firmaM.Nombre}</b></td>
+                                                        </c:forEach>
                                                         <td style="width:10%"></td>
                                                     </tr>
                                                     <tr style="height: 50px;"></tr>

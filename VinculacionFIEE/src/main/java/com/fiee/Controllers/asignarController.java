@@ -47,6 +47,19 @@ public class asignarController {
         //this.asignar1Validator = new AsignacionValidator();
     }
 
+    @GetMapping(value = "/infoAsignacion")
+    public ModelAndView infoAsignacion(@RequestParam ("id") int idMaestro){
+       ModelAndView mav = new ModelAndView();
+       String sql = "SELECT Nombre from tb_usuarios WHERE idUsuario = "+idMaestro;
+       String name = this.jdbcTemplate.queryForObject(sql, new Object[]{}, String.class);
+       mav.addObject("nombre",name);
+       sql = "SELECT * FROM vw_detalles_asignacion WHERE idMaestro = "+idMaestro;
+       lista = this.jdbcTemplate.queryForList(sql);
+       mav.addObject("lista",lista);
+       mav.setViewName("asignar/detalles");
+       return mav; 
+    }
+    
     //@RequestMapping(value="/usuariosV") //Este es el nombre con el que se accede desde el navegador
     @GetMapping(value = "/lista")
     public ModelAndView lista(Model model, HttpServletRequest request) {
@@ -88,7 +101,7 @@ public class asignarController {
     @GetMapping(value = "/baja")
     public ModelAndView baja(@RequestParam("id") int idtabla
     ) {
-        String sql = "UPDATE from tb_asignacion_proyecto SET Estado = 6 where idAsignacionProyecto=" + idtabla;
+        String sql = "UPDATE tb_asignacion_proyecto SET Estado = 6 where idAsignacionProyecto=" + idtabla;
         this.jdbcTemplate.update(sql);
         return new ModelAndView("redirect:/asignacion/proyectos");
     }
@@ -157,7 +170,7 @@ public class asignarController {
         sql = "SELECT idUsuario from tb_estudiantes WHERE idEstudiate = "+u.getIdEstudiante();
         Object []parameters = new Object[]{};
         int idUsuario = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        sql = "UPDATE FROM tb_proyectos SET idEstudiante = ? WHERE idProyecto = "+u.getIdProyecto();
+        sql = "UPDATE tb_proyectos SET idEstudiante = ? WHERE idProyecto = "+u.getIdProyecto();
         this.jdbcTemplate.update(sql,idUsuario);
         return new ModelAndView("redirect:/asignacion/proyectos ");
     }

@@ -46,12 +46,19 @@
                         <!-- Menu Body -->
                         <li class="user-body">
                             <div class="row">
+                            <c:if test="${sessionScope.tipo eq 5}">
                                 <div class="col-xs-6 text-center">
                                     <a href="/VinculacionFIEE/documentos/lista"><i class="fa fa-upload"></i> Documentos</a>
                                 </div>
                                 <div class="col-xs-6 text-center">
                                     <a href="/VinculacionFIEE/login/perfil"><i class="fa fa-user"></i> Perfil</a>
                                 </div>
+                            </c:if>
+                            <c:if test="${sessionScope.tipo ne 5}">
+                                <div class="col-xs-6 text-center">
+                                    <a href="/VinculacionFIEE/login/perfil"><i class="fa fa-user"></i> Perfil</a>
+                                </div>
+                            </c:if>    
                             </div>
                             <!-- /.row -->
                         </li>

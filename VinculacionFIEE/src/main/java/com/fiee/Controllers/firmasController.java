@@ -62,13 +62,18 @@ public class firmasController {
     
     @PostMapping(value="/addFirma")
     public ModelAndView inicio( @ModelAttribute("firma") @Valid Fichero file, BindingResult result ) throws IOException{
+        String []data = file.getDescripcion().split(",");
         String uploadPath = context.getRealPath("/resources/dist/firmas") + File.separator;
+        File dato = new File(uploadPath);
+        if(!dato.exists()){
+            dato.mkdir();
+        }
         String extension = FilenameUtils.getExtension(file.getFile().getOriginalFilename());
-        String fileName = uploadPath + "firma"+ file.getDescripcion() +"." + extension;
+        String fileName = uploadPath + "firma"+ data[1] +"." + extension;
         FileCopyUtils.copy(file.getFile().getBytes(), new File(fileName));
-        fileName = "/dist/firmas" + File.separator + "firma." + extension;
-        String sql = "update tb_firmas SET path = ? WHERE idFirma = ?";
-        this.jdbcTemplate.update(sql, fileName, file.getDescripcion());
+        fileName = "/dist/firmas" + File.separator + "firma"+data[1]+"." + extension;
+        String sql = "update tb_firmas SET autoridad = ?, path = ? WHERE idFirma = ?";
+        this.jdbcTemplate.update(sql, data[1], fileName, data[0]);
         return new ModelAndView("redirect:/firmas/home");
     }
     

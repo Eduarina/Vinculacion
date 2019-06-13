@@ -111,7 +111,15 @@ public class bitacoraController {
             int num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
             num++;
             mav.addObject("num",num);
-
+            
+            sql = "SELECT idEstudiate from tb_estudiantes WHERE idUsuario = "+id;
+            int idEstudiante = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            
+            sql = "Select idAsignacionProyecto from tb_asignacion_proyecto WHERE idEstudiante = "+idEstudiante;
+            int idProyecto = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            mav.addObject("pro",idProyecto);
+            
+            
             String fecha = new SimpleDateFormat("dd/MM/yyyy").format( new Date() );
             mav.addObject("fecha",fecha);
             sql = "SELECT * FROM vw_info_estudiantes where idUsuario = "+id;
@@ -188,12 +196,12 @@ public class bitacoraController {
         sql = "SELECT Dependencia, Ubicacion, Horario, Tipo, Titulo from tb_proyectos where idProyecto ="+idProyecto;
         lista = this.jdbcTemplate.queryForList(sql);
         mav.addObject("infoP",lista);
-        sql = "SELECT m.Firma FROM tb_asignacion a, tb_maestros m WHERE a.idMaestro = m.idUsuario and a.idEstudiante = "+bita.getIdEstudiante();
-        String firma = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        mav.addObject("firmaM",firma);
-        sql = "SELECT Firma FROM tb_estudiantes WHERE idUsuario = "+bita.getIdEstudiante();
-        firma = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        mav.addObject("firmaA",firma);
+        sql = "SELECT u.Nombre, m.Firma FROM tb_asignacion a, tb_maestros m, tb_usuarios u  WHERE a.idMaestro = m.idUsuario AND a.idMaestro = u.idUsuario and a.idEstudiante = "+bita.getIdEstudiante();
+        lista = this.jdbcTemplate.queryForList(sql);
+        mav.addObject("firmaM",lista);
+        sql = "SELECT u.Nombre, e.Firma FROM tb_estudiantes e, tb_usuarios u WHERE e.idUsuario = u.idUsuario AND e.idUsuario = "+bita.getIdEstudiante();
+        lista = this.jdbcTemplate.queryForList(sql);
+        mav.addObject("firmaA",lista);
         mav.setViewName("bitacora/exportar");
         return mav;
     }

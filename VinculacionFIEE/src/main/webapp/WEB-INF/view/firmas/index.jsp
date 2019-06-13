@@ -73,7 +73,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     </td>
                                                     <c:if test="${firma.path == '/'}">
                                                         <form method = "POST" action="addFirma" modelAttribute = "firma" enctype = "multipart/form-data">
-                                                            <td><input type="hidden" name="descripcion" value="${firma.idFirma}"><input type = "file" name = "file" /><input type="submit" value="Subir Archivo"></td>    
+                                                            <td>
+                                                                <input type="hidden" name="descripcion" value="${firma.idFirma}">
+                                                                <label for="descripcion">Nombre: </label>
+                                                                <input type="text" name="descripcion" />
+                                                                <input type = "file" name = "file" />
+                                                                <input type="submit" value="Subir Archivo">
+                                                            </td>    
                                                         </form>
                                                     </c:if>
                                                     <c:if test="${firma.path != '/'}">

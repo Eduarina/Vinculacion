@@ -11,26 +11,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
     <jsp:include page="../includes/head.jsp"></jsp:include>
-        <!--
-        BODY TAG OPTIONS:
-        =================
-        Apply one or more of the following classes to get the
-        desired effect
-        |---------------------------------------------------------|
-        | SKINS         | skin-blue                               |
-        |               | skin-black                              |
-        |               | skin-purple                             |
-        |               | skin-yellow                             |
-        |               | skin-red                                |
-        |               | skin-green                              |
-        |---------------------------------------------------------|
-        |LAYOUT OPTIONS | fixed                                   |
-        |               | layout-boxed                            |
-        |               | layout-top-nav                          |
-        |               | sidebar-collapse                        |
-        |               | sidebar-mini                            |
-        |---------------------------------------------------------|
-        -->
         <body class="hold-transition skin-green-light sidebar-mini">
             <div class="wrapper">
 
@@ -118,11 +98,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     </tr>
                                             </tbody>
                                             <tfoot>
+                                                <tr style="height: 20px;">
                                                 <tr>
                                                     <td></td>
-                                                    <td style="padding-top: 5px; padding-left: 33%;">
-                                                        <input type="submit" id="exportar" class="btn btn-success" value="Exportar" />
+                                                    <td style="padding-top: 5px;">
                                                         <a href="lista" class="btn btn-default">Cancelar</a>
+                                                        <input type="submit" id="exportar" class="btn btn-success" value="Guardar" />
                                                     </td>
                                                 </tr>
                                             </tfoot>
