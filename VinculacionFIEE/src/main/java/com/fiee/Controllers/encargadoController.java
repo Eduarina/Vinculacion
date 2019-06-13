@@ -89,7 +89,7 @@ public class encargadoController {
             String sql = "insert into tb_usuarios(nombre, user, password, tipo, sexo, path, estado) values (?,?,?,?,?,?,?)";
             this.jdbcTemplate.update(sql, e.getNombre(), e.getUsuario(), e.getPass(), 4, e.getSexo(), path, 1);
 
-            String uploadPath = context.getRealPath("resources/encargados") + File.separator + e.getNombre();
+            String uploadPath = context.getRealPath("/resources/encargados") + File.separator + e.getNombre();
             File file = new File(uploadPath);
             file.mkdir();
 

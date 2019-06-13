@@ -134,7 +134,7 @@ public class usuarioController {
                 String sql = "insert into tb_usuarios(nombre, user, password, tipo, sexo, path, estado) values (?,?,?,?,?,?,?)";
                 this.jdbcTemplate.update(sql, u.getNombre(), u.getUser(), u.getPassword(), 5, u.getSexo(), path, 1);
 
-                String uploadPath = context.getRealPath("resources/estudiantes") + File.separator + u.getNombre();
+                String uploadPath = context.getRealPath("/resources/estudiantes") + File.separator + u.getNombre();
                 File file = new File(uploadPath);
                 file.mkdir();
 

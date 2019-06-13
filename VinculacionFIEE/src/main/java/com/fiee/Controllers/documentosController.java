@@ -100,8 +100,8 @@ public class documentosController {
             String nombre = (String) session.getAttribute("nombre");
             int id = (int) session.getAttribute("id");
             MultipartFile multipartFile = file.getFile();
-            String uploadPath = context.getRealPath("") + File.separator + nombre + File.separator;
-            //Now do something with file...
+            String uploadPath = context.getRealPath("/resources/estudiantes") + File.separator + nombre + File.separator;
+            
             String extension = FilenameUtils.getExtension(file.getFile().getOriginalFilename());
             String fileName = uploadPath + file.getDescripcion() + "." + extension;
             FileCopyUtils.copy(file.getFile().getBytes(), new File(fileName));
@@ -112,9 +112,9 @@ public class documentosController {
             sql = "select idEstudiate from tb_estudiantes where idUsuario = " + id;
             int idEstudiante = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
 
-            sql = "update tb_documentacion_alumno SET Path = ?, Estado = 4 WHERE idEstudiante = ? AND idDocumento = ?";
+                sql = "update tb_documentacion_alumno SET Path = ?, Estado = 4 WHERE idEstudiante = ? AND idDocumento = ?";
             this.jdbcTemplate.update(sql, fileName, idEstudiante, Documento);
-            return new ModelAndView("return:lista");
+            return new ModelAndView("redirect:lista");
         }
     }
 
