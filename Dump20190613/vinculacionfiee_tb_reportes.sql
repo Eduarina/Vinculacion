@@ -43,7 +43,7 @@ CREATE TABLE `tb_reportes` (
   CONSTRAINT `fk_AsignacionProyecto_Reporte` FOREIGN KEY (`idProyecto`) REFERENCES `tb_asignacion_proyecto` (`idAsignacionProyecto`),
   CONSTRAINT `fk_Estado_Reporte` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
   CONSTRAINT `tb_reportes_ibfk_1` FOREIGN KEY (`idEstudiante`) REFERENCES `tb_usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -52,7 +52,7 @@ CREATE TABLE `tb_reportes` (
 
 LOCK TABLES `tb_reportes` WRITE;
 /*!40000 ALTER TABLE `tb_reportes` DISABLE KEYS */;
-INSERT INTO `tb_reportes` VALUES (10,1,4,1,'Actividades generales actualizadas','Descripción de las actividades','Problemas encontrados','Soluciones empleadas',1,'09/06/2019',30,'Problemas','2'),(11,1,4,2,'No se realizo ninguna actividad','Existieron problemas de compatibilidad en Windows 7',NULL,NULL,1,'09/06/2019',30,'2','1');
+INSERT INTO `tb_reportes` VALUES (10,1,4,1,'Actividades generales actualizadas no cheto','Descripción de las actividades','Problemas encontrados','Soluciones empleadas',1,'09/06/2019',30,'2','2'),(11,1,4,2,'No se realizo ninguna actividad','Existieron problemas de compatibilidad en Windows 7',NULL,NULL,1,'09/06/2019',30,'2','2'),(15,2,4,1,'asdadkj','hkashdkl','lasdkj','lkjasd',1,'13/06/2019',30,'2','2'),(16,2,4,2,'asdlkajdk','klasjdlkajsd',NULL,NULL,1,'13/06/2019',30,'1','1');
 /*!40000 ALTER TABLE `tb_reportes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -65,4 +65,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-12 14:20:35
+-- Dump completed on 2019-06-13 20:16:26

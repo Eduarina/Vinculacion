@@ -44,7 +44,7 @@ CREATE TABLE `tb_proyectos` (
   CONSTRAINT `fk_Encargado_Proyecto` FOREIGN KEY (`idEncargado`) REFERENCES `tb_encargados` (`idEncargado`),
   CONSTRAINT `fk_Estado_Proyecto` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
   CONSTRAINT `tb_proyectos_ibfk_1` FOREIGN KEY (`idEstudiante`) REFERENCES `tb_usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,7 +53,7 @@ CREATE TABLE `tb_proyectos` (
 
 LOCK TABLES `tb_proyectos` WRITE;
 /*!40000 ALTER TABLE `tb_proyectos` DISABLE KEYS */;
-INSERT INTO `tb_proyectos` VALUES (1,'TITULO','DEPENDENCIA','HORARIO','04/06/2019','06/06/2019','OBJETIVOS','ACTIVIDADES','UBICACION',0,'Servicio Social',2,1,30);
+INSERT INTO `tb_proyectos` VALUES (1,'TITULO','DEPENDENCIA','HORARIO','04/06/2019','06/06/2019','OBJETIVOS','ACTIVIDADES','UBICACION',0,'Servicio Social',2,1,30),(2,'PROYECTO 2','DEPENDENCIA','NUEVO HORARIO','11/06/2019','27/06/2019','EL MISMO','UN CHINGO','UBIVACIONE',0,'Servicio Social',2,1,40);
 /*!40000 ALTER TABLE `tb_proyectos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -66,4 +66,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-12 14:20:33
+-- Dump completed on 2019-06-13 20:16:22
