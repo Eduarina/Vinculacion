@@ -44,22 +44,32 @@ public class vinculacionController {
 
     //@RequestMapping(value="/usuariosV") //Este es el nombre con el que se accede desde el navegador
     @GetMapping(value = "/lista")
-    public ModelAndView lista() {
-        ModelAndView mav = new ModelAndView();
-        String sql = "select * from tb_usuarios Where tipo = 2";
-        lista = this.jdbcTemplate.queryForList(sql);
-        mav.addObject("usuarios", lista);
-        mav.setViewName("vinculacion/index");  // Este es el nombre del archivo vista .jsp
-        return mav;
+    public ModelAndView lista(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 1){
+            ModelAndView mav = new ModelAndView();
+            String sql = "select * from tb_usuarios Where tipo = 2";
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("usuarios", lista);
+            mav.setViewName("vinculacion/index");  // Este es el nombre del archivo vista .jsp
+            return mav;
+        }
+        return new ModelAndView("redirect:/home");
     }
 
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.GET)
     @GetMapping(value = "/insertar")
-    public ModelAndView insertar() {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("usuario", new Usuario());
-        mav.setViewName("vinculacion/insertarV");
-        return mav;
+    public ModelAndView insertar(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 1 || tipo == 2){
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("usuario", new Usuario());
+            mav.setViewName("vinculacion/insertarV");
+            return mav;
+        }
+        return new ModelAndView("redirect:/home");
     }
 
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
@@ -104,30 +114,35 @@ public class vinculacionController {
     //@RequestMapping(value = "/editarUsuarioV", method = RequestMethod.GET)
     @GetMapping(value = "/editar")
     public ModelAndView editar(@RequestParam("id") int idusuario, HttpServletRequest request) {
-        try {
-            Usuario user = new Usuario();
-            user.setIdusuario(idusuario);
-            ModelAndView mav = new ModelAndView();
-            String sql = "select nombre from tb_usuarios where idusuario=" + idusuario;
-            Object[] parameters = new Object[]{};
-            String nombre = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-            user.setNombre(nombre);
-            sql = "select user from tb_usuarios where idusuario=" + idusuario;
-            String usuario = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-            user.setUser(usuario);
-            sql = "select password from tb_usuarios where idusuario=" + idusuario;
-            String password = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-            user.setPassword(password);
-            user.setPassword2(password);
-            sql = "select sexo from tb_usuarios where idusuario=" + idusuario;
-            String sexo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-            user.setSexo(sexo);
-            mav.addObject("datos", user);
-            mav.setViewName("vinculacion/editarV");
-            return mav;
-        } catch (Exception e) {
-            return new ModelAndView("redirect:/login/login");
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 1){
+            try {
+                Usuario user = new Usuario();
+                user.setIdusuario(idusuario);
+                ModelAndView mav = new ModelAndView();
+                String sql = "select nombre from tb_usuarios where idusuario=" + idusuario;
+                Object[] parameters = new Object[]{};
+                String nombre = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                user.setNombre(nombre);
+                sql = "select user from tb_usuarios where idusuario=" + idusuario;
+                String usuario = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                user.setUser(usuario);
+                sql = "select password from tb_usuarios where idusuario=" + idusuario;
+                String password = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                user.setPassword(password);
+                user.setPassword2(password);
+                sql = "select sexo from tb_usuarios where idusuario=" + idusuario;
+                String sexo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+                user.setSexo(sexo);
+                mav.addObject("datos", user);
+                mav.setViewName("vinculacion/editarV");
+                return mav;
+            } catch (Exception e) {
+                return new ModelAndView("redirect:/login/login");
+            }
         }
+        return new ModelAndView("redirect:/home");
     }
 
     //@RequestMapping(value = "/editarUsuarioV", method = RequestMethod.POST)
@@ -152,25 +167,22 @@ public class vinculacionController {
 
     @RequestMapping(value = "/borrar")
     public ModelAndView borrar(HttpServletRequest request) {
-        id = Integer.parseInt(request.getParameter("id"));
-        String sql = "select Estado from tb_usuarios where idUsuario=" + id;
-        Object[] parameters = new Object[]{};
-        int estado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        if (estado == 1) {
-            sql = "update tb_usuarios set Estado = 2 where idUsuario=" + id;
-        } else {
-            sql = "update tb_usuarios set Estado = 1 where idUsuario=" + id;
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 1){
+            id = Integer.parseInt(request.getParameter("id"));
+            String sql = "select Estado from tb_usuarios where idUsuario=" + id;
+            Object[] parameters = new Object[]{};
+            int estado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            if (estado == 1) {
+                sql = "update tb_usuarios set Estado = 2 where idUsuario=" + id;
+            } else {
+                sql = "update tb_usuarios set Estado = 1 where idUsuario=" + id;
+            }
+            this.jdbcTemplate.update(sql);
+            return new ModelAndView("redirect:/vinculacion/lista");
         }
-        this.jdbcTemplate.update(sql);
-        return new ModelAndView("redirect:/vinculacion/lista");
+        return new ModelAndView("redirect/home");
     }
-
-    //poblar select para tipo en insertar
-    @ModelAttribute("sexo")
-    public Map<String, String> listadoTipo() {
-        Map<String, String> sexo = new LinkedHashMap<>();
-        sexo.put("H", "Hombre");
-        sexo.put("M", "Mujer");
-        return sexo;
-    }
+    
 }

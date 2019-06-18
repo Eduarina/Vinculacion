@@ -48,16 +48,21 @@ public class asignarController {
     }
 
     @GetMapping(value = "/infoAsignacion")
-    public ModelAndView infoAsignacion(@RequestParam ("id") int idMaestro){
-       ModelAndView mav = new ModelAndView();
-       String sql = "SELECT Nombre from tb_usuarios WHERE idUsuario = "+idMaestro;
-       String name = this.jdbcTemplate.queryForObject(sql, new Object[]{}, String.class);
-       mav.addObject("nombre",name);
-       sql = "SELECT * FROM vw_detalles_asignacion WHERE idMaestro = "+idMaestro;
-       lista = this.jdbcTemplate.queryForList(sql);
-       mav.addObject("lista",lista);
-       mav.setViewName("asignar/detalles");
-       return mav; 
+    public ModelAndView infoAsignacion(@RequestParam ("id") int idMaestro, HttpServletRequest request ){
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 1 || tipo == 2){
+            ModelAndView mav = new ModelAndView();
+            String sql = "SELECT Nombre from tb_usuarios WHERE idUsuario = "+idMaestro;
+            String name = this.jdbcTemplate.queryForObject(sql, new Object[]{}, String.class);
+            mav.addObject("nombre",name);
+            sql = "SELECT * FROM vw_detalles_asignacion WHERE idMaestro = "+idMaestro;
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("lista",lista);
+            mav.setViewName("asignar/detalles");
+            return mav; 
+        }
+        return new ModelAndView("redirect:/home");
     }
     
     //@RequestMapping(value="/usuariosV") //Este es el nombre con el que se accede desde el navegador
@@ -67,12 +72,16 @@ public class asignarController {
             HttpSession session = request.getSession();
             String sql;
             ModelAndView mav = new ModelAndView();
-            id = (int) session.getAttribute("id");
+            int tipo = (int) session.getAttribute("tipo");
+            if(tipo == 1 || tipo == 2){
+                id = (int) session.getAttribute("id");
                 sql = "select * from vw_numEstudiantes_maestros";
                 lista = this.jdbcTemplate.queryForList(sql);
                 mav.addObject("datos", lista);
                 mav.setViewName("asignar/indexA");  // Este es el nombre del archivo vista .jsp
                 return mav;
+            }
+            return new ModelAndView("redirect:/home");
         } catch (Exception e) {
             return new ModelAndView("redirect:/login/login");
         }
@@ -88,22 +97,27 @@ public class asignarController {
             sql = "SELECT idEncargado from tb_encargados where idUsuario = "+id;
             Object []parameters = new Object[]{};
             int idEncargado = this.jdbcTemplate.queryForObject(sql,parameters,int.class);
-                sql = "select * from vw_asignacion_proyectos WHERE idencargado = "+idEncargado;
-                lista = this.jdbcTemplate.queryForList(sql);
-                mav.addObject("datos", lista);
-                mav.setViewName("asignar/indexP");  // Este es el nombre del archivo vista .jsp
-                return mav;
+            sql = "SELECT ap.idAsignacionProyecto as ID, p.Titulo, u.nombre, ap.Estado, es.Descripcion FROM tb_proyectos p, tb_usuarios u, tb_asignacion_proyecto ap, ctg_estados es WHERE p.idEstudiante = u.idUsuario AND p.idProyecto = ap.idProyecto AND ap.Estado = es.idEstado AND idencargado = "+idEncargado;
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("datos", lista);
+            mav.setViewName("asignar/indexP");  // Este es el nombre del archivo vista .jsp
+            return mav;
         } catch (Exception e) {
             return new ModelAndView("redirect:/login/login");
         }
     }
 
     @GetMapping(value = "/baja")
-    public ModelAndView baja(@RequestParam("id") int idtabla
+    public ModelAndView baja(@RequestParam("id") int idtabla, HttpServletRequest request
     ) {
-        String sql = "UPDATE tb_asignacion_proyecto SET Estado = 6 where idAsignacionProyecto=" + idtabla;
-        this.jdbcTemplate.update(sql);
-        return new ModelAndView("redirect:/asignacion/proyectos");
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 4){
+            String sql = "UPDATE tb_asignacion_proyecto SET Estado = 6 where idAsignacionProyecto=" + idtabla;
+            this.jdbcTemplate.update(sql);
+            return new ModelAndView("redirect:/asignacion/proyectos");
+        }
+        return new ModelAndView("redirect:/home");
     }
     
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.GET)
@@ -143,19 +157,23 @@ public class asignarController {
         HttpSession session = request.getSession();
         String sql;
         ModelAndView mav = new ModelAndView();
-        id = (int) session.getAttribute("id");
-        sql = "SELECT idEncargado from tb_encargados where idUsuario = "+id;
-        Object []parameters = new Object[]{};
-        int idEncargado = this.jdbcTemplate.queryForObject(sql,parameters,int.class);
-        mav.addObject("datos", new Asignacion_Proyecto());
-        mav.setViewName("asignar/insertarP");
-        sql = "SELECT * FROM tb_proyectos where idEncargado = "+idEncargado;
-        lista = this.jdbcTemplate.queryForList(sql);
-        model.addAttribute("nombres", lista);
-        sql = "SELECT * FROM vw_estudiantes_noAsignados";
-        lista = this.jdbcTemplate.queryForList(sql);
-        model.addAttribute("estudiantes", lista);
-        return mav;
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 4){
+            id = (int) session.getAttribute("id");
+            sql = "SELECT idEncargado from tb_encargados  where idUsuario = "+id;
+            Object []parameters = new Object[]{};
+            int idEncargado = this.jdbcTemplate.queryForObject(sql,parameters,int.class);
+            mav.addObject("datos", new Asignacion_Proyecto());
+            mav.setViewName("asignar/insertarP");
+            sql = "SELECT * FROM tb_proyectos where idProyecto NOT IN (SELECT idProyecto from tb_asignacion_proyecto) AND idEncargado = "+idEncargado;
+            lista = this.jdbcTemplate.queryForList(sql);
+            model.addAttribute("nombres", lista);
+            sql = "SELECT * FROM vw_estudiantes_noAsignados";
+            lista = this.jdbcTemplate.queryForList(sql);
+            model.addAttribute("estudiantes", lista);
+            return mav;
+        }
+        return new ModelAndView("redirect:/home");
     }
 
     
@@ -166,7 +184,7 @@ public class asignarController {
     ) {
         //this.asignar1Validator.validate(u, result);
         String sql = "insert into tb_asignacion_proyecto (idProyecto, idestudiante, estado) values (?,?,?)";
-        this.jdbcTemplate.update(sql, u.getIdProyecto(), u.getIdEstudiante(),1);
+        this.jdbcTemplate.update(sql, u.getIdProyecto(), u.getIdEstudiante(),5);
         sql = "SELECT idUsuario from tb_estudiantes WHERE idEstudiate = "+u.getIdEstudiante();
         Object []parameters = new Object[]{};
         int idUsuario = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
@@ -223,12 +241,5 @@ public class asignarController {
             return new ModelAndView("redirect:/asignacion/lista");
         }
     }
-
-    @RequestMapping(value = "/borrar")
-    public ModelAndView borrar(@RequestParam("id") int idtabla
-    ) {
-        String sql = "delete from maestro_servicio where idtabla1=" + idtabla;
-        this.jdbcTemplate.update(sql);
-        return new ModelAndView("redirect:/asignacion/lista");
-    }
+    
 }

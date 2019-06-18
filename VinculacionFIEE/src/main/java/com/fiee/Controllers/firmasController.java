@@ -50,14 +50,19 @@ public class firmasController {
     }    
     
     @GetMapping(value="/home")
-    public ModelAndView inicio(){
-        String sql = "SELECT * FROM tb_firmas";
-        lista = this.jdbcTemplate.queryForList(sql);
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("firma",new Fichero());
-        mav.addObject("firmas",lista);
-        mav.setViewName("firmas/index");
-        return mav;
+    public ModelAndView inicio(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 1 || tipo == 2){
+            String sql = "SELECT * FROM tb_firmas";
+            lista = this.jdbcTemplate.queryForList(sql);
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("firma",new Fichero());
+            mav.addObject("firmas",lista);
+            mav.setViewName("firmas/index");
+            return mav;
+        }
+        return new ModelAndView("redirect:/home");
     }
     
     @PostMapping(value="/addFirma")
@@ -79,9 +84,14 @@ public class firmasController {
     
     @RequestMapping(value = "/eliminaFirma")
     public ModelAndView deleteFirmEs(@RequestParam("id") int aut, HttpServletRequest request) {
-        String sql = "Update tb_firmas SET path = '/' WHERE idFirma = "+aut;
-        this.jdbcTemplate.update(sql);
-        return new ModelAndView("redirect:/firmas/home");
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 1 || tipo == 2){
+            String sql = "Update tb_firmas SET path = '/' WHERE idFirma = "+aut;
+            this.jdbcTemplate.update(sql);
+            return new ModelAndView("redirect:/firmas/home");
+        }
+        return new ModelAndView("redirect:/home");
     }
     
 }

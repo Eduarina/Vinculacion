@@ -103,23 +103,25 @@ public class bitacoraController {
     
     @GetMapping(value = "/generar") //Este es el nombre con el que se accede desde el navegador
     public ModelAndView generar(HttpServletRequest request, Model model) {
-        ModelAndView mav = new ModelAndView();
-        Object []parameters = new Object[]{};
         HttpSession session = request.getSession();
-        int id = (int) session.getAttribute("id");
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 5){
+            ModelAndView mav = new ModelAndView();
+            Object []parameters = new Object[]{};
+            int id = (int) session.getAttribute("id");
             String sql = "SELECT count(idReporte) from tb_reportes where tipo = 1 AND idEstudiante = "+id;
             int num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
             num++;
             mav.addObject("num",num);
-            
+
             sql = "SELECT idEstudiate from tb_estudiantes WHERE idUsuario = "+id;
             int idEstudiante = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-            
+
             sql = "Select idAsignacionProyecto from tb_asignacion_proyecto WHERE idEstudiante = "+idEstudiante;
             int idProyecto = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
             mav.addObject("pro",idProyecto);
-            
-            
+
+
             String fecha = new SimpleDateFormat("dd/MM/yyyy").format( new Date() );
             mav.addObject("fecha",fecha);
             sql = "SELECT * FROM vw_info_estudiantes where idUsuario = "+id;
@@ -131,33 +133,41 @@ public class bitacoraController {
             mav.addObject("bitacora",new Bitacora());
             mav.setViewName("bitacora/generarB");  // Este es el nombre del archivo vista .jsp
             return mav;
+        }else{
+            return new ModelAndView("redirect:/home");
+        }
     }
 
     @GetMapping(value = "/editar")
     public ModelAndView editar(@RequestParam("id") int idbitacora, Model model, HttpServletRequest request) {
-        String sql = "SELECT * FROM tb_reportes WHERE idReporte = "+idbitacora;
-        Object [] parameters = new Object[]{} ;
-        Bitacora bita = (Bitacora) this.jdbcTemplate.queryForObject(sql, parameters, new BeanPropertyRowMapper(Bitacora.class));
-        sql = "SELECT Nombre, Matricula, Carrera from vw_info_estudiantes WHERE idUsuario = "+bita.getIdEstudiante();
-        lista = this.jdbcTemplate.queryForList(sql);
-        sql = "Select idProyecto from tb_asignacion_proyecto WHERE idAsignacionProyecto = "+bita.getIdProyecto();
-        int idProyecto = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("fecha",bita.getFecha());
-        mav.addObject("num", bita.getNum_Reporte());
-        mav.addObject("infoE",lista);
-        mav.addObject("bitacora",bita);
-        sql = "SELECT Dependencia, Ubicacion from tb_proyectos where idProyecto ="+idProyecto;
-        lista = this.jdbcTemplate.queryForList(sql);
-        mav.addObject("infoP",lista);
-        
-        mav.setViewName("bitacora/editarB");
-        return mav;        
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 5){
+            String sql = "SELECT * FROM tb_reportes WHERE idReporte = "+idbitacora;
+            Object [] parameters = new Object[]{} ;
+            Bitacora bita = (Bitacora) this.jdbcTemplate.queryForObject(sql, parameters, new BeanPropertyRowMapper(Bitacora.class));
+            sql = "SELECT Nombre, Matricula, Carrera from vw_info_estudiantes WHERE idUsuario = "+bita.getIdEstudiante();
+            lista = this.jdbcTemplate.queryForList(sql);
+            sql = "Select idProyecto from tb_asignacion_proyecto WHERE idAsignacionProyecto = "+bita.getIdProyecto();
+            int idProyecto = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("fecha",bita.getFecha());
+            mav.addObject("num", bita.getNum_Reporte());
+            mav.addObject("infoE",lista);
+            mav.addObject("bitacora",bita);
+            sql = "SELECT Dependencia, Ubicacion from tb_proyectos where idProyecto ="+idProyecto;
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("infoP",lista);
+
+            mav.setViewName("bitacora/editarB");
+            return mav;        
+        }else{
+            return new ModelAndView("redirect:/home");
+        }
     }
 
     @PostMapping(value = "/editar")
     public ModelAndView editar( @ModelAttribute("datos") @Valid Bitacora u, BindingResult result, HttpServletRequest request, Model model ) {
-        
         String sql = "SELECT vbo_maestro FROM tb_reportes where idReporte = "+u.getIdReporte();
         String revision = this.jdbcTemplate.queryForObject(sql, new Object[]{}, String.class);
         if( !revision.equals("2") ){

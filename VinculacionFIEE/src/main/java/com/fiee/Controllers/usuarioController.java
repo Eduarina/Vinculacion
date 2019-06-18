@@ -64,44 +64,49 @@ public class usuarioController {
 
     @GetMapping(value = "/lista")
     public ModelAndView lista(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo <= 3){
             String sql;
-            HttpSession session = request.getSession();
             int id = (int) session.getAttribute("id");
-            int tipo = (int) session.getAttribute("tipo");
             ModelAndView mav = new ModelAndView();
-                if( tipo == 3){
-                    sql = "SELECT * FROM vinculacionfiee.vw_info_estudiantes WHERE idUsuario IN (SELECT idEstudiante FROM tb_asignacion WHERE idMaestro = "+id+" )";
-                }else{
-                    sql = "SELECT * FROM vinculacionfiee.vw_info_estudiantes";
-                }
-                lista = this.jdbcTemplate.queryForList(sql);
-                mav.addObject("datos", lista);
-                mav.setViewName("usuario/indexU");  // Este es el nombre del archivo vista .jsp
-                return mav;
+            if( tipo == 3){
+                sql = "SELECT * FROM vinculacionfiee.vw_info_estudiantes WHERE idUsuario IN (SELECT idEstudiante FROM tb_asignacion WHERE idMaestro = "+id+" )";
+            }else{
+                sql = "SELECT * FROM vinculacionfiee.vw_info_estudiantes";
+            }
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("datos", lista);
+            mav.setViewName("usuario/indexU");  // Este es el nombre del archivo vista .jsp
+            return mav;
+        }
+        return new ModelAndView("redirect:/home");
     }
 
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.GET)
     @GetMapping(value = "/insertar")
     public ModelAndView insertar(HttpServletRequest request) {
-        try {
-            HttpSession session = request.getSession();
-            String sql;
-            ModelAndView mav = new ModelAndView();
-            id = (int) session.getAttribute("id");
-            int tipo = (int) session.getAttribute("tipo");
-            if (tipo == 1 || tipo == 2 || tipo == 3) {
-                sql = "select * from ctg_carreras";
-                lista = this.jdbcTemplate.queryForList(sql);
-                mav.addObject("carrera", lista);
-                mav.addObject("datos", new Usuario());
-                mav.setViewName("usuario/insertarU");
-                return mav;
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo <= 3){
+            try {
+                String sql;
+                ModelAndView mav = new ModelAndView();
+                id = (int) session.getAttribute("id");
+                if (tipo == 1 || tipo == 2 || tipo == 3) {
+                    sql = "select * from ctg_carreras";
+                    lista = this.jdbcTemplate.queryForList(sql);
+                    mav.addObject("carrera", lista);
+                    mav.addObject("datos", new Usuario());
+                    mav.setViewName("usuario/insertarU");
+                    return mav;
+                }
+                return new ModelAndView("redirect:/home");
+            } catch (Exception e) {
+                return new ModelAndView("redirect:/login/login");
             }
-            return new ModelAndView("redirect:/home");
-        } catch (Exception e) {
-            return new ModelAndView("redirect:/login/login");
         }
-
+        return new ModelAndView("redirect:/home");
     }
 
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
@@ -177,49 +182,54 @@ public class usuarioController {
 
     @GetMapping(value = "/editar")
     public ModelAndView editar(@RequestParam("id") int idusuario, HttpServletRequest request) {
-        Usuario user = new Usuario();
-        user.setIdestudiante(idusuario);
-        ModelAndView mav = new ModelAndView();
-        String sql = "select nombre from vw_info_estudiantes where ID=" + idusuario;
-        Object[] parameters = new Object[]{};
-        String nombre = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setNombre(nombre);
-        sql = "select usuario from vw_info_estudiantes where ID=" + idusuario;
-        String usuario = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setUser(usuario);
-        sql = "select sexo from vw_info_estudiantes where ID=" + idusuario;
-        String sexo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setSexo(sexo);
-        sql = "select semestre from vw_info_estudiantes where ID=" + idusuario;
-        String semestre = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setSemestre(semestre);
-        sql = "select correo from vw_info_estudiantes where ID=" + idusuario;
-        String correo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setCorreo(correo);
-        sql = "select matricula from vw_info_estudiantes where ID=" + idusuario;
-        String matricula = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setMatricula(matricula);
-        sql = "select idUsuario from vw_info_estudiantes where ID=" + idusuario;
-        String iduser = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        sql = "select password from tb_usuarios where idusuario=" + iduser;
-        String password = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setPassword(password);
-        user.setPassword2(password);
-        sql = "select telefono from vw_info_estudiantes where ID=" + idusuario;
-        String telefono = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setTelefono(telefono);
-        sql = "select celular from vw_info_estudiantes where ID=" + idusuario;
-        String celular = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setCelular(celular);
-        sql = "select ncarrera from vw_info_estudiantes where ID=" + idusuario;
-        int carrera = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        user.setCarrera(carrera);
-        mav.addObject("datos", user);
-        sql = "select * from ctg_carreras";
-        lista = this.jdbcTemplate.queryForList(sql);
-        mav.addObject("carrera", lista);
-        mav.setViewName("usuario/editarU");
-        return mav;
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo <= 3){
+            Usuario user = new Usuario();
+            user.setIdestudiante(idusuario);
+            ModelAndView mav = new ModelAndView();
+            String sql = "select nombre from vw_info_estudiantes where ID=" + idusuario;
+            Object[] parameters = new Object[]{};
+            String nombre = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setNombre(nombre);
+            sql = "select usuario from vw_info_estudiantes where ID=" + idusuario;
+            String usuario = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setUser(usuario);
+            sql = "select sexo from vw_info_estudiantes where ID=" + idusuario;
+            String sexo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setSexo(sexo);
+            sql = "select semestre from vw_info_estudiantes where ID=" + idusuario;
+            String semestre = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setSemestre(semestre);
+            sql = "select correo from vw_info_estudiantes where ID=" + idusuario;
+            String correo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setCorreo(correo);
+            sql = "select matricula from vw_info_estudiantes where ID=" + idusuario;
+            String matricula = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setMatricula(matricula);
+            sql = "select idUsuario from vw_info_estudiantes where ID=" + idusuario;
+            String iduser = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            sql = "select password from tb_usuarios where idusuario=" + iduser;
+            String password = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setPassword(password);
+            user.setPassword2(password);
+            sql = "select telefono from vw_info_estudiantes where ID=" + idusuario;
+            String telefono = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setTelefono(telefono);
+            sql = "select celular from vw_info_estudiantes where ID=" + idusuario;
+            String celular = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setCelular(celular);
+            sql = "select ncarrera from vw_info_estudiantes where ID=" + idusuario;
+            int carrera = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            user.setCarrera(carrera);
+            mav.addObject("datos", user);
+            sql = "select * from ctg_carreras";
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("carrera", lista);
+            mav.setViewName("usuario/editarU");
+            return mav;
+        }
+        return new ModelAndView("redirect:/home");
     }
 
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.POST)
@@ -250,24 +260,29 @@ public class usuarioController {
     }
 
     @RequestMapping(value = "/borrar")
-    public ModelAndView borrar(@RequestParam("id") int idusuario
+    public ModelAndView borrar(@RequestParam("id") int idusuario, HttpServletRequest request
     ) {
-        String sql = "select idUsuario from tb_estudiantes where idEstudiate =" + idusuario;
-        Object[] parameters = new Object[]{};
-        int idUsuario = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        sql = "select Estado from tb_usuarios where idUsuario =" + idUsuario;
-        int estado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        if (estado == 1) {
-            sql = "update tb_usuarios set Estado = 2 where idUsuario=" + idUsuario;
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo <= 3){
+            String sql = "select idUsuario from tb_estudiantes where idEstudiate =" + idusuario;
+            Object[] parameters = new Object[]{};
+            int idUsuario = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            sql = "select Estado from tb_usuarios where idUsuario =" + idUsuario;
+            int estado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            if (estado == 1) {
+                sql = "update tb_usuarios set Estado = 2 where idUsuario=" + idUsuario;
+                this.jdbcTemplate.update(sql);
+                sql = "update tb_estudiantes set Estado = 2 where idEncargado =" + id;
+            } else {
+                sql = "update tb_usuarios set Estado = 1 where idUsuario=" + idUsuario;
+                this.jdbcTemplate.update(sql);
+                sql = "update tb_estudiantes set Estado = 1 where idEncargado =" + id;
+            }
             this.jdbcTemplate.update(sql);
-            sql = "update tb_estudiantes set Estado = 2 where idEncargado =" + id;
-        } else {
-            sql = "update tb_usuarios set Estado = 1 where idUsuario=" + idUsuario;
-            this.jdbcTemplate.update(sql);
-            sql = "update tb_estudiantes set Estado = 1 where idEncargado =" + id;
+            return new ModelAndView("redirect:/usuarios/lista");
         }
-        this.jdbcTemplate.update(sql);
-        return new ModelAndView("redirect:/usuarios/lista");
+        return new ModelAndView("redirect:/home");
     }
 
     public Usuario checkuser(String user) {
@@ -291,12 +306,4 @@ public class usuarioController {
         });
     }
 
-    //poblar select para tipo en insertar
-    @ModelAttribute("sexo")
-    public Map<String, String> listadoTipo() {
-        Map<String, String> sexo = new LinkedHashMap<>();
-        sexo.put("H", "Hombre");
-        sexo.put("M", "Mujer");
-        return sexo;
-    }
 }

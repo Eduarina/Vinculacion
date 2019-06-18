@@ -56,37 +56,51 @@ public class documentosController {
         this.jdbcTemplate = new JdbcTemplate(con.conectar());
     }
 
+    
+    //Solo estudiantes
     @GetMapping(value = "/lista")
     public ModelAndView lista(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        int id = (int) session.getAttribute("id");
-        String sql = "SELECT idEstudiate from tb_estudiantes where idUsuario = " + id;
-        Object[] parameters = new Object[]{};
-        int idEstudiante = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        sql = "Select * from vw_documentacion_alumno WHERE Estudiante = " + idEstudiante;
-        lista = jdbcTemplate.queryForList(sql);
-        ModelAndView response = new ModelAndView();
-        response.addObject("datos", lista);
-        response.addObject("url", context.getRealPath(""));
-        FileModel file = new FileModel();
-        response.addObject("command", file);
-        response.setViewName("documentos/index");
-        return response;
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 5){
+            int id = (int) session.getAttribute("id");
+            String sql = "SELECT idEstudiate from tb_estudiantes where idUsuario = " + id;
+            Object[] parameters = new Object[]{};
+            int idEstudiante = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            sql = "Select * from vw_documentacion_alumno WHERE Estudiante = " + idEstudiante;
+            lista = jdbcTemplate.queryForList(sql);
+            ModelAndView response = new ModelAndView();
+            response.addObject("datos", lista);
+            response.addObject("url", context.getRealPath(""));
+            FileModel file = new FileModel();
+            response.addObject("command", file);
+            response.setViewName("documentos/index");
+            return response;
+        }else{
+            return new ModelAndView("redirect:/home");
+        }
     }
     
+    //Todos menos encargados y alumnos
     @GetMapping(value = "/ver")
     public ModelAndView ver(HttpServletRequest request) {
-        int id=Integer.parseInt(request.getParameter("id"));
-        String sql = "SELECT * from vw_documentacion_alumno where Estudiante = " + id;
-        lista = jdbcTemplate.queryForList(sql);
-        sql = "Select distinct Nombre from vw_documentacion_alumno WHERE Estudiante = "+id; 
-        Object[] parameters = new Object[]{};
-        String name = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        ModelAndView response = new ModelAndView();
-        response.addObject("datos", lista);
-        response.addObject("nombre", name);
-        response.setViewName("documentos/ver");
-        return response;
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if( tipo <= 3 ){
+            int id=Integer.parseInt(request.getParameter("id"));
+            String sql = "SELECT * from vw_documentacion_alumno where Estudiante = " + id;
+            lista = jdbcTemplate.queryForList(sql);
+            sql = "Select distinct Nombre from vw_documentacion_alumno WHERE Estudiante = "+id; 
+            Object[] parameters = new Object[]{};
+            String name = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            ModelAndView response = new ModelAndView();
+            response.addObject("datos", lista);
+            response.addObject("nombre", name);
+            response.setViewName("documentos/ver");
+            return response;
+        }else{
+            return new ModelAndView("redirect:/home");
+        }
     }
 
 
@@ -121,29 +135,27 @@ public class documentosController {
     @RequestMapping("/download/{fileName:.+}")
     public void downloader(HttpServletRequest request, HttpServletResponse response,
             @PathVariable("fileName") String fileName) {
-        
-        String []archivo = fileName.split("_");
-        String path = "/"+archivo[0];
-        fileName = archivo[1]+".xlsx";
-        String downloadFolder = context.getRealPath(path);
-        
-        Path file = Paths.get(downloadFolder, fileName);
-        // Check if file exists
-        if (Files.exists(file)) {
-            // set content type
-            response.setContentType("application/pdf");
-            // add response header
-            response.addHeader("Content-Disposition", "attachment; filename=" + fileName);
-            try {
-                // copies all bytes from a file to an output stream
-                Files.copy(file, response.getOutputStream());
-                // flushes output stream
-                response.getOutputStream().flush();
-            } catch (IOException e) {
-                System.out.println("Error :- " + e.getMessage());
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo != 4){
+            String []archivo = fileName.split("_");
+            String path = "/resources/estudiantes/"+archivo[0];
+            fileName = archivo[1]+".pdf";
+            String downloadFolder = context.getRealPath(path);
+
+            Path file = Paths.get(downloadFolder, fileName);
+            if (Files.exists(file)) {
+                response.setContentType("application/pdf");
+                response.addHeader("Content-Disposition", "attachment; filename=" + fileName);
+                try {
+                    Files.copy(file, response.getOutputStream());
+                    response.getOutputStream().flush();
+                } catch (IOException e) {
+                    System.out.println("Error :- " + e.getMessage());
+                }
+            } else {
+                System.out.println("Sorry File not found!!!!");
             }
-        } else {
-            System.out.println("Sorry File not found!!!!");
         }
     }
 

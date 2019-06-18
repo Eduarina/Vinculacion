@@ -38,18 +38,27 @@ public class proyectoController {
     @GetMapping(value = "/lista")
     public ModelAndView listar(HttpServletRequest request){
         HttpSession session = request.getSession();
-        int id = (int) session.getAttribute("id");
-        String sql = "SELECT idEncargado from tb_encargados where idUsuario = "+id;
-        Object[] parameters = new Object[]{};
-        int idEncargado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        sql = "SELECT * FROM tb_proyectos WHERE idEncargado = "+idEncargado;
-        lista = this.jdbcTemplate.queryForList(sql);
-        return new ModelAndView("proyectos/index","datos",lista);
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 4){
+            int id = (int) session.getAttribute("id");
+            String sql = "SELECT idEncargado from tb_encargados where idUsuario = "+id;
+            Object[] parameters = new Object[]{};
+            int idEncargado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            sql = "SELECT * FROM tb_proyectos WHERE idEncargado = "+idEncargado;
+            lista = this.jdbcTemplate.queryForList(sql);
+            return new ModelAndView("proyectos/index","datos",lista);
+        }
+        return new ModelAndView("redirect:/home");
     }
     
     @GetMapping(value = "/insertar")
     public ModelAndView insertarGet(HttpServletRequest request){
-        return new ModelAndView("proyectos/insertar","proyecto",new Proyecto());
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 4){
+            return new ModelAndView("proyectos/insertar","proyecto",new Proyecto());
+        }
+        return new ModelAndView("redirect:/home");
     }
     
     @PostMapping(value = "/insertar")
@@ -57,7 +66,6 @@ public class proyectoController {
             @Valid Proyecto p, BindingResult result, HttpServletRequest request, Model model
     ) {
         
-        //Parsear fechas, Cambiar tipo de proyecto, Horario, Obtener idEncargado.
         HttpSession session = request.getSession();
         int id = (int)session.getAttribute("id");
         String sql = "INSERT INTO tb_proyectos "
@@ -82,40 +90,45 @@ public class proyectoController {
     
     @GetMapping(value = "/editar")
     public ModelAndView editar(@RequestParam("id") int id, HttpServletRequest request) {
-        Proyecto user = new Proyecto();
-        user.setId(id);
-        ModelAndView mav = new ModelAndView();
-        String sql = "select titulo from tb_proyectos where ID=" + id;
-        Object[] parameters = new Object[]{};
-        String titulo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setTitulo(titulo);
-        sql = "select dependencia from tb_proyectos where ID=" + id;
-        String dependencia = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setDependencia(dependencia);
-        sql = "select horario from tb_proyectos where ID=" + id;
-        String horario = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setHorario(horario);
-        sql = "select fechainicio from tb_proyectos where ID=" + id;
-        String fechainicio = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setFechainicio(fechainicio);
-        sql = "select fechafin from tb_proyectos where ID=" + id;
-        String fechafin = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setFechafin(fechafin);
-        sql = "select objetivo from tb_proyectos where ID=" + id;
-        String objetivo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setObjetivo(objetivo);
-        sql = "select actividades from tb_proyectos where ID=" + id;
-        String actividades = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setActividades(actividades);
-        sql = "select ubicacion from tb_proyectos where ID=" + id;
-        String ubicacion = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setUbicacion(ubicacion);
-        sql = "select tipo from tb_proyectos where ID=" + id;
-        String tipo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
-        user.setTipo(tipo);
-        mav.addObject("datos", user);
-        mav.setViewName("proyectos/editar");
-        return mav;
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 4){
+            Proyecto user = new Proyecto();
+            user.setId(id);
+            ModelAndView mav = new ModelAndView();
+            String sql = "select titulo from tb_proyectos where ID=" + id;
+            Object[] parameters = new Object[]{};
+            String titulo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setTitulo(titulo);
+            sql = "select dependencia from tb_proyectos where ID=" + id;
+            String dependencia = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setDependencia(dependencia);
+            sql = "select horario from tb_proyectos where ID=" + id;
+            String horario = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setHorario(horario);
+            sql = "select fechainicio from tb_proyectos where ID=" + id;
+            String fechainicio = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setFechainicio(fechainicio);
+            sql = "select fechafin from tb_proyectos where ID=" + id;
+            String fechafin = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setFechafin(fechafin);
+            sql = "select objetivo from tb_proyectos where ID=" + id;
+            String objetivo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setObjetivo(objetivo);
+            sql = "select actividades from tb_proyectos where ID=" + id;
+            String actividades = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setActividades(actividades);
+            sql = "select ubicacion from tb_proyectos where ID=" + id;
+            String ubicacion = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setUbicacion(ubicacion);
+            sql = "select tipo from tb_proyectos where ID=" + id;
+            String type = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
+            user.setTipo(type);
+            mav.addObject("datos", user);
+            mav.setViewName("proyectos/editar");
+            return mav;
+        }
+        return new ModelAndView("redirect:/home");
     }
 
     @RequestMapping(value = "/editar", method = RequestMethod.POST)
@@ -138,23 +151,28 @@ public class proyectoController {
 
     @RequestMapping(value = "/borrar")
     public ModelAndView borrar(HttpServletRequest request) {
-        id = Integer.parseInt(request.getParameter("id"));
-        String sql = "select idUsuario from tb_encargados where idEncargado =" + id;
-        Object[] parameters = new Object[]{};
-        int idUsuario = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        sql = "select Estado from tb_usuarios where idUsuario =" + idUsuario;
-        int estado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        if (estado == 1) {
-            sql = "update tb_usuarios set Estado = 2 where idUsuario=" + idUsuario;
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 4){
+            id = Integer.parseInt(request.getParameter("id"));
+            String sql = "select idUsuario from tb_encargados where idEncargado =" + id;
+            Object[] parameters = new Object[]{};
+            int idUsuario = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            sql = "select Estado from tb_usuarios where idUsuario =" + idUsuario;
+            int estado = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            if (estado == 1) {
+                sql = "update tb_usuarios set Estado = 2 where idUsuario=" + idUsuario;
+                this.jdbcTemplate.update(sql);
+                sql = "update tb_encargados set Estado = 2 where idEncargado =" + id;
+            } else {
+                sql = "update tb_usuarios set Estado = 1 where idUsuario=" + idUsuario;
+                this.jdbcTemplate.update(sql);
+                sql = "update tb_encargados set Estado = 1 where idEncargado =" + id;
+            }
             this.jdbcTemplate.update(sql);
-            sql = "update tb_encargados set Estado = 2 where idEncargado =" + id;
-        } else {
-            sql = "update tb_usuarios set Estado = 1 where idUsuario=" + idUsuario;
-            this.jdbcTemplate.update(sql);
-            sql = "update tb_encargados set Estado = 1 where idEncargado =" + id;
+            return new ModelAndView("redirect:lista");
         }
-        this.jdbcTemplate.update(sql);
-        return new ModelAndView("redirect:lista");
+        return new ModelAndView("redirect:/home");
     }
     
 }

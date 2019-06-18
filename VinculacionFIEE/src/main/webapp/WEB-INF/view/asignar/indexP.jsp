@@ -64,9 +64,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <c:if test="${dato.estado eq 5}">
                                                         <td><a href="baja?id=${dato.ID}" class="btn btn-danger">Dar de baja</a></td>
                                                     </c:if>
-                                                <c:if test="${dato.estado eq 6}">
-                                                    <td><a href="baja?id=${dato.ID}" class="btn btn-success">Dar de baja</a></td>
-                                                    </c:if>
                                                 </tr>
                                             </c:forEach>
                                             </tbody>

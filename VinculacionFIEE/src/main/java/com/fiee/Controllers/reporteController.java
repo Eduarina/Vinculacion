@@ -89,30 +89,34 @@ public class reporteController {
     
     @GetMapping(value = "/generar") //Este es el nombre con el que se accede desde el navegador
     public ModelAndView generar(HttpServletRequest request, Model model) {
-        ModelAndView mav = new ModelAndView();
-        Object []parameters = new Object[]{};
         HttpSession session = request.getSession();
-        int id = (int) session.getAttribute("id");
-        String sql = "SELECT count(idReporte) from tb_reportes where tipo = 2 AND idEstudiante = "+id;
-        int num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        num++;
-        mav.addObject("num",num);
-        sql = "SELECT idEstudiate from tb_estudiantes where idUsuario = "+id;
-        num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        sql = "SELECT DISTINCT idAsignacionProyecto from tb_asignacion_proyecto WHERE idEstudiante = "+num;
-        num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        mav.addObject("pro",num);
-        String fecha = new SimpleDateFormat("dd/MM/yyyy").format( new Date() );
-        mav.addObject("fecha",fecha);
-        sql = "SELECT * FROM vw_info_estudiantes where idUsuario = "+id;
-        lista= this.jdbcTemplate.queryForList(sql);
-        mav.addObject("info", lista);
-        sql = "SELECT * FROM tb_proyectos WHERE idEstudiante = "+id;
-        lista= this.jdbcTemplate.queryForList(sql);
-        mav.addObject("datos", lista);
-        mav.addObject("reporte",new Bitacora());
-        mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
-        return mav;
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 5){
+            ModelAndView mav = new ModelAndView();
+            Object []parameters = new Object[]{};
+            int id = (int) session.getAttribute("id");
+            String sql = "SELECT count(idReporte) from tb_reportes where tipo = 2 AND idEstudiante = "+id;
+            int num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            num++;
+            mav.addObject("num",num);
+            sql = "SELECT idEstudiate from tb_estudiantes where idUsuario = "+id;
+            num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            sql = "SELECT DISTINCT idAsignacionProyecto from tb_asignacion_proyecto WHERE idEstudiante = "+num;
+            num = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            mav.addObject("pro",num);
+            String fecha = new SimpleDateFormat("dd/MM/yyyy").format( new Date() );
+            mav.addObject("fecha",fecha);
+            sql = "SELECT * FROM vw_info_estudiantes where idUsuario = "+id;
+            lista= this.jdbcTemplate.queryForList(sql);
+            mav.addObject("info", lista);
+            sql = "SELECT * FROM tb_proyectos WHERE idEstudiante = "+id;
+            lista= this.jdbcTemplate.queryForList(sql);
+            mav.addObject("datos", lista);
+            mav.addObject("reporte",new Bitacora());
+            mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
+            return mav;
+        }
+        return new ModelAndView("redirect:/home");
     }
 
 
@@ -126,52 +130,32 @@ public class reporteController {
         return new ModelAndView("redirect:lista");
     }
 
-    @GetMapping(value = "/generacion") //Este es el nombre con el que se accede desde el navegador
-    public ModelAndView generaReporte(HttpServletRequest request, Model model) {
-        try {
-            ModelAndView mav = new ModelAndView();
-            HttpSession session = request.getSession();
-            id = (int) session.getAttribute("id");
-            tipo = (int) session.getAttribute("tipo");
-            if (tipo == 4) {
-                String sql = "select * from maestro_servicio where idservicio=" + id;
-                lista = this.jdbcTemplate.queryForList(sql);
-                mav.addObject("datos", lista);
-                mav.setViewName("reporte/generarR");  // Este es el nombre del archivo vista .jsp
-                sql = "select * from usuario";
-                List lista1 = this.jdbcTemplate.queryForList(sql);
-                model.addAttribute("usuarios", lista1);
-                return mav;
-            }
-            return new ModelAndView("redirect:/home");
-        } catch (Exception e) {
-            return new ModelAndView("redirect:/login/login");
-        }
-
-    }
-
-     @GetMapping(value = "/editar")
+    
+    @GetMapping(value = "/editar")
     public ModelAndView editar(@RequestParam("id") int idreporte, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo == 5){
+            String sql = "SELECT * FROM tb_reportes WHERE idReporte = "+idreporte;
+            Object [] parameters = new Object[]{} ;
+            Bitacora bita = (Bitacora) this.jdbcTemplate.queryForObject(sql, parameters, new BeanPropertyRowMapper(Bitacora.class));
+            sql = "SELECT Nombre, Matricula, Carrera, Telefono, Celular, Correo from vw_info_estudiantes WHERE idUsuario = "+bita.getIdEstudiante();
+            lista = this.jdbcTemplate.queryForList(sql);
+            sql = "Select idProyecto from tb_asignacion_proyecto WHERE idAsignacionProyecto = "+bita.getIdProyecto();
+            int idProyecto = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("fecha",bita.getFecha());
+            mav.addObject("num", bita.getNum_Reporte());
+            mav.addObject("infoE",lista);
+            mav.addObject("reporte",bita);
+            sql = "SELECT Dependencia, Ubicacion, Horario, Tipo, Titulo from tb_proyectos where idProyecto ="+idProyecto;
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("infoP",lista);
 
-        String sql = "SELECT * FROM tb_reportes WHERE idReporte = "+idreporte;
-        Object [] parameters = new Object[]{} ;
-        Bitacora bita = (Bitacora) this.jdbcTemplate.queryForObject(sql, parameters, new BeanPropertyRowMapper(Bitacora.class));
-        sql = "SELECT Nombre, Matricula, Carrera, Telefono, Celular, Correo from vw_info_estudiantes WHERE idUsuario = "+bita.getIdEstudiante();
-        lista = this.jdbcTemplate.queryForList(sql);
-        sql = "Select idProyecto from tb_asignacion_proyecto WHERE idAsignacionProyecto = "+bita.getIdProyecto();
-        int idProyecto = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("fecha",bita.getFecha());
-        mav.addObject("num", bita.getNum_Reporte());
-        mav.addObject("infoE",lista);
-        mav.addObject("reporte",bita);
-        sql = "SELECT Dependencia, Ubicacion, Horario, Tipo, Titulo from tb_proyectos where idProyecto ="+idProyecto;
-        lista = this.jdbcTemplate.queryForList(sql);
-        mav.addObject("infoP",lista);
-        
-        mav.setViewName("reporte/editarR");
-        return mav;        
-        
+            mav.setViewName("reporte/editarR");
+            return mav;        
+        }
+        return new ModelAndView("redirect:/home");
     }
 
     @PostMapping(value = "/editar")
@@ -200,37 +184,42 @@ public class reporteController {
 
     @GetMapping(value="/exportar")
     public ModelAndView borrar(@RequestParam("id") int idreporte, HttpServletRequest request) {
-        String sql = "SELECT * FROM tb_reportes WHERE idReporte = "+idreporte;
-        Object [] parameters = new Object[]{} ;
-        Bitacora bita = (Bitacora) this.jdbcTemplate.queryForObject(sql, parameters, new BeanPropertyRowMapper(Bitacora.class));
-        sql = "SELECT Nombre, Matricula, Carrera, Telefono, Celular, Correo from vw_info_estudiantes WHERE idUsuario = "+bita.getIdEstudiante();
-        lista = this.jdbcTemplate.queryForList(sql);
-        sql = "Select idProyecto from tb_asignacion_proyecto WHERE idAsignacionProyecto = "+bita.getIdProyecto();
-        int idProyecto = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("fecha",bita.getFecha());
-        mav.addObject("num", bita.getNum_Reporte());
-        mav.addObject("infoE",lista);
-        mav.addObject("reporte",bita);
-        sql = "SELECT Dependencia, Ubicacion, Horario, Tipo, Titulo from tb_proyectos where idProyecto ="+idProyecto;
-        lista = this.jdbcTemplate.queryForList(sql);
-        mav.addObject("infoP",lista);
-        sql = "SELECT u.Nombre, m.Firma FROM tb_asignacion a, tb_maestros m, tb_usuarios u WHERE a.idMaestro = m.idUsuario AND a.idMaestro = u.idUsuario and a.idEstudiante = "+bita.getIdEstudiante();
-        lista = this.jdbcTemplate.queryForList(sql);
-        mav.addObject("firmaM",lista);
-        sql = "SELECT u.Nombre, e.Firma FROM tb_estudiantes e, tb_usuarios u WHERE u.idUsuario = e.idUsuario AND e.idUsuario = "+bita.getIdEstudiante();
-        lista = this.jdbcTemplate.queryForList(sql);
-        mav.addObject("firmaA",lista);
-        mav.setViewName("reporte/exportar");
-        sql = "SELECT u.Nombre, e.Firma from tb_proyectos p, tb_encargados e, tb_usuarios u WHERE p.idEncargado = e.idEncargado AND e.idUsuario = u.idUsuario AND p.idProyecto = "+idProyecto;
-        lista = this.jdbcTemplate.queryForList(sql);
-        mav.addObject("firmaE", lista);
-        sql = "SELECT * FROM tb_firmas WHERE idFirma = 2";
-        lista = this.jdbcTemplate.queryForList(sql);
-        mav.addObject("firmaC",lista);
-        sql = "SELECT * FROM tb_firmas WHERE idFirma = 1";
-        lista = this.jdbcTemplate.queryForList(sql);
-        mav.addObject("firmaD",lista);
-        return mav;
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo >= 3){
+            String sql = "SELECT * FROM tb_reportes WHERE idReporte = "+idreporte;
+            Object [] parameters = new Object[]{} ;
+            Bitacora bita = (Bitacora) this.jdbcTemplate.queryForObject(sql, parameters, new BeanPropertyRowMapper(Bitacora.class));
+            sql = "SELECT Nombre, Matricula, Carrera, Telefono, Celular, Correo from vw_info_estudiantes WHERE idUsuario = "+bita.getIdEstudiante();
+            lista = this.jdbcTemplate.queryForList(sql);
+            sql = "Select idProyecto from tb_asignacion_proyecto WHERE idAsignacionProyecto = "+bita.getIdProyecto();
+            int idProyecto = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("fecha",bita.getFecha());
+            mav.addObject("num", bita.getNum_Reporte());
+            mav.addObject("infoE",lista);
+            mav.addObject("reporte",bita);
+            sql = "SELECT Dependencia, Ubicacion, Horario, Tipo, Titulo from tb_proyectos where idProyecto ="+idProyecto;
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("infoP",lista);
+            sql = "SELECT u.Nombre, m.Firma FROM tb_asignacion a, tb_maestros m, tb_usuarios u WHERE a.idMaestro = m.idUsuario AND a.idMaestro = u.idUsuario and a.idEstudiante = "+bita.getIdEstudiante();
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("firmaM",lista);
+            sql = "SELECT u.Nombre, e.Firma FROM tb_estudiantes e, tb_usuarios u WHERE u.idUsuario = e.idUsuario AND e.idUsuario = "+bita.getIdEstudiante();
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("firmaA",lista);
+            mav.setViewName("reporte/exportar");
+            sql = "SELECT u.Nombre, e.Firma from tb_proyectos p, tb_encargados e, tb_usuarios u WHERE p.idEncargado = e.idEncargado AND e.idUsuario = u.idUsuario AND p.idProyecto = "+idProyecto;
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("firmaE", lista);
+            sql = "SELECT * FROM tb_firmas WHERE idFirma = 2";
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("firmaC",lista);
+            sql = "SELECT * FROM tb_firmas WHERE idFirma = 1";
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("firmaD",lista);
+            return mav;
+        }
+        return new ModelAndView("redirect:/home");
     }
 }
