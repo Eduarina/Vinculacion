@@ -16,28 +16,43 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tb_firmas`
+-- Table structure for table `tb_reportes`
 --
 
-DROP TABLE IF EXISTS `tb_firmas`;
+DROP TABLE IF EXISTS `tb_reportes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `tb_firmas` (
-  `idFirma` int(11) NOT NULL AUTO_INCREMENT,
-  `autoridad` text,
-  `path` text,
-  PRIMARY KEY (`idFirma`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+CREATE TABLE `tb_reportes` (
+  `idReporte` int(11) NOT NULL AUTO_INCREMENT,
+  `Num_Reporte` int(11) DEFAULT NULL,
+  `idProyecto` int(11) DEFAULT NULL,
+  `Tipo` int(11) DEFAULT NULL,
+  `Actividades` varchar(100) DEFAULT NULL,
+  `Descripcion` varchar(150) DEFAULT NULL,
+  `Problemas` varchar(100) DEFAULT NULL,
+  `Soluciones` varchar(100) DEFAULT NULL,
+  `Estado` int(11) DEFAULT NULL,
+  `Fecha` varchar(20) DEFAULT NULL,
+  `idEstudiante` int(11) DEFAULT NULL,
+  `Vbo_Maestro` text,
+  `VBo_Encargado` text,
+  PRIMARY KEY (`idReporte`),
+  KEY `fk_AsignacionProyecto_Reporte_idx` (`idProyecto`),
+  KEY `fk_Estado_Reporte_idx` (`Estado`),
+  KEY `idEstudiante` (`idEstudiante`),
+  CONSTRAINT `fk_AsignacionProyecto_Reporte` FOREIGN KEY (`idProyecto`) REFERENCES `tb_asignacion_proyecto` (`idAsignacionProyecto`),
+  CONSTRAINT `fk_Estado_Reporte` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
+  CONSTRAINT `tb_reportes_ibfk_1` FOREIGN KEY (`idEstudiante`) REFERENCES `tb_usuarios` (`idUsuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_firmas`
+-- Dumping data for table `tb_reportes`
 --
 
-LOCK TABLES `tb_firmas` WRITE;
-/*!40000 ALTER TABLE `tb_firmas` DISABLE KEYS */;
-INSERT INTO `tb_firmas` VALUES (1,'M.C. Luis Héctor Porragas Beltrán','/dist/firmas\\firmaM.C. Luis Héctor Porragas Beltrán.png'),(2,'Dra. Estela del Carmen Fernández Rodríguez','/dist/firmas\\firmaDra. Estela del Carmen Fernández Rodríguez.png');
-/*!40000 ALTER TABLE `tb_firmas` ENABLE KEYS */;
+LOCK TABLES `tb_reportes` WRITE;
+/*!40000 ALTER TABLE `tb_reportes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_reportes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +64,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-13 20:16:24
+-- Dump completed on 2019-06-18 18:11:04

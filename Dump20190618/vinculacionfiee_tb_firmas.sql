@@ -16,31 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tb_asignacion`
+-- Table structure for table `tb_firmas`
 --
 
-DROP TABLE IF EXISTS `tb_asignacion`;
+DROP TABLE IF EXISTS `tb_firmas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `tb_asignacion` (
-  `idAsignacion` int(11) NOT NULL AUTO_INCREMENT,
-  `idMaestro` int(11) DEFAULT NULL,
-  `idEstudiante` int(11) DEFAULT NULL,
-  `Estado` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idAsignacion`),
-  KEY `fk_Estado_Asignacion_idx` (`Estado`),
-  CONSTRAINT `fk_Estado_Asignacion` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+CREATE TABLE `tb_firmas` (
+  `idFirma` int(11) NOT NULL AUTO_INCREMENT,
+  `autoridad` text,
+  `path` text,
+  PRIMARY KEY (`idFirma`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_asignacion`
+-- Dumping data for table `tb_firmas`
 --
 
-LOCK TABLES `tb_asignacion` WRITE;
-/*!40000 ALTER TABLE `tb_asignacion` DISABLE KEYS */;
-INSERT INTO `tb_asignacion` VALUES (18,32,30,1),(19,32,43,1),(20,32,44,1),(22,36,40,1);
-/*!40000 ALTER TABLE `tb_asignacion` ENABLE KEYS */;
+LOCK TABLES `tb_firmas` WRITE;
+/*!40000 ALTER TABLE `tb_firmas` DISABLE KEYS */;
+INSERT INTO `tb_firmas` VALUES (1,'M.C. Luis Héctor Porragas Beltrán','/dist/firmas\\firmaM.C. Luis Héctor Porragas Beltrán.png'),(2,'Dra. Estela del Carmen Fernández Rodríguez','/dist/firmas\\firmaDra. Estela del Carmen Fernández Rodríguez.png');
+/*!40000 ALTER TABLE `tb_firmas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-13 20:16:21
+-- Dump completed on 2019-06-18 18:11:03

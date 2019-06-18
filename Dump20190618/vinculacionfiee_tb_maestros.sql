@@ -16,27 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `ctg_estados`
+-- Table structure for table `tb_maestros`
 --
 
-DROP TABLE IF EXISTS `ctg_estados`;
+DROP TABLE IF EXISTS `tb_maestros`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `ctg_estados` (
-  `idEstado` int(11) NOT NULL AUTO_INCREMENT,
-  `Descripcion` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idEstado`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+CREATE TABLE `tb_maestros` (
+  `idMaestro` int(11) NOT NULL AUTO_INCREMENT,
+  `Correo` varchar(45) DEFAULT NULL,
+  `Firma` varchar(45) DEFAULT NULL,
+  `Estado` int(11) DEFAULT NULL,
+  `idUsuario` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idMaestro`),
+  KEY `fk_Estados_Maestros_idx` (`Estado`),
+  KEY `fk_Usuarios_Maestros_idx` (`idUsuario`),
+  CONSTRAINT `fk_Estados_Maestros` FOREIGN KEY (`Estado`) REFERENCES `ctg_estados` (`idEstado`),
+  CONSTRAINT `fk_Usuarios_Maestros` FOREIGN KEY (`idUsuario`) REFERENCES `tb_usuarios` (`idUsuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ctg_estados`
+-- Dumping data for table `tb_maestros`
 --
 
-LOCK TABLES `ctg_estados` WRITE;
-/*!40000 ALTER TABLE `ctg_estados` DISABLE KEYS */;
-INSERT INTO `ctg_estados` VALUES (1,'Activo'),(2,'Inactivo'),(3,'Pendiente de Entrega'),(4,'Entregado'),(5,'Vigente'),(6,'Cumplido');
-/*!40000 ALTER TABLE `ctg_estados` ENABLE KEYS */;
+LOCK TABLES `tb_maestros` WRITE;
+/*!40000 ALTER TABLE `tb_maestros` DISABLE KEYS */;
+INSERT INTO `tb_maestros` VALUES (11,'MAESTRO@UV.MX','\\MAESTRO\\firma.png',1,32),(12,'KSORIANO@ESTUDIANTES.UV.MX',NULL,1,36),(13,'NEWMAESTRO@HOTMAIL.COM',NULL,1,37),(14,'OTRO@EXAMPE.COM',NULL,1,38),(15,'DEL@AIRE.COM','\\ULTIMO MAESTRO\\firma.png',1,39);
+/*!40000 ALTER TABLE `tb_maestros` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-13 20:16:27
+-- Dump completed on 2019-06-18 18:11:02
