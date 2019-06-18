@@ -89,22 +89,19 @@ public class asignarController {
     
     @GetMapping(value = "/proyectos")
     public ModelAndView proyectos(Model model, HttpServletRequest request) {
-        try {
-            HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if( tipo == 3 ){
             String sql;
             ModelAndView mav = new ModelAndView();
             id = (int) session.getAttribute("id");
-            sql = "SELECT idEncargado from tb_encargados where idUsuario = "+id;
-            Object []parameters = new Object[]{};
-            int idEncargado = this.jdbcTemplate.queryForObject(sql,parameters,int.class);
-            sql = "SELECT ap.idAsignacionProyecto as ID, p.Titulo, u.nombre, ap.Estado, es.Descripcion FROM tb_proyectos p, tb_usuarios u, tb_asignacion_proyecto ap, ctg_estados es WHERE p.idEstudiante = u.idUsuario AND p.idProyecto = ap.idProyecto AND ap.Estado = es.idEstado AND idencargado = "+idEncargado;
+            sql = "SELECT ap.idAsignacionProyecto as ID, p.Titulo, u.nombre, ap.Estado, es.Descripcion FROM tb_proyectos p, tb_usuarios u, tb_asignacion_proyecto ap, ctg_estados es WHERE p.idEstudiante = u.idUsuario AND p.idProyecto = ap.idProyecto AND ap.Estado = es.idEstado";
             lista = this.jdbcTemplate.queryForList(sql);
             mav.addObject("datos", lista);
             mav.setViewName("asignar/indexP");  // Este es el nombre del archivo vista .jsp
             return mav;
-        } catch (Exception e) {
-            return new ModelAndView("redirect:/login/login");
         }
+        return new ModelAndView("redirect:/home");
     }
 
     @GetMapping(value = "/baja")
@@ -158,14 +155,11 @@ public class asignarController {
         String sql;
         ModelAndView mav = new ModelAndView();
         int tipo = (int) session.getAttribute("tipo");
-        if(tipo == 4){
+        if(tipo == 3){
             id = (int) session.getAttribute("id");
-            sql = "SELECT idEncargado from tb_encargados  where idUsuario = "+id;
-            Object []parameters = new Object[]{};
-            int idEncargado = this.jdbcTemplate.queryForObject(sql,parameters,int.class);
             mav.addObject("datos", new Asignacion_Proyecto());
             mav.setViewName("asignar/insertarP");
-            sql = "SELECT * FROM tb_proyectos where idProyecto NOT IN (SELECT idProyecto from tb_asignacion_proyecto) AND idEncargado = "+idEncargado;
+            sql = "SELECT * FROM tb_proyectos where idProyecto NOT IN (SELECT idProyecto from tb_asignacion_proyecto)";
             lista = this.jdbcTemplate.queryForList(sql);
             model.addAttribute("nombres", lista);
             sql = "SELECT * FROM vw_estudiantes_noAsignados";

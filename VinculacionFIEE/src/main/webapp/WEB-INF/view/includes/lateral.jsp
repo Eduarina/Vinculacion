@@ -50,6 +50,9 @@
                 </ul>
             </li>
             </c:if>
+            <c:if test="${sessionScope.tipo eq 3}">
+                <li class="active"><a href="/VinculacionFIEE/asignacion/proyectos"><i class="fa fa-calendar"></i> <span>Asignación Proyectos-Alumnos</span></a></li>
+            </c:if>
             <c:if test="${sessionScope.tipo <= 1}">
                 <li class="active"><a href="/VinculacionFIEE/firmas/home"><i class="fa fa-user-plus"></i> <span>Firmas de autoridades</span></a></li>
             </c:if>
@@ -70,8 +73,7 @@
             </li>
             </c:if>
             <c:if test="${sessionScope.tipo eq 4}">
-            <li class="active"><a href="/VinculacionFIEE/proyecto/lista"><i class="fa fa-calendar"></i> <span>Crear Proyecto</span></a></li>
-            <li class="active"><a href="/VinculacionFIEE/asignacion/proyectos"><i class="fa fa-calendar"></i> <span>Asignación Proyectos-Alumnos</span></a></li>
+                <li class="active"><a href="/VinculacionFIEE/proyecto/lista"><i class="fa fa-calendar"></i> <span>Crear Proyecto</span></a></li>
             </c:if>
             <c:if test="${sessionScope.tipo eq 3 or sessionScope.tipo eq 4}">
                 <li class="active"><a href="/VinculacionFIEE/detalles"><i class="fa fa-calendar"></i> <span>Revisar reportes</span></a></li>
