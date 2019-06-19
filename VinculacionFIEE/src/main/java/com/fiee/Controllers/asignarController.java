@@ -109,8 +109,8 @@ public class asignarController {
     ) {
         HttpSession session = request.getSession();
         int tipo = (int) session.getAttribute("tipo");
-        if(tipo == 4){
-            String sql = "UPDATE tb_asignacion_proyecto SET Estado = 6 where idAsignacionProyecto=" + idtabla;
+        if(tipo == 3){
+            String sql = "UPDATE tb_asignacion_proyecto SET Estado = 2 where idAsignacionProyecto=" + idtabla;
             this.jdbcTemplate.update(sql);
             return new ModelAndView("redirect:/asignacion/proyectos");
         }
@@ -159,7 +159,7 @@ public class asignarController {
             id = (int) session.getAttribute("id");
             mav.addObject("datos", new Asignacion_Proyecto());
             mav.setViewName("asignar/insertarP");
-            sql = "SELECT * FROM tb_proyectos where idProyecto NOT IN (SELECT idProyecto from tb_asignacion_proyecto)";
+            sql = "SELECT * FROM tb_proyectos where idProyecto NOT IN (SELECT idProyecto from tb_asignacion_proyecto WHERE Estado < 5)";
             lista = this.jdbcTemplate.queryForList(sql);
             model.addAttribute("nombres", lista);
             sql = "SELECT * FROM vw_estudiantes_noAsignados";
