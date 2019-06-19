@@ -115,7 +115,10 @@ public class documentosController {
             int id = (int) session.getAttribute("id");
             MultipartFile multipartFile = file.getFile();
             String uploadPath = context.getRealPath("/resources/estudiantes") + File.separator + nombre + File.separator;
-            
+            File archivo = new File(uploadPath);
+            if( !archivo.exists() ){
+                archivo.mkdir();
+            }
             String extension = FilenameUtils.getExtension(file.getFile().getOriginalFilename());
             String fileName = uploadPath + file.getDescripcion() + "." + extension;
             FileCopyUtils.copy(file.getFile().getBytes(), new File(fileName));

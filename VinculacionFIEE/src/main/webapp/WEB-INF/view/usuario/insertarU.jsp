@@ -239,13 +239,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <c:if test="${empty errorband}">
                                                     <form:select path="sexo" cssClass="form-control">
                                                         <form:option value="0">Seleccion...</form:option>
-                                                        <form:options items="${sexo}"/>
+                                                        <form:option value="H">Hombre</form:option>
+                                                        <form:option value="M">Mujer</form:option>
                                                     </form:select>
                                                 </c:if>
                                                 <c:if test="${not empty errorband}">
                                                     <form:select path="sexo" cssClass="form-control" style="border-color:red;">
                                                         <form:option value="0">Seleccion...</form:option>
-                                                        <form:options items="${sexo}"/>
+                                                        <form:option value="H">Hombre</form:option>
+                                                        <form:option value="M">Mujer</form:option>
                                                     </form:select>
                                                 </c:if>
                                             </div>

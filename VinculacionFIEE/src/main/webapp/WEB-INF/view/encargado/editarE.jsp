@@ -119,18 +119,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <c:if test="${empty errorband}">
                                                 <form:select path="sexo" cssClass="form-control">
                                                     <form:option value="0">Seleccion...</form:option>
-                                                        <c:if test="${sexo eq 'H'}">
-                                                        <form:option value="H" selected="selected">Hombre</form:option>
-                                                        </c:if>
-                                                        <c:if test="${sexo ne 'H'}">
-                                                        <form:option value="H">Hombre</form:option>
-                                                        </c:if>
-                                                        <c:if test="${sexo eq 'M'}">
-                                                        <form:option value="M" selected="selected">Mujer</form:option>
-                                                        </c:if>
-                                                        <c:if test="${sexo ne 'M'}">
+                                                    <form:option value="H">Hombre</form:option>
                                                         <form:option value="M">Mujer</form:option>
-                                                        </c:if>
                                                 </form:select>
                                             </c:if>
                                             <c:if test="${not empty errorband}">

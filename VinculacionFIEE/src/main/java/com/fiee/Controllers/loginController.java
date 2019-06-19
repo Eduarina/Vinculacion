@@ -168,7 +168,7 @@ public class loginController {
     public ModelAndView deleteFirmE(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         int id = (int) session.getAttribute("id");
-        String sql = "Update tb_maestros SET Firma = '' WHERE idUsuario = "+id;
+        String sql = "Update tb_encargados SET Firma = '' WHERE idUsuario = "+id;
         this.jdbcTemplate.update(sql);
         return new ModelAndView("redirect:/login/perfil");
     }
