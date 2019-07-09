@@ -30,93 +30,98 @@ scratch. This page gets rid of all links and provides the needed markup only.
         |               | sidebar-mini                            |
         |---------------------------------------------------------|
         -->
-        <body class="hold-transition skin-green-light sidebar-mini">
-            <div class="wrapper">
-
+        <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-blue white-sidebar-color logo-white">
+            <div class="page-wrapper">
+                <div class="page-header navbar navbar-fixed-top">
             <jsp:include page="../includes/menu.jsp"></jsp:include>
-
+                </div>
+                <div class="page-container">
             <jsp:include page="../includes/lateral.jsp"></jsp:include>
-
+            
                 <!-- Content Wrapper. Contains page content -->
-                <div class="content-wrapper">
-                    <!-- Content Header (Page header) -->
-                    <section class="content-header">
-                        <h1>
-                            Registrar Servicio Social
-                            <small>Usuario de Servicio</small>
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                            <li class="active">Inicio</li>
-                        </ol>
-                    </section>
+                <div class="page-content-wrapper">
+                    <div class="page-content" style="min-height: 667px" >
+                        <div id="content">
+                            <div class="profile-content">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="card">
+                                            <div class="card-topline-green"></div>
+                                            <div class="white-box">
+                                                <div class="p-r1-20">
+                                                    <ul class="nav customtab nav-tabs" role="tablist">
+                                                        <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab"><header>Registrar Servicio Social
+                                                        <small>Usuario de Servicio</small></header></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="tab-content">
+                                                    <div class="tab-pane fontawesomw-demo active show" id="tab1">
+                                                        <div class="row">
+                                                            <div class="col-md-12 col-sm-12">
 
-                    <!-- Main content -->
-                    <section class="content container-fluid">
-
-                        <!--------------------------
-                        | Your Page Content Here |
-                        -------------------------->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="box box-primary">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">Nuevo Usuario</h3>
-                                    </div>
-                                    <!-- /.box-header -->
-                                    <!-- form start -->
-                                    <form role="form" method="POST">
-                                        <div class="box-body">
-                                            <div class="form-group col-md-6">
+                                                                    <div class="card-body " id="bar-parent2">
+                                                                    <!-- text input -->
+                                                                        <form role="form" method="POST">
+                                        
+                                            <div class="form-group">
                                                 <label for="nombre">Nombre del Alumno</label>
                                                 <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Alumno..." onkeyup="javascript:this.value = this.value.toUpperCase();">
                                             </div>
-                                            <div class="form-group col-md-6">
+                                            <div class="form-group">
                                                 <label for="usuario">Usuario</label>
                                                 <input id="usuario" name="usuario" type="text" class="form-control" placeholder="Usuario...">
                                             </div>
-                                            <div class="form-group col-md-6">
+                                            <div class="form-group">
                                                 <label for="password">Contraseña</label>
                                                 <input id="password" name="password" type="password" class="form-control" placeholder="Contraseña...">
                                             </div>
-                                            <div class="form-group col-md-3">
+                                            <div class="form-group">
                                                 <label for="correo">Correo</label>
                                                 <input id="correo" name="correo" type="email" class="form-control" placeholder="usuario@gmail.com...">
                                                 <!--<input id="emailAddress" type="email" size="64" maxLength="64" required
                                                     placeholder="username@beststartupever.com" pattern=".+@beststartupever.com">-->
                                                 <!-- /.input group -->
                                             </div>
-                                            <div class="form-group col-md-3">
+                                            <div class="form-group">
                                                 <label for="matricula">Matricula</label>
                                                 <input id="matricula" name="matricula" type="text" class="form-control" placeholder="Contraseña...">
                                             </div>
-                                            <div class="form-group col-md-3">
+                                            <div class="form-group">
                                                 <label for="creditos">Creditos</label>
                                                 <input id="creditos" name="creditos" type="number" class="form-control" min="1" max="400">
                                             </div>
-                                            <div class="form-group col-md-3">
+                                            <div class="form-group">
                                                 <label for="semestre">Semestre</label>
                                                 <input id="semestre" name="semestre" type="number" class="form-control" min="1" max="12">
                                             </div>
-                                        </div>
-                                        <div class="box-footer">
-                                            <button type="submit" class="btn btn-success">Aceptar</button>
-                                            <a href="usuariosS" class="btn btn-default">Cancelar</a>
-                                        </div>
+                                        
+                                        
+                                            <button type="submit" class="btn btn-success btn-sm m-b-10">Aceptar</button>
+                                            <a href="usuariosS" class="btn btn-default btn-sm m-b-10">Cancelar</a>
+                                        
                                     </form>
+                                                                    </div>
+
+                                                            </div>
+                                </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <!-- Content Header (Page header) -->
+                    
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
 
-                    </section>
-                    <!-- /.content -->
-                </div>
-                <!-- /.content-wrapper -->
-
-            <jsp:include page="../includes/footer.jsp"></jsp:include>
-
-
-        </div>
-
-    </body>
+            
+</div>
+    <jsp:include page="../includes/footer.jsp"></jsp:include>
+</div>
+</body>
 </html>

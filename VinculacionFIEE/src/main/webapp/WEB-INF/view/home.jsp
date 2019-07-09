@@ -9,7 +9,7 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
-<html>
+<html lang="es">
     <jsp:include page="includes/head.jsp"></jsp:include>
         <!--
         BODY TAG OPTIONS:
@@ -31,29 +31,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
         |               | sidebar-mini                            |
         |---------------------------------------------------------|
         -->
-        <body class="hold-transition skin-green-light sidebar-mini">
-            <div class="wrapper">
-
+        <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-blue white-sidebar-color logo-white">
+            
+            <div class="page-wrapper">
+                <div class="page-header navbar navbar-fixed-top">
             <jsp:include page="includes/menu.jsp"></jsp:include>
-
+            </div>
+            <div class="page-container">
             <jsp:include page="includes/lateral.jsp"></jsp:include>
-
                 <!-- Content Wrapper. Contains page content -->
-                <div class="content-wrapper">
-                    <!-- Content Header (Page header) -->
-                    <section class="content-header">
-                        <h1>
-                            Sistema de Gestión de Servicio Social
-                            <!--                        <small>Contenido</small>-->
-                        </h1>
-                        <!--                    <ol class="breadcrumb">
-                                                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                                                <li class="active">Inicio</li>
-                                            </ol>-->
-                    </section>
-
-                    <!-- Main content -->
-                    <section class="content container-fluid">
+                <div class="page-content-wrapper">
+                    <div class="page-content" style="min-height: 667px">
+                        <div id="content">
+                            <section class="content container-fluid">
 
                     <form:form method = "POST" modelAttribute = "fileUpload"
                                enctype = "multipart/form-data">
@@ -63,6 +53,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </form:form>
 
                 </section>
+                            
+                        </div>
+                    </div>
+                    <!-- Content Header (Page header) -->
+                    <!--<section class="content-header">
+                        <h1>
+                            Sistema de Gestión de Servicio Social
+                            <!--                        <small>Contenido</small>-->
+                        <!--</h1>-->
+                        <!--                    <ol class="breadcrumb">
+                                                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                                                <li class="active">Inicio</li>
+                                            </ol>-->
+                    <!--</section>-->
+
+                    <!-- Main content -->
+                    
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
@@ -71,6 +78,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
         </div>
-
+            <div class="page-footer">
+                <div class="page-footer-inner"> 2018 &copy; Smile Admin Theme By
+                    <a href="mailto:redstartheme@gmail.com" target="_top" class="makerCss">RedStar Theme</a>
+                </div>
+                <div class="scroll-to-top">
+                    <i class="icon-arrow-up"></i>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

@@ -11,7 +11,7 @@
             = new SimpleDateFormat("yyyy");
     String currentDate = ft.format(dNow);
 %>
-<footer class="main-footer">
+<footer class="page-footer">
     <div class="pull-right hidden-xs">
         Sistema de Gestión de Servicio Social
     </div>

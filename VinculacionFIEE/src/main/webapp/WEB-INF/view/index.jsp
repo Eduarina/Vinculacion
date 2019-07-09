@@ -30,12 +30,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         |               | sidebar-mini                            |
         |---------------------------------------------------------|
         -->
-        <body class="hold-transition skin-green-light sidebar-mini">
-            <div class="wrapper">
+        <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-blue white-sidebar-color logo-white">
+            
+            <div class="page-wrapper">
+            <jsp:include page="includes/home.jsp"></jsp:include>
 
-            <jsp:include page="includes/menu.jsp"></jsp:include>
-
-            <jsp:include page="includes/lateral.jsp"></jsp:include>
+            
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">

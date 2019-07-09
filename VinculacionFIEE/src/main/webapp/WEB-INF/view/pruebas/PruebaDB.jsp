@@ -13,7 +13,7 @@
         
         <h1>Prueba DB</h1>
         <a href="<c:url value = "/getAlumnos"/>">Ver datos en DB</a>
-        </br>
+        <br>
         <a href="<c:url value = "/insertAlumnos"/>">Cargar datos en DB</a>
     </body>
 </html>

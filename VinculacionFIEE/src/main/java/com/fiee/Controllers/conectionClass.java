@@ -15,7 +15,7 @@ public class conectionClass
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         ds.setUrl("jdbc:mysql://localhost:3306/vinculacionfiee?characterEncoding=latin1&useConfigs=maxPerformance");
         ds.setUsername("root");
-        ds.setPassword("12345a");
+        ds.setPassword("1234");
 
         return ds;
     }

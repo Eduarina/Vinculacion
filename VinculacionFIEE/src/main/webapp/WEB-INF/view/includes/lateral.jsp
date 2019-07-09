@@ -4,48 +4,49 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <spring:url value="/resources" var="urlPublic"/>
 <!-- Left side column. contains the logo and sidebar -->
-<aside class="main-sidebar">
+
 
     <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
+    
 
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel">
-            <div class="pull-left image" style="height: 25px">
-                <img src="${urlPublic}${sessionScope.src}" class="img-circle" alt="User Image">
-            </div>
-            <div class="pull-left info">
-                <table> 
-                    <tr> 
-                        <td width=150 nowrap><a href="/VinculacionFIEE/login/perfil">${sessionScope.nombre}</a></td> 
-                    </tr> 
-                </table> 
-
-                <!-- Status -->
-                <!--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
-            </div>
-        </div>
-
-        <!-- Sidebar Menu -->
-        <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">Menú</li>
+        <div class="sidebar-container">
+            <div class="sidemenu-container navbar-collapse collapse fixed-menu">
+                <div id="remove-scroll">
+                <ul class="sidemenu page-header-fixed" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                    <li class="sidebar-toggler-wrapper hide">
+                        <div class="sidebar-toggler">
+                            <span></span>
+                        </div>
+                    </li>
+                    <li class="sidebar-user-panel">
+                        <div class="user-panel">
+                            <div class="pull-left image">
+                                <img src="${urlPublic}${sessionScope.src}" class="img-circle user-img-circle" alt="User Image">
+                            </div>
+                            <div class="pull-left info">
+                                <a href="/VinculacionFIEE/login/perfil"><p>${sessionScope.nombre}</p></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item start">Menú</li>
             <c:if test="${ sessionScope.tipo <= 3 }">
-            <li class="treeview">
-                <a href="#"><i class="fa fa-files-o"></i> <span>Registros</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
+            <li class="nav-item start">
+                <a href="#" class="nav-link nav-toggle"><i class="fa fa-files-o"></i> <span class="title">Registros</span>
+                    <span class="arrow">
+                        <!--<i class="fa fa-angle-left pull-right"></i>-->
                     </span>
                 </a>
-                <ul class="treeview-menu">
+                <ul class="sub-menu" style="display: none;">
                     <c:if test="${sessionScope.tipo <= 1}">
-                        <li><a href="/VinculacionFIEE/vinculacion/lista"><i class="fa fa-file-text"></i>Vinculación</a></li>
+                        <li class="nav-item"><a href="/VinculacionFIEE/vinculacion/lista" class="nav-link "><i class="fa fa-file-text"></i>Vinculación</a></li>
                     </c:if>
                     <c:if test="${sessionScope.tipo <= 2}">
-                        <li><a href="/VinculacionFIEE/maestros/lista"><i class="fa fa-file-text"></i>Maestros</a></li>
-                        <li><a href="/VinculacionFIEE/encargados/lista"><i class="fa fa-file-text"></i>Encargados</a></li>
+                        <li class="nav-item"><a href="/VinculacionFIEE/maestros/lista" class="nav-link "><i class="fa fa-file-text"></i>Maestros</a></li>
+                        <li class="nav-item"><a href="/VinculacionFIEE/encargados/lista" class="nav-link "><i class="fa fa-file-text"></i>Encargados</a></li>
                     </c:if>
                     <c:if test="${sessionScope.tipo <= 3}">
-                        <li><a href="/VinculacionFIEE/alumnos/lista"><i class="fa fa-file-text"></i>Alumnos</a></li>
+                        <li class="nav-item"><a href="/VinculacionFIEE/alumnos/lista" class="nav-link "><i class="fa fa-file-text"></i>Alumnos</a></li>
                     </c:if>
                 </ul>
             </li>
@@ -78,8 +79,11 @@
             <c:if test="${sessionScope.tipo eq 3 or sessionScope.tipo eq 4}">
                 <li class="active"><a href="/VinculacionFIEE/detalles"><i class="fa fa-calendar"></i> <span>Revisar reportes</span></a></li>
             </c:if>
+        <!-- Sidebar Menu -->
         </ul>
+                </div>
+            </div>
+        </div>
         <!-- /.sidebar-menu -->
-    </section>
+    
     <!-- /.sidebar -->
-</aside>

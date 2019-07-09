@@ -31,75 +31,70 @@ scratch. This page gets rid of all links and provides the needed markup only.
         |               | sidebar-mini                            |
         |---------------------------------------------------------|
         -->
-        <body class="hold-transition skin-green-light sidebar-mini">
-            <div class="wrapper">
-
+        <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-blue white-sidebar-color logo-white">
+            <div class="page-wrapper">
+                <div class="page-header navbar navbar-fixed-top">
             <jsp:include page="../includes/menu.jsp"></jsp:include>
-
+                </div>
+                <div class="page-container">
             <jsp:include page="../includes/lateral.jsp"></jsp:include>
-
+            
                 <!-- Content Wrapper. Contains page content -->
-                <div class="content-wrapper">
-                    <!-- Content Header (Page header) -->
-                    <section class="content-header">
-                        <h1>
-                            Vencimientos
-                            <small>Fechas de vencimiento de documentos</small>
-                        </h1>
-                        <!--                    <ol class="breadcrumb">
-                                                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                                                <li class="active">Inicio</li>
-                                            </ol>-->
-                    </section>
-
-                    <!-- Main content -->
-                    <section class="content container-fluid">
-
-                        <!--------------------------
-                        | Your Page Content Here |
-                        -------------------------->
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="box box-primary">
-                                    <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <table id="example1" class="table table-bordered table-striped">
-                                            <thead>
+                <div class="page-content-wrapper">
+                    <div class="page-content" style="min-height: 667px" >
+                        <div id="content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-topline-green">
+                                        <div class="card-head">
+                                            <header>Vencimientos
+                                            <small>Fechas de vencimiento de documentos</small></header>
+                                            <div class="tools">
+                                                <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="example1">
+                                                <thead>
                                                 <tr>
 <!--                                                    <th>Id</th>-->
-                                                    <th>Documento</th>
-                                                    <th>Fecha</th>
-                                                    <th>Acciones</th>
+                                                    <th class="center">Documento</th>
+                                                    <th class="center">Fecha</th>
+                                                    <th class="center">Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             <c:forEach items="${datos}" var="dato">
                                                 <tr>
-<!--                                                    <td> <c:out value="${dato.idvencimiento}"/></td>-->
-                                                    <td> <c:out value="${dato.descripcion}"/></td>
-                                                    <td> <c:out value="${dato.fecha}"/></td>
-                                                    <td>
+                                                    <td class="center"> <c:out value="${dato.idvencimiento}"/></td>
+                                                    <td class="center"> <c:out value="${dato.descripcion}"/></td>
+                                                    <td class="center"> <c:out value="${dato.fecha}"/></td>
+                                                    <td class="center">
                                                         <a href="editar?id=${dato.idvencimiento}" class="btn btn-warning"><i class="fa fa-edit"></i> Editar</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
                                     </table>
+                                                
+                                        </div>
+                                    </div>
                                 </div>
-                                <!-- /.box-body -->
                             </div>
-                            <!-- /.box -->
+                          
+                            
                         </div>
                     </div>
-                </section>
+                    <!-- Content Header (Page header) -->
+                    
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
+
+            <jsp:include page="../includes/footer.jsp"></jsp:include>
+</div>
         </div>
-        <jsp:include page="../includes/footer.jsp"></jsp:include>
-
-
-    </div>
-
-</body>
+    </body>
 </html>

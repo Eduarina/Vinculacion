@@ -12,15 +12,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <html>
     <body class="hold-transition login-page">
         <jsp:include page="../includes/head.jsp"></jsp:include>
-        <div class="login-box">
-            <div class="login-logo">
-                <a href="/VinculacionFIEE/"><b>Vinculación</b>FIEE</a>
-            </div>
-            <!-- /.login-logo -->
-            <div class="login-box-body">
-                <p class="login-box-msg">Inicio de Sesión</p>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6"  style="padding-left: 0;">
+                    <div class="row">             
+                        <div class="col-md-12" >
+                            <img class="img-responsive" src="${urlPublic}/assets/img/loginverdadero.jpg" alt="" style="width: 50%;height: 100%;position: fixed; box-sizing: inherit;">
+                        </div>
+                    </div>
 
-                <form:form action="login" method="post" modelAttribute="usuario">
+                </div>
+                <div class="col-md-6 ">
+                    <div class="row">                    
+                        <div class="form-title">
+                            <h3 style="color:#18529D;">Universidad Veracruzana</h3>
+                            <h3 style="color:#666666;">Sistema Gestor de Vinculación</h3>
+                            <h3 style="color:#666666;">Facultad de Ingenier&iacute;a El&eacute;ctrica y Electr&oacute;nica</h3>
+                        </div>
+                            
+                    </div>
+                    <!-- Login Form-->
+                    <div class="row">                    
+                        <div class="login-form text-center">
+                            <div>
+                            </div>
+                            <div class="form formLogin">
+                                <form:form action="login" method="post" modelAttribute="usuario">
                     <div class="form-group has-feedback">
                         <form:input path="user" type="text" autocomplete="off" required="required" class="form-control" placeholder="Usuario..." />
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -34,25 +51,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <!-- /.col -->
                     </div>
                     <span style="color: red;">${message}</span>
-                </form:form>
+                </form:form>              
+                            </div>                               
+                            </div>
+                    </div>
+                </div>
             </div>
-            <!-- /.login-box-body -->
         </div>
-        <!-- /.login-box -->
 
-        <!-- jQuery 3 -->
-        <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
-        <!-- Bootstrap 3.3.7 -->
-        <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <!-- iCheck -->
-        <script src="../../plugins/iCheck/icheck.min.js"></script>
-        <script>
-            $(function () {
-                $('input').iCheck({
-                    checkboxClass: 'icheckbox_square-blue',
-                    radioClass: 'iradio_square-blue',
-                    increaseArea: '20%' /* optional */
-                });
-            });
-        </script>
+
+
+        <!-- start js include path -->
+        <script src="assets/plugins/jquery/jquery.min.js" ></script>
+        <script src="assets/js/pages/extra_pages/pages.js" ></script>
+        <!-- end js include path -->
+    </body>
 </html>
+

@@ -31,62 +31,64 @@ scratch. This page gets rid of all links and provides the needed markup only.
         |               | sidebar-mini                            |
         |---------------------------------------------------------|
         -->
-        <body class="hold-transition skin-green-light sidebar-mini">
-            <div class="wrapper">
-
+        <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-blue white-sidebar-color logo-white">
+            <div class="page-wrapper">
+                <div class="page-header navbar navbar-fixed-top">
             <jsp:include page="../includes/menu.jsp"></jsp:include>
-
+                </div>
+                <div class="page-container">
             <jsp:include page="../includes/lateral.jsp"></jsp:include>
-            <c:if test="${empty sessionScope['user']}">
-                <c:redirect url="/bitacora/lista" />
-            </c:if>
-            <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                        Proyectos
-                        <small>Lista de Proyectos</small>
-                    </h1>
-                </section>
-
-                <!-- Main content -->
-                <section class="content container-fluid">
-
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="box box-primary">
-                                <div class="box-header with-border">
-                                    <a href="insertar" class="btn btn-primary"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Agregar Proyecto</a>
-                                </div>
-                                <!-- /.box-header -->
-                                <div class="box-body">
-                                    <table id="example1" class="table table-bordered table-striped">
-                                        <thead>
+            
+                <!-- Content Wrapper. Contains page content -->
+                <div class="page-content-wrapper">
+                    <div class="page-content" style="min-height: 667px" >
+                        <div id="content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-topline-green">
+                                        <div class="card-head">
+                                            <header>Proyectos
+                                            <small>Lista de Proyectos</small></header>
+                                            <div class="tools">
+                                                <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                                                <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                                                <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row p-b-20">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a href="insertar" class="btn btn-success btn-sm m-b-10"><i class="fa fa-plus-circle"></i><i class="fa fa-plus-circle" style="color: transparent"></i> Agregar Proyecto</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="example1">
+                                            <thead>
                                             <tr>
-                                                <th>Nombre</th>
-                                                <th>Dependencia</th>
-                                                <th>Ubicación</th>
-                                                <th>Horario</th>
-                                                <th>Fecha Inicio</th>
-                                                <th>Fecha Fin</th>
-                                                <th>Objetivo</th>
-                                                <th>Actividades</th>
-                                                <th>Acciones</th>
+                                                <th class="center">Nombre</th>
+                                                <th class="center">Dependencia</th>
+                                                <th class="center">Ubicación</th>
+                                                <th class="center">Horario</th>
+                                                <th class="center">Fecha Inicio</th>
+                                                <th class="center">Fecha Fin</th>
+                                                <th class="center">Objetivo</th>
+                                                <th class="center">Actividades</th>
+                                                <th class="center">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <c:forEach items="${datos}" var="dato">
                                                 <tr>
-                                                    <td> <c:out value="${dato.Titulo}"/></td>
-                                                    <td> <c:out value="${dato.Dependencia}"/></td>
-                                                    <td> <c:out value="${dato.Ubicacion}"/></td>
-                                                    <td> <c:out value="${dato.Horario}"/></td>
-                                                    <td> <c:out value="${dato.FechaInicio}"/></td>
-                                                    <td> <c:out value="${dato.FechaFin}"/></td>
-                                                    <td> <c:out value="${dato.Objetivo}"/></td>
-                                                    <td> <c:out value="${dato.Actividades}"/></td>
-                                                    <td>
+                                                    <td class="center"> <c:out value="${dato.Titulo}"/></td>
+                                                    <td class="center"> <c:out value="${dato.Dependencia}"/></td>
+                                                    <td class="center"> <c:out value="${dato.Ubicacion}"/></td>
+                                                    <td class="center"> <c:out value="${dato.Horario}"/></td>
+                                                    <td class="center"> <c:out value="${dato.FechaInicio}"/></td>
+                                                    <td class="center"> <c:out value="${dato.FechaFin}"/></td>
+                                                    <td class="center"> <c:out value="${dato.Objetivo}"/></td>
+                                                    <td class="center"> <c:out value="${dato.Actividades}"/></td>
+                                                    <td class="center">
                                                         <a href="editar?id=${dato.idProyecto}" class="btn btn-warning">Editar</a>
                                                         <c:if test="${dato.estado eq 1}">
                                                             <a href="borrarUsuarioM?id=${dato.ID}" class="btn btn-danger">Dar de baja</a>
@@ -99,21 +101,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             </c:forEach>
                                         </tbody>
                                     </table>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!-- /.box-body -->
                             </div>
-                            <!-- /.box -->
+                          
+                            
                         </div>
                     </div>
-                </section>
+                    <!-- Content Header (Page header) -->
+                    
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
+
+            <jsp:include page="../includes/footer.jsp"></jsp:include>
+</div>
+
         </div>
-        <jsp:include page="../includes/footer.jsp"></jsp:include>
 
-
-    </div>
-
-</body>
+    </body>
 </html>
