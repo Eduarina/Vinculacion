@@ -98,9 +98,7 @@ public class loginController {
             session.setAttribute("nombre", dato.getNombre());
             session.setAttribute("src",dato.getPath());
             session.setAttribute("band", 1);
-            ModelAndView mav = new ModelAndView();
-            mav.setViewName("login/sucess");
-            return mav;
+            return new ModelAndView("redirect:/home");
         }
 
     }

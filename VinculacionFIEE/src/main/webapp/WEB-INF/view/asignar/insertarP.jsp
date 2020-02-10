@@ -11,55 +11,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
     <jsp:include page="../includes/head.jsp"></jsp:include>
-        <!--
-        BODY TAG OPTIONS:
-        =================
-        Apply one or more of the following classes to get the
-        desired effect
-        |---------------------------------------------------------|
-        | SKINS         | skin-blue                               |
-        |               | skin-black                              |
-        |               | skin-purple                             |
-        |               | skin-yellow                             |
-        |               | skin-red                                |
-        |               | skin-green                              |
-        |---------------------------------------------------------|
-        |LAYOUT OPTIONS | fixed                                   |
-        |               | layout-boxed                            |
-        |               | layout-top-nav                          |
-        |               | sidebar-collapse                        |
-        |               | sidebar-mini                            |
-        |---------------------------------------------------------|
-        -->
-        <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-blue white-sidebar-color logo-white">
-            <div class="page-wrapper">
-                <div class="page-header navbar navbar-fixed-top">
-            <jsp:include page="../includes/menu.jsp"></jsp:include>
-                </div>
-                <div class="page-container">
+        <body>
             <jsp:include page="../includes/lateral.jsp"></jsp:include>
-            
-                <!-- Content Wrapper. Contains page content -->
-                <div class="page-content-wrapper">
-                    <div class="page-content" style="min-height: 667px" >
-                        <div id="content">
-                            <div class="profile-content">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12">
-                                        <div class="card">
-                                            <div class="card-topline-green"></div>
-                                            <div class="white-box">
-                                                <div class="p-r1-20">
-                                                    <ul class="nav customtab nav-tabs" role="tablist">
-                                                        <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab"><header>Asignación de alumnos
+            <div class="right-panel">
+            <jsp:include page="../includes/menu.jsp"></jsp:include>
+
+            <div class="content mt-3">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                            <div class="card-header"><header>Asignación de alumnos
                                                         <small>Asignaciones</small></header></a></li>
                                                     </ul>
                                                 </div>
-                                                <div class="tab-content">
-                                                    <div class="tab-pane fontawesomw-demo active show" id="tab1">
-                                                        <div class="row">
-                                                            <div class="col-md-12 col-sm-12">
-
                                                                     <div class="card-body " id="bar-parent2">
                                                                     <!-- text input -->
                                                                         <form:form action="insertar" method="POST" modelAttribute="datos">

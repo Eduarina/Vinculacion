@@ -11,51 +11,36 @@
             = new SimpleDateFormat("yyyy");
     String currentDate = ft.format(dNow);
 %>
-<footer class="page-footer">
-    <div class="pull-right hidden-xs">
-        Sistema de Gestión de Servicio Social
-    </div>
-
-    <strong>Copyright &copy; <%=currentDate%> <a href="#">Company</a>.</strong> All rights reserved.
-</footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 <script src="${urlPublic}/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="${urlPublic}/bower_components/alertify.js/alrtify.min.js"></script>
+<script src="${urlPublic}/bower_components/alertify.js/alertify.min.js"></script>
 <script src="${urlPublic}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="${urlPublic}/dist/js/adminlte.min.js"></script>
 <script src="${urlPublic}/plugins/input-mask/jquery.inputmask.js"></script>
 <script src="${urlPublic}/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="${urlPublic}/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="${urlPublic}/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="${urlPublic}/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<script src="${urlPublic}/vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="${urlPublic}/assets/js/init-scripts/data-table/datatables-init.js"></script>
 <script>
-    $(function () {
-        //Date picker
-        $("input[name$='datepicker']").datepicker({
-            autoclose: true
-        })
-        //Date picker
-        $("input[name$='datepicker2']").datepicker({
-            autoclose: true
-        })
-        $("input[name$='fechainicio']").datepicker({ autoclose:true }); 
-        $("input[name$='fechafin']").datepicker({ autoclose:true }); 
-        //Money Euro
-        $('[data-mask]').inputmask()
-        $('#example1').DataTable()
+    var table;
+    $(document).ready( function(){
+        
+        table = $('#example1').DataTable({
+            'autoWidth': false,
+            'lengthChange': false,
+            'info': false
+            
+        });
         $('#example2').DataTable({
             'paging': true,
             'lengthChange': false,
             'searching': false,
             'ordering': true,
+            
             'info': true,
             'autoWidth': false
-        })
-        //Timepicker
-        $('.timepicker').timepicker({
-            showInputs: false
-        })
-    })
+        });
+    });
     function disableMyText() {
         if (document.getElementById("checkbox").checked == true) {
             document.getElementById("beca").disabled = false;
@@ -68,3 +53,33 @@
 
 
 </script>
+<script src="${urlPublic}/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="${urlPublic}/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="${urlPublic}/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="${urlPublic}/assets/js/main.js"></script>
+
+
+    <script src="${urlPublic}/vendors/chart.js/dist/Chart.bundle.min.js"></script>
+    <script src="${urlPublic}/assets/js/dashboard.js"></script>
+    <script src="${urlPublic}/assets/js/widgets.js"></script>
+    <script src="${urlPublic}/vendors/jqvmap/dist/jquery.vmap.min.js"></script>
+    <script src="${urlPublic}/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <script src="vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script>
+        (function($) {
+            "use strict";
+
+            jQuery('#vmap').vectorMap({
+                map: 'world_en',
+                backgroundColor: null,
+                color: '#ffffff',
+                hoverOpacity: 0.7,
+                selectedColor: '#1de9b6',
+                enableZoom: true,
+                showTooltip: true,
+                values: sample_data,
+                scaleColors: ['#1de9b6', '#03a9f5'],
+                normalizeFunction: 'polynomial'
+            });
+        })(jQuery);
+    </script>

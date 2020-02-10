@@ -194,7 +194,7 @@ public class maestroController {
                 sql = "update tb_maestros set Estado = 1 where idMaestro=" + id;
             }
             this.jdbcTemplate.update(sql);
-            return new ModelAndView("redirect: lista");
+            return new ModelAndView("redirect:lista");
         }
         return new ModelAndView("redirect:/home");
     }

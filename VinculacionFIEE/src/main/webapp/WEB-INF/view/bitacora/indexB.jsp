@@ -10,16 +10,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
     <jsp:include page="../includes/head.jsp"></jsp:include>
-        <body class="hold-transition skin-green-light sidebar-mini">
-            <div class="wrapper">
-
+        <body>
+        <jsp:include page="../includes/lateral.jsp"></jsp:include>
+            <div id="right-panel" class="right-panel">
             <jsp:include page="../includes/menu.jsp"></jsp:include>
-            <jsp:include page="../includes/lateral.jsp"></jsp:include>
+
 
                 <!-- Content Wrapper. Contains page content -->
-                <div class="content-wrapper">
-                    <!-- Content Header (Page header) -->
-                <c:choose>
+                <div class="content mt-3">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <c:choose>
                     <c:when test="${sessionScope.tipo eq 5}">
                         <jsp:include page="includes/bitacorasA.jsp"></jsp:include>
                     </c:when>
@@ -27,13 +28,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <jsp:include page="includes/bitacoras.jsp"></jsp:include>
                     </c:when>
                 </c:choose>
+                    </div>
                 </div>
-                <!-- /.content-wrapper -->
-
-            <jsp:include page="../includes/footer.jsp"></jsp:include>
 
 
+            </div>
         </div>
+        <!-- Content Header (Page header) -->
 
+        <!-- /.content -->
+        <!-- /.content-wrapper -->
+
+        <jsp:include page="../includes/footer.jsp"></jsp:include>
     </body>
 </html>

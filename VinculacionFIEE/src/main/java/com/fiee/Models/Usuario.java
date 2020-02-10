@@ -26,6 +26,11 @@ public class Usuario {
     private String telefono;
     private String semestre;
     private int estado;
+    private int calificaM;
+    private int calificaE;
+    private int calificaV;
+    private int calificacion;
+    
     
     
     public Usuario() {
@@ -162,6 +167,38 @@ public class Usuario {
 
     public void setSemestre(String semestre) {
         this.semestre = semestre;
+    }
+
+    public int getCalificaM() {
+        return calificaM;
+    }
+
+    public void setCalificaM(int calificaM) {
+        this.calificaM = calificaM;
+    }
+
+    public int getCalificaE() {
+        return calificaE;
+    }
+
+    public void setCalificaE(int calificaE) {
+        this.calificaE = calificaE;
+    }
+
+    public int getCalificaV() {
+        return calificaV;
+    }
+
+    public void setCalificaV(int calificaV) {
+        this.calificaV = calificaV;
+    }
+
+    public int getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(int calificacion) {
+        this.calificacion = calificacion;
     }
 
     

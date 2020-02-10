@@ -5,6 +5,7 @@
  */
 package com.fiee.Controllers;
 
+import com.fiee.Models.FileModel;
 import com.fiee.Models.MaestroTable;
 import com.fiee.Models.Usuario;
 import com.fiee.Models.UsuarioValidator;
@@ -84,6 +85,12 @@ public class usuarioController {
     }
 
     //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.GET)
+    @GetMapping(value = "/verInfo")
+    public String verInfo(HttpServletRequest request, @RequestParam ("ID") int idAlumno) {
+        return ""+idAlumno;
+    }
+    
+    //@RequestMapping(path = "/insertarUsuarioV", method = RequestMethod.GET)
     @GetMapping(value = "/insertar")
     public ModelAndView insertar(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -155,8 +162,8 @@ public class usuarioController {
                     this.jdbcTemplate.update(sql, idM, lastID, 1);
                 }
                 
-                sql = "insert into tb_estudiantes (matricula, correo, carrera, semestre, celular, telefono, Estado, idUsuario) values (?,?,?,?,?,?,?,?)";
-                this.jdbcTemplate.update(sql, u.getMatricula(), u.getCorreo(), u.getCarrera(), u.getSemestre(), u.getCelular(), u.getTelefono(), 1, lastID);
+                sql = "insert into tb_estudiantes (matricula, correo, carrera, semestre, celular, telefono, Estado, idUsuario, calificacion) values (?,?,?,?,?,?,?,?,?)";
+                this.jdbcTemplate.update(sql, u.getMatricula(), u.getCorreo(), u.getCarrera(), u.getSemestre(), u.getCelular(), u.getTelefono(), 1, lastID, -1);
 
                 sql = "select idEstudiate from last_ID_Estudiante";
                 lastID = this.jdbcTemplate.queryForObject(sql, parameters, int.class);
@@ -264,6 +271,7 @@ public class usuarioController {
     ) {
         HttpSession session = request.getSession();
         int tipo = (int) session.getAttribute("tipo");
+        id = (int) session.getAttribute("id");
         if(tipo <= 3){
             String sql = "select idUsuario from tb_estudiantes where idEstudiate =" + idusuario;
             Object[] parameters = new Object[]{};
@@ -273,18 +281,46 @@ public class usuarioController {
             if (estado == 1) {
                 sql = "update tb_usuarios set Estado = 2 where idUsuario=" + idUsuario;
                 this.jdbcTemplate.update(sql);
-                sql = "update tb_estudiantes set Estado = 2 where idEncargado =" + id;
+                sql = "update tb_encargados set Estado = 2 where idEncargado =" + id;
             } else {
                 sql = "update tb_usuarios set Estado = 1 where idUsuario=" + idUsuario;
                 this.jdbcTemplate.update(sql);
-                sql = "update tb_estudiantes set Estado = 1 where idEncargado =" + id;
+                sql = "update tb_encargados set Estado = 1 where idEncargado =" + id;
             }
             this.jdbcTemplate.update(sql);
-            return new ModelAndView("redirect:/usuarios/lista");
+            return new ModelAndView("redirect:/alumnos/lista");
         }
         return new ModelAndView("redirect:/home");
     }
 
+    @GetMapping(value = "/calificar")
+    public ModelAndView calificar(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        int tipo = (int) session.getAttribute("tipo");
+        if(tipo <= 4){
+            String sql;
+            int id = (int) session.getAttribute("id");
+            ModelAndView mav = new ModelAndView();
+            if( tipo == 3){
+                sql = "SELECT * FROM vinculacionfiee.vw_info_estudiantes WHERE idUsuario IN (SELECT idEstudiante FROM tb_asignacion WHERE idMaestro = "+id+" )";
+            }else{
+                sql = "SELECT * FROM vinculacionfiee.vw_info_estudiantes";
+            }
+            lista = this.jdbcTemplate.queryForList(sql);
+            mav.addObject("datos", lista);
+            mav.setViewName("usuario/indexU");  // Este es el nombre del archivo vista .jsp
+            return mav;
+        }
+        return new ModelAndView("redirect:/home");
+    }
+    
+    @GetMapping(value = "/califica")
+    public ModelAndView darCalificacion(HttpServletRequest request) {
+        ModelAndView response = new ModelAndView();
+        response.setViewName("usuario/calificacion");
+        return response;
+    }
+    
     public Usuario checkuser(String user) {
         final Usuario users = new Usuario();
         String sql = "select * from tb_usuarios where user='" + user + "'";

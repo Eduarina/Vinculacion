@@ -11,40 +11,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
     <jsp:include page="../includes/head.jsp"></jsp:include>
-        <body class="hold-transition skin-green-light sidebar-mini">
-            <div class="wrapper">
+        <body>
+            <jsp:include page="../includes/lateral.jsp"></jsp:include>
+            <div class="right-panel" id="right-panel">
 
             <jsp:include page="../includes/menu.jsp"></jsp:include>
 
-            <jsp:include page="../includes/lateral.jsp"></jsp:include>
+                <div class="content mt-3">
+
+            <div class="col-sm-12">
 
                 <!-- Content Wrapper. Contains page content -->
-                <div class="content-wrapper">
+                <div class="card">
                     <!-- Content Header (Page header) -->
-                    <section class="content-header">
-                        <h1>
-                            Bitácoras
-                            <small>Documentos</small>
-                        </h1>
-                        <!--<ol class="breadcrumb">
-                            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                            <li class="active">Inicio</li>
-                        </ol>-->
-                    </section>
+                    <div class="card-header">
+                        <h3 class="box-title">BITÁCORA DE ACTIVIDADES DE SERVICIO SOCIAL</h3>
+                    </div>
 
-                    <!-- Main content -->
-                    <section class="content container-fluid">
-
-                        <!--------------------------
-                        | Your Page Content Here |
-                        -------------------------->
-                        <div class="row">
-                            <div class="col-md-10">
-                                <div class="box box-primary" id="reporte">
-                                    <div class="box-header" style="text-align: center;">
-                                        <h3 class="box-title">BITÁCORA DE ACTIVIDADES DE SERVICIO SOCIAL</h3>
-                                    </div>
-                                    <div class="box-body">
+                                    <div class="card-body">
                                     <c:forEach items="${info}" var="info">
                                         <table width="100%" id="formatR">
                                             <tbody>
@@ -115,11 +99,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                         </div>
                     </div>
-                </section>
             </div>
-
-            <!-- /.content -->
-        </div>
         <!-- /.content-wrapper -->
 
         <jsp:include page="../includes/footer.jsp"></jsp:include>

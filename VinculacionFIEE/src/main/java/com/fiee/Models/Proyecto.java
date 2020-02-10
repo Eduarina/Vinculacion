@@ -24,6 +24,8 @@ public class Proyecto {
     private int encargado;
     private int estado;
     private int idEstudiante;
+    private String habilidades;   
+    
 
     public Proyecto() {}
 
@@ -138,7 +140,14 @@ public class Proyecto {
     public void setIdEstudiante(int idEstudiante) {
         this.idEstudiante = idEstudiante;
     }
-    
+
+    public String getHabilidades() {
+        return habilidades;
+    }
+
+    public void setHabilidades(String habilidades) {
+        this.habilidades = habilidades;
+    }
     
 
 }

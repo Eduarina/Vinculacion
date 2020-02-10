@@ -2,25 +2,20 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<div class="card">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <h1>
+    <div class="card-header">
+        <h3>
             Perfil
             <small>
                 Maestro
             </small>
-        </h1>
-    </section>
+        </h3>
+    </div>
 
-    <!-- Main content -->
-    <section class="content container-fluid">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Datos de Usuario</h3>
-            </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="card-body">
+                <h5 class="box-title">Datos de Usuario</h5>
                 <!-- text input -->
                 <div class="form-group col-md-6">
                     <label>Nombre:</label><br>
@@ -60,7 +55,6 @@
                             </form>
                         </div>
             </div>
-    </section>
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->

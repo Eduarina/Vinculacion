@@ -52,6 +52,18 @@
                     <label>Celular:</label><br>
                     ${dato.celular}
                 </div>
+                    <c:if test="${dato.calificacion eq -1}">
+                <div class="form-group col-md-6">
+                    <label>Calificación</label><br>
+                    Sin calificar
+                </div>
+                </c:if>
+                <c:if test="${dato.calificacion ne -1}">
+                <div class="form-group col-md-6">
+                    <label>Calificación</label><br>
+                    ${dato.calificacion}
+                </div>
+                </c:if>
                 <c:if test="${empty dato.firma}">
                         <div class="form-group col-md-6">
                             <label>Firma Pendiente</label><br>

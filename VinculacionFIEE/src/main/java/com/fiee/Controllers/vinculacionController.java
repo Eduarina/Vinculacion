@@ -77,7 +77,7 @@ public class vinculacionController {
     public ModelAndView insertar(
             @ModelAttribute("usuario") Usuario u, BindingResult result, SessionStatus status, HttpServletRequest request
     ) {
-        this.usuarioValidator.validate(u, result);
+        //this.usuarioValidator.validate(u, result);
         if (result.hasErrors()) {
             ModelAndView mav = new ModelAndView();
             mav.addObject("usuario", u);

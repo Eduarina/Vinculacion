@@ -1,23 +1,18 @@
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<div class="card">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <div class="card-header">
         <h1>
             Perfil
             <small>
                 Administrador
             </small>
         </h1>
-    </section>
+    </div>
 
-    <!-- Main content -->
-    <section class="content container-fluid">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Datos de Usuario</h3>
-            </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="card-body">
+                <h3 class="box-title">Datos de Usuario</h3>
 
                 <div class="form-group col-md-6">
                     <label>Nombre:</label><br>
@@ -36,6 +31,3 @@
                         </div>
             </div>
         </div>
-    </section>
-    <!-- /.content -->
-</div>

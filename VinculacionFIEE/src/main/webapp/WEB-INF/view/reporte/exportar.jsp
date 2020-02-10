@@ -31,40 +31,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
         |               | sidebar-mini                            |
         |---------------------------------------------------------|
         -->
-        <body class="hold-transition skin-green-light sidebar-mini">
-            <div class="wrapper">
-
-            <jsp:include page="../includes/menu.jsp"></jsp:include>
-
+        <body>
             <jsp:include page="../includes/lateral.jsp"></jsp:include>
-
+            <div class="right-panel" id="right-panel">
+                <jsp:include page="../includes/menu.jsp"></jsp:include>
                 <!-- Content Wrapper. Contains page content -->
-                <div class="content-wrapper">
-                    <!-- Content Header (Page header) -->
-                    <section class="content-header">
-                        <h1>
-                            Reportes
-                            <small>Documentos</small>
-                        </h1>
-                        <!--<ol class="breadcrumb">
-                            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                            <li class="active">Inicio</li>
-                        </ol>-->
-                    </section>
-
-                    <!-- Main content -->
-                    <section class="content container-fluid">
-
-                        <!--------------------------
-                        | Your Page Content Here |
-                        -------------------------->
-                        <div class="row">
-                            <div class="col-md-10">
-                                <div class="box box-primary" id="reporte">
-                                    <div class="box-header" style="text-align: center;">
+                <div class="content mt-3">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-md-12 col-sm-12">
+                <div class="card">
+                                    <div class="card-header" style="text-align: center;">
+                                        <h1>Reportes<small>Documentos</small></h1>
                                         <h3 class="box-title">REPORTE DE ACTIVIDADES DE SERVICIO SOCIAL</h3>
                                     </div>
-                                    <div class="box-body" id="reporteA">
+                                    <div class="card-body" id="reporteA">
                                     <c:forEach items="${infoE}" var="info">
                                         <table width="100%" class="formatoR">
                                             <tbody>
@@ -232,24 +213,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <jsp:include page="../includes/footer.jsp"></jsp:include>
         <script>
+            var getCanvas;
+            $(document).ready(function(){
+                var div = document.getElementById("reporteA");
+                div.style.background = "white";
+                html2canvas(div, {
+                    onrendered: function(canvas){
+                        getCanvas = canvas;
+                    }
+                })
+            });
             $("#exportar").on("click", function () {
                 var w = document.getElementById("reporteA").offsetWidth;
                 var h = document.getElementById("reporteA").offsetHeight;
-                var div = document.getElementById("reporteA");
                 var title = document.getElementById("title").innerHTML;
-                title.replace(": ","");
-                div.style.background = "white";
-                html2canvas(div, {
-                    dpi: 300, // Set to 300 DPI
-                    scale: 3, // Adjusts your resolution
-                    onrendered: function (canvas) {
-                        var img = canvas.toDataURL("image/jpeg", 1);
+                var imageData = getCanvas.toDataURL("image/jpeg", 1.0);
+                var newData = imageData.replace(/^data:image\/png/, "data:application/octet-stream");
                         var doc = new jsPDF('L', 'px', [w, h]);
-                        doc.addImage(img, 'JPEG', 0, 0, w, h);
+                        doc.addImage(newData, 'JPEG', 0, 0, w, h);
                         doc.save(title+'.pdf');
-                    }
                 });
-            });
         </script>
     </body>
 </html>

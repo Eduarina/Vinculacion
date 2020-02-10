@@ -162,7 +162,7 @@ public class asignarController {
             sql = "SELECT * FROM tb_proyectos where idProyecto NOT IN (SELECT idProyecto from tb_asignacion_proyecto WHERE Estado < 5)";
             lista = this.jdbcTemplate.queryForList(sql);
             model.addAttribute("nombres", lista);
-            sql = "SELECT * FROM vw_estudiantes_noAsignados";
+            sql = "SELECT * FROM vw_estudiantes_noAsignados WHERE ID IN (SELECT idEstudiante FROM tb_asignacion WHERE idMaestro = "+id+")";
             lista = this.jdbcTemplate.queryForList(sql);
             model.addAttribute("estudiantes", lista);
             return mav;

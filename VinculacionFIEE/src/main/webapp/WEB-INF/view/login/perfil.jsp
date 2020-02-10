@@ -31,28 +31,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
         |               | sidebar-mini                            |
         |---------------------------------------------------------|
         -->
-        <body class="hold-transition skin-green-light sidebar-mini">
-            <div class="wrapper">
+        <body>
+
+        <jsp:include page="../includes/lateral.jsp"></jsp:include>
+            <div class="right-panel" id="right-panel">
 
             <jsp:include page="../includes/menu.jsp"></jsp:include>
+                <div class="content mt-3">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
 
-            <jsp:include page="../includes/lateral.jsp"></jsp:include>
-            <c:if test="${sessionScope.user == null}">response.sendRedirect("/usuarios/lista");</c:if>
-            <c:choose>
-                <c:when test="${sessionScope.tipo eq 1 || sessionScope.tipo eq 2}">
-                    <jsp:include page="includes/admin.jsp"></jsp:include>
-                </c:when>
-                <c:when test="${sessionScope.tipo eq 3}">
-                    <jsp:include page="includes/maestro.jsp"></jsp:include>
-                </c:when>
-                <c:when test="${sessionScope.tipo eq 4}">
-                    <jsp:include page="includes/encargado.jsp"></jsp:include>
-                </c:when>
-                <c:when test="${sessionScope.tipo eq 5}">
-                    <jsp:include page="includes/estudiante.jsp"></jsp:include>
-                </c:when>
-            </c:choose>
-            <jsp:include page="../includes/footer.jsp"></jsp:include>
-        </div>
+                            <c:if test="${sessionScope.user == null}">response.sendRedirect("/usuarios/lista");</c:if>
+                            <c:choose>
+                                <c:when test="${sessionScope.tipo eq 1 || sessionScope.tipo eq 2}">
+                                    <jsp:include page="includes/admin.jsp"></jsp:include>
+                                </c:when>
+                                <c:when test="${sessionScope.tipo eq 3}">
+                                    <jsp:include page="includes/maestro.jsp"></jsp:include>
+                                </c:when>
+                                <c:when test="${sessionScope.tipo eq 4}">
+                                    <jsp:include page="includes/encargado.jsp"></jsp:include>
+                                </c:when>
+                                <c:when test="${sessionScope.tipo eq 5}">
+                                    <jsp:include page="includes/estudiante.jsp"></jsp:include>
+                                </c:when>
+                            </c:choose>
+                            <jsp:include page="../includes/footer.jsp"></jsp:include>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
     </body>
 </html>

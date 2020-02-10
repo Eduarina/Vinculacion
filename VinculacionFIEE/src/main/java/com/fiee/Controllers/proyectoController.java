@@ -71,10 +71,10 @@ public class proyectoController {
         String sql = "INSERT INTO tb_proyectos "
                 + "(Titulo, Dependencia, Horario, FechaInicio, FechaFin, Objetivo, Actividades, Ubicacion, Aspirantes, Tipo, idEncargado, Estado) "
                 + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-        String []fecha = p.getFechainicio().split("/");
-        String inicio = fecha[1]+"/"+fecha[0]+"/"+fecha[2];
-        fecha = p.getFechafin().split("/");
-        String fin = fecha[1]+"/"+fecha[0]+"/"+fecha[2];
+        String []fecha = p.getFechainicio().split("-");
+        String inicio = fecha[2]+"-"+fecha[1]+"-"+fecha[3];
+        fecha = p.getFechafin().split("-");
+        String fin = fecha[2]+"-"+fecha[1]+"-"+fecha[3];
         String tipo;
         if ( p.getTipo().equals("1") ){
             tipo = "Servicio Social";
@@ -96,32 +96,32 @@ public class proyectoController {
             Proyecto user = new Proyecto();
             user.setId(id);
             ModelAndView mav = new ModelAndView();
-            String sql = "select titulo from tb_proyectos where ID=" + id;
+            String sql = "select titulo from tb_proyectos where idProyecto=" + id;
             Object[] parameters = new Object[]{};
             String titulo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
             user.setTitulo(titulo);
-            sql = "select dependencia from tb_proyectos where ID=" + id;
+            sql = "select dependencia from tb_proyectos where idProyecto=" + id;
             String dependencia = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
             user.setDependencia(dependencia);
-            sql = "select horario from tb_proyectos where ID=" + id;
+            sql = "select horario from tb_proyectos where idProyecto=" + id;
             String horario = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
             user.setHorario(horario);
-            sql = "select fechainicio from tb_proyectos where ID=" + id;
+            sql = "select fechainicio from tb_proyectos where idProyecto=" + id;
             String fechainicio = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
             user.setFechainicio(fechainicio);
-            sql = "select fechafin from tb_proyectos where ID=" + id;
+            sql = "select fechafin from tb_proyectos where idProyecto=" + id;
             String fechafin = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
             user.setFechafin(fechafin);
-            sql = "select objetivo from tb_proyectos where ID=" + id;
+            sql = "select objetivo from tb_proyectos where idProyecto=" + id;
             String objetivo = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
             user.setObjetivo(objetivo);
-            sql = "select actividades from tb_proyectos where ID=" + id;
+            sql = "select actividades from tb_proyectos where idProyecto=" + id;
             String actividades = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
             user.setActividades(actividades);
-            sql = "select ubicacion from tb_proyectos where ID=" + id;
+            sql = "select ubicacion from tb_proyectos where idProyecto=" + id;
             String ubicacion = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
             user.setUbicacion(ubicacion);
-            sql = "select tipo from tb_proyectos where ID=" + id;
+            sql = "select tipo from tb_proyectos where idProyecto=" + id;
             String type = this.jdbcTemplate.queryForObject(sql, parameters, String.class);
             user.setTipo(type);
             mav.addObject("datos", user);
